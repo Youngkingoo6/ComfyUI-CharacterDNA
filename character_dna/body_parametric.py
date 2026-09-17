@@ -1,6 +1,7 @@
 import copy
 
 from .vocabulary import get_body_vocabulary
+from .semantic import build_parametric_prompt
 
 
 BODY_FEATURE_META = {
@@ -84,3 +85,19 @@ def build_body_feature_prompt(dna, language="en"):
             phrases.append(phrase)
     separator = "，" if str(language).lower().startswith("zh") else ", "
     return separator.join(phrases)
+
+
+def build_complete_body_prompt(dna, language="en"):
+    """Return inherited face/base identity plus the current body Features."""
+    chinese = str(language).lower().startswith("zh")
+    face_key = "identity_core_prompt_zh" if chinese else "identity_core_prompt"
+    inherited_prompt = dna.get(face_key) or build_parametric_prompt(
+        dna,
+        anchors_only=False,
+        language=language,
+    )
+    body_prompt = build_body_feature_prompt(dna, language)
+    separator = "，" if chinese else ", "
+    return separator.join(
+        part for part in (inherited_prompt, body_prompt) if part
+    )

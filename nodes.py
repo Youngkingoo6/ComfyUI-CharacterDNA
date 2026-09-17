@@ -25,6 +25,7 @@ from .character_dna.body_parametric import (
     BODY_FEATURE_META,
     override_body_feature,
     build_body_feature_prompt,
+    build_complete_body_prompt,
 )
 from .character_dna.body_genesis import generate_body_dna
 from .character_dna.body_composite import build_body_composite_identity
@@ -450,9 +451,9 @@ class CharacterDNABodySeedGenerator:
     RETURN_TYPES = (DNA_TYPE, "STRING", "STRING", "STRING")
     RETURN_NAMES = (
         "character_dna",
-        "body_prompt",
+        "complete_identity_prompt",
         "body_parameters_json",
-        "body_prompt_zh",
+        "complete_identity_prompt_zh",
     )
     FUNCTION = "generate"
     CATEGORY = "CharacterDNA/Body"
@@ -464,8 +465,8 @@ class CharacterDNABodySeedGenerator:
             distinctiveness,
             harmony,
         )
-        prompt = build_body_feature_prompt(dna)
-        prompt_zh = build_body_feature_prompt(dna, "zh")
+        prompt = build_complete_body_prompt(dna)
+        prompt_zh = build_complete_body_prompt(dna, "zh")
         parameters_json = json.dumps(
             {
                 "body_genesis": dna.get("body_genesis", {}),
@@ -507,7 +508,11 @@ class CharacterDNAParametricBodyDesigner:
         }
 
     RETURN_TYPES = (DNA_TYPE, "STRING", "STRING")
-    RETURN_NAMES = ("character_dna", "body_prompt", "body_prompt_zh")
+    RETURN_NAMES = (
+        "character_dna",
+        "complete_identity_prompt",
+        "complete_identity_prompt_zh",
+    )
     FUNCTION = "design"
     CATEGORY = "CharacterDNA/Body"
 
@@ -515,8 +520,8 @@ class CharacterDNAParametricBodyDesigner:
         dna = override_body_feature(character_dna, feature, value)
         return (
             dna,
-            build_body_feature_prompt(dna),
-            build_body_feature_prompt(dna, "zh"),
+            build_complete_body_prompt(dna),
+            build_complete_body_prompt(dna, "zh"),
         )
 
 

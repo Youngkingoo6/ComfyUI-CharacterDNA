@@ -40,8 +40,8 @@ Composite 不是简单拼接 19 个单项词，而是先判断参数之间的相
 
 ## 节点使用
 
-- `Body DNA Seed Generator`：用 `body_seed + distinctiveness + harmony` 确定性生成 19 项身体参数。
-- `Parametric Body Designer`：覆盖一个参数并继承其他值；调整多项时串联多个节点。
+- `Body DNA Seed Generator`：用 `body_seed + distinctiveness + harmony` 确定性生成 19 项身体参数，并输出继承面部/基础身份后的完整提示词。
+- `Parametric Body Designer`：覆盖一个参数并继承面部、基础身份和其他身体值；调整多项时串联多个节点。它的提示词输出是完整身份，不只是当前修改的单项身体词。
 - `Body Composite Identity`：输出身体提示词，并额外输出已经合并面部与身体的完整身份提示词。
 
 面部 seed 与身体 seed 相互独立，因此可以固定面孔，只随机寻找身体比例；也可以固定身体，只变化面孔。
