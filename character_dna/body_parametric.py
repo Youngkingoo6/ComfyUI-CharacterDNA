@@ -70,8 +70,15 @@ def body_feature_to_phrase(name, value, language="en"):
 
     level = min(
         levels,
-        key=lambda item: abs(float(item["value"]) - value),
+        key=lambda item: (
+            abs(float(item["value"]) - value),
+            -abs(float(item["value"])),
+        ),
     )
+    # Values nearest to the zero anchor are semantically neutral.
+    # Keep the continuous DNA value, but do not emit a "balanced" phrase.
+    if abs(float(level["value"])) < 1e-9:
+        return None
     key = "text_zh" if str(language).lower().startswith("zh") else "text"
     return level.get(key, level.get("text"))
 
