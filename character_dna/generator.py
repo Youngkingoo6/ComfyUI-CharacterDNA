@@ -6,6 +6,7 @@ def generate_character_dna(
     gender,
     ancestry,
     age,
+    identity_appearance="none",
 ):
     """Create the non-random profile that precedes identity generation."""
 
@@ -18,6 +19,7 @@ def generate_character_dna(
             "gender": gender,
             "ancestry": ancestry,
             "visual_age": int(age),
+            "identity_appearance": identity_appearance,
         },
         "genesis": {
             "state": "DRAFT",

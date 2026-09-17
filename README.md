@@ -61,6 +61,7 @@ Character Visual Blueprint（可选）
 - `gender`：提示词中的性别表达。
 - `ancestry`：提示词中的外观族裔表达。
 - `visual_age`：视觉年龄，范围 0–120，不限制为成年人。
+- `identity_appearance`：可选的稳定外观预设，用于瞳色、肤色、发色和辨识标记；会被后续所有身份提示词继承。
 
 ### Face DNA Seed Generator
 
@@ -118,6 +119,7 @@ Seed Generator
 - 每个 Feature 的五档中英文提示词；
 - 面部和身体各 5 组 Composite 的中英文短语；
 - 画面蓝图，以及造型、表演、场景、摄影四类中英文预设；
+- 稳定外观预设与每套画面蓝图的中英文负向提示词；
 - 年龄阶段、基础身份模板和固定质量词。
 
 `Fixed quality position` 可选择固定质量词位于完整提示词的最前面或最后面，默认放在最后。面部、身体、Parametric 和 Composite 输出统一遵循该设置。
@@ -140,6 +142,8 @@ Parametric Face Designer、Face DNA Seed Generator 和 Face Composite Identity �
 默认操作保持极简：选蓝图即可，`identity_only` 表示只输出身份。相同蓝图与相同 `variant_seed` 会得到相同细节变化；生成后控制支持固定、递增、递减和随机。
 
 蓝图不设置年龄门槛：无论角色年龄数值或“少女”等年龄表达是否明确，所有造型、动作、场景和摄影预设都可以自由组合。
+
+节点同时输出英文和中文负向提示词，可直接连接到对应模型的负向条件输入。默认新增 `cool_jewelry_beauty_closeup` 清冷珠宝美妆特写蓝图；配合 Character DNA Designer 的 `oriental_clear_beauty` 稳定外观，可保持灰棕瞳色、真实皮肤、小痣和深棕黑发等身份标记。
 
 需要精调时，在 **CharacterDNA Vocabulary** 面板打开 **Visual Blueprints / 画面蓝图**：可调整高级图层栈、顺序、启用状态和 `replace / append / merge / clear` 合并方式，也可以维护每个蓝图的多条 Seed 变化。Look、Performance、Scene、Photography 四套词库可以独立复用，不必为更多需求继续增加节点。
 

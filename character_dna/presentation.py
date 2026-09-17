@@ -105,13 +105,19 @@ def compose_visual_blueprint(
 
     prompt_en = compose_prompt(phrases_en, "en")
     prompt_zh = compose_prompt(phrases_zh, "zh")
+    negative_prompt = str(blueprint_data.get("negative_prompt", "")).strip()
+    negative_prompt_zh = str(
+        blueprint_data.get("negative_prompt_zh", "")
+    ).strip()
     result["visual_direction"] = {
         "blueprint": blueprint,
         "variant_seed": int(variant_seed),
         "layers": resolved,
         "variation": selected_variant,
         "warnings": warnings,
+        "negative_prompt": negative_prompt,
+        "negative_prompt_zh": negative_prompt_zh,
     }
     result["presentation_prompt"] = prompt_en
     result["presentation_prompt_zh"] = prompt_zh
-    return result, prompt_en, prompt_zh
+    return result, prompt_en, prompt_zh, negative_prompt, negative_prompt_zh

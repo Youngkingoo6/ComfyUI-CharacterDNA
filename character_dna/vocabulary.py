@@ -77,6 +77,10 @@ def get_vocabulary():
     return _VOCABULARY_CACHE
 
 
+def identity_appearance_options():
+    return ["none", *get_vocabulary().get("identity_appearances", {}).keys()]
+
+
 def get_body_vocabulary():
     global _BODY_VOCABULARY_CACHE
     global _BODY_VOCABULARY_MTIME_NS
@@ -159,7 +163,7 @@ def build_profile_phrases(character, language="en"):
         "visual_age": visual_age,
     }
 
-    return [
+    phrases = [
         profile.get(
             f"identity_template{_language_suffix(language)}",
             profile["identity_template"],
@@ -169,6 +173,19 @@ def build_profile_phrases(character, language="en"):
             profile["age_template"],
         ).format(**values),
     ]
+    appearance_name = character.get("identity_appearance", "none")
+    if appearance_name != "none":
+        appearance = get_vocabulary().get("identity_appearances", {}).get(
+            appearance_name
+        )
+        if appearance:
+            prompt_key = (
+                "prompt_zh"
+                if str(language).lower().startswith("zh")
+                else "prompt"
+            )
+            phrases.append(appearance.get(prompt_key, appearance.get("prompt", "")))
+    return phrases
 
 
 def get_quality_phrases(language="en"):

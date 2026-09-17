@@ -9,6 +9,13 @@
     "quality_phrases": ["harmonious realistic facial anatomy", "subtle natural facial asymmetry", "natural skin texture", "realistic pores and fine skin detail", "minimal beauty retouching", "photorealistic human portrait"],
     "quality_phrases_zh": ["和谐且真实的面部解剖结构", "自然轻微的面部不对称", "自然皮肤质感", "真实毛孔与细腻皮肤细节", "极少美颜修饰", "照片级写实人物肖像"]
   },
+  "identity_appearances": {
+    "oriental_clear_beauty": {
+      "label": "Oriental clear beauty", "label_zh": "东方清透美人",
+      "prompt": "clear gray-brown irises, fair translucent skin with a soft natural flush, one small natural facial beauty mark, deep brown-black hair",
+      "prompt_zh": "清澈灰棕色瞳孔，白皙通透且带柔和自然血色的肌肤，面部一颗自然小痣，深棕黑色头发"
+    }
+  },
   "features": {
     "face_length": {"levels": [{"value": -1, "text": "distinctly short facial proportions", "text_zh": "明显偏短的面部比例"}, {"value": -0.5, "text": "slightly shorter facial proportions", "text_zh": "略短的面部比例"}, {"value": 0, "text": "balanced facial length", "text_zh": "均衡的脸部长度"}, {"value": 0.5, "text": "slightly elongated facial proportions", "text_zh": "略长的面部比例"}, {"value": 1, "text": "distinctly elongated facial proportions", "text_zh": "明显偏长的面部比例"}]},
     "face_width": {"levels": [{"value": -1, "text": "distinctly narrow facial structure", "text_zh": "明显偏窄的面部结构"}, {"value": -0.5, "text": "moderately narrow facial structure", "text_zh": "较窄的面部结构"}, {"value": 0, "text": "balanced facial width", "text_zh": "均衡的脸部宽度"}, {"value": 0.5, "text": "moderately broad facial structure", "text_zh": "较宽的面部结构"}, {"value": 1, "text": "noticeably broad facial structure", "text_zh": "明显偏宽的面部结构"}]},

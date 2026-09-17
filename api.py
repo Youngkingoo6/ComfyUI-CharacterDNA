@@ -148,12 +148,26 @@ def _validate_vocabulary(vocabulary):
         )
 
     profile = vocabulary.get("profile")
+    identity_appearances = vocabulary.get("identity_appearances")
     features = vocabulary.get("features")
     composites = vocabulary.get("composites")
     composites_zh = vocabulary.get("composites_zh")
 
     if not isinstance(profile, dict):
         raise ValueError("profile must be an object.")
+
+    if not isinstance(identity_appearances, dict):
+        raise ValueError("identity_appearances must be an object.")
+    for name, appearance in identity_appearances.items():
+        _require_string(name, "identity_appearances key")
+        if name == "none":
+            raise ValueError("identity_appearances.none is reserved.")
+        if not isinstance(appearance, dict):
+            raise ValueError(f"identity_appearances.{name} must be an object.")
+        for field in ("label", "label_zh", "prompt", "prompt_zh"):
+            _require_string(
+                appearance.get(field), f"identity_appearances.{name}.{field}"
+            )
 
     _require_string(
         profile.get("identity_template"),
@@ -274,6 +288,9 @@ def _validate_presentation_vocabulary(vocabulary):
             raise ValueError(f"blueprints.{name} must be an object.")
         _require_string(blueprint.get("label"), f"blueprints.{name}.label")
         _require_string(blueprint.get("label_zh"), f"blueprints.{name}.label_zh")
+        for field in ("negative_prompt", "negative_prompt_zh"):
+            if not isinstance(blueprint.get(field, ""), str):
+                raise ValueError(f"blueprints.{name}.{field} must be a string.")
         stack = blueprint.get("layers")
         if not isinstance(stack, list):
             raise ValueError(f"blueprints.{name}.layers must be an array.")
@@ -320,7 +337,10 @@ def _split_vocabulary(vocabulary):
     current_presentation = get_presentation_vocabulary()
     face = {
         key: vocabulary[key]
-        for key in ("profile", "features", "composites", "composites_zh")
+        for key in (
+            "profile", "identity_appearances", "features",
+            "composites", "composites_zh",
+        )
     }
     body = {
         "features": vocabulary.get("body_features", current_body["features"]),

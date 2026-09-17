@@ -17,6 +17,8 @@ Face Composite Identity
 - `blueprint`：整套画面方向；`identity_only` 表示不添加表现层内容。
 - `variant_seed`：从该蓝图的 Seed 变化中稳定选择一条。相同蓝图与种子始终得到同一结果，并支持生成后固定、递增、递减或随机。
 
+节点另外输出 `negative_prompt` 与 `negative_prompt_zh`。每套蓝图可维护自己的中英文负向提示词；未填写时输出空字符串。
+
 输出顺序是：
 
 ```text
@@ -44,14 +46,16 @@ Face Composite Identity
 - `dark_cozy_bedroom`：暗调卧室、安静凝视与浪漫 HDR 氛围。
 - `warm_minimal_bedroom_lifestyle`：暖色现代卧室里的手机生活方式画面。
 - `golden_hour_coast`：海岸度假造型与金色时刻胶片感。
+- `cool_jewelry_beauty_closeup`：清冷珠宝美妆大头特写、高调灰白棚拍与独立负向提示词。
 
 ## 在界面修改
 
 1. 打开 ComfyUI 左侧的 **CharacterDNA Vocabulary**。
-2. 在 **Visual Blueprints / 画面蓝图** 中编辑显示名称和 Seed 变化。
-3. 展开 **Advanced layer stack / 高级图层栈**，添加、删除、排序或停用图层。
-4. 在 Look、Performance、Scene、Photography 标签页维护可复用预设。
-5. 点击保存，再完整运行工作流。
+2. 在 **Identity Appearance / 稳定外观** 中维护会被所有身份提示词继承的瞳色、肤色、发色和辨识标记。
+3. 在 **Visual Blueprints / 画面蓝图** 中编辑显示名称、正负向提示词和 Seed 变化。
+4. 展开 **Advanced layer stack / 高级图层栈**，添加、删除、排序或停用图层。
+5. 在 Look、Performance、Scene、Photography 标签页维护可复用预设。
+6. 点击保存，再完整运行工作流。
 
 每个蓝图图层支持四种合并方式：
 

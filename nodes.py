@@ -13,6 +13,7 @@ from .character_dna.semantic import (
 )
 from .character_dna.vocabulary import (
     get_vocabulary_revision,
+    identity_appearance_options,
 )
 
 from .character_dna.genesis_engine import (
@@ -104,6 +105,10 @@ class CharacterDNADesigner:
                     },
                 ),
 
+                "identity_appearance": (
+                    identity_appearance_options(),
+                ),
+
             }
         }
 
@@ -121,6 +126,7 @@ class CharacterDNADesigner:
         gender,
         ancestry,
         visual_age,
+        identity_appearance="none",
     ):
 
         dna = generate_character_dna(
@@ -128,6 +134,7 @@ class CharacterDNADesigner:
             gender=gender,
             ancestry=ancestry,
             age=visual_age,
+            identity_appearance=identity_appearance,
         )
 
         return (dna,)
@@ -605,11 +612,13 @@ class CharacterDNAVisualBlueprint:
             }
         }
 
-    RETURN_TYPES = (DNA_TYPE, "STRING", "STRING")
+    RETURN_TYPES = (DNA_TYPE, "STRING", "STRING", "STRING", "STRING")
     RETURN_NAMES = (
         "character_dna",
         "complete_prompt",
         "complete_prompt_zh",
+        "negative_prompt",
+        "negative_prompt_zh",
     )
     FUNCTION = "compose"
     CATEGORY = "CharacterDNA/Presentation"

@@ -34,9 +34,11 @@ const FALLBACK = {
   ageTemplate: "Age template", lifeStages: "Life stages", maxAge: "Upper age (blank for last)", addStage: "+ Add life stage",
   quality: "Fixed quality phrases", qualityPosition: "Fixed quality position", qualityAtStart: "At prompt start", qualityAtEnd: "At prompt end", face: "Face", eyes: "Eyes", nose: "Nose", mouth: "Mouth",
   faceFeatures: "Face Features", bodyFeatures: "Body Features", faceComposites: "Face Composite", bodyComposites: "Body Composite",
+  identityAppearances: "Identity Appearance", addAppearance: "+ Add appearance", newAppearanceKey: "New appearance key",
   visualBlueprints: "Visual Blueprints", look: "Look", performance: "Performance", scene: "Scene", photography: "Photography",
   addBlueprint: "+ Add blueprint", addPreset: "+ Add preset", addLayer: "+ Add layer", addVariation: "+ Add variation",
   newBlueprintKey: "New blueprint key", newPresetKey: "New preset key", deleteEntry: "Delete", blueprintLabel: "Display label", layerStack: "Advanced layer stack", variations: "Seed variations", enabled: "Enabled", layerType: "Layer", preset: "Preset", mergeMode: "Mode",
+  negativePrompt: "Negative prompt",
   frame: "Frame", torso: "Torso", limbs: "Limbs", build: "Build",
   overall_frame: "Overall frame", torso_architecture: "Torso architecture", limb_proportions: "Limb proportions",
   build_distribution: "Build distribution", scale_balance: "Scale balance",
@@ -204,6 +206,27 @@ function renderVocabularyPanel(container) {
     if (!count && state.search) fragment.appendChild(el("div", { className: "cdna-vocab-empty", text: t("emptyPhrases") }));
     fragment.appendChild(group); return fragment;
   }
+  function renderIdentityAppearances() {
+    const fragment = document.createDocumentFragment(); const section = state.vocabulary.identity_appearances; let count = 0;
+    for (const [key, entry] of Object.entries(section)) {
+      if (!matches(key, entry.label, entry.label_zh, entry.prompt, entry.prompt_zh)) continue;
+      const card = el("article", { className: "cdna-vocab-card" });
+      card.appendChild(el("div", { className: "cdna-vocab-title" }, [
+        el("h4", { text: key }),
+        el("button", { className: "danger", text: t("deleteEntry"), onclick: () => { delete section[key]; markDirty(); renderContent(); } }),
+      ]));
+      card.appendChild(bilingual(entry.label, entry.label_zh, (value) => { entry.label = value; }, (value) => { entry.label_zh = value; }));
+      card.appendChild(bilingual(entry.prompt, entry.prompt_zh, (value) => { entry.prompt = value; }, (value) => { entry.prompt_zh = value; }));
+      fragment.appendChild(card); count += 1;
+    }
+    fragment.appendChild(el("button", { text: t("addAppearance"), onclick: () => {
+      const rawKey = window.prompt(t("newAppearanceKey"), "new_appearance"); const key = String(rawKey || "").trim();
+      if (!key || key === "none" || section[key]) return;
+      section[key] = { label: key.replaceAll("_", " "), label_zh: "新稳定外观", prompt: "new stable appearance", prompt_zh: "新稳定外观描述" }; markDirty(); renderContent();
+    } }));
+    if (!count && state.search) fragment.appendChild(el("div", { className: "cdna-vocab-empty", text: t("emptyPhrases") }));
+    return fragment;
+  }
   function renderBlueprints() {
     const fragment = document.createDocumentFragment(); const blueprints = state.vocabulary.visual_blueprints; const layers = state.vocabulary.visual_layers;
     const layerTypes = ["look", "performance", "scene", "photography"]; const modes = ["replace", "append", "merge", "clear"];
@@ -215,6 +238,8 @@ function renderVocabularyPanel(container) {
         name === "identity_only" ? null : el("button", { className: "danger", text: t("deleteEntry"), onclick: () => { delete blueprints[name]; markDirty(); renderContent(); } }),
       ]));
       card.appendChild(bilingual(blueprint.label, blueprint.label_zh, (value) => { blueprint.label = value; }, (value) => { blueprint.label_zh = value; }));
+      card.appendChild(el("h4", { text: t("negativePrompt") }));
+      card.appendChild(bilingual(blueprint.negative_prompt || "", blueprint.negative_prompt_zh || "", (value) => { blueprint.negative_prompt = value; }, (value) => { blueprint.negative_prompt_zh = value; }));
       card.appendChild(el("h4", { text: t("layerStack") }));
       (blueprint.layers || []).forEach((layer, index) => {
         const typeSelect = el("select", { onchange: (event) => { layer.type = event.target.value; layer.preset = Object.keys(layers[layer.type] || {})[0] || "none"; markDirty(); renderContent(); } }, layerTypes.map((key) => el("option", { value: key, text: t(key) })));
@@ -280,6 +305,7 @@ function renderVocabularyPanel(container) {
   function renderContent() {
     content.replaceChildren(); if (!state.vocabulary) { content.appendChild(el("div", { className: "cdna-vocab-empty", text: t("notLoaded") })); return; }
     const views = {
+      identityAppearances: renderIdentityAppearances,
       faceFeatures: () => renderFeatures(state.vocabulary.features, FEATURE_GROUPS),
       bodyFeatures: () => renderFeatures(state.vocabulary.body_features, BODY_FEATURE_GROUPS),
       faceComposites: () => renderComposites(state.vocabulary.composites, state.vocabulary.composites_zh, COMPOSITE_GROUPS),
@@ -295,7 +321,7 @@ function renderVocabularyPanel(container) {
   }
 
   const tabs = el("div", { className: "cdna-vocab-tabs" }); const buttons = new Map();
-  for (const key of ["faceFeatures", "bodyFeatures", "faceComposites", "bodyComposites", "visualBlueprints", "look", "performance", "scene", "photography", "profile"]) { const button = el("button", { className: key === state.activeTab ? "active" : "", text: t(key), onclick: () => { state.activeTab = key; buttons.forEach((item, itemKey) => item.classList.toggle("active", itemKey === key)); search.placeholder = t(key.endsWith("Features") ? "searchFeatures" : key.endsWith("Composites") ? "searchComposites" : ["visualBlueprints", "look", "performance", "scene", "photography"].includes(key) ? "searchPhrases" : "searchProfile"); renderContent(); } }); buttons.set(key, button); tabs.appendChild(button); }
+  for (const key of ["identityAppearances", "faceFeatures", "bodyFeatures", "faceComposites", "bodyComposites", "visualBlueprints", "look", "performance", "scene", "photography", "profile"]) { const button = el("button", { className: key === state.activeTab ? "active" : "", text: t(key), onclick: () => { state.activeTab = key; buttons.forEach((item, itemKey) => item.classList.toggle("active", itemKey === key)); search.placeholder = t(key.endsWith("Features") ? "searchFeatures" : key.endsWith("Composites") ? "searchComposites" : ["identityAppearances", "visualBlueprints", "look", "performance", "scene", "photography"].includes(key) ? "searchPhrases" : "searchProfile"); renderContent(); } }); buttons.set(key, button); tabs.appendChild(button); }
   const toolbar = el("div", { className: "cdna-vocab-toolbar" }, [el("button", { className: "primary", text: t("save"), onclick: save }), el("button", { text: t("reload"), onclick: () => load(false) }), el("button", { text: t("export"), onclick: exportVocabulary }), el("button", { text: t("import"), onclick: () => importInput.click() }), el("button", { className: "danger", text: t("reset"), onclick: reset })]);
   const header = el("header", { className: "cdna-vocab-header" }, [el("div", { className: "cdna-vocab-title" }, [el("span", { text: `🧬 ${t("title")}` }), el("small", { text: t("autoApply") })]), toolbar, tabs, search, importInput]);
   root.append(header, content, status); container.replaceChildren(root); container.style.height = "100%"; container.style.overflow = "hidden"; load(true);

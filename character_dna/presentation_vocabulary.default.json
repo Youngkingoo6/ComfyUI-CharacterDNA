@@ -10,7 +10,8 @@
       "red_silk_chinese_styling": {"prompt": "fashion styling with a red silk embroidered Chinese-inspired top, coordinated red wrap details, floral embroidery, glossy fabric texture, long straight black hair with blunt bangs and a red hair ornament", "prompt_zh": "红色丝绸刺绣中式上衣与协调的红色系带细节，花卉刺绣和光泽面料，黑色长直发配齐刘海及红色发饰"},
       "soft_lace_loungewear": {"prompt": "soft-gray lace camisole ensemble under an airy white open-knit cardigan, delicate layered lace, small button details, naturally textured damp hair in motion", "prompt_zh": "浅灰色蕾丝吊带套装，外搭轻盈白色镂空针织开衫，细腻层叠蕾丝与小巧纽扣，带自然肌理的湿发随风扬起"},
       "light_cozy_bedroom": {"prompt": "soft light-toned everyday outfit, long deep-brown hair, clean natural makeup, gentle romantic styling", "prompt_zh": "柔和浅色日常穿搭，深咖色长发，干净自然妆容与温柔恋爱感造型"},
-      "black_minimal_lifestyle": {"prompt": "black long-sleeve fitted top, wide-leg dark jeans, black high heels, long straight black hair, understated modern styling", "prompt_zh": "黑色修身长袖上衣，深色阔腿牛仔裤，黑色高跟鞋与黑色长直发，克制的现代造型"}
+      "black_minimal_lifestyle": {"prompt": "black long-sleeve fitted top, wide-leg dark jeans, black high heels, long straight black hair, understated modern styling", "prompt_zh": "黑色修身长袖上衣，深色阔腿牛仔裤，黑色高跟鞋与黑色长直发，克制的现代造型"},
+      "cool_jewelry_beauty": {"prompt": "voluminous deep brown-black long hair in a natural half-down style, softly tousled strands falling across the cheeks, natural muted rose-pink lips, refined silver crystal tassel earrings with subtle blue gemstone accents", "prompt_zh": "发量丰盈的深棕黑色长发，自然半披发造型，几缕轻微凌乱的碎发落在脸颊，柔和自然豆沙粉唇色，精致银色水晶流苏耳饰配少量蓝色宝石点缀"}
     },
     "performance": {
       "calm_editorial_standing": {"prompt": "calm poised posture, relaxed shoulders, gentle expression, composed editorial presence", "prompt_zh": "沉静从容的姿态，肩部放松，神情温和，呈现克制的杂志表现力"},
@@ -18,7 +19,8 @@
       "drying_hair_at_vanity": {"prompt": "standing at the vanity, one hand holding a hair dryer and the other moving through the hair, torso slightly turned, hair lifted dynamically by airflow, relaxed subtle smile", "prompt_zh": "站在洗手台前，一手持吹风机，另一手拨动发丝，身体微微侧转，头发被气流动态吹起，带放松的浅淡微笑"},
       "quiet_romantic_gaze": {"prompt": "quiet natural pose, captivating gentle gaze, soft cute expression, intimate romantic mood", "prompt_zh": "安静自然的姿态，温柔迷人的视线，可爱柔和的表情，呈现亲密恋爱氛围"},
       "phone_on_bed_lifestyle": {"prompt": "leaning naturally over the edge of a bed while holding and looking down at a phone, balanced side profile, relaxed candid body language", "prompt_zh": "自然俯身倚在床边，手持手机并低头查看，呈现平衡的侧面轮廓与放松抓拍动作"},
-      "seated_thoughtful": {"prompt": "elegant seated posture with crossed legs, one hand resting lightly on the opposite arm, gaze directed slightly upward, serene thoughtful expression", "prompt_zh": "优雅坐姿，双腿自然交叉，一只手轻搭另一侧手臂，视线略微向上，神情安静而沉思"}
+      "seated_thoughtful": {"prompt": "elegant seated posture with crossed legs, one hand resting lightly on the opposite arm, gaze directed slightly upward, serene thoughtful expression", "prompt_zh": "优雅坐姿，双腿自然交叉，一只手轻搭另一侧手臂，视线略微向上，神情安静而沉思"},
+      "restrained_closeup_gaze": {"prompt": "body turned slightly away, head gently turned back toward the camera, quiet restrained gaze with a faint sense of distance, softly parted lips, relaxed natural expression", "prompt_zh": "身体微微侧转，头部轻轻转向镜头，眼神安静克制并带轻微疏离感，嘴唇柔软微张，表情放松自然"}
     },
     "scene": {
       "minimal_gray_studio": {"prompt": "spacious minimalist gray portrait studio with generous negative space and subtle floor shadows", "prompt_zh": "宽敞的极简灰色人像摄影棚，保留大量留白与细腻地面阴影"},
@@ -30,7 +32,8 @@
       "classical_chinese_bedroom": {"prompt": "indoor classical Chinese boudoir set with vermilion walls, dark carved wooden lattice windows, polished wooden daybed, embroidered cushions and scroll props, foreground bed edge and softly separated middle ground", "prompt_zh": "室内中式古典闺房摄影棚，朱红墙面、深色实木雕花窗格、抛光木质床榻、刺绣靠垫与卷轴道具，床榻边缘形成前景，人物位于中景"},
       "steamy_bathroom_vanity": {"prompt": "lived-in bathroom vanity with tiled walls, a mirror partly wiped clear and partly misted, hair dryer cord, comb, hair oil bottle, phone and towel arranged naturally", "prompt_zh": "具有真实生活气息的浴室洗手台，瓷砖墙面，镜面一侧擦净一侧留有水雾，吹风机电线、梳子、护发精油、手机与毛巾自然摆放"},
       "cozy_everyday_bedroom": {"prompt": "quiet everyday bedroom with soft layered bedding, restrained furnishings, subtle lived-in details and an intimate background", "prompt_zh": "安静的日常卧室，柔软有层次的床品、克制家具与细微生活痕迹，背景亲密自然"},
-      "warm_minimal_bedroom": {"prompt": "modern minimalist bedroom with white sheets, brown headboard, paired bedside lamps, tiled accent wall and wooden nightstands", "prompt_zh": "现代极简卧室，白色床单、棕色床头板、成对床头灯、瓷砖装饰墙与木质床头柜"}
+      "warm_minimal_bedroom": {"prompt": "modern minimalist bedroom with white sheets, brown headboard, paired bedside lamps, tiled accent wall and wooden nightstands", "prompt_zh": "现代极简卧室，白色床单、棕色床头板、成对床头灯、瓷砖装饰墙与木质床头柜"},
+      "high_key_gray_white_studio": {"prompt": "clean high-key pale gray-white photography studio background, pure uncluttered setting with seamless tonal transitions", "prompt_zh": "浅灰白色高亮纯净摄影棚背景，环境干净无干扰，色调过渡无缝柔和"}
     },
     "photography": {
       "soft_85mm_editorial": {"prompt": "85mm-equivalent prime-lens portrait, shallow depth of field, eye-level with a slight low angle, front-side 45-degree view, center-right composition, subject filling about 60 percent of the frame, medium crop to the upper thighs, soft studio key light from front-left above, photorealistic editorial finish", "prompt_zh": "等效85mm定焦人像，浅景深，平视微仰并从主体前侧45度拍摄，中心偏右构图，人物约占画面60%，中景裁切至大腿上部，左前上方柔和棚拍主光，照片级写实杂志质感"},
@@ -38,7 +41,8 @@
       "dark_romantic_hdr": {"prompt": "dark quiet romantic portrait, restrained low-key lighting, luminous skin against a subdued bedroom, rich but controlled HDR tonal detail, photorealistic finish", "prompt_zh": "暗调静谧的浪漫人像，克制低调光线，明亮肌肤与压暗卧室形成对比，HDR层次丰富但不过度，照片级写实"},
       "warm_side_lifestyle": {"prompt": "side-view photorealistic lifestyle photograph, soft warm bedside lighting, natural perspective, cozy tonal response, realistic room depth", "prompt_zh": "侧面视角的照片级生活方式摄影，柔和暖色床头灯光，自然透视、舒适色调与真实房间景深"},
       "clean_studio_editorial": {"prompt": "clean medium-format-inspired studio portrait, precise focus on the face, soft directional light, shallow background separation, refined neutral color response", "prompt_zh": "干净的中画幅质感棚拍人像，面部精准对焦，柔和方向光、浅景深背景分离与精致中性色彩响应"},
-      "golden_hour_filmic": {"prompt": "filmic golden-hour portrait with warm rim light, gentle highlight roll-off, natural skin color, soft atmospheric depth and restrained fine grain", "prompt_zh": "电影感黄金时刻人像，温暖轮廓光、柔和高光过渡、自然肤色、轻柔空气景深与克制细颗粒"}
+      "golden_hour_filmic": {"prompt": "filmic golden-hour portrait with warm rim light, gentle highlight roll-off, natural skin color, soft atmospheric depth and restrained fine grain", "prompt_zh": "电影感黄金时刻人像，温暖轮廓光、柔和高光过渡、自然肤色、轻柔空气景深与克制细颗粒"},
+      "korean_beauty_jewelry_closeup": {"prompt": "high-finish close-up beauty portrait with only a small amount of shoulder visible, face dominating a clean composition, 85mm portrait lens, shallow depth of field, soft high-key frontal light blended with subtle side light, natural catchlights, dimensional facial shadows, delicate hair detail, soft bokeh, cinematic color, premium Korean beauty editorial and understated luxury jewelry advertising finish", "prompt_zh": "高完成度近景美妆人像，仅少量肩部入镜，面部占据干净构图主体，85mm人像镜头，浅景深，正面高调柔光结合轻微侧光，自然眼神光并保留立体面部阴影，细腻发丝、柔和焦外与电影级色彩，呈现高级韩系美妆写真和克制轻奢珠宝广告质感"}
     }
   },
   "blueprints": {
@@ -119,6 +123,21 @@
       "variations": [
         {"prompt": "a light coastal breeze adding gentle fabric and hair movement", "prompt_zh": "轻柔海风带来细微衣料与发丝动态"},
         {"prompt": "quiet open-horizon composition with warm atmospheric depth", "prompt_zh": "安静开阔的地平线构图与温暖空气景深"}
+      ]
+    },
+    "cool_jewelry_beauty_closeup": {
+      "label": "Cool jewelry beauty close-up", "label_zh": "清冷珠宝美妆特写",
+      "layers": [
+        {"type": "look", "preset": "cool_jewelry_beauty", "mode": "replace", "enabled": true},
+        {"type": "performance", "preset": "restrained_closeup_gaze", "mode": "replace", "enabled": true},
+        {"type": "scene", "preset": "high_key_gray_white_studio", "mode": "replace", "enabled": true},
+        {"type": "photography", "preset": "korean_beauty_jewelry_closeup", "mode": "replace", "enabled": true}
+      ],
+      "negative_prompt": "beauty-filtered influencer face, childish facial proportions, Westernized facial structure, plastic skin, waxy skin, excessive skin smoothing, heavy retouching, artificial poreless texture, distorted earrings, messy background",
+      "negative_prompt_zh": "网红脸，幼态面部比例，欧美化面部结构，塑料皮肤，蜡质皮肤，过度磨皮，重度修图，人工无毛孔质感，耳饰变形，杂乱背景",
+      "variations": [
+        {"prompt": "dreamy soft-focus atmosphere with cool sweet restraint and crystalline clarity", "prompt_zh": "梦幻柔焦氛围，清冷甜美而克制，呈现水晶般清透感"},
+        {"prompt": "quiet premium beauty-campaign polish with delicate blue-silver jewelry highlights", "prompt_zh": "安静高级的美妆广告完成度，蓝银色珠宝高光细腻闪烁"}
       ]
     }
   }
