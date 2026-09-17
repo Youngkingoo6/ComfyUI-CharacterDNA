@@ -10,21 +10,20 @@ from .vocabulary import (
 
 
 NONE_OPTION = "none"
+IDENTITY_ONLY = "identity_only"
+LAYER_TYPES = ("look", "performance", "scene", "photography")
+LAYER_MODES = ("replace", "append", "merge", "clear")
 
 
 def presentation_options(section):
+    """Legacy options retained so saved clothing/scene workflows still load."""
     vocabulary = get_presentation_vocabulary()
-    return [NONE_OPTION, *vocabulary.get(section, {}).keys()]
+    layer = "look" if section == "clothing" else "scene"
+    return [NONE_OPTION, *vocabulary.get("layers", {}).get(layer, {}).keys()]
 
 
-def _selected_phrase(section, key, language="en"):
-    if not key or key == NONE_OPTION:
-        return ""
-    entry = get_presentation_vocabulary().get(section, {}).get(key)
-    if entry is None:
-        raise ValueError(f"Unknown {section} preset: {key}")
-    prompt_key = "prompt_zh" if str(language).lower().startswith("zh") else "prompt"
-    return str(entry.get(prompt_key, "")).strip()
+def blueprint_options():
+    return list(get_presentation_vocabulary().get("blueprints", {}).keys())
 
 
 def _identity_prompt(dna, language="en"):
@@ -42,26 +41,120 @@ def _identity_prompt(dna, language="en"):
     )
 
 
-def compose_presentation(dna, clothing=NONE_OPTION, scene=NONE_OPTION):
+def _entry_prompt(entry, language):
+    key = "prompt_zh" if str(language).lower().startswith("zh") else "prompt"
+    return str(entry.get(key, "")).strip()
+
+
+def _resolve_stack(vocabulary, stack, visual_age):
+    resolved = []
+    warnings = []
+    for index, layer in enumerate(stack):
+        if not layer.get("enabled", True):
+            continue
+        layer_type = layer.get("type")
+        mode = layer.get("mode", "replace")
+        preset = layer.get("preset", NONE_OPTION)
+        if layer_type not in LAYER_TYPES:
+            warnings.append(f"Layer {index + 1}: unknown type {layer_type}")
+            continue
+        if mode not in LAYER_MODES:
+            warnings.append(f"Layer {index + 1}: unknown mode {mode}; using replace")
+            mode = "replace"
+        if mode in {"replace", "clear"}:
+            resolved = [item for item in resolved if item["type"] != layer_type]
+        if mode == "clear" or preset == NONE_OPTION:
+            continue
+        if mode == "merge" and any(
+            item["type"] == layer_type and item["preset"] == preset
+            for item in resolved
+        ):
+            continue
+        entry = vocabulary.get("layers", {}).get(layer_type, {}).get(preset)
+        if entry is None:
+            warnings.append(f"Layer {index + 1}: unknown {layer_type} preset {preset}")
+            continue
+        minimum_age = int(entry.get("min_visual_age", 0))
+        if int(visual_age) < minimum_age:
+            warnings.append(
+                f"Layer {index + 1}: {preset} requires visual_age >= {minimum_age}; skipped"
+            )
+            continue
+        resolved.append({
+            "type": layer_type,
+            "preset": preset,
+            "mode": mode,
+            "prompt": _entry_prompt(entry, "en"),
+            "prompt_zh": _entry_prompt(entry, "zh"),
+        })
+    return resolved, warnings
+
+
+def compose_visual_blueprint(
+    dna,
+    blueprint=IDENTITY_ONLY,
+    variant_seed=0,
+    legacy_clothing=NONE_OPTION,
+    legacy_scene=NONE_OPTION,
+):
     result = copy.deepcopy(dna)
-    clothing_en = _selected_phrase("clothing", clothing, "en")
-    clothing_zh = _selected_phrase("clothing", clothing, "zh")
-    scene_en = _selected_phrase("scenes", scene, "en")
-    scene_zh = _selected_phrase("scenes", scene, "zh")
+    vocabulary = get_presentation_vocabulary()
+    blueprints = vocabulary.get("blueprints", {})
+    if blueprint not in blueprints:
+        raise ValueError(f"Unknown visual blueprint: {blueprint}")
+
+    blueprint_data = blueprints[blueprint]
+    stack = copy.deepcopy(blueprint_data.get("layers", []))
+    if legacy_clothing != NONE_OPTION:
+        stack.append({
+            "type": "look", "preset": legacy_clothing,
+            "mode": "replace", "enabled": True,
+        })
+    if legacy_scene != NONE_OPTION:
+        stack.append({
+            "type": "scene", "preset": legacy_scene,
+            "mode": "replace", "enabled": True,
+        })
+
+    visual_age = result.get("character", {}).get("visual_age", 0)
+    resolved, warnings = _resolve_stack(vocabulary, stack, visual_age)
+    variants = blueprint_data.get("variations", [])
+    selected_variant = None
+    if variants:
+        selected_variant = variants[int(variant_seed) % len(variants)]
 
     identity_en = strip_quality_block(_identity_prompt(result, "en"), "en")
     identity_zh = strip_quality_block(_identity_prompt(result, "zh"), "zh")
-    prompt_en = compose_prompt((identity_en, clothing_en, scene_en), "en")
-    prompt_zh = compose_prompt((identity_zh, clothing_zh, scene_zh), "zh")
+    phrases_en = [identity_en, *(item["prompt"] for item in resolved)]
+    phrases_zh = [identity_zh, *(item["prompt_zh"] for item in resolved)]
+    if selected_variant:
+        phrases_en.append(_entry_prompt(selected_variant, "en"))
+        phrases_zh.append(_entry_prompt(selected_variant, "zh"))
 
+    prompt_en = compose_prompt(phrases_en, "en")
+    prompt_zh = compose_prompt(phrases_zh, "zh")
+    result["visual_direction"] = {
+        "blueprint": blueprint,
+        "variant_seed": int(variant_seed),
+        "layers": resolved,
+        "variation": selected_variant,
+        "warnings": warnings,
+    }
     result["presentation"] = {
-        "clothing": clothing,
-        "scene": scene,
-        "clothing_prompt": clothing_en,
-        "clothing_prompt_zh": clothing_zh,
-        "scene_prompt": scene_en,
-        "scene_prompt_zh": scene_zh,
+        "clothing": legacy_clothing,
+        "scene": legacy_scene,
     }
     result["presentation_prompt"] = prompt_en
     result["presentation_prompt_zh"] = prompt_zh
     return result, prompt_en, prompt_zh
+
+
+def compose_presentation(dna, clothing=NONE_OPTION, scene=NONE_OPTION):
+    """Backward-compatible public helper for the former two-preset node."""
+    return compose_visual_blueprint(
+        dna,
+        blueprint=IDENTITY_ONLY,
+        variant_seed=0,
+        legacy_clothing=clothing,
+        legacy_scene=scene,
+    )

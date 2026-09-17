@@ -1,59 +1,69 @@
-# 服装与场景词库
+# 角色画面蓝图与表现层词库
 
-服装和场景属于角色的可变表现层，不属于稳定的面部或身体 DNA。更换预设只改变最终提示词，不会修改任何 Face Feature、Body Feature、Seed 或 Composite。
+画面蓝图属于角色的可变表现层，不会修改稳定的面部或身体 DNA。它把一张图需要的造型、动作、环境和摄影语言打包成可复用预设，避免每增加一种需求就增加一个节点。
 
-## 使用节点
+## 最简用法
 
-将 `Clothing & Scene Composer` 接在当前 DNA 链路的最后，推荐接在 `Body Composite Identity` 之后：
+将 `Character Visual Blueprint / 角色画面蓝图` 接在完整身份链路的最后：
 
 ```text
-Face / Body DNA
-  → Face Composite Identity
+Face Composite Identity
   → Body Composite Identity
-  → Clothing & Scene Composer
-  → 完整中英文提示词
+  → Character Visual Blueprint
 ```
 
-- `clothing`：选择服装预设；`none` 表示不添加服装。
-- `scene`：选择场景预设；`none` 表示不添加场景。
-- `complete_prompt`：身份、服装、场景及固定质量词组成的英文提示词。
-- `complete_prompt_zh`：同一内容的中文提示词。
+画布上只显示两个设置：
 
-可以只选择服装、只选择场景，也可以同时选择。拼接顺序固定为：
+- `blueprint`：整套画面方向；`identity_only` 表示不添加表现层内容。
+- `variant_seed`：从该蓝图的 Seed 变化中稳定选择一条。相同蓝图与种子始终得到同一结果，并支持生成后固定、递增、递减或随机。
+
+输出顺序是：
 
 ```text
-身份 DNA → 服装 → 场景 → Fixed quality phrases
+完整身份 → Look → Performance → Scene → Photography
+         → Seed 变化 → Fixed quality phrases
 ```
 
-如果固定质量词位置设置为“最前面”，节点会自动改为把质量词放在整条最终提示词最前面。
+固定质量词放在最前或最后，仍由基础词库的 `Fixed quality position` 控制。
 
-## 默认精选预设
+## 四类可复用图层
 
-服装保留 6 套差异明确的高质感方向：
+- `Look / 人物造型`：服装、材质、发型、配饰和妆容。
+- `Performance / 表演`：动作、姿态、表情、视线和情绪。
+- `Scene / 场景`：地点、空间关系、环境物件和氛围细节。
+- `Photography / 摄影`：镜头、视角、构图、景深、光线、色彩和画面质感。
 
-- `quiet_luxury_commute`：低饱和静奢通勤。
-- `relaxed_intellectual`：松弛知识分子风。
-- `soft_korean_date`：温柔韩系约会感。
-- `modern_new_chinese`：克制的现代新中式。
-- `retro_citywalk`：轻复古 CityWalk。
-- `refined_sportique`：精致 Sportique。
+图层本身不包含角色的长期身份结构。身份由前面的 Face / Body DNA 节点提供。
 
-场景保留 6 套适合人像出片的方向：
+## 默认蓝图
 
-- `minimal_gray_studio`：具有大量留白的极简灰棚。
-- `window_light_apartment`：落地窗自然光公寓。
-- `warm_wood_cafe`：暖木色窗边咖啡馆。
-- `cinematic_blue_hour_street`：雨后蓝调电影街景。
-- `contemporary_art_gallery`：当代艺术展馆。
-- `golden_hour_coast`：黄金时刻海岸。
+- `identity_only`：只保留身份。
+- `quiet_luxury_studio`：静奢通勤造型与柔和 85mm 编辑人像。
+- `classical_chinese_studio`：现代中式造型、古典室内和棚拍镜头。
+- `bathroom_hair_drying_vlog`：浴室吹发动态与手机纪实镜头。
+- `dark_cozy_bedroom`：暗调卧室、安静凝视与浪漫 HDR 氛围。
+- `warm_minimal_bedroom_lifestyle`：暖色现代卧室里的手机生活方式画面。
+- `golden_hour_coast`：海岸度假造型与金色时刻胶片感。
 
-## 修改词库
+## 在界面修改
 
-打开 ComfyUI 左侧的 `CharacterDNA 词库` 面板：
+1. 打开 ComfyUI 左侧的 **CharacterDNA Vocabulary**。
+2. 在 **Visual Blueprints / 画面蓝图** 中编辑显示名称和 Seed 变化。
+3. 展开 **Advanced layer stack / 高级图层栈**，添加、删除、排序或停用图层。
+4. 在 Look、Performance、Scene、Photography 标签页维护可复用预设。
+5. 点击保存，再完整运行工作流。
 
-1. 进入 `服装` 或 `场景` 标签页。
-2. 直接修改预设的英文和中文提示词。
-3. 点击“添加服装”或“添加场景”建立新预设；预设标识建议只使用小写英文、数字和下划线。
-4. 点击“保存”。已经存在的组合节点下次执行会使用更新后的提示词。
+每个蓝图图层支持四种合并方式：
 
-新增或删除预设后，刷新 ComfyUI 页面即可让节点下拉列表同步更新。
+- `replace`：替换该类别之前的内容，适合蓝图中的主要选择。
+- `append`：在同类内容后继续追加。
+- `merge`：追加并自动去重。
+- `clear`：清空该类别已累积的内容。
+
+## 年龄保护
+
+某些造型或动作可设置 `min_visual_age`。如果角色的 `visual_age` 低于该值，编译器会跳过该图层，并在 DNA 的 `visual_direction.warnings` 中记录原因。默认身份不受影响。
+
+## 旧工作流兼容
+
+内部节点 ID 仍为 `CharacterDNAClothingSceneComposer`，所以旧工作流无需替换节点。旧文件里的 `clothing` 与 `scene` 仍会作为兼容图层参与输出；前端只把它们隐藏，新工作流保存时使用 `blueprint` 与 `variant_seed`。旧词库建议先导出备份，再按新的蓝图结构迁移。

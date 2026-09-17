@@ -6,7 +6,7 @@
     "CharacterDNA/Analysis": "CharacterDNA/分析",
     "CharacterDNA/Casting": "CharacterDNA/选角",
     "CharacterDNA/Body": "CharacterDNA/身体",
-    "CharacterDNA/Presentation": "CharacterDNA/服装与场景"
+    "CharacterDNA/Presentation": "CharacterDNA/画面导演"
   },
   "characterDNA": {
     "title": "CharacterDNA 词库", "autoApply": "保存后自动生效", "save": "保存", "reload": "重新载入", "export": "导出", "import": "导入", "reset": "恢复默认",
@@ -15,6 +15,6 @@
     "resetConfirm": "确定恢复插件默认词库？当前修改将被覆盖。", "resetting": "正在恢复默认词库…", "resetDone": "已恢复默认词库", "resetFailed": "恢复失败：", "exported": "词库已导出", "imported": "已导入到编辑器；点击“保存”后才会生效", "importFailed": "导入失败：", "invalidRoot": "文件根节点必须是 JSON 对象",
     "emptyFeatures": "没有匹配的参数", "emptyComposites": "没有匹配的组合词", "emptyPhrases": "没有匹配的预设", "notLoaded": "词库尚未载入", "english": "英文提示词", "chinese": "中文提示词", "value": "参数值", "identityTemplate": "身份模板", "ageTemplate": "年龄模板", "lifeStages": "年龄阶段", "maxAge": "年龄上限（最后一项留空）", "addStage": "+ 添加年龄阶段", "quality": "固定质量词", "qualityPosition": "固定质量词位置", "qualityAtStart": "提示词最前面", "qualityAtEnd": "提示词最后面",
     "face": "脸部", "eyes": "眼睛", "nose": "鼻子", "mouth": "嘴部", "facial_silhouette": "脸部轮廓", "eye_geometry": "眼部几何", "brow_eye_relationship": "眉眼关系", "nose_profile": "鼻部轮廓", "lip_relationship": "唇部关系", "requestError": "请求失败",
-    "faceFeatures": "面部参数", "bodyFeatures": "身体参数", "faceComposites": "面部组合", "bodyComposites": "身体组合", "clothing": "服装", "scenes": "场景", "addClothing": "+ 添加服装", "addScene": "+ 添加场景", "newPresetKey": "新预设标识", "deleteEntry": "删除", "frame": "整体骨架", "torso": "躯干", "limbs": "四肢", "build": "体型", "overall_frame": "整体轮廓", "torso_architecture": "躯干结构", "limb_proportions": "四肢比例", "build_distribution": "体量分布", "scale_balance": "尺度协调"
+    "faceFeatures": "面部参数", "bodyFeatures": "身体参数", "faceComposites": "面部组合", "bodyComposites": "身体组合", "visualBlueprints": "画面蓝图", "look": "人物造型", "performance": "表演", "scene": "场景", "photography": "摄影", "addBlueprint": "+ 添加蓝图", "addPreset": "+ 添加预设", "addLayer": "+ 添加图层", "addVariation": "+ 添加变化", "newBlueprintKey": "新蓝图标识", "newPresetKey": "新预设标识", "deleteEntry": "删除", "blueprintLabel": "显示名称", "layerStack": "高级图层栈", "variations": "Seed 变化", "enabled": "启用", "layerType": "图层", "preset": "预设", "mergeMode": "合并方式", "frame": "整体骨架", "torso": "躯干", "limbs": "四肢", "build": "体型", "overall_frame": "整体轮廓", "torso_architecture": "躯干结构", "limb_proportions": "四肢比例", "build_distribution": "体量分布", "scale_balance": "尺度协调"
   }
 }

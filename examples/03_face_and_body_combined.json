@@ -1,5 +1,5 @@
 {
-  "id": "f023f06f-149e-43ea-8b69-6fbd73a99e61",
+  "id": "71393447-f613-4264-90c2-97e78c8b4260",
   "revision": 0,
   "last_node_id": 10,
   "last_link_id": 6,
@@ -7,7 +7,7 @@
     {
       "id": 1, "type": "Note", "pos": [0, 0], "size": [390, 310], "flags": {}, "order": 0, "mode": 0,
       "inputs": [], "outputs": [], "properties": {},
-      "widgets_values": ["面部 + 身体 DNA 示例\n\n1. 面部 Seed 生成 19 项面部结构参数。\n2. 身体 Seed 再生成 20 项身体比例参数。\n3. 两套参数保存在同一个 Character DNA 中，互不覆盖。\n4. 面部 Composite 先生成面部身份描述。\n5. 身体 Composite 生成身体描述。\n6. 服装与场景组合器在稳定 DNA 后添加可变内容，并输出最终提示词。\n\n面部与身体 seed 可分别固定或随机。服装和场景均可选择 none。"],
+      "widgets_values": ["面部 + 身体 DNA 示例\n\n1. 面部 Seed 生成 19 项面部结构参数。\n2. 身体 Seed 再生成 20 项身体比例参数。\n3. 两套参数保存在同一个 Character DNA 中，互不覆盖。\n4. 面部 Composite 先生成面部身份描述。\n5. 身体 Composite 生成身体描述。\n6. 角色画面蓝图在稳定 DNA 后组合造型、表演、场景与摄影，并输出最终提示词。\n\n面部、身体和画面变化 seed 均可分别固定或随机。选择 identity_only 可只输出身份。"],
       "widgets_values_named": {"text": "面部 + 身体 DNA 示例"}, "color": "#3d315f", "bgcolor": "#574580"
     },
     {
@@ -47,10 +47,10 @@
       "widgets_values": ["CharacterDNA/face_body_identity_zh", "txt"], "widgets_values_named": {"filename_prefix": "CharacterDNA/face_body_identity_zh", "format": "txt"}
     },
     {
-      "id": 10, "type": "CharacterDNAClothingSceneComposer", "pos": [2360, 20], "size": [350, 190], "flags": {}, "order": 6, "mode": 0,
-      "inputs": [{"name": "character_dna", "type": "CHARACTER_DNA", "link": 5}, {"name": "clothing", "type": "COMBO", "widget": {"name": "clothing"}, "link": null}, {"name": "scene", "type": "COMBO", "widget": {"name": "scene"}, "link": null}],
+      "id": 10, "type": "CharacterDNAClothingSceneComposer", "pos": [2360, 20], "size": [360, 190], "flags": {}, "order": 6, "mode": 0,
+      "inputs": [{"name": "character_dna", "type": "CHARACTER_DNA", "link": 5}, {"name": "clothing", "type": "COMBO", "widget": {"name": "clothing"}, "link": null}, {"name": "scene", "type": "COMBO", "widget": {"name": "scene"}, "link": null}, {"name": "blueprint", "type": "COMBO", "widget": {"name": "blueprint"}, "link": null}, {"name": "variant_seed", "type": "INT", "widget": {"name": "variant_seed"}, "link": null}],
       "outputs": [{"name": "character_dna", "type": "CHARACTER_DNA", "links": null}, {"name": "complete_prompt", "type": "STRING", "links": null}, {"name": "complete_prompt_zh", "type": "STRING", "links": [6]}],
-      "properties": {"Node name for S&R": "CharacterDNAClothingSceneComposer"}, "widgets_values": ["quiet_luxury_commute", "minimal_gray_studio"], "widgets_values_named": {"clothing": "quiet_luxury_commute", "scene": "minimal_gray_studio"}
+      "properties": {"Node name for S&R": "CharacterDNAClothingSceneComposer"}, "widgets_values": ["none", "none", "quiet_luxury_studio", 0, "fixed"], "widgets_values_named": {"clothing": "none", "scene": "none", "blueprint": "quiet_luxury_studio", "variant_seed": 0, "control_after_generate": "fixed"}
     },
     {
       "id": 8, "type": "Note", "pos": [440, 350], "size": [620, 760], "flags": {}, "order": 8, "mode": 0,

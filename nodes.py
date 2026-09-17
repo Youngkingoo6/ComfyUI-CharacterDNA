@@ -29,7 +29,11 @@ from .character_dna.body_parametric import (
 )
 from .character_dna.body_genesis import generate_body_dna
 from .character_dna.body_composite import build_body_composite_identity
-from .character_dna.presentation import compose_presentation, presentation_options
+from .character_dna.presentation import (
+    blueprint_options,
+    compose_visual_blueprint,
+    presentation_options,
+)
 from .character_dna.landmark_provider import (
     InsightFace106Detector,
 )
@@ -575,7 +579,7 @@ class CharacterDNABodyCompositeIdentity:
 
 
 # ============================================================
-# Clothing & Scene Composer
+# Character Visual Blueprint
 # ============================================================
 
 class CharacterDNAClothingSceneComposer:
@@ -589,8 +593,19 @@ class CharacterDNAClothingSceneComposer:
         return {
             "required": {
                 "character_dna": (DNA_TYPE,),
+                # Hidden in the frontend, retained for old saved workflows.
                 "clothing": (presentation_options("clothing"),),
                 "scene": (presentation_options("scenes"),),
+                "blueprint": (blueprint_options(),),
+                "variant_seed": (
+                    "INT",
+                    {
+                        "default": 0,
+                        "min": 0,
+                        "max": 0xffffffffffffffff,
+                        "control_after_generate": True,
+                    },
+                ),
             }
         }
 
@@ -603,8 +618,21 @@ class CharacterDNAClothingSceneComposer:
     FUNCTION = "compose"
     CATEGORY = "CharacterDNA/Presentation"
 
-    def compose(self, character_dna, clothing, scene):
-        return compose_presentation(character_dna, clothing, scene)
+    def compose(
+        self,
+        character_dna,
+        clothing="none",
+        scene="none",
+        blueprint="identity_only",
+        variant_seed=0,
+    ):
+        return compose_visual_blueprint(
+            character_dna,
+            blueprint=blueprint,
+            variant_seed=variant_seed,
+            legacy_clothing=clothing,
+            legacy_scene=scene,
+        )
 
 # ============================================================
 # InsightFace 106 Detector
@@ -1348,7 +1376,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
         "🧬 Body Composite Identity",
 
     "CharacterDNAClothingSceneComposer":
-        "🧬 Clothing & Scene Composer",
+        "🧬 Character Visual Blueprint",
 
     "CharacterDNAInsightFace106Detector":
         "🧬 InsightFace 106 Detector",

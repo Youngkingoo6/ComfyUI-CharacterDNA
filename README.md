@@ -48,7 +48,7 @@ Face Composite Identity
         ↓
 Body Composite Identity
         ↓
-Clothing & Scene Composer（可选）
+Character Visual Blueprint（可选）
         ↓
 中英文完整身份提示词
 ```
@@ -117,7 +117,7 @@ Seed Generator
 
 - 每个 Feature 的五档中英文提示词；
 - 面部和身体各 5 组 Composite 的中英文短语；
-- 服装与场景的中英文预设；
+- 画面蓝图，以及造型、表演、场景、摄影四类中英文预设；
 - 年龄阶段、基础身份模板和固定质量词。
 
 `Fixed quality position` 可选择固定质量词位于完整提示词的最前面或最后面，默认放在最后。面部、身体、Parametric 和 Composite 输出统一遵循该设置。
@@ -128,15 +128,20 @@ Parametric Face Designer、Face DNA Seed Generator 和 Face Composite Identity �
 
 身体词库独立保存，因此升级身体功能不会覆盖你已经修改过的面部固定质量词。
 
-### 服装与场景
+### 角色画面蓝图
 
-`Clothing & Scene Composer` 是稳定 DNA 之后的可变表现层。它从输入 DNA 自动选择当前最完整的面部/身体身份提示词，再按顺序拼接可选的服装和场景：
+`Character Visual Blueprint` 是稳定 DNA 之后的画面导演层。画布上只需选择一套 `blueprint` 和一个 `variant_seed`；节点会保留当前最完整的面部/身体身份提示词，并组合这套蓝图中的四类内容：
 
 ```text
-身份 DNA → 服装（可选）→ 场景（可选）→ 固定质量词
+身份 DNA → Look 人物造型 → Performance 表演 → Scene 场景
+         → Photography 摄影 → Seed 细节变化 → 固定质量词
 ```
 
-服装或场景选择 `none` 时不会添加对应内容。词库面板新增 **Clothing / 服装** 和 **Scenes / 场景** 两页，可以编辑、添加或删除中英文预设。两套预设独立保存在表现层词库中，不会改变稳定的面部和身体 Feature。详细说明见 [`docs/presentation-vocabulary.zh-CN.md`](docs/presentation-vocabulary.zh-CN.md)。
+默认操作保持极简：选蓝图即可，`identity_only` 表示只输出身份。相同蓝图与相同 `variant_seed` 会得到相同细节变化；生成后控制支持固定、递增、递减和随机。
+
+需要精调时，在 **CharacterDNA Vocabulary** 面板打开 **Visual Blueprints / 画面蓝图**：可调整高级图层栈、顺序、启用状态和 `replace / append / merge / clear` 合并方式，也可以维护每个蓝图的多条 Seed 变化。Look、Performance、Scene、Photography 四套词库可以独立复用，不必为更多需求继续增加节点。
+
+内部节点 ID 保持不变，因此旧工作流仍可载入；原来的 `clothing` 和 `scene` 数据会作为兼容图层继续生效，但在新画布界面中隐藏。详细说明见 [`docs/presentation-vocabulary.zh-CN.md`](docs/presentation-vocabulary.zh-CN.md)。
 
 ## 其他节点
 

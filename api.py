@@ -247,20 +247,64 @@ def _validate_body_vocabulary(vocabulary):
 def _validate_presentation_vocabulary(vocabulary):
     if not isinstance(vocabulary, dict):
         raise ValueError("Presentation vocabulary must be a JSON object.")
-    if set(vocabulary) != {"clothing", "scenes"}:
-        raise ValueError("Presentation vocabulary must contain clothing and scenes.")
-    for section_name in ("clothing", "scenes"):
-        section = vocabulary[section_name]
+    if set(vocabulary) != {"layers", "blueprints"}:
+        raise ValueError("Presentation vocabulary must contain layers and blueprints.")
+    layers = vocabulary["layers"]
+    blueprints = vocabulary["blueprints"]
+    layer_types = {"look", "performance", "scene", "photography"}
+    if not isinstance(layers, dict) or set(layers) != layer_types:
+        raise ValueError(f"layers must contain exactly {sorted(layer_types)}.")
+    for section_name in layer_types:
+        section = layers[section_name]
         if not isinstance(section, dict):
-            raise ValueError(f"{section_name} must be an object.")
+            raise ValueError(f"layers.{section_name} must be an object.")
         for key, entry in section.items():
-            _require_string(key, f"{section_name} key")
+            _require_string(key, f"layers.{section_name} key")
             if key == "none":
-                raise ValueError(f"{section_name}.none is reserved by the node.")
+                raise ValueError(f"layers.{section_name}.none is reserved.")
             if not isinstance(entry, dict):
-                raise ValueError(f"{section_name}.{key} must be an object.")
-            _require_string(entry.get("prompt"), f"{section_name}.{key}.prompt")
-            _require_string(entry.get("prompt_zh"), f"{section_name}.{key}.prompt_zh")
+                raise ValueError(f"layers.{section_name}.{key} must be an object.")
+            _require_string(entry.get("prompt"), f"layers.{section_name}.{key}.prompt")
+            _require_string(entry.get("prompt_zh"), f"layers.{section_name}.{key}.prompt_zh")
+            minimum_age = entry.get("min_visual_age", 0)
+            if not isinstance(minimum_age, int) or minimum_age < 0:
+                raise ValueError(
+                    f"layers.{section_name}.{key}.min_visual_age must be a non-negative integer."
+                )
+    if not isinstance(blueprints, dict) or "identity_only" not in blueprints:
+        raise ValueError("blueprints must be an object containing identity_only.")
+    for name, blueprint in blueprints.items():
+        _require_string(name, "blueprints key")
+        if not isinstance(blueprint, dict):
+            raise ValueError(f"blueprints.{name} must be an object.")
+        _require_string(blueprint.get("label"), f"blueprints.{name}.label")
+        _require_string(blueprint.get("label_zh"), f"blueprints.{name}.label_zh")
+        stack = blueprint.get("layers")
+        if not isinstance(stack, list):
+            raise ValueError(f"blueprints.{name}.layers must be an array.")
+        for index, layer in enumerate(stack):
+            path = f"blueprints.{name}.layers[{index}]"
+            if not isinstance(layer, dict):
+                raise ValueError(f"{path} must be an object.")
+            layer_type = layer.get("type")
+            preset = layer.get("preset")
+            mode = layer.get("mode", "replace")
+            if layer_type not in layer_types:
+                raise ValueError(f"{path}.type is invalid.")
+            if preset != "none" and preset not in layers[layer_type]:
+                raise ValueError(f"{path}.preset does not exist in layers.{layer_type}.")
+            if mode not in {"replace", "append", "merge", "clear"}:
+                raise ValueError(f"{path}.mode is invalid.")
+            if "enabled" in layer and not isinstance(layer["enabled"], bool):
+                raise ValueError(f"{path}.enabled must be boolean.")
+        variations = blueprint.get("variations", [])
+        if not isinstance(variations, list):
+            raise ValueError(f"blueprints.{name}.variations must be an array.")
+        for index, variation in enumerate(variations):
+            if not isinstance(variation, dict):
+                raise ValueError(f"blueprints.{name}.variations[{index}] must be an object.")
+            _require_string(variation.get("prompt"), f"blueprints.{name}.variations[{index}].prompt")
+            _require_string(variation.get("prompt_zh"), f"blueprints.{name}.variations[{index}].prompt_zh")
     return vocabulary
 
 
@@ -271,8 +315,8 @@ def _combined_vocabulary():
     face["body_composites"] = body["composites"]
     face["body_composites_zh"] = body["composites_zh"]
     presentation = get_presentation_vocabulary()
-    face["clothing"] = presentation["clothing"]
-    face["scenes"] = presentation["scenes"]
+    face["visual_layers"] = presentation["layers"]
+    face["visual_blueprints"] = presentation["blueprints"]
     return face
 
 
@@ -291,8 +335,10 @@ def _split_vocabulary(vocabulary):
         ),
     }
     presentation = {
-        "clothing": vocabulary.get("clothing", current_presentation["clothing"]),
-        "scenes": vocabulary.get("scenes", current_presentation["scenes"]),
+        "layers": vocabulary.get("visual_layers", current_presentation["layers"]),
+        "blueprints": vocabulary.get(
+            "visual_blueprints", current_presentation["blueprints"]
+        ),
     }
     return face, body, presentation
 
@@ -403,8 +449,8 @@ async def reset_character_dna_vocabulary(_request):
         vocabulary["body_features"] = body["features"]
         vocabulary["body_composites"] = body["composites"]
         vocabulary["body_composites_zh"] = body["composites_zh"]
-        vocabulary["clothing"] = presentation["clothing"]
-        vocabulary["scenes"] = presentation["scenes"]
+        vocabulary["visual_layers"] = presentation["layers"]
+        vocabulary["visual_blueprints"] = presentation["blueprints"]
 
         async with _WRITE_LOCK:
             _write_vocabulary(vocabulary)

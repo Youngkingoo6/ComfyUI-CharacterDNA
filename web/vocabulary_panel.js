@@ -34,7 +34,9 @@ const FALLBACK = {
   ageTemplate: "Age template", lifeStages: "Life stages", maxAge: "Upper age (blank for last)", addStage: "+ Add life stage",
   quality: "Fixed quality phrases", qualityPosition: "Fixed quality position", qualityAtStart: "At prompt start", qualityAtEnd: "At prompt end", face: "Face", eyes: "Eyes", nose: "Nose", mouth: "Mouth",
   faceFeatures: "Face Features", bodyFeatures: "Body Features", faceComposites: "Face Composite", bodyComposites: "Body Composite",
-  clothing: "Clothing", scenes: "Scenes", addClothing: "+ Add clothing", addScene: "+ Add scene", newPresetKey: "New preset key", deleteEntry: "Delete",
+  visualBlueprints: "Visual Blueprints", look: "Look", performance: "Performance", scene: "Scene", photography: "Photography",
+  addBlueprint: "+ Add blueprint", addPreset: "+ Add preset", addLayer: "+ Add layer", addVariation: "+ Add variation",
+  newBlueprintKey: "New blueprint key", newPresetKey: "New preset key", deleteEntry: "Delete", blueprintLabel: "Display label", layerStack: "Advanced layer stack", variations: "Seed variations", enabled: "Enabled", layerType: "Layer", preset: "Preset", mergeMode: "Mode",
   frame: "Frame", torso: "Torso", limbs: "Limbs", build: "Build",
   overall_frame: "Overall frame", torso_architecture: "Torso architecture", limb_proportions: "Limb proportions",
   build_distribution: "Build distribution", scale_balance: "Scale balance",
@@ -72,7 +74,7 @@ function ensureStyles() {
   const style = document.createElement("style");
   style.id = "character-dna-vocabulary-styles";
   style.textContent = `
-    .character-dna-vocab-icon::before{content:"🧬";font-size:20px}.cdna-vocab{height:100%;display:flex;flex-direction:column;color:var(--fg-color,#ddd);background:var(--comfy-menu-bg,#202020);font:13px/1.4 system-ui,sans-serif}.cdna-vocab *{box-sizing:border-box}.cdna-vocab-header{padding:12px;border-bottom:1px solid var(--border-color,#444);display:grid;gap:9px}.cdna-vocab-title{font-size:16px;font-weight:700;display:flex;justify-content:space-between;gap:8px;align-items:center}.cdna-vocab-title small{font-size:11px;font-weight:500;opacity:.65}.cdna-vocab-toolbar,.cdna-vocab-tabs{display:flex;flex-wrap:wrap;gap:6px}.cdna-vocab button{border:1px solid var(--border-color,#555);border-radius:6px;padding:6px 9px;color:inherit;background:var(--comfy-input-bg,#303030);cursor:pointer}.cdna-vocab button:hover{filter:brightness(1.15)}.cdna-vocab button:disabled{opacity:.45;cursor:wait}.cdna-vocab button.primary{background:#2f6fda;color:white;border-color:#4d86e8}.cdna-vocab button.danger{color:#ffb3b3}.cdna-vocab-tabs button.active{background:#6741a5;color:white;border-color:#8d67cb}.cdna-vocab input,.cdna-vocab textarea,.cdna-vocab select{width:100%;border:1px solid var(--border-color,#555);border-radius:5px;padding:6px 7px;color:inherit;background:var(--comfy-input-bg,#292929);font:inherit}.cdna-vocab textarea{min-height:54px;resize:vertical}.cdna-vocab-content{min-height:0;flex:1;overflow:auto;padding:10px}.cdna-vocab-status{min-height:32px;padding:7px 11px;border-top:1px solid var(--border-color,#444);font-size:12px;opacity:.85}.cdna-vocab-status.error{color:#ff8e8e;opacity:1}.cdna-vocab-status.success{color:#8ee5aa;opacity:1}.cdna-vocab-group{margin-bottom:14px}.cdna-vocab-group>h3{position:sticky;top:-10px;z-index:2;margin:0 0 7px;padding:8px 2px 5px;background:var(--comfy-menu-bg,#202020);font-size:13px}.cdna-vocab-card{border:1px solid var(--border-color,#444);border-radius:7px;padding:9px;margin-bottom:8px;background:color-mix(in srgb,var(--comfy-input-bg,#292929) 70%,transparent)}.cdna-vocab-card h4{margin:0 0 8px;font:600 12px/1.3 ui-monospace,monospace;word-break:break-all}.cdna-vocab-field{display:grid;gap:4px;margin-bottom:8px}.cdna-vocab-field>label{font-size:11px;opacity:.72}.cdna-vocab-level{display:grid;grid-template-columns:48px 1fr 1fr;gap:6px;align-items:start;margin-bottom:7px}.cdna-vocab-level strong{padding:7px 2px;text-align:center}.cdna-vocab-bilingual{display:grid;grid-template-columns:1fr 1fr;gap:7px}.cdna-vocab-empty{padding:24px 8px;text-align:center;opacity:.6}.cdna-vocab-life-stage{display:grid;grid-template-columns:90px 1fr 1fr auto;gap:5px;margin-bottom:6px}@media(max-width:520px){.cdna-vocab-level,.cdna-vocab-bilingual{grid-template-columns:1fr}.cdna-vocab-level strong{text-align:left}.cdna-vocab-life-stage{grid-template-columns:80px 1fr}.cdna-vocab-life-stage button{grid-column:2;justify-self:end}}
+    .character-dna-vocab-icon::before{content:"🧬";font-size:20px}.cdna-vocab{height:100%;display:flex;flex-direction:column;color:var(--fg-color,#ddd);background:var(--comfy-menu-bg,#202020);font:13px/1.4 system-ui,sans-serif}.cdna-vocab *{box-sizing:border-box}.cdna-vocab-header{padding:12px;border-bottom:1px solid var(--border-color,#444);display:grid;gap:9px}.cdna-vocab-title{font-size:16px;font-weight:700;display:flex;justify-content:space-between;gap:8px;align-items:center}.cdna-vocab-title small{font-size:11px;font-weight:500;opacity:.65}.cdna-vocab-toolbar,.cdna-vocab-tabs{display:flex;flex-wrap:wrap;gap:6px}.cdna-vocab button{border:1px solid var(--border-color,#555);border-radius:6px;padding:6px 9px;color:inherit;background:var(--comfy-input-bg,#303030);cursor:pointer}.cdna-vocab button:hover{filter:brightness(1.15)}.cdna-vocab button:disabled{opacity:.45;cursor:wait}.cdna-vocab button.primary{background:#2f6fda;color:white;border-color:#4d86e8}.cdna-vocab button.danger{color:#ffb3b3}.cdna-vocab-tabs button.active{background:#6741a5;color:white;border-color:#8d67cb}.cdna-vocab input,.cdna-vocab textarea,.cdna-vocab select{width:100%;border:1px solid var(--border-color,#555);border-radius:5px;padding:6px 7px;color:inherit;background:var(--comfy-input-bg,#292929);font:inherit}.cdna-vocab textarea{min-height:54px;resize:vertical}.cdna-vocab-content{min-height:0;flex:1;overflow:auto;padding:10px}.cdna-vocab-status{min-height:32px;padding:7px 11px;border-top:1px solid var(--border-color,#444);font-size:12px;opacity:.85}.cdna-vocab-status.error{color:#ff8e8e;opacity:1}.cdna-vocab-status.success{color:#8ee5aa;opacity:1}.cdna-vocab-group{margin-bottom:14px}.cdna-vocab-group>h3{position:sticky;top:-10px;z-index:2;margin:0 0 7px;padding:8px 2px 5px;background:var(--comfy-menu-bg,#202020);font-size:13px}.cdna-vocab-card{border:1px solid var(--border-color,#444);border-radius:7px;padding:9px;margin-bottom:8px;background:color-mix(in srgb,var(--comfy-input-bg,#292929) 70%,transparent)}.cdna-vocab-card h4{margin:0 0 8px;font:600 12px/1.3 ui-monospace,monospace;word-break:break-all}.cdna-vocab-field{display:grid;gap:4px;margin-bottom:8px}.cdna-vocab-field>label{font-size:11px;opacity:.72}.cdna-vocab-level{display:grid;grid-template-columns:48px 1fr 1fr;gap:6px;align-items:start;margin-bottom:7px}.cdna-vocab-level strong{padding:7px 2px;text-align:center}.cdna-vocab-bilingual{display:grid;grid-template-columns:1fr 1fr;gap:7px}.cdna-vocab-empty{padding:24px 8px;text-align:center;opacity:.6}.cdna-vocab-life-stage{display:grid;grid-template-columns:90px 1fr 1fr auto;gap:5px;margin-bottom:6px}.cdna-layer-row{display:grid;grid-template-columns:26px 1fr 1.4fr .8fr auto;gap:5px;align-items:center;margin-bottom:6px}.cdna-layer-actions{display:flex;gap:3px}.cdna-layer-actions button{padding:4px 6px}@media(max-width:700px){.cdna-layer-row{grid-template-columns:26px 1fr}.cdna-layer-row select,.cdna-layer-actions{grid-column:2}.cdna-vocab-level,.cdna-vocab-bilingual{grid-template-columns:1fr}.cdna-vocab-level strong{text-align:left}.cdna-vocab-life-stage{grid-template-columns:80px 1fr}.cdna-vocab-life-stage button{grid-column:2;justify-self:end}}
   `;
   document.head.appendChild(style);
 }
@@ -173,7 +175,7 @@ function renderVocabularyPanel(container) {
     }
     if (!count) fragment.appendChild(el("div", { className: "cdna-vocab-empty", text: t("emptyComposites") })); return fragment;
   }
-  function renderPromptDictionary(section, sectionName) {
+  function renderLayerPresets(section, sectionName) {
     const fragment = document.createDocumentFragment(); let count = 0;
     const group = el("section", { className: "cdna-vocab-group" }); group.appendChild(el("h3", { text: t(sectionName) }));
     for (const [key, entry] of Object.entries(section)) {
@@ -181,20 +183,72 @@ function renderVocabularyPanel(container) {
       const card = el("article", { className: "cdna-vocab-card" });
       card.appendChild(el("div", { className: "cdna-vocab-title" }, [
         el("h4", { text: key }),
-        el("button", { className: "danger", text: t("deleteEntry"), onclick: () => { delete section[key]; markDirty(); renderContent(); } }),
+        el("button", { className: "danger", text: t("deleteEntry"), onclick: () => {
+          for (const blueprint of Object.values(state.vocabulary.visual_blueprints)) {
+            for (const layer of blueprint.layers || []) {
+              if (layer.type === sectionName && layer.preset === key) layer.preset = "none";
+            }
+          }
+          delete section[key]; markDirty(); renderContent();
+        } }),
       ]));
       card.appendChild(bilingual(entry.prompt, entry.prompt_zh, (value) => { entry.prompt = value; }, (value) => { entry.prompt_zh = value; }));
+      card.appendChild(field("min_visual_age", entry.min_visual_age ?? 0, (value) => { entry.min_visual_age = Math.max(0, Math.trunc(Number(value) || 0)); }, false));
       group.appendChild(card); count += 1;
     }
-    const addLabel = sectionName === "clothing" ? t("addClothing") : t("addScene");
-    group.appendChild(el("button", { text: addLabel, onclick: () => {
-      const rawKey = window.prompt(t("newPresetKey"), sectionName === "clothing" ? "new_clothing" : "new_scene");
+    group.appendChild(el("button", { text: t("addPreset"), onclick: () => {
+      const rawKey = window.prompt(t("newPresetKey"), `new_${sectionName}`);
       const key = String(rawKey || "").trim();
       if (!key || key === "none" || section[key]) return;
       section[key] = { prompt: "new prompt", prompt_zh: "新提示词" }; markDirty(); renderContent();
     } }));
     if (!count && state.search) fragment.appendChild(el("div", { className: "cdna-vocab-empty", text: t("emptyPhrases") }));
     fragment.appendChild(group); return fragment;
+  }
+  function renderBlueprints() {
+    const fragment = document.createDocumentFragment(); const blueprints = state.vocabulary.visual_blueprints; const layers = state.vocabulary.visual_layers;
+    const layerTypes = ["look", "performance", "scene", "photography"]; const modes = ["replace", "append", "merge", "clear"];
+    for (const [name, blueprint] of Object.entries(blueprints)) {
+      if (!matches(name, blueprint.label, blueprint.label_zh, ...(blueprint.layers || []).flatMap((item) => [item.type, item.preset]))) continue;
+      const card = el("article", { className: "cdna-vocab-card" });
+      card.appendChild(el("div", { className: "cdna-vocab-title" }, [
+        el("h4", { text: name }),
+        name === "identity_only" ? null : el("button", { className: "danger", text: t("deleteEntry"), onclick: () => { delete blueprints[name]; markDirty(); renderContent(); } }),
+      ]));
+      card.appendChild(bilingual(blueprint.label, blueprint.label_zh, (value) => { blueprint.label = value; }, (value) => { blueprint.label_zh = value; }));
+      card.appendChild(el("h4", { text: t("layerStack") }));
+      (blueprint.layers || []).forEach((layer, index) => {
+        const typeSelect = el("select", { onchange: (event) => { layer.type = event.target.value; layer.preset = Object.keys(layers[layer.type] || {})[0] || "none"; markDirty(); renderContent(); } }, layerTypes.map((key) => el("option", { value: key, text: t(key) })));
+        typeSelect.value = layer.type;
+        const presetSelect = el("select", { onchange: (event) => { layer.preset = event.target.value; markDirty(); } }, [el("option", { value: "none", text: "none" }), ...Object.keys(layers[layer.type] || {}).map((key) => el("option", { value: key, text: key }))]);
+        presetSelect.value = layer.preset;
+        const modeSelect = el("select", { onchange: (event) => { layer.mode = event.target.value; markDirty(); } }, modes.map((key) => el("option", { value: key, text: key })));
+        modeSelect.value = layer.mode || "replace";
+        card.appendChild(el("div", { className: "cdna-layer-row" }, [
+          el("input", { type: "checkbox", checked: layer.enabled !== false, onchange: (event) => { layer.enabled = event.target.checked; markDirty(); } }),
+          typeSelect, presetSelect, modeSelect,
+          el("div", { className: "cdna-layer-actions" }, [
+            el("button", { text: "↑", onclick: () => { if (index) [blueprint.layers[index - 1], blueprint.layers[index]] = [blueprint.layers[index], blueprint.layers[index - 1]]; markDirty(); renderContent(); } }),
+            el("button", { text: "↓", onclick: () => { if (index < blueprint.layers.length - 1) [blueprint.layers[index + 1], blueprint.layers[index]] = [blueprint.layers[index], blueprint.layers[index + 1]]; markDirty(); renderContent(); } }),
+            el("button", { className: "danger", text: "×", onclick: () => { blueprint.layers.splice(index, 1); markDirty(); renderContent(); } }),
+          ]),
+        ]));
+      });
+      card.appendChild(el("button", { text: t("addLayer"), onclick: () => { blueprint.layers ??= []; blueprint.layers.push({ type: "look", preset: Object.keys(layers.look)[0] || "none", mode: "replace", enabled: true }); markDirty(); renderContent(); } }));
+      card.appendChild(el("h4", { text: t("variations") }));
+      (blueprint.variations || []).forEach((variation, index) => card.appendChild(el("div", { className: "cdna-vocab-card" }, [
+        bilingual(variation.prompt, variation.prompt_zh, (value) => { variation.prompt = value; }, (value) => { variation.prompt_zh = value; }),
+        el("button", { className: "danger", text: t("deleteEntry"), onclick: () => { blueprint.variations.splice(index, 1); markDirty(); renderContent(); } }),
+      ])));
+      card.appendChild(el("button", { text: t("addVariation"), onclick: () => { blueprint.variations ??= []; blueprint.variations.push({ prompt: "new variation", prompt_zh: "新变化" }); markDirty(); renderContent(); } }));
+      fragment.appendChild(card);
+    }
+    fragment.appendChild(el("button", { text: t("addBlueprint"), onclick: () => {
+      const rawKey = window.prompt(t("newBlueprintKey"), "new_blueprint"); const key = String(rawKey || "").trim();
+      if (!key || blueprints[key]) return;
+      blueprints[key] = { label: key.replaceAll("_", " "), label_zh: "新画面蓝图", layers: [], variations: [] }; markDirty(); renderContent();
+    } }));
+    return fragment;
   }
   function renderProfile() {
     const p = state.vocabulary.profile; const fragment = document.createDocumentFragment();
@@ -231,15 +285,18 @@ function renderVocabularyPanel(container) {
       bodyFeatures: () => renderFeatures(state.vocabulary.body_features, BODY_FEATURE_GROUPS),
       faceComposites: () => renderComposites(state.vocabulary.composites, state.vocabulary.composites_zh, COMPOSITE_GROUPS),
       bodyComposites: () => renderComposites(state.vocabulary.body_composites, state.vocabulary.body_composites_zh, BODY_COMPOSITE_GROUPS),
-      clothing: () => renderPromptDictionary(state.vocabulary.clothing, "clothing"),
-      scenes: () => renderPromptDictionary(state.vocabulary.scenes, "scenes"),
+      visualBlueprints: renderBlueprints,
+      look: () => renderLayerPresets(state.vocabulary.visual_layers.look, "look"),
+      performance: () => renderLayerPresets(state.vocabulary.visual_layers.performance, "performance"),
+      scene: () => renderLayerPresets(state.vocabulary.visual_layers.scene, "scene"),
+      photography: () => renderLayerPresets(state.vocabulary.visual_layers.photography, "photography"),
       profile: renderProfile,
     };
     content.appendChild(views[state.activeTab]());
   }
 
   const tabs = el("div", { className: "cdna-vocab-tabs" }); const buttons = new Map();
-  for (const key of ["faceFeatures", "bodyFeatures", "faceComposites", "bodyComposites", "clothing", "scenes", "profile"]) { const button = el("button", { className: key === state.activeTab ? "active" : "", text: t(key), onclick: () => { state.activeTab = key; buttons.forEach((item, itemKey) => item.classList.toggle("active", itemKey === key)); search.placeholder = t(key.endsWith("Features") ? "searchFeatures" : key.endsWith("Composites") ? "searchComposites" : ["clothing", "scenes"].includes(key) ? "searchPhrases" : "searchProfile"); renderContent(); } }); buttons.set(key, button); tabs.appendChild(button); }
+  for (const key of ["faceFeatures", "bodyFeatures", "faceComposites", "bodyComposites", "visualBlueprints", "look", "performance", "scene", "photography", "profile"]) { const button = el("button", { className: key === state.activeTab ? "active" : "", text: t(key), onclick: () => { state.activeTab = key; buttons.forEach((item, itemKey) => item.classList.toggle("active", itemKey === key)); search.placeholder = t(key.endsWith("Features") ? "searchFeatures" : key.endsWith("Composites") ? "searchComposites" : ["visualBlueprints", "look", "performance", "scene", "photography"].includes(key) ? "searchPhrases" : "searchProfile"); renderContent(); } }); buttons.set(key, button); tabs.appendChild(button); }
   const toolbar = el("div", { className: "cdna-vocab-toolbar" }, [el("button", { className: "primary", text: t("save"), onclick: save }), el("button", { text: t("reload"), onclick: () => load(false) }), el("button", { text: t("export"), onclick: exportVocabulary }), el("button", { text: t("import"), onclick: () => importInput.click() }), el("button", { className: "danger", text: t("reset"), onclick: reset })]);
   const header = el("header", { className: "cdna-vocab-header" }, [el("div", { className: "cdna-vocab-title" }, [el("span", { text: `🧬 ${t("title")}` }), el("small", { text: t("autoApply") })]), toolbar, tabs, search, importInput]);
   root.append(header, content, status); container.replaceChildren(root); container.style.height = "100%"; container.style.overflow = "hidden"; load(true);
