@@ -158,8 +158,8 @@ class CharacterDNAParametricDesigner:
                         "default": 0.0,
                         "min": -1.0,
                         "max": 1.0,
-                        "step": 0.1,
-                        "round": 0.1,
+                        "step": 0.5,
+                        "round": 0.5,
                     },
                 ),
             }
@@ -500,8 +500,8 @@ class CharacterDNAParametricBodyDesigner:
                         "default": 0.0,
                         "min": -1.0,
                         "max": 1.0,
-                        "step": 0.1,
-                        "round": 0.1,
+                        "step": 0.5,
+                        "round": 0.5,
                     },
                 ),
             }
