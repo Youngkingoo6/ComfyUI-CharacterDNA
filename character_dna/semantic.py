@@ -26,6 +26,11 @@ def feature_to_phrase(name, value, language="en"):
 
     value = float(value)
 
+    # Zero is the neutral/unset coordinate.  It should not add a
+    # "balanced ..." phrase or create prompt noise.
+    if abs(value) < 1e-9:
+        return None
+
     levels = feature.get("levels", [])
     if levels:
         level = min(

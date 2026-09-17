@@ -821,6 +821,11 @@ def _score_composites(composites):
     for item in composites:
         item = dict(item)
 
+        # A group whose source Features are all zero carries no designed
+        # identity signal, so omit it instead of emitting a balanced phrase.
+        if float(item.get("salience", 0.0)) <= 1e-9:
+            continue
+
         importance = (
             COMPOSITE_IMPORTANCE.get(
                 item["name"],
