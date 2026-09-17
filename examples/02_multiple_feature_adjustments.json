@@ -23,7 +23,6 @@
     {
       "id": 2,
       "type": "CharacterDNADesigner",
-      "title": "1 · 基础身份",
       "pos": [440, 40],
       "size": [290, 190],
       "flags": {},
@@ -43,7 +42,6 @@
     {
       "id": 3,
       "type": "CharacterDNASeedGenerator",
-      "title": "2 · 随机基础 DNA",
       "pos": [790, 40],
       "size": [320, 210],
       "flags": {},
@@ -68,7 +66,6 @@
     {
       "id": 4,
       "type": "CharacterDNAParametricDesigner",
-      "title": "3A · 脸部略长",
       "pos": [1170, 40],
       "size": [300, 170],
       "flags": {},
@@ -91,7 +88,6 @@
     {
       "id": 5,
       "type": "CharacterDNAParametricDesigner",
-      "title": "3B · 下颌略窄",
       "pos": [1530, 40],
       "size": [300, 170],
       "flags": {},
@@ -114,7 +110,6 @@
     {
       "id": 6,
       "type": "CharacterDNAParametricDesigner",
-      "title": "3C · 眼角略上扬",
       "pos": [1890, 40],
       "size": [300, 170],
       "flags": {},
@@ -137,7 +132,6 @@
     {
       "id": 7,
       "type": "CharacterDNACompositeIdentity",
-      "title": "4 · 合成修改后的身份",
       "pos": [2250, 40],
       "size": [330, 180],
       "flags": {},
@@ -160,7 +154,6 @@
     {
       "id": 8,
       "type": "SaveText",
-      "title": "5 · 保存中文身份提示词",
       "pos": [2640, 40],
       "size": [300, 150],
       "flags": {},

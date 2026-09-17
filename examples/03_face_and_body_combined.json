@@ -11,37 +11,37 @@
       "widgets_values_named": {"text": "面部 + 身体 DNA 示例"}, "color": "#3d315f", "bgcolor": "#574580"
     },
     {
-      "id": 2, "type": "CharacterDNADesigner", "title": "1 · 基础身份", "pos": [440, 20], "size": [300, 190], "flags": {}, "order": 1, "mode": 0,
+      "id": 2, "type": "CharacterDNADesigner", "pos": [440, 20], "size": [300, 190], "flags": {}, "order": 1, "mode": 0,
       "inputs": [{"name": "character_name", "type": "STRING", "widget": {"name": "character_name"}, "link": null}, {"name": "gender", "type": "COMBO", "widget": {"name": "gender"}, "link": null}, {"name": "ancestry", "type": "COMBO", "widget": {"name": "ancestry"}, "link": null}, {"name": "visual_age", "type": "INT", "widget": {"name": "visual_age"}, "link": null}],
       "outputs": [{"name": "character_dna", "type": "CHARACTER_DNA", "links": [1]}], "properties": {"Node name for S&R": "CharacterDNADesigner"},
       "widgets_values": ["IP_BODY_001", "female", "East Asian", 26], "widgets_values_named": {"character_name": "IP_BODY_001", "gender": "female", "ancestry": "East Asian", "visual_age": 26}
     },
     {
-      "id": 3, "type": "CharacterDNASeedGenerator", "title": "2 · 面部 DNA", "pos": [790, 20], "size": [320, 210], "flags": {}, "order": 2, "mode": 0,
+      "id": 3, "type": "CharacterDNASeedGenerator", "pos": [790, 20], "size": [320, 210], "flags": {}, "order": 2, "mode": 0,
       "inputs": [{"name": "character_dna", "type": "CHARACTER_DNA", "link": 1}, {"name": "seed", "type": "INT", "widget": {"name": "seed"}, "link": null}, {"name": "distinctiveness", "type": "FLOAT", "widget": {"name": "distinctiveness"}, "link": null}, {"name": "harmony", "type": "FLOAT", "widget": {"name": "harmony"}, "link": null}],
       "outputs": [{"name": "character_dna", "type": "CHARACTER_DNA", "links": [2]}, {"name": "parametric_prompt", "type": "STRING", "links": null}, {"name": "parameters_json", "type": "STRING", "links": null}, {"name": "parametric_prompt_zh", "type": "STRING", "links": null}],
       "properties": {"Node name for S&R": "CharacterDNASeedGenerator"}, "widgets_values": [137522, "fixed", 0.7, 0.85], "widgets_values_named": {"seed": 137522, "control_after_generate": "fixed", "distinctiveness": 0.7, "harmony": 0.85}
     },
     {
-      "id": 4, "type": "CharacterDNABodySeedGenerator", "title": "3 · 身体 DNA", "pos": [1170, 20], "size": [330, 210], "flags": {}, "order": 3, "mode": 0,
+      "id": 4, "type": "CharacterDNABodySeedGenerator", "pos": [1170, 20], "size": [330, 210], "flags": {}, "order": 3, "mode": 0,
       "inputs": [{"name": "character_dna", "type": "CHARACTER_DNA", "link": 2}, {"name": "body_seed", "type": "INT", "widget": {"name": "body_seed"}, "link": null}, {"name": "distinctiveness", "type": "FLOAT", "widget": {"name": "distinctiveness"}, "link": null}, {"name": "harmony", "type": "FLOAT", "widget": {"name": "harmony"}, "link": null}],
       "outputs": [{"name": "character_dna", "type": "CHARACTER_DNA", "links": [3]}, {"name": "body_prompt", "type": "STRING", "links": null}, {"name": "body_parameters_json", "type": "STRING", "links": null}, {"name": "body_prompt_zh", "type": "STRING", "links": null}],
       "properties": {"Node name for S&R": "CharacterDNABodySeedGenerator"}, "widgets_values": [246813, "fixed", 0.65, 0.85], "widgets_values_named": {"body_seed": 246813, "control_after_generate": "fixed", "distinctiveness": 0.65, "harmony": 0.85}
     },
     {
-      "id": 5, "type": "CharacterDNACompositeIdentity", "title": "4 · 面部组合", "pos": [1560, 20], "size": [320, 180], "flags": {}, "order": 4, "mode": 0,
+      "id": 5, "type": "CharacterDNACompositeIdentity", "pos": [1560, 20], "size": [320, 180], "flags": {}, "order": 4, "mode": 0,
       "inputs": [{"name": "character_dna", "type": "CHARACTER_DNA", "link": 3}, {"name": "max_composites", "type": "INT", "widget": {"name": "max_composites"}, "link": null}],
       "outputs": [{"name": "character_dna", "type": "CHARACTER_DNA", "links": [4]}, {"name": "composite_anchors_json", "type": "STRING", "links": null}, {"name": "identity_core_prompt", "type": "STRING", "links": null}, {"name": "identity_core_prompt_zh", "type": "STRING", "links": null}],
       "properties": {"Node name for S&R": "CharacterDNACompositeIdentity"}, "widgets_values": [5], "widgets_values_named": {"max_composites": 5}
     },
     {
-      "id": 6, "type": "CharacterDNABodyCompositeIdentity", "title": "5 · 身体组合 + 完整身份", "pos": [1940, 20], "size": [360, 250], "flags": {}, "order": 5, "mode": 0,
+      "id": 6, "type": "CharacterDNABodyCompositeIdentity", "pos": [1940, 20], "size": [360, 250], "flags": {}, "order": 5, "mode": 0,
       "inputs": [{"name": "character_dna", "type": "CHARACTER_DNA", "link": 4}, {"name": "max_composites", "type": "INT", "widget": {"name": "max_composites"}, "link": null}],
       "outputs": [{"name": "character_dna", "type": "CHARACTER_DNA", "links": null}, {"name": "body_composite_anchors_json", "type": "STRING", "links": null}, {"name": "body_identity_prompt", "type": "STRING", "links": null}, {"name": "body_identity_prompt_zh", "type": "STRING", "links": null}, {"name": "combined_identity_prompt", "type": "STRING", "links": null}, {"name": "combined_identity_prompt_zh", "type": "STRING", "links": [5]}],
       "properties": {"Node name for S&R": "CharacterDNABodyCompositeIdentity"}, "widgets_values": [5], "widgets_values_named": {"max_composites": 5}
     },
     {
-      "id": 7, "type": "SaveText", "title": "6 · 保存中文完整身份提示词", "pos": [2360, 20], "size": [300, 150], "flags": {}, "order": 6, "mode": 0,
+      "id": 7, "type": "SaveText", "pos": [2360, 20], "size": [300, 150], "flags": {}, "order": 6, "mode": 0,
       "inputs": [{"name": "text", "type": "STRING", "link": 5}, {"name": "filename_prefix", "type": "STRING", "widget": {"name": "filename_prefix"}, "link": null}, {"name": "format", "type": "COMBO", "widget": {"name": "format"}, "link": null}],
       "outputs": [{"name": "text", "type": "STRING", "links": null}], "properties": {"Node name for S&R": "SaveText"},
       "widgets_values": ["CharacterDNA/face_body_identity_zh", "txt"], "widgets_values_named": {"filename_prefix": "CharacterDNA/face_body_identity_zh", "format": "txt"}
