@@ -14,6 +14,7 @@ BODY_LIMITS = {
     "neck_length": 0.65,
     "neck_thickness": 0.65,
     "torso_length": 0.72,
+    "chest_fullness": 0.70,
     "waist_definition": 0.72,
     "hip_fullness": 0.70,
     "arm_length": 0.70,

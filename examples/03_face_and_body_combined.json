@@ -1,5 +1,5 @@
 {
-  "id": "6024b3be-59ab-434b-a957-000d402d1ea3",
+  "id": "211e2c78-fa01-4dba-9479-50f05aab1f35",
   "revision": 0,
   "last_node_id": 9,
   "last_link_id": 5,
@@ -7,7 +7,7 @@
     {
       "id": 1, "type": "Note", "pos": [0, 0], "size": [390, 310], "flags": {}, "order": 0, "mode": 0,
       "inputs": [], "outputs": [], "properties": {},
-      "widgets_values": ["面部 + 身体 DNA 示例\n\n1. 面部 Seed 生成 19 项面部结构参数。\n2. 身体 Seed 再生成 19 项身体比例参数。\n3. 两套参数保存在同一个 Character DNA 中，互不覆盖。\n4. 面部 Composite 先生成面部身份描述。\n5. 身体 Composite 生成身体描述，并输出合并后的完整身份提示词。\n\n面部与身体 seed 可分别固定或随机。"],
+      "widgets_values": ["面部 + 身体 DNA 示例\n\n1. 面部 Seed 生成 19 项面部结构参数。\n2. 身体 Seed 再生成 20 项身体比例参数。\n3. 两套参数保存在同一个 Character DNA 中，互不覆盖。\n4. 面部 Composite 先生成面部身份描述。\n5. 身体 Composite 生成身体描述，并输出合并后的完整身份提示词。\n\n面部与身体 seed 可分别固定或随机。"],
       "widgets_values_named": {"text": "面部 + 身体 DNA 示例"}, "color": "#3d315f", "bgcolor": "#574580"
     },
     {
@@ -55,7 +55,7 @@
     {
       "id": 9, "type": "Note", "pos": [1110, 350], "size": [620, 760], "flags": {}, "order": 8, "mode": 0,
       "inputs": [], "outputs": [], "properties": {},
-      "widgets_values": ["Body Parametric 全部可设置项\n\n范围：-1.0 ～ +1.0　步进：0.5\n0 = 不指定，不输出该结构词。\n多项修改：串联多个 Parametric Body Designer；后面的同名参数覆盖前面的。\n\n【整体骨架】\nstature：紧凑体量 ←→ 高挑体量\nshoulder_width：窄肩 ←→ 宽肩\nshoulder_slope：平直方肩 ←→ 斜肩\nribcage_width：窄胸廓 ←→ 宽胸廓\npelvis_width：窄骨盆 ←→ 宽骨盆\n\n【躯干】\nneck_length：短颈 ←→ 长颈\nneck_thickness：纤细颈部 ←→ 厚实颈部\ntorso_length：短躯干 ←→ 长躯干\nwaist_definition：平直腰线 ←→ 明显腰线\nhip_fullness：清瘦臀胯 ←→ 饱满臀胯\n\n【四肢】\narm_length：短手臂 ←→ 长手臂\nhand_scale：小手 ←→ 大手\nleg_length：短腿 ←→ 长腿\nthigh_length_ratio：紧凑大腿比例 ←→ 修长大腿比例\nfoot_scale：小足部 ←→ 大足部\n\n【体型】\nupper_body_fullness：清瘦上身 ←→ 厚实上身\nlower_body_fullness：清瘦下身 ←→ 厚实下身\nlimb_thickness：纤细四肢 ←→ 厚实四肢\nmuscularity：柔和、低肌肉感 ←→ 结实、运动型"],
+      "widgets_values": ["Body Parametric 全部可设置项\n\n范围：-1.0 ～ +1.0　步进：0.5\n0 = 不指定，不输出该结构词。\n多项修改：串联多个 Parametric Body Designer；后面的同名参数覆盖前面的。\n\n【整体骨架】\nstature：紧凑体量 ←→ 高挑体量\nshoulder_width：窄肩 ←→ 宽肩\nshoulder_slope：平直方肩 ←→ 斜肩\nribcage_width：窄胸廓 ←→ 宽胸廓\npelvis_width：窄骨盆 ←→ 宽骨盆\n\n【躯干】\nneck_length：短颈 ←→ 长颈\nneck_thickness：纤细颈部 ←→ 厚实颈部\ntorso_length：短躯干 ←→ 长躯干\nchest_fullness：平坦胸部轮廓 ←→ 饱满胸部轮廓\nwaist_definition：平直腰线 ←→ 明显腰线\nhip_fullness：清瘦臀胯 ←→ 饱满臀胯\n\n【四肢】\narm_length：短手臂 ←→ 长手臂\nhand_scale：小手 ←→ 大手\nleg_length：短腿 ←→ 长腿\nthigh_length_ratio：紧凑大腿比例 ←→ 修长大腿比例\nfoot_scale：小足部 ←→ 大足部\n\n【体型】\nupper_body_fullness：清瘦上身 ←→ 厚实上身\nlower_body_fullness：清瘦下身 ←→ 厚实下身\nlimb_thickness：纤细四肢 ←→ 厚实四肢\nmuscularity：柔和、低肌肉感 ←→ 结实、运动型"],
       "widgets_values_named": {"text": "Body Parametric 全部可设置项"}, "color": "#4d3525", "bgcolor": "#684b32"
     }
   ],

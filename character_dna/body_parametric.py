@@ -17,6 +17,7 @@ BODY_FEATURE_META = {
     "neck_length": {"group": "torso", "label": "Neck Length"},
     "neck_thickness": {"group": "torso", "label": "Neck Thickness"},
     "torso_length": {"group": "torso", "label": "Torso Length"},
+    "chest_fullness": {"group": "torso", "label": "Chest Fullness"},
     "waist_definition": {"group": "torso", "label": "Waist Definition"},
     "hip_fullness": {"group": "torso", "label": "Hip Fullness"},
     "arm_length": {"group": "limbs", "label": "Arm Length"},

@@ -107,7 +107,7 @@ Seed Generator
 完整的 19 个 Feature、正负方向、所属 Composite 和常见联动关系见：
 
 - [`docs/parameters.zh-CN.md`](docs/parameters.zh-CN.md)
-- [`docs/body-parameters.zh-CN.md`](docs/body-parameters.zh-CN.md)：19 个身体 Feature、5 组身体 Composite 与组合方法。
+- [`docs/body-parameters.zh-CN.md`](docs/body-parameters.zh-CN.md)：20 个身体 Feature、5 组身体 Composite 与组合方法。
 
 ## 词库管理
 

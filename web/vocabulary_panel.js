@@ -12,7 +12,7 @@ const FEATURE_GROUPS = {
 const COMPOSITE_GROUPS = ["facial_silhouette", "eye_geometry", "brow_eye_relationship", "nose_profile", "lip_relationship"];
 const BODY_FEATURE_GROUPS = {
   frame: ["stature", "shoulder_width", "shoulder_slope", "ribcage_width", "pelvis_width"],
-  torso: ["neck_length", "neck_thickness", "torso_length", "waist_definition", "hip_fullness"],
+  torso: ["neck_length", "neck_thickness", "torso_length", "chest_fullness", "waist_definition", "hip_fullness"],
   limbs: ["arm_length", "hand_scale", "leg_length", "thigh_length_ratio", "foot_scale"],
   build: ["upper_body_fullness", "lower_body_fullness", "limb_thickness", "muscularity"],
 };

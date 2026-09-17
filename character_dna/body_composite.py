@@ -91,7 +91,8 @@ def _overall_frame(features):
 
 def _torso_architecture(features):
     values = {name: _v(features, name) for name in (
-        "neck_length", "neck_thickness", "shoulder_slope", "ribcage_width", "torso_length"
+        "neck_length", "neck_thickness", "shoulder_slope", "ribcage_width", "torso_length",
+        "chest_fullness",
     )}
     keys = []
     for name, positive, negative in (
@@ -99,6 +100,7 @@ def _torso_architecture(features):
         ("neck_thickness", "neck_thick", "neck_slender"),
         ("ribcage_width", "ribcage_broad", "ribcage_narrow"),
         ("torso_length", "torso_long", "torso_short"),
+        ("chest_fullness", "chest_full", "chest_flat"),
         ("shoulder_slope", "shoulders_sloped", "shoulders_square"),
     ):
         if values[name] >= 0.42:
