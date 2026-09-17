@@ -141,7 +141,7 @@ Parametric Face Designer、Face DNA Seed Generator 和 Face Composite Identity �
 
 需要精调时，在 **CharacterDNA Vocabulary** 面板打开 **Visual Blueprints / 画面蓝图**：可调整高级图层栈、顺序、启用状态和 `replace / append / merge / clear` 合并方式，也可以维护每个蓝图的多条 Seed 变化。Look、Performance、Scene、Photography 四套词库可以独立复用，不必为更多需求继续增加节点。
 
-内部节点 ID 保持不变，因此旧工作流仍可载入；原来的 `clothing` 和 `scene` 数据会作为兼容图层继续生效，但在新画布界面中隐藏。详细说明见 [`docs/presentation-vocabulary.zh-CN.md`](docs/presentation-vocabulary.zh-CN.md)。
+新版使用独立节点 ID `CharacterDNAVisualBlueprint`，不保留旧 `Clothing & Scene Composer` 的输入结构。已有工作流需要删除旧节点并添加一次新的角色画面蓝图节点。详细说明见 [`docs/presentation-vocabulary.zh-CN.md`](docs/presentation-vocabulary.zh-CN.md)。
 
 ## 其他节点
 

@@ -47,10 +47,10 @@
       "widgets_values": ["CharacterDNA/face_body_identity_zh", "txt"], "widgets_values_named": {"filename_prefix": "CharacterDNA/face_body_identity_zh", "format": "txt"}
     },
     {
-      "id": 10, "type": "CharacterDNAClothingSceneComposer", "pos": [2360, 20], "size": [360, 190], "flags": {}, "order": 6, "mode": 0,
-      "inputs": [{"name": "character_dna", "type": "CHARACTER_DNA", "link": 5}, {"name": "clothing", "type": "COMBO", "widget": {"name": "clothing"}, "link": null}, {"name": "scene", "type": "COMBO", "widget": {"name": "scene"}, "link": null}, {"name": "blueprint", "type": "COMBO", "widget": {"name": "blueprint"}, "link": null}, {"name": "variant_seed", "type": "INT", "widget": {"name": "variant_seed"}, "link": null}],
+      "id": 10, "type": "CharacterDNAVisualBlueprint", "pos": [2360, 20], "size": [360, 190], "flags": {}, "order": 6, "mode": 0,
+      "inputs": [{"name": "character_dna", "type": "CHARACTER_DNA", "link": 5}, {"name": "blueprint", "type": "COMBO", "widget": {"name": "blueprint"}, "link": null}, {"name": "variant_seed", "type": "INT", "widget": {"name": "variant_seed"}, "link": null}],
       "outputs": [{"name": "character_dna", "type": "CHARACTER_DNA", "links": null}, {"name": "complete_prompt", "type": "STRING", "links": null}, {"name": "complete_prompt_zh", "type": "STRING", "links": [6]}],
-      "properties": {"Node name for S&R": "CharacterDNAClothingSceneComposer"}, "widgets_values": ["none", "none", "quiet_luxury_studio", 0, "fixed"], "widgets_values_named": {"clothing": "none", "scene": "none", "blueprint": "quiet_luxury_studio", "variant_seed": 0, "control_after_generate": "fixed"}
+      "properties": {"Node name for S&R": "CharacterDNAVisualBlueprint"}, "widgets_values": ["quiet_luxury_studio", 0, "fixed"], "widgets_values_named": {"blueprint": "quiet_luxury_studio", "variant_seed": 0, "control_after_generate": "fixed"}
     },
     {
       "id": 8, "type": "Note", "pos": [440, 350], "size": [620, 760], "flags": {}, "order": 8, "mode": 0,

@@ -32,7 +32,6 @@ from .character_dna.body_composite import build_body_composite_identity
 from .character_dna.presentation import (
     blueprint_options,
     compose_visual_blueprint,
-    presentation_options,
 )
 from .character_dna.landmark_provider import (
     InsightFace106Detector,
@@ -582,7 +581,7 @@ class CharacterDNABodyCompositeIdentity:
 # Character Visual Blueprint
 # ============================================================
 
-class CharacterDNAClothingSceneComposer:
+class CharacterDNAVisualBlueprint:
 
     @classmethod
     def IS_CHANGED(cls, **_kwargs):
@@ -593,9 +592,6 @@ class CharacterDNAClothingSceneComposer:
         return {
             "required": {
                 "character_dna": (DNA_TYPE,),
-                # Hidden in the frontend, retained for old saved workflows.
-                "clothing": (presentation_options("clothing"),),
-                "scene": (presentation_options("scenes"),),
                 "blueprint": (blueprint_options(),),
                 "variant_seed": (
                     "INT",
@@ -621,8 +617,6 @@ class CharacterDNAClothingSceneComposer:
     def compose(
         self,
         character_dna,
-        clothing="none",
-        scene="none",
         blueprint="identity_only",
         variant_seed=0,
     ):
@@ -630,8 +624,6 @@ class CharacterDNAClothingSceneComposer:
             character_dna,
             blueprint=blueprint,
             variant_seed=variant_seed,
-            legacy_clothing=clothing,
-            legacy_scene=scene,
         )
 
 # ============================================================
@@ -1333,8 +1325,8 @@ NODE_CLASS_MAPPINGS = {
     "CharacterDNABodyCompositeIdentity":
         CharacterDNABodyCompositeIdentity,
 
-    "CharacterDNAClothingSceneComposer":
-        CharacterDNAClothingSceneComposer,
+    "CharacterDNAVisualBlueprint":
+        CharacterDNAVisualBlueprint,
 
     "CharacterDNAInsightFace106Detector":
         CharacterDNAInsightFace106Detector,
@@ -1375,7 +1367,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "CharacterDNABodyCompositeIdentity":
         "🧬 Body Composite Identity",
 
-    "CharacterDNAClothingSceneComposer":
+    "CharacterDNAVisualBlueprint":
         "🧬 Character Visual Blueprint",
 
     "CharacterDNAInsightFace106Detector":

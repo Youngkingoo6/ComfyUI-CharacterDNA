@@ -64,6 +64,6 @@ Face Composite Identity
 
 某些造型或动作可设置 `min_visual_age`。如果角色的 `visual_age` 低于该值，编译器会跳过该图层，并在 DNA 的 `visual_direction.warnings` 中记录原因。默认身份不受影响。
 
-## 旧工作流兼容
+## 从旧节点升级
 
-内部节点 ID 仍为 `CharacterDNAClothingSceneComposer`，所以旧工作流无需替换节点。旧文件里的 `clothing` 与 `scene` 仍会作为兼容图层参与输出；前端只把它们隐藏，新工作流保存时使用 `blueprint` 与 `variant_seed`。旧词库建议先导出备份，再按新的蓝图结构迁移。
+新版节点 ID 为 `CharacterDNAVisualBlueprint`，不保留旧版 `Clothing & Scene Composer` 的隐藏输入或自动迁移代码。旧工作流中删除原节点，添加一次新的角色画面蓝图节点并重新连线即可。旧词库中的自定义内容可在新版面板的 Look 或 Scene 页重新建立。

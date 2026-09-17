@@ -3,7 +3,7 @@ import { app } from "../../scripts/app.js";
 const NODE_TYPES = new Set([
   "CharacterDNASeedGenerator",
   "CharacterDNABodySeedGenerator",
-  "CharacterDNAClothingSceneComposer",
+  "CharacterDNAVisualBlueprint",
 ]);
 const CONTROL_NAMES = new Set([
   "control_after_generate",

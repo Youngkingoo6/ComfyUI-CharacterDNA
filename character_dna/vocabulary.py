@@ -11,9 +11,6 @@ BODY_VOCABULARY_PATH = Path(__file__).with_name(
 PRESENTATION_VOCABULARY_PATH = Path(__file__).with_name(
     "presentation_vocabulary.json"
 )
-DEFAULT_PRESENTATION_VOCABULARY_PATH = PRESENTATION_VOCABULARY_PATH.with_name(
-    "presentation_vocabulary.default.json"
-)
 
 _VOCABULARY_CACHE = None
 _VOCABULARY_MTIME_NS = None
@@ -116,20 +113,6 @@ def get_presentation_vocabulary():
         vocabulary = json.load(handle)
     if not isinstance(vocabulary, dict):
         raise ValueError("presentation_vocabulary.json must contain a JSON object.")
-
-    # Upgrade the former {clothing, scenes} schema in memory. Custom legacy
-    # presets override same-named defaults and are persisted in the new schema
-    # the next time the vocabulary panel is saved.
-    if "layers" not in vocabulary and {
-        "clothing", "scenes"
-    }.issubset(vocabulary):
-        with DEFAULT_PRESENTATION_VOCABULARY_PATH.open(
-            "r", encoding="utf-8"
-        ) as handle:
-            upgraded = json.load(handle)
-        upgraded["layers"]["look"].update(vocabulary["clothing"])
-        upgraded["layers"]["scene"].update(vocabulary["scenes"])
-        vocabulary = upgraded
 
     _PRESENTATION_VOCABULARY_CACHE = vocabulary
     _PRESENTATION_VOCABULARY_MTIME_NS = modified_ns

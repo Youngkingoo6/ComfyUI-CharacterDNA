@@ -9,17 +9,9 @@ from .vocabulary import (
 )
 
 
-NONE_OPTION = "none"
 IDENTITY_ONLY = "identity_only"
 LAYER_TYPES = ("look", "performance", "scene", "photography")
 LAYER_MODES = ("replace", "append", "merge", "clear")
-
-
-def presentation_options(section):
-    """Legacy options retained so saved clothing/scene workflows still load."""
-    vocabulary = get_presentation_vocabulary()
-    layer = "look" if section == "clothing" else "scene"
-    return [NONE_OPTION, *vocabulary.get("layers", {}).get(layer, {}).keys()]
 
 
 def blueprint_options():
@@ -54,7 +46,7 @@ def _resolve_stack(vocabulary, stack, visual_age):
             continue
         layer_type = layer.get("type")
         mode = layer.get("mode", "replace")
-        preset = layer.get("preset", NONE_OPTION)
+        preset = layer.get("preset", "none")
         if layer_type not in LAYER_TYPES:
             warnings.append(f"Layer {index + 1}: unknown type {layer_type}")
             continue
@@ -63,7 +55,7 @@ def _resolve_stack(vocabulary, stack, visual_age):
             mode = "replace"
         if mode in {"replace", "clear"}:
             resolved = [item for item in resolved if item["type"] != layer_type]
-        if mode == "clear" or preset == NONE_OPTION:
+        if mode == "clear" or preset == "none":
             continue
         if mode == "merge" and any(
             item["type"] == layer_type and item["preset"] == preset
@@ -94,8 +86,6 @@ def compose_visual_blueprint(
     dna,
     blueprint=IDENTITY_ONLY,
     variant_seed=0,
-    legacy_clothing=NONE_OPTION,
-    legacy_scene=NONE_OPTION,
 ):
     result = copy.deepcopy(dna)
     vocabulary = get_presentation_vocabulary()
@@ -105,17 +95,6 @@ def compose_visual_blueprint(
 
     blueprint_data = blueprints[blueprint]
     stack = copy.deepcopy(blueprint_data.get("layers", []))
-    if legacy_clothing != NONE_OPTION:
-        stack.append({
-            "type": "look", "preset": legacy_clothing,
-            "mode": "replace", "enabled": True,
-        })
-    if legacy_scene != NONE_OPTION:
-        stack.append({
-            "type": "scene", "preset": legacy_scene,
-            "mode": "replace", "enabled": True,
-        })
-
     visual_age = result.get("character", {}).get("visual_age", 0)
     resolved, warnings = _resolve_stack(vocabulary, stack, visual_age)
     variants = blueprint_data.get("variations", [])
@@ -140,21 +119,6 @@ def compose_visual_blueprint(
         "variation": selected_variant,
         "warnings": warnings,
     }
-    result["presentation"] = {
-        "clothing": legacy_clothing,
-        "scene": legacy_scene,
-    }
     result["presentation_prompt"] = prompt_en
     result["presentation_prompt_zh"] = prompt_zh
     return result, prompt_en, prompt_zh
-
-
-def compose_presentation(dna, clothing=NONE_OPTION, scene=NONE_OPTION):
-    """Backward-compatible public helper for the former two-preset node."""
-    return compose_visual_blueprint(
-        dna,
-        blueprint=IDENTITY_ONLY,
-        variant_seed=0,
-        legacy_clothing=clothing,
-        legacy_scene=scene,
-    )
