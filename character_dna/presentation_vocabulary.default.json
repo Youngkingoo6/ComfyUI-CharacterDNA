@@ -1,30 +1,18 @@
 {
   "clothing": {
-    "casual_tshirt_jeans": {"prompt": "wearing a clean fitted T-shirt with classic jeans", "prompt_zh": "穿着简洁合身的 T 恤与经典牛仔裤"},
-    "oversized_sweater": {"prompt": "wearing a soft oversized sweater with relaxed trousers", "prompt_zh": "穿着柔软的宽松毛衣与休闲长裤"},
-    "knit_top_trousers": {"prompt": "wearing a refined knit top with tailored trousers", "prompt_zh": "穿着精致针织上衣与剪裁长裤"},
-    "white_shirt_trousers": {"prompt": "wearing a crisp white shirt with straight-leg trousers", "prompt_zh": "穿着挺括白衬衫与直筒长裤"},
-    "summer_dress": {"prompt": "wearing a light flowing summer dress", "prompt_zh": "穿着轻盈飘逸的夏日连衣裙"},
-    "evening_dress": {"prompt": "wearing an elegant understated evening dress", "prompt_zh": "穿着优雅克制的晚礼服"},
-    "business_suit": {"prompt": "wearing a modern well-tailored business suit", "prompt_zh": "穿着现代合体的商务西装"},
-    "sportswear": {"prompt": "wearing streamlined functional sportswear", "prompt_zh": "穿着利落实用的运动服"},
-    "streetwear": {"prompt": "wearing layered contemporary streetwear", "prompt_zh": "穿着富有层次的现代街头服饰"},
-    "denim_jacket": {"prompt": "wearing a denim jacket over a simple casual outfit", "prompt_zh": "穿着牛仔夹克与简洁休闲内搭"},
-    "trench_coat": {"prompt": "wearing a classic structured trench coat", "prompt_zh": "穿着经典挺括的风衣"},
-    "minimalist_black": {"prompt": "wearing a minimalist monochrome black outfit", "prompt_zh": "穿着极简的纯黑色服装"}
+    "quiet_luxury_commute": {"prompt": "wearing an ivory silk shirt tucked into taupe high-waisted wide-leg trousers, finished with a slim leather belt and understated loafers", "prompt_zh": "穿着象牙白真丝衬衫与灰褐色高腰垂坠阔腿裤，搭配纤细皮带和简洁乐福鞋，呈现低饱和静奢通勤感"},
+    "relaxed_intellectual": {"prompt": "wearing a charcoal fine-knit cardigan over a crisp white shirt with fluid pleated trousers and polished leather loafers", "prompt_zh": "穿着炭灰色细针织开衫、挺括白衬衫与垂坠褶裥长裤，搭配精致皮质乐福鞋，呈现松弛知识分子风"},
+    "soft_korean_date": {"prompt": "wearing a powder-blue fitted knit top with a cream A-line midi skirt, delicate flats, and minimal jewelry", "prompt_zh": "穿着雾霾蓝合身针织上衣与奶油色 A 字中长裙，搭配精致平底鞋和极简首饰，呈现温柔韩系约会感"},
+    "modern_new_chinese": {"prompt": "wearing a modern stand-collar jacquard blouse with subtle frog-button details, paired with a flowing black column skirt and restrained jade-toned accents", "prompt_zh": "穿着带有克制盘扣细节的现代立领提花上衣与流畅黑色直身长裙，点缀低调玉色配饰，呈现现代新中式气质"},
+    "retro_citywalk": {"prompt": "wearing a cropped brown suede jacket over a fine-knit top with high-waisted straight blue jeans and vintage leather loafers", "prompt_zh": "穿着短款棕色麂皮夹克、细针织内搭与高腰直筒蓝色牛仔裤，搭配复古皮质乐福鞋，呈现轻复古 CityWalk 风格"},
+    "refined_sportique": {"prompt": "wearing a structured lightweight zip jacket over a fitted athletic top with clean straight-leg track trousers and minimalist sneakers", "prompt_zh": "穿着轻盈挺括的拉链运动外套、合身运动内搭与简洁直筒运动长裤，搭配极简运动鞋，呈现精致 Sportique 风格"}
   },
   "scenes": {
-    "studio_plain_background": {"prompt": "in a clean portrait studio with a plain neutral background", "prompt_zh": "位于干净的人像摄影棚，背景简洁中性"},
-    "modern_living_room": {"prompt": "in a warm modern living room with natural daylight", "prompt_zh": "位于温暖的现代客厅，带有自然日光"},
-    "cozy_bedroom": {"prompt": "in a tidy cozy bedroom with soft ambient light", "prompt_zh": "位于整洁舒适的卧室，带有柔和环境光"},
-    "quiet_cafe": {"prompt": "in a quiet contemporary cafe by a window", "prompt_zh": "位于安静的现代咖啡馆窗边"},
-    "city_street_day": {"prompt": "on a lively modern city street in daylight", "prompt_zh": "位于白天充满活力的现代城市街道"},
-    "city_street_night": {"prompt": "on a city street at night with subtle neon reflections", "prompt_zh": "位于夜晚的城市街道，带有克制的霓虹反光"},
-    "green_park": {"prompt": "in a green urban park with soft natural light", "prompt_zh": "位于绿意盎然的城市公园，带有柔和自然光"},
-    "sunlit_beach": {"prompt": "on a calm sunlit beach beside the sea", "prompt_zh": "位于宁静明亮的海边沙滩"},
-    "forest_path": {"prompt": "on a quiet forest path with filtered sunlight", "prompt_zh": "位于安静的林间小径，阳光穿过树叶"},
-    "modern_office": {"prompt": "in a bright modern office with clean architectural lines", "prompt_zh": "位于明亮的现代办公室，空间线条简洁"},
-    "rooftop_sunset": {"prompt": "on a city rooftop during a warm sunset", "prompt_zh": "位于暖色夕阳下的城市屋顶"},
-    "library": {"prompt": "in a quiet library surrounded by bookshelves", "prompt_zh": "位于安静的图书馆，周围是整齐书架"}
+    "minimal_gray_studio": {"prompt": "in a spacious minimalist gray portrait studio with generous negative space, soft directional light, and subtle floor shadows", "prompt_zh": "位于宽敞的极简灰色人像摄影棚，保留大量留白，使用柔和方向光与细腻地面阴影"},
+    "window_light_apartment": {"prompt": "in a refined modern apartment beside floor-to-ceiling windows, with sheer curtains, warm natural daylight, and restrained neutral furnishings", "prompt_zh": "位于落地窗旁的精致现代公寓，薄纱窗帘透入温暖自然光，陈设克制且采用中性色调"},
+    "warm_wood_cafe": {"prompt": "by the window of a quiet warm-wood cafe, with soft side light, textured plaster walls, and an intimate editorial atmosphere", "prompt_zh": "位于安静的暖木色咖啡馆窗边，柔和侧光落在肌理墙面上，呈现亲密而高级的杂志氛围"},
+    "cinematic_blue_hour_street": {"prompt": "on an elegant city street at blue hour after light rain, with cinematic storefront glow, subtle reflections, and controlled background depth", "prompt_zh": "位于细雨后的城市蓝调时刻街道，店铺灯光具有电影感，路面带有克制反光与清晰景深层次"},
+    "contemporary_art_gallery": {"prompt": "inside a contemporary art gallery with pale stone walls, monumental clean architecture, diffused skylight, and museum-like quiet", "prompt_zh": "位于当代艺术展馆，浅色石材墙面与简洁宏大的建筑线条被漫射天光照亮，氛围安静而高级"},
+    "golden_hour_coast": {"prompt": "on a quiet open coastline at golden hour, with pale sand, calm water, warm rim light, and an uncluttered horizon", "prompt_zh": "位于黄金时刻的宁静开阔海岸，浅色沙滩、平静海面与温暖轮廓光共同构成干净无遮挡的地平线"}
   }
 }

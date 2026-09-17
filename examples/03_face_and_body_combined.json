@@ -1,5 +1,5 @@
 {
-  "id": "51816703-eaab-4675-a72c-95d4ca737dac",
+  "id": "f023f06f-149e-43ea-8b69-6fbd73a99e61",
   "revision": 0,
   "last_node_id": 10,
   "last_link_id": 6,
@@ -50,7 +50,7 @@
       "id": 10, "type": "CharacterDNAClothingSceneComposer", "pos": [2360, 20], "size": [350, 190], "flags": {}, "order": 6, "mode": 0,
       "inputs": [{"name": "character_dna", "type": "CHARACTER_DNA", "link": 5}, {"name": "clothing", "type": "COMBO", "widget": {"name": "clothing"}, "link": null}, {"name": "scene", "type": "COMBO", "widget": {"name": "scene"}, "link": null}],
       "outputs": [{"name": "character_dna", "type": "CHARACTER_DNA", "links": null}, {"name": "complete_prompt", "type": "STRING", "links": null}, {"name": "complete_prompt_zh", "type": "STRING", "links": [6]}],
-      "properties": {"Node name for S&R": "CharacterDNAClothingSceneComposer"}, "widgets_values": ["casual_tshirt_jeans", "studio_plain_background"], "widgets_values_named": {"clothing": "casual_tshirt_jeans", "scene": "studio_plain_background"}
+      "properties": {"Node name for S&R": "CharacterDNAClothingSceneComposer"}, "widgets_values": ["quiet_luxury_commute", "minimal_gray_studio"], "widgets_values_named": {"clothing": "quiet_luxury_commute", "scene": "minimal_gray_studio"}
     },
     {
       "id": 8, "type": "Note", "pos": [440, 350], "size": [620, 760], "flags": {}, "order": 8, "mode": 0,

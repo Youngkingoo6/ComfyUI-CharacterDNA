@@ -27,6 +27,26 @@ Face / Body DNA
 
 如果固定质量词位置设置为“最前面”，节点会自动改为把质量词放在整条最终提示词最前面。
 
+## 默认精选预设
+
+服装保留 6 套差异明确的高质感方向：
+
+- `quiet_luxury_commute`：低饱和静奢通勤。
+- `relaxed_intellectual`：松弛知识分子风。
+- `soft_korean_date`：温柔韩系约会感。
+- `modern_new_chinese`：克制的现代新中式。
+- `retro_citywalk`：轻复古 CityWalk。
+- `refined_sportique`：精致 Sportique。
+
+场景保留 6 套适合人像出片的方向：
+
+- `minimal_gray_studio`：具有大量留白的极简灰棚。
+- `window_light_apartment`：落地窗自然光公寓。
+- `warm_wood_cafe`：暖木色窗边咖啡馆。
+- `cinematic_blue_hour_street`：雨后蓝调电影街景。
+- `contemporary_art_gallery`：当代艺术展馆。
+- `golden_hour_coast`：黄金时刻海岸。
+
 ## 修改词库
 
 打开 ComfyUI 左侧的 `CharacterDNA 词库` 面板：
