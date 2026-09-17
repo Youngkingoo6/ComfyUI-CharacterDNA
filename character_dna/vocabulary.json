@@ -3,6 +3,7 @@
     "life_stages": [{"max_exclusive": 2, "text": "infant", "text_zh": "婴儿"}, {"max_exclusive": 13, "text": "child", "text_zh": "儿童"}, {"max_exclusive": 18, "text": "teenager", "text_zh": "青少年"}, {"text": "adult", "text_zh": "成年人"}],
     "identity_template": "{life_stage} {ancestry} {gender}", "identity_template_zh": "{ancestry}{gender}，{life_stage}",
     "age_template": "approximately {visual_age} years old", "age_template_zh": "视觉年龄约{visual_age}岁",
+    "quality_position": "end",
     "gender_zh": {"female": "女性", "male": "男性", "androgynous": "中性人物"},
     "ancestry_zh": {"East Asian": "东亚", "Southeast Asian": "东南亚", "South Asian": "南亚", "European": "欧洲", "African": "非洲", "Latino": "拉丁裔", "Middle Eastern": "中东", "Mixed": "混合族裔"},
     "quality_phrases": ["harmonious realistic facial anatomy", "subtle natural facial asymmetry", "natural skin texture", "realistic pores and fine skin detail", "minimal beauty retouching", "photorealistic human portrait"],

@@ -1,5 +1,6 @@
 from .vocabulary import (
     build_profile_phrases,
+    compose_prompt,
     get_vocabulary,
 )
 
@@ -92,13 +93,4 @@ def build_parametric_prompt(
         if phrase:
             phrases.append(phrase)
 
-    profile = get_vocabulary()["profile"]
-    quality_key = (
-        "quality_phrases_zh"
-        if str(language).lower().startswith("zh")
-        else "quality_phrases"
-    )
-    phrases.extend(profile[quality_key])
-
-    separator = "，" if str(language).lower().startswith("zh") else ", "
-    return separator.join(phrases)
+    return compose_prompt(phrases, language)

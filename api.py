@@ -158,6 +158,11 @@ def _validate_vocabulary(vocabulary):
         profile.get("quality_phrases_zh"),
         "profile.quality_phrases_zh",
     )
+    quality_position = profile.get("quality_position", "end")
+    if quality_position not in {"start", "end"}:
+        raise ValueError(
+            "profile.quality_position must be 'start' or 'end'."
+        )
 
     for map_name in ("gender_zh", "ancestry_zh"):
         mapping = profile.get(map_name)

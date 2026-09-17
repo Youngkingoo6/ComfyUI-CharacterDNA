@@ -117,6 +117,8 @@ Seed Generator
 - 面部和身体各 5 组 Composite 的中英文短语；
 - 年龄阶段、基础身份模板和固定质量词。
 
+`Fixed quality position` 可选择固定质量词位于完整提示词的最前面或最后面，默认放在最后。面部、身体、Parametric 和 Composite 输出统一遵循该设置。
+
 点击保存后，后续执行的生成节点会直接使用新词库。修改前建议先导出备份。
 
 Parametric Face Designer、Face DNA Seed Generator 和 Face Composite Identity 会把词库修订版本加入执行缓存。即使节点输入没有改变，保存词库后再次完整运行也会重新生成提示词。

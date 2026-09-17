@@ -1,7 +1,12 @@
 import copy
 import math
 
-from .vocabulary import build_profile_phrases, get_body_vocabulary, get_vocabulary
+from .vocabulary import (
+    build_profile_phrases,
+    compose_prompt,
+    get_body_vocabulary,
+    strip_quality_block,
+)
 
 
 BODY_COMPOSITE_IMPORTANCE = {
@@ -188,11 +193,8 @@ def _scale_balance(features):
     }, keys)
 
 
-def _base_prompt(dna, language):
+def _base_core_prompt(dna, language):
     phrases = build_profile_phrases(dna["character"], language)
-    profile = get_vocabulary()["profile"]
-    key = "quality_phrases_zh" if str(language).lower().startswith("zh") else "quality_phrases"
-    phrases.extend(profile[key])
     separator = "，" if str(language).lower().startswith("zh") else ", "
     return separator.join(phrases)
 
@@ -229,10 +231,12 @@ def build_body_composite_identity(dna, max_composites=5):
     chosen = composites[:max(1, min(5, int(max_composites)))]
     body_prompt = ", ".join(item["semantic"] for item in chosen if item["semantic"])
     body_prompt_zh = "，".join(item["semantic_zh"] for item in chosen if item["semantic_zh"])
-    face_prompt = result.get("identity_core_prompt") or _base_prompt(result, "en")
-    face_prompt_zh = result.get("identity_core_prompt_zh") or _base_prompt(result, "zh")
-    combined = ", ".join(part for part in (face_prompt, body_prompt) if part)
-    combined_zh = "，".join(part for part in (face_prompt_zh, body_prompt_zh) if part)
+    face_prompt = result.get("identity_core_prompt") or _base_core_prompt(result, "en")
+    face_prompt_zh = result.get("identity_core_prompt_zh") or _base_core_prompt(result, "zh")
+    face_core = strip_quality_block(face_prompt, "en")
+    face_core_zh = strip_quality_block(face_prompt_zh, "zh")
+    combined = compose_prompt((face_core, body_prompt), "en")
+    combined_zh = compose_prompt((face_core_zh, body_prompt_zh), "zh")
 
     result["body_composite_identity"] = {"anchors": composites}
     result["body_identity_prompt"] = body_prompt

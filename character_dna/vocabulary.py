@@ -139,6 +139,49 @@ def build_profile_phrases(character, language="en"):
     ]
 
 
+def get_quality_phrases(language="en"):
+    profile = get_vocabulary()["profile"]
+    key = (
+        "quality_phrases_zh"
+        if str(language).lower().startswith("zh")
+        else "quality_phrases"
+    )
+    return list(profile.get(key, []))
+
+
+def get_quality_position():
+    position = get_vocabulary()["profile"].get("quality_position", "end")
+    return position if position in {"start", "end"} else "end"
+
+
+def compose_prompt(core_phrases, language="en"):
+    """Join core identity phrases with quality phrases at the configured edge."""
+    core = [str(phrase).strip() for phrase in core_phrases if str(phrase).strip()]
+    quality = get_quality_phrases(language)
+    phrases = quality + core if get_quality_position() == "start" else core + quality
+    separator = "，" if str(language).lower().startswith("zh") else ", "
+    return separator.join(phrases)
+
+
+def strip_quality_block(prompt, language="en"):
+    """Remove a previously composed leading or trailing quality block."""
+    prompt = str(prompt or "").strip()
+    quality = get_quality_phrases(language)
+    if not prompt or not quality:
+        return prompt
+    separator = "，" if str(language).lower().startswith("zh") else ", "
+    block = separator.join(quality)
+    if prompt == block:
+        return ""
+    prefix = block + separator
+    suffix = separator + block
+    if prompt.startswith(prefix):
+        return prompt[len(prefix):]
+    if prompt.endswith(suffix):
+        return prompt[:-len(suffix)]
+    return prompt
+
+
 def get_composite_phrase(section, key, language="en"):
     vocabulary = get_vocabulary()
     if str(language).lower().startswith("zh"):

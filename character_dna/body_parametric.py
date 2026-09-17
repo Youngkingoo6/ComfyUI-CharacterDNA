@@ -1,6 +1,10 @@
 import copy
 
-from .vocabulary import get_body_vocabulary
+from .vocabulary import (
+    compose_prompt,
+    get_body_vocabulary,
+    strip_quality_block,
+)
 from .semantic import build_parametric_prompt
 
 
@@ -96,8 +100,6 @@ def build_complete_body_prompt(dna, language="en"):
         anchors_only=False,
         language=language,
     )
+    inherited_prompt = strip_quality_block(inherited_prompt, language)
     body_prompt = build_body_feature_prompt(dna, language)
-    separator = "，" if chinese else ", "
-    return separator.join(
-        part for part in (inherited_prompt, body_prompt) if part
-    )
+    return compose_prompt((inherited_prompt, body_prompt), language)

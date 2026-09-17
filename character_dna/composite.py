@@ -3,6 +3,7 @@ import math
 
 from .vocabulary import (
     build_profile_phrases,
+    compose_prompt,
     get_composite_phrase,
     get_vocabulary,
 )
@@ -893,20 +894,7 @@ def build_identity_core_prompt(
                 semantic
             )
 
-    profile = get_vocabulary()["profile"]
-    quality_key = (
-        "quality_phrases_zh"
-        if str(language).lower().startswith("zh")
-        else "quality_phrases"
-    )
-    phrases.extend(profile[quality_key])
-
-    separator = "，" if str(language).lower().startswith("zh") else ", "
-    return separator.join(
-        phrase
-        for phrase in phrases
-        if phrase
-    )
+    return compose_prompt(phrases, language)
 
 
 # ============================================================
