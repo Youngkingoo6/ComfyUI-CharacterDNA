@@ -1,0 +1,192 @@
+{
+  "id": "93f71fe7-a3bb-4ef9-9474-82533fdba202",
+  "revision": 0,
+  "last_node_id": 8,
+  "last_link_id": 6,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "Note",
+      "pos": [0, 0],
+      "size": [390, 310],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": ["多参数调整示例\n\n每个 Parametric 节点只覆盖一个 Feature，并继承输入 DNA 中其余参数。\n\n本例依次修改：\n• face_length = +0.5：脸部略长\n• jaw_width = -0.5：下颌略窄、收尖\n• canthal_tilt = +0.5：外眼角略上扬\n\n同一 Feature 修改多次时，后面的节点覆盖前面的值。\n完整参数方向见 docs/parameters.zh-CN.md。"],
+      "widgets_values_named": {"text": "多参数调整示例"},
+      "color": "#4b3d1f",
+      "bgcolor": "#715e2e"
+    },
+    {
+      "id": 2,
+      "type": "CharacterDNADesigner",
+      "title": "1 · 基础身份",
+      "pos": [440, 40],
+      "size": [290, 190],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {"name": "character_name", "type": "STRING", "widget": {"name": "character_name"}, "link": null},
+        {"name": "gender", "type": "COMBO", "widget": {"name": "gender"}, "link": null},
+        {"name": "ancestry", "type": "COMBO", "widget": {"name": "ancestry"}, "link": null},
+        {"name": "visual_age", "type": "INT", "widget": {"name": "visual_age"}, "link": null}
+      ],
+      "outputs": [{"name": "character_dna", "type": "CHARACTER_DNA", "links": [1]}],
+      "properties": {"Node name for S&R": "CharacterDNADesigner"},
+      "widgets_values": ["IP_002", "female", "East Asian", 26],
+      "widgets_values_named": {"character_name": "IP_002", "gender": "female", "ancestry": "East Asian", "visual_age": 26}
+    },
+    {
+      "id": 3,
+      "type": "CharacterDNASeedGenerator",
+      "title": "2 · 随机基础 DNA",
+      "pos": [790, 40],
+      "size": [320, 210],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {"name": "character_dna", "type": "CHARACTER_DNA", "link": 1},
+        {"name": "seed", "type": "INT", "widget": {"name": "seed"}, "link": null},
+        {"name": "distinctiveness", "type": "FLOAT", "widget": {"name": "distinctiveness"}, "link": null},
+        {"name": "harmony", "type": "FLOAT", "widget": {"name": "harmony"}, "link": null}
+      ],
+      "outputs": [
+        {"name": "character_dna", "type": "CHARACTER_DNA", "links": [2]},
+        {"name": "parametric_prompt", "type": "STRING", "links": null},
+        {"name": "parameters_json", "type": "STRING", "links": null},
+        {"name": "parametric_prompt_zh", "type": "STRING", "links": null}
+      ],
+      "properties": {"Node name for S&R": "CharacterDNASeedGenerator"},
+      "widgets_values": [137522, "fixed", 0.7, 0.85],
+      "widgets_values_named": {"seed": 137522, "control_after_generate": "fixed", "distinctiveness": 0.7, "harmony": 0.85}
+    },
+    {
+      "id": 4,
+      "type": "CharacterDNAParametricDesigner",
+      "title": "3A · 脸部略长",
+      "pos": [1170, 40],
+      "size": [300, 170],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {"name": "character_dna", "type": "CHARACTER_DNA", "link": 2},
+        {"name": "feature", "type": "COMBO", "widget": {"name": "feature"}, "link": null},
+        {"name": "value", "type": "FLOAT", "widget": {"name": "value"}, "link": null}
+      ],
+      "outputs": [
+        {"name": "character_dna", "type": "CHARACTER_DNA", "links": [3]},
+        {"name": "parametric_prompt", "type": "STRING", "links": null},
+        {"name": "parametric_prompt_zh", "type": "STRING", "links": null}
+      ],
+      "properties": {"Node name for S&R": "CharacterDNAParametricDesigner"},
+      "widgets_values": ["face_length", 0.5],
+      "widgets_values_named": {"feature": "face_length", "value": 0.5}
+    },
+    {
+      "id": 5,
+      "type": "CharacterDNAParametricDesigner",
+      "title": "3B · 下颌略窄",
+      "pos": [1530, 40],
+      "size": [300, 170],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {"name": "character_dna", "type": "CHARACTER_DNA", "link": 3},
+        {"name": "feature", "type": "COMBO", "widget": {"name": "feature"}, "link": null},
+        {"name": "value", "type": "FLOAT", "widget": {"name": "value"}, "link": null}
+      ],
+      "outputs": [
+        {"name": "character_dna", "type": "CHARACTER_DNA", "links": [4]},
+        {"name": "parametric_prompt", "type": "STRING", "links": null},
+        {"name": "parametric_prompt_zh", "type": "STRING", "links": null}
+      ],
+      "properties": {"Node name for S&R": "CharacterDNAParametricDesigner"},
+      "widgets_values": ["jaw_width", -0.5],
+      "widgets_values_named": {"feature": "jaw_width", "value": -0.5}
+    },
+    {
+      "id": 6,
+      "type": "CharacterDNAParametricDesigner",
+      "title": "3C · 眼角略上扬",
+      "pos": [1890, 40],
+      "size": [300, 170],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {"name": "character_dna", "type": "CHARACTER_DNA", "link": 4},
+        {"name": "feature", "type": "COMBO", "widget": {"name": "feature"}, "link": null},
+        {"name": "value", "type": "FLOAT", "widget": {"name": "value"}, "link": null}
+      ],
+      "outputs": [
+        {"name": "character_dna", "type": "CHARACTER_DNA", "links": [5]},
+        {"name": "parametric_prompt", "type": "STRING", "links": null},
+        {"name": "parametric_prompt_zh", "type": "STRING", "links": null}
+      ],
+      "properties": {"Node name for S&R": "CharacterDNAParametricDesigner"},
+      "widgets_values": ["canthal_tilt", 0.5],
+      "widgets_values_named": {"feature": "canthal_tilt", "value": 0.5}
+    },
+    {
+      "id": 7,
+      "type": "CharacterDNACompositeIdentity",
+      "title": "4 · 合成修改后的身份",
+      "pos": [2250, 40],
+      "size": [330, 180],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {"name": "character_dna", "type": "CHARACTER_DNA", "link": 5},
+        {"name": "max_composites", "type": "INT", "widget": {"name": "max_composites"}, "link": null}
+      ],
+      "outputs": [
+        {"name": "character_dna", "type": "CHARACTER_DNA", "links": null},
+        {"name": "composite_anchors_json", "type": "STRING", "links": null},
+        {"name": "identity_core_prompt", "type": "STRING", "links": null},
+        {"name": "identity_core_prompt_zh", "type": "STRING", "links": [6]}
+      ],
+      "properties": {"Node name for S&R": "CharacterDNACompositeIdentity"},
+      "widgets_values": [5],
+      "widgets_values_named": {"max_composites": 5}
+    },
+    {
+      "id": 8,
+      "type": "SaveText",
+      "title": "5 · 保存中文身份提示词",
+      "pos": [2640, 40],
+      "size": [300, 150],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {"name": "text", "type": "STRING", "link": 6},
+        {"name": "filename_prefix", "type": "STRING", "widget": {"name": "filename_prefix"}, "link": null},
+        {"name": "format", "type": "COMBO", "widget": {"name": "format"}, "link": null}
+      ],
+      "outputs": [{"name": "text", "type": "STRING", "links": null}],
+      "properties": {"Node name for S&R": "SaveText"},
+      "widgets_values": ["CharacterDNA/adjusted_identity_zh", "txt"],
+      "widgets_values_named": {"filename_prefix": "CharacterDNA/adjusted_identity_zh", "format": "txt"}
+    }
+  ],
+  "links": [
+    [1, 2, 0, 3, 0, "CHARACTER_DNA"],
+    [2, 3, 0, 4, 0, "CHARACTER_DNA"],
+    [3, 4, 0, 5, 0, "CHARACTER_DNA"],
+    [4, 5, 0, 6, 0, "CHARACTER_DNA"],
+    [5, 6, 0, 7, 0, "CHARACTER_DNA"],
+    [6, 7, 3, 8, 0, "STRING"]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {"ds": {"scale": 0.7, "offset": [40, 200]}},
+  "version": 0.4
+}

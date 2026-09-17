@@ -1,0 +1,17 @@
+{
+  "nodeCategories": {
+    "CharacterDNA/Genesis": "CharacterDNA/Genesis",
+    "CharacterDNA/Identity": "CharacterDNA/Identity",
+    "CharacterDNA/Landmarks": "CharacterDNA/Landmarks",
+    "CharacterDNA/Analysis": "CharacterDNA/Analysis",
+    "CharacterDNA/Casting": "CharacterDNA/Casting"
+  },
+  "characterDNA": {
+    "title": "CharacterDNA Vocabulary", "autoApply": "Changes apply after saving", "save": "Save", "reload": "Reload", "export": "Export", "import": "Import", "reset": "Restore defaults",
+    "features": "Feature vocabulary", "composites": "Composite vocabulary", "profile": "Base templates", "searchFeatures": "Search features or phrases…", "searchComposites": "Search composites or phrases…", "searchProfile": "Search is available in vocabulary tabs",
+    "loading": "Loading vocabulary…", "loaded": "Vocabulary loaded", "unsaved": "Unsaved changes", "discard": "Discard unsaved changes and reload?", "saving": "Validating and saving…", "saved": "Saved. Generation nodes now use the updated vocabulary.", "saveFailed": "Save failed: ",
+    "resetConfirm": "Restore the default vocabulary? Current changes will be overwritten.", "resetting": "Restoring defaults…", "resetDone": "Default vocabulary restored", "resetFailed": "Restore failed: ", "exported": "Vocabulary exported", "imported": "Imported into the editor; click Save to apply", "importFailed": "Import failed: ", "invalidRoot": "JSON root must be an object",
+    "emptyFeatures": "No matching features", "emptyComposites": "No matching composite phrases", "notLoaded": "Vocabulary is not loaded", "english": "English prompt", "chinese": "Chinese prompt", "value": "Value", "identityTemplate": "Identity template", "ageTemplate": "Age template", "lifeStages": "Life stages", "maxAge": "Upper age (blank for last)", "addStage": "+ Add life stage", "quality": "Fixed quality phrases",
+    "face": "Face", "eyes": "Eyes", "nose": "Nose", "mouth": "Mouth", "facial_silhouette": "Facial silhouette", "eye_geometry": "Eye geometry", "brow_eye_relationship": "Brow-eye relationship", "nose_profile": "Nose profile", "lip_relationship": "Lip relationship", "requestError": "Request failed"
+  }
+}

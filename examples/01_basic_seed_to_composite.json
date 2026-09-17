@@ -1,0 +1,120 @@
+{
+  "id": "5d5ed96b-d0b0-4cf5-a08e-54dcfcd0c101",
+  "revision": 0,
+  "last_node_id": 5,
+  "last_link_id": 3,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "Note",
+      "pos": [0, 0],
+      "size": [360, 250],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": ["基础示例\n\n1. Designer 建立角色基础资料。\n2. Seed Generator 用 seed 确定生成 19 个 Feature。\n3. distinctiveness 控制特征偏离强度；harmony 柔化冲突组合。\n4. Composite 把单项参数合成自然的整体描述。\n5. Save Text 将中文身份提示词保存到 output/CharacterDNA。\n\n相同的 seed + distinctiveness + harmony 会得到相同身份。"],
+      "widgets_values_named": {"text": "基础示例"},
+      "color": "#1f4b5f",
+      "bgcolor": "#2b637a"
+    },
+    {
+      "id": 2,
+      "type": "CharacterDNADesigner",
+      "title": "1 · 基础身份",
+      "pos": [410, 20],
+      "size": [300, 190],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {"name": "character_name", "type": "STRING", "widget": {"name": "character_name"}, "link": null},
+        {"name": "gender", "type": "COMBO", "widget": {"name": "gender"}, "link": null},
+        {"name": "ancestry", "type": "COMBO", "widget": {"name": "ancestry"}, "link": null},
+        {"name": "visual_age", "type": "INT", "widget": {"name": "visual_age"}, "link": null}
+      ],
+      "outputs": [{"name": "character_dna", "type": "CHARACTER_DNA", "links": [1]}],
+      "properties": {"Node name for S&R": "CharacterDNADesigner"},
+      "widgets_values": ["IP_001", "female", "East Asian", 26],
+      "widgets_values_named": {"character_name": "IP_001", "gender": "female", "ancestry": "East Asian", "visual_age": 26}
+    },
+    {
+      "id": 3,
+      "type": "CharacterDNASeedGenerator",
+      "title": "2 · 生成 19 维 DNA",
+      "pos": [770, 20],
+      "size": [330, 210],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {"name": "character_dna", "type": "CHARACTER_DNA", "link": 1},
+        {"name": "seed", "type": "INT", "widget": {"name": "seed"}, "link": null},
+        {"name": "distinctiveness", "type": "FLOAT", "widget": {"name": "distinctiveness"}, "link": null},
+        {"name": "harmony", "type": "FLOAT", "widget": {"name": "harmony"}, "link": null}
+      ],
+      "outputs": [
+        {"name": "character_dna", "type": "CHARACTER_DNA", "links": [2]},
+        {"name": "parametric_prompt", "type": "STRING", "links": null},
+        {"name": "parameters_json", "type": "STRING", "links": null},
+        {"name": "parametric_prompt_zh", "type": "STRING", "links": null}
+      ],
+      "properties": {"Node name for S&R": "CharacterDNASeedGenerator"},
+      "widgets_values": [137522, "randomize", 0.7, 0.85],
+      "widgets_values_named": {"seed": 137522, "control_after_generate": "randomize", "distinctiveness": 0.7, "harmony": 0.85}
+    },
+    {
+      "id": 4,
+      "type": "CharacterDNACompositeIdentity",
+      "title": "3 · 合成整体身份描述",
+      "pos": [1160, 20],
+      "size": [330, 180],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {"name": "character_dna", "type": "CHARACTER_DNA", "link": 2},
+        {"name": "max_composites", "type": "INT", "widget": {"name": "max_composites"}, "link": null}
+      ],
+      "outputs": [
+        {"name": "character_dna", "type": "CHARACTER_DNA", "links": null},
+        {"name": "composite_anchors_json", "type": "STRING", "links": null},
+        {"name": "identity_core_prompt", "type": "STRING", "links": null},
+        {"name": "identity_core_prompt_zh", "type": "STRING", "links": [3]}
+      ],
+      "properties": {"Node name for S&R": "CharacterDNACompositeIdentity"},
+      "widgets_values": [5],
+      "widgets_values_named": {"max_composites": 5}
+    },
+    {
+      "id": 5,
+      "type": "SaveText",
+      "title": "4 · 保存中文身份提示词",
+      "pos": [1550, 20],
+      "size": [300, 150],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {"name": "text", "type": "STRING", "link": 3},
+        {"name": "filename_prefix", "type": "STRING", "widget": {"name": "filename_prefix"}, "link": null},
+        {"name": "format", "type": "COMBO", "widget": {"name": "format"}, "link": null}
+      ],
+      "outputs": [{"name": "text", "type": "STRING", "links": null}],
+      "properties": {"Node name for S&R": "SaveText"},
+      "widgets_values": ["CharacterDNA/basic_identity_zh", "txt"],
+      "widgets_values_named": {"filename_prefix": "CharacterDNA/basic_identity_zh", "format": "txt"}
+    }
+  ],
+  "links": [
+    [1, 2, 0, 3, 0, "CHARACTER_DNA"],
+    [2, 3, 0, 4, 0, "CHARACTER_DNA"],
+    [3, 4, 3, 5, 0, "STRING"]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {"ds": {"scale": 0.85, "offset": [40, 160]}},
+  "version": 0.4
+}
