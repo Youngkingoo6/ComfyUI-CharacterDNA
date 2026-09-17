@@ -11,6 +11,9 @@ from .character_dna.parametric import (
 from .character_dna.semantic import (
     build_parametric_prompt,
 )
+from .character_dna.vocabulary import (
+    get_vocabulary_revision,
+)
 
 from .character_dna.genesis_engine import (
     generate_seeded_parametric_dna,
@@ -124,6 +127,10 @@ class CharacterDNADesigner:
 class CharacterDNAParametricDesigner:
 
     @classmethod
+    def IS_CHANGED(cls, **_kwargs):
+        return get_vocabulary_revision()
+
+    @classmethod
     def INPUT_TYPES(cls):
         return {
             "required": {
@@ -201,6 +208,10 @@ class CharacterDNAParametricDesigner:
 # ============================================================
 
 class CharacterDNASeedGenerator:
+
+    @classmethod
+    def IS_CHANGED(cls, **_kwargs):
+        return get_vocabulary_revision()
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -325,6 +336,10 @@ class CharacterDNASeedGenerator:
 # ============================================================
 
 class CharacterDNACompositeIdentity:
+
+    @classmethod
+    def IS_CHANGED(cls, **_kwargs):
+        return get_vocabulary_revision()
 
     @classmethod
     def INPUT_TYPES(cls):

@@ -10,6 +10,12 @@ _VOCABULARY_CACHE = None
 _VOCABULARY_MTIME_NS = None
 
 
+def get_vocabulary_revision():
+    """Return a cache key that changes whenever the vocabulary is saved."""
+    status = VOCABULARY_PATH.stat()
+    return f"{status.st_mtime_ns}:{status.st_size}"
+
+
 def invalidate_vocabulary_cache():
     global _VOCABULARY_CACHE
     global _VOCABULARY_MTIME_NS

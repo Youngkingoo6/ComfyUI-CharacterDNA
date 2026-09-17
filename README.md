@@ -99,6 +99,8 @@ Seed Generator
 
 点击保存后，后续执行的生成节点会直接使用新词库。修改前建议先导出备份。
 
+Parametric Character Designer、DNA Seed Generator 和 Composite Identity 会把词库修订版本加入执行缓存。即使节点输入没有改变，保存词库后再次完整运行也会重新生成提示词。
+
 ## 其他节点
 
 - `InsightFace 106 Detector`：从图像检测 106 点人脸关键点。
