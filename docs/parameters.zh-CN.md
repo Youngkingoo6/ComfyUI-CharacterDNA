@@ -49,7 +49,7 @@ Composite 会看参数之间的关系，而不是机械拼接单项词语：
 - `eye_elongation` 与 `eye_openness` 共同决定细长、杏眼或圆睁的整体观感。
 - `brow_eye_distance` 决定眉眼关系的主要方向；眼型和开合度只参与该组显著度。
 
-## DNA Seed Generator 参数
+## Face DNA Seed Generator 参数
 
 ### `seed`
 
@@ -96,14 +96,14 @@ Composite 会看参数之间的关系，而不是机械拼接单项词语：
 
 ## 多参数调整方法
 
-Parametric Character Designer 每个节点只覆盖一个 Feature，并继承输入 DNA 中其余 18 个值。修改多个参数时按顺序串联：
+Parametric Face Designer 每个节点只覆盖一个 Feature，并继承输入 DNA 中其余 18 个值。修改多个参数时按顺序串联：
 
 ```text
-DNA Seed Generator
+Face DNA Seed Generator
   → Parametric: face_length = 0.5
   → Parametric: jaw_width = -0.5
   → Parametric: canthal_tilt = 0.5
-  → Composite Identity
+  → Face Composite Identity
 ```
 
 同一个 Feature 被修改多次时，后面的节点覆盖前面的值。

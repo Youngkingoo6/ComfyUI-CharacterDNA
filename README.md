@@ -13,7 +13,7 @@ CharacterDNA 用一组可重复、可调节的结构参数描述原创角色身�
 将 JSON 拖进 ComfyUI 后：
 
 1. 修改角色名称、性别、族裔和视觉年龄。
-2. 在 DNA Seed Generator 中选择 seed 的生成后控制方式。
+2. 在 Face DNA Seed Generator 中选择 seed 的生成后控制方式。
 3. 点击完整的 **Run**。
 4. 生成的中文身份核心提示词会由 ComfyUI 自带的 Save Text 写入 `output/CharacterDNA/`。
 
@@ -24,11 +24,11 @@ CharacterDNA 用一组可重复、可调节的结构参数描述原创角色身�
 ```text
 Character DNA Designer
         ↓
-DNA Seed Generator
+Face DNA Seed Generator
         ↓
-Parametric Character Designer（可选，可串联多个）
+Parametric Face Designer（可选，可串联多个）
         ↓
-Composite Identity
+Face Composite Identity
         ↓
 中英文身份核心提示词
 ```
@@ -38,13 +38,13 @@ Composite Identity
 ```text
 Character DNA Designer
         ↓
-DNA Seed Generator（面部）
+Face DNA Seed Generator
         ↓
 Body DNA Seed Generator（身体）
         ↓
-Parametric Character / Body Designer（可选，可串联）
+Parametric Face / Body Designer（可选，可串联）
         ↓
-Composite Identity（面部）
+Face Composite Identity
         ↓
 Body Composite Identity
         ↓
@@ -60,7 +60,7 @@ Body Composite Identity
 - `ancestry`：提示词中的外观族裔表达。
 - `visual_age`：视觉年龄，范围 0–120，不限制为成年人。
 
-### DNA Seed Generator
+### Face DNA Seed Generator
 
 根据同一组 `seed + distinctiveness + harmony` 确定性生成同一套 19 维参数。
 
@@ -76,7 +76,7 @@ distinctiveness = 0.70
 harmony = 0.85
 ```
 
-### Parametric Character Designer
+### Parametric Face Designer
 
 每个节点只覆盖一个 Feature，其他参数从输入 DNA 完整继承。因此要修改多个参数时，直接串联多个节点：
 
@@ -85,12 +85,12 @@ Seed Generator
   → face_length = 0.5
   → jaw_width = -0.5
   → canthal_tilt = 0.5
-  → Composite Identity
+  → Face Composite Identity
 ```
 
 `value` 是 `-1.0` 到 `+1.0` 的连续值。词库提供 `-1、-0.5、0、0.5、1` 五个语义锚点，中间值会采用最接近的词条；实际 DNA 仍保留连续数值。数值为 `0` 表示未指定结构，该 Feature 不输出提示词；某个 Composite 组全部为 `0` 时也不会输出该组。
 
-### Composite Identity
+### Face Composite Identity
 
 把多个 Feature 的数值关系合成为更自然的整体描述，并按显著度选择最重要的组合：
 
@@ -119,7 +119,7 @@ Seed Generator
 
 点击保存后，后续执行的生成节点会直接使用新词库。修改前建议先导出备份。
 
-Parametric Character Designer、DNA Seed Generator 和 Composite Identity 会把词库修订版本加入执行缓存。即使节点输入没有改变，保存词库后再次完整运行也会重新生成提示词。
+Parametric Face Designer、Face DNA Seed Generator 和 Face Composite Identity 会把词库修订版本加入执行缓存。即使节点输入没有改变，保存词库后再次完整运行也会重新生成提示词。
 
 身体词库独立保存，因此升级身体功能不会覆盖你已经修改过的面部固定质量词。
 

@@ -1288,13 +1288,13 @@ NODE_DISPLAY_NAME_MAPPINGS = {
         "🧬 Character DNA Designer",
 
     "CharacterDNAParametricDesigner":
-        "🧬 Parametric Character Designer",
+        "🧬 Parametric Face Designer",
 
     "CharacterDNASeedGenerator":
-        "🧬 DNA Seed Generator",
+        "🧬 Face DNA Seed Generator",
 
     "CharacterDNACompositeIdentity":
-        "🧬 Composite Identity Engine",
+        "🧬 Face Composite Identity",
 
     "CharacterDNABodySeedGenerator":
         "🧬 Body DNA Seed Generator",
