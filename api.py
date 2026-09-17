@@ -266,11 +266,6 @@ def _validate_presentation_vocabulary(vocabulary):
                 raise ValueError(f"layers.{section_name}.{key} must be an object.")
             _require_string(entry.get("prompt"), f"layers.{section_name}.{key}.prompt")
             _require_string(entry.get("prompt_zh"), f"layers.{section_name}.{key}.prompt_zh")
-            minimum_age = entry.get("min_visual_age", 0)
-            if not isinstance(minimum_age, int) or minimum_age < 0:
-                raise ValueError(
-                    f"layers.{section_name}.{key}.min_visual_age must be a non-negative integer."
-                )
     if not isinstance(blueprints, dict) or "identity_only" not in blueprints:
         raise ValueError("blueprints must be an object containing identity_only.")
     for name, blueprint in blueprints.items():

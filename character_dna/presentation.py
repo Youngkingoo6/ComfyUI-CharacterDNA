@@ -38,7 +38,7 @@ def _entry_prompt(entry, language):
     return str(entry.get(key, "")).strip()
 
 
-def _resolve_stack(vocabulary, stack, visual_age):
+def _resolve_stack(vocabulary, stack):
     resolved = []
     warnings = []
     for index, layer in enumerate(stack):
@@ -66,12 +66,6 @@ def _resolve_stack(vocabulary, stack, visual_age):
         if entry is None:
             warnings.append(f"Layer {index + 1}: unknown {layer_type} preset {preset}")
             continue
-        minimum_age = int(entry.get("min_visual_age", 0))
-        if int(visual_age) < minimum_age:
-            warnings.append(
-                f"Layer {index + 1}: {preset} requires visual_age >= {minimum_age}; skipped"
-            )
-            continue
         resolved.append({
             "type": layer_type,
             "preset": preset,
@@ -95,8 +89,7 @@ def compose_visual_blueprint(
 
     blueprint_data = blueprints[blueprint]
     stack = copy.deepcopy(blueprint_data.get("layers", []))
-    visual_age = result.get("character", {}).get("visual_age", 0)
-    resolved, warnings = _resolve_stack(vocabulary, stack, visual_age)
+    resolved, warnings = _resolve_stack(vocabulary, stack)
     variants = blueprint_data.get("variations", [])
     selected_variant = None
     if variants:

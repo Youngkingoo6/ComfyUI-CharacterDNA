@@ -193,7 +193,6 @@ function renderVocabularyPanel(container) {
         } }),
       ]));
       card.appendChild(bilingual(entry.prompt, entry.prompt_zh, (value) => { entry.prompt = value; }, (value) => { entry.prompt_zh = value; }));
-      card.appendChild(field("min_visual_age", entry.min_visual_age ?? 0, (value) => { entry.min_visual_age = Math.max(0, Math.trunc(Number(value) || 0)); }, false));
       group.appendChild(card); count += 1;
     }
     group.appendChild(el("button", { text: t("addPreset"), onclick: () => {

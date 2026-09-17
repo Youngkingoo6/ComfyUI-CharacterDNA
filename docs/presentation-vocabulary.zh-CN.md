@@ -60,9 +60,9 @@ Face Composite Identity
 - `merge`：追加并自动去重。
 - `clear`：清空该类别已累积的内容。
 
-## 年龄保护
+## 自由组合
 
-某些造型或动作可设置 `min_visual_age`。如果角色的 `visual_age` 低于该值，编译器会跳过该图层，并在 DNA 的 `visual_direction.warnings` 中记录原因。默认身份不受影响。
+画面蓝图不检查或推断年龄。无论 `visual_age` 的数值是多少，或身份提示词使用“少女”等不明确表达，所选 Look、Performance、Scene、Photography 都会正常组合，不会跳过任何图层。年龄表达只由身份 DNA 本身决定。
 
 ## 从旧节点升级
 
