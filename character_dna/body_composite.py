@@ -7,6 +7,7 @@ from .vocabulary import (
     get_body_vocabulary,
     strip_quality_block,
 )
+from .body_parametric import body_feature_to_phrase
 
 
 BODY_COMPOSITE_IMPORTANCE = {
@@ -16,6 +17,64 @@ BODY_COMPOSITE_IMPORTANCE = {
     "build_distribution": 0.90,
     "scale_balance": 0.80,
 }
+
+BODY_COMPOSITE_FEATURES = {
+    "overall_frame": (
+        "stature", "shoulder_width", "ribcage_width", "pelvis_width",
+        "waist_definition", "hip_fullness",
+    ),
+    "torso_architecture": (
+        "neck_length", "neck_thickness", "shoulder_slope", "ribcage_width",
+        "torso_length", "chest_fullness",
+    ),
+    "limb_proportions": (
+        "arm_length", "hand_scale", "leg_length", "thigh_length_ratio",
+        "foot_scale",
+    ),
+    "build_distribution": (
+        "upper_body_fullness", "lower_body_fullness", "limb_thickness",
+        "muscularity",
+    ),
+    "scale_balance": (
+        "stature", "arm_length", "leg_length", "hand_scale", "foot_scale",
+    ),
+}
+
+HYBRID_RESIDUAL_THRESHOLD = 0.5
+
+
+def _hybrid_body_residuals(features, composites, chosen, language="en"):
+    selected_groups = {item["name"] for item in chosen}
+    selected_features = {
+        feature_name
+        for group_name in selected_groups
+        for feature_name in BODY_COMPOSITE_FEATURES[group_name]
+    }
+    semantic_key = "semantic_zh" if str(language).lower().startswith("zh") else "semantic"
+    expressed = " ".join(item.get(semantic_key, "").lower() for item in chosen)
+    phrases = []
+    names = []
+    seen_features = set()
+    for group_name, feature_names in BODY_COMPOSITE_FEATURES.items():
+        for feature_name in feature_names:
+            if feature_name in seen_features:
+                continue
+            seen_features.add(feature_name)
+            value = float(features.get(feature_name, 0.0))
+            phrase = body_feature_to_phrase(feature_name, value, language)
+            if not phrase:
+                continue
+            if (
+                feature_name in selected_features
+                and abs(value) < HYBRID_RESIDUAL_THRESHOLD
+            ):
+                continue
+            if phrase.lower() in expressed:
+                continue
+            phrases.append(phrase)
+            names.append(feature_name)
+            expressed += " " + phrase.lower()
+    return phrases, names
 
 
 def _v(features, name):
@@ -231,8 +290,16 @@ def build_body_composite_identity(dna, max_composites=5):
         item["rank"] = rank
 
     chosen = composites[:max(1, min(5, int(max_composites)))]
-    body_prompt = ", ".join(item["semantic"] for item in chosen if item["semantic"])
-    body_prompt_zh = "，".join(item["semantic_zh"] for item in chosen if item["semantic_zh"])
+    residual_en, residual_names = _hybrid_body_residuals(
+        features, composites, chosen, "en"
+    )
+    residual_zh, _ = _hybrid_body_residuals(features, composites, chosen, "zh")
+    body_prompt = ", ".join(
+        [item["semantic"] for item in chosen if item["semantic"]] + residual_en
+    )
+    body_prompt_zh = "，".join(
+        [item["semantic_zh"] for item in chosen if item["semantic_zh"]] + residual_zh
+    )
     face_prompt = result.get("identity_core_prompt") or _base_core_prompt(result, "en")
     face_prompt_zh = result.get("identity_core_prompt_zh") or _base_core_prompt(result, "zh")
     face_core = strip_quality_block(face_prompt, "en")
@@ -240,7 +307,10 @@ def build_body_composite_identity(dna, max_composites=5):
     combined = compose_prompt((face_core, body_prompt), "en")
     combined_zh = compose_prompt((face_core_zh, body_prompt_zh), "zh")
 
-    result["body_composite_identity"] = {"anchors": composites}
+    result["body_composite_identity"] = {
+        "anchors": composites,
+        "hybrid_residual_features": residual_names,
+    }
     result["body_identity_prompt"] = body_prompt
     result["body_identity_prompt_zh"] = body_prompt_zh
     result["combined_identity_prompt"] = combined

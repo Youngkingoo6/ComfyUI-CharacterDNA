@@ -7,6 +7,28 @@ from .vocabulary import (
     get_composite_phrase,
     get_vocabulary,
 )
+from .semantic import feature_to_phrase
+
+
+COMPOSITE_FEATURES = {
+    "facial_silhouette": (
+        "face_length", "face_width", "cheekbone_width", "jaw_width",
+        "chin_width", "chin_length",
+    ),
+    "eye_geometry": (
+        "eye_elongation", "eye_openness", "eye_spacing", "canthal_tilt",
+    ),
+    "brow_eye_relationship": ("brow_eye_distance",),
+    "nose_profile": (
+        "nose_width", "nose_length", "nose_projection", "nose_tip_rotation",
+    ),
+    "lip_relationship": (
+        "mouth_width", "upper_lip_fullness", "lower_lip_fullness",
+        "cupid_bow_definition",
+    ),
+}
+
+HYBRID_RESIDUAL_THRESHOLD = 0.5
 
 
 def _v(features, name):
@@ -862,6 +884,38 @@ def _score_composites(composites):
 # Identity Core Prompt
 # ============================================================
 
+def _hybrid_residual_features(dna, composites, max_composites, language="en"):
+    features = dna.get("parametric_identity", {}).get("features", {})
+    selected = composites[:max_composites]
+    selected_groups = {item["name"] for item in selected}
+    expressed = " ".join(
+        item.get(
+            "semantic_zh" if str(language).lower().startswith("zh") else "semantic",
+            "",
+        ).lower()
+        for item in selected
+    )
+    phrases = []
+    names = []
+    for group_name, feature_names in COMPOSITE_FEATURES.items():
+        group_selected = group_name in selected_groups
+        for feature_name in feature_names:
+            value = float(features.get(feature_name, 0.0))
+            phrase = feature_to_phrase(feature_name, value, language)
+            if not phrase:
+                continue
+            # Selected groups already carry their overall relationship. Add
+            # only strong residual coordinates; omitted groups retain every
+            # non-neutral raw coordinate so max_composites never erases DNA.
+            if group_selected and abs(value) < HYBRID_RESIDUAL_THRESHOLD:
+                continue
+            if phrase.lower() in expressed:
+                continue
+            phrases.append(phrase)
+            names.append(feature_name)
+            expressed += " " + phrase.lower()
+    return phrases, names
+
 def build_identity_core_prompt(
     dna,
     composites,
@@ -893,6 +947,11 @@ def build_identity_core_prompt(
             phrases.append(
                 semantic
             )
+
+    residual_phrases, _ = _hybrid_residual_features(
+        dna, composites, max_composites, language
+    )
+    phrases.extend(residual_phrases)
 
     return compose_prompt(phrases, language)
 
@@ -979,6 +1038,9 @@ def build_composite_identity(
 
         "anchors":
             composites,
+        "hybrid_residual_features": _hybrid_residual_features(
+            result_dna, composites, max_composites, "en"
+        )[1],
     }
 
     identity_prompt = (

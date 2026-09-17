@@ -103,7 +103,7 @@ Seed Generator
 4. Nose Profile：鼻宽、鼻长、立体度和鼻尖方向。
 5. Lip Relationship：嘴宽、上下唇厚度和唇峰。
 
-`max_composites` 控制最多输出几组，范围为 1–5。它不会改变 DNA，只控制提示词保留多少组整体特征。
+`max_composites` 控制最多输出几组整体关系，范围为 1–5。Composite 采用混合模式：保留关系描述后，会补充其中尚未充分表达的强显著原始 Feature；没有入选的 Composite 组则退回逐项 Feature 描述。因此 19 个数值始终保留在 DNA 中，减少 Composite 数量也不会把对应结构从最终提示词中静默删除。推荐保持 `5`，获得最自然的关系描述。
 
 ## 参数说明
 

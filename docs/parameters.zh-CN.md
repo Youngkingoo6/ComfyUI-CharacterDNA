@@ -88,11 +88,13 @@ Composite 会看参数之间的关系，而不是机械拼接单项词语：
 
 ### `max_composites`
 
-现有系统计算 5 组 Composite，再按 `salience × identity importance` 排序。该参数只保留排名最前的 N 组：
+现有系统计算 5 组 Composite，再按 `salience × identity importance` 排序。该参数控制排名最前的 N 组使用整体关系描述：
 
-- `1–2`：提示词最短，只保留最显著身份结构。
-- `3`：兼顾简洁与辨识度。
-- `5`：输出全部五组，信息最完整。
+- `1–2`：只有最显著分组使用整体关系描述；其他分组退回非中性的逐项 Feature 描述。
+- `3`：三组使用整体关系，其余结构仍以 Feature 形式保留。
+- `5`：全部五组都使用自然关系描述，推荐默认值。
+
+Composite 使用混合输出：已选分组会补回没有被关系语句充分表达、绝对值达到 `0.5` 的强显著 Feature；未选分组会补回所有非中性 Feature。它只改变语言组织方式，不删除或覆盖 `parametric_identity.features` 中的任何数值。`composite_identity_v4.hybrid_residual_features` 会记录实际补回的参数名。
 
 ## 多参数调整方法
 
