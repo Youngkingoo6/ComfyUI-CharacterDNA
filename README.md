@@ -48,6 +48,8 @@ Face Composite Identity
         ↓
 Body Composite Identity
         ↓
+Clothing & Scene Composer（可选）
+        ↓
 中英文完整身份提示词
 ```
 
@@ -115,6 +117,7 @@ Seed Generator
 
 - 每个 Feature 的五档中英文提示词；
 - 面部和身体各 5 组 Composite 的中英文短语；
+- 服装与场景的中英文预设；
 - 年龄阶段、基础身份模板和固定质量词。
 
 `Fixed quality position` 可选择固定质量词位于完整提示词的最前面或最后面，默认放在最后。面部、身体、Parametric 和 Composite 输出统一遵循该设置。
@@ -124,6 +127,16 @@ Seed Generator
 Parametric Face Designer、Face DNA Seed Generator 和 Face Composite Identity 会把词库修订版本加入执行缓存。即使节点输入没有改变，保存词库后再次完整运行也会重新生成提示词。
 
 身体词库独立保存，因此升级身体功能不会覆盖你已经修改过的面部固定质量词。
+
+### 服装与场景
+
+`Clothing & Scene Composer` 是稳定 DNA 之后的可变表现层。它从输入 DNA 自动选择当前最完整的面部/身体身份提示词，再按顺序拼接可选的服装和场景：
+
+```text
+身份 DNA → 服装（可选）→ 场景（可选）→ 固定质量词
+```
+
+服装或场景选择 `none` 时不会添加对应内容。词库面板新增 **Clothing / 服装** 和 **Scenes / 场景** 两页，可以编辑、添加或删除中英文预设。两套预设独立保存在表现层词库中，不会改变稳定的面部和身体 Feature。详细说明见 [`docs/presentation-vocabulary.zh-CN.md`](docs/presentation-vocabulary.zh-CN.md)。
 
 ## 其他节点
 

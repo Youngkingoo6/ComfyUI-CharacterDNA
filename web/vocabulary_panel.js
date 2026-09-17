@@ -22,18 +22,19 @@ const FALLBACK = {
   title: "CharacterDNA Vocabulary", autoApply: "Changes apply after saving", save: "Save", reload: "Reload",
   export: "Export", import: "Import", reset: "Restore defaults", features: "Feature vocabulary",
   composites: "Composite vocabulary", profile: "Base templates", searchFeatures: "Search features or phrases…",
-  searchComposites: "Search composites or phrases…", searchProfile: "Search is available in vocabulary tabs",
+  searchComposites: "Search composites or phrases…", searchPhrases: "Search presets or phrases…", searchProfile: "Search is available in vocabulary tabs",
   loading: "Loading vocabulary…", loaded: "Vocabulary loaded", unsaved: "Unsaved changes",
   discard: "Discard unsaved changes and reload?", saving: "Validating and saving…",
   saved: "Saved. Generation nodes now use the updated vocabulary.", saveFailed: "Save failed: ",
   resetConfirm: "Restore the default vocabulary? Current changes will be overwritten.", resetting: "Restoring defaults…",
   resetDone: "Default vocabulary restored", resetFailed: "Restore failed: ", exported: "Vocabulary exported",
   imported: "Imported into the editor; click Save to apply", importFailed: "Import failed: ", invalidRoot: "JSON root must be an object",
-  emptyFeatures: "No matching features", emptyComposites: "No matching composite phrases", notLoaded: "Vocabulary is not loaded",
+  emptyFeatures: "No matching features", emptyComposites: "No matching composite phrases", emptyPhrases: "No matching presets", notLoaded: "Vocabulary is not loaded",
   english: "English prompt", chinese: "Chinese prompt", value: "Value", identityTemplate: "Identity template",
   ageTemplate: "Age template", lifeStages: "Life stages", maxAge: "Upper age (blank for last)", addStage: "+ Add life stage",
   quality: "Fixed quality phrases", qualityPosition: "Fixed quality position", qualityAtStart: "At prompt start", qualityAtEnd: "At prompt end", face: "Face", eyes: "Eyes", nose: "Nose", mouth: "Mouth",
   faceFeatures: "Face Features", bodyFeatures: "Body Features", faceComposites: "Face Composite", bodyComposites: "Body Composite",
+  clothing: "Clothing", scenes: "Scenes", addClothing: "+ Add clothing", addScene: "+ Add scene", newPresetKey: "New preset key", deleteEntry: "Delete",
   frame: "Frame", torso: "Torso", limbs: "Limbs", build: "Build",
   overall_frame: "Overall frame", torso_architecture: "Torso architecture", limb_proportions: "Limb proportions",
   build_distribution: "Build distribution", scale_balance: "Scale balance",
@@ -172,6 +173,29 @@ function renderVocabularyPanel(container) {
     }
     if (!count) fragment.appendChild(el("div", { className: "cdna-vocab-empty", text: t("emptyComposites") })); return fragment;
   }
+  function renderPromptDictionary(section, sectionName) {
+    const fragment = document.createDocumentFragment(); let count = 0;
+    const group = el("section", { className: "cdna-vocab-group" }); group.appendChild(el("h3", { text: t(sectionName) }));
+    for (const [key, entry] of Object.entries(section)) {
+      if (!matches(key, entry.prompt, entry.prompt_zh)) continue;
+      const card = el("article", { className: "cdna-vocab-card" });
+      card.appendChild(el("div", { className: "cdna-vocab-title" }, [
+        el("h4", { text: key }),
+        el("button", { className: "danger", text: t("deleteEntry"), onclick: () => { delete section[key]; markDirty(); renderContent(); } }),
+      ]));
+      card.appendChild(bilingual(entry.prompt, entry.prompt_zh, (value) => { entry.prompt = value; }, (value) => { entry.prompt_zh = value; }));
+      group.appendChild(card); count += 1;
+    }
+    const addLabel = sectionName === "clothing" ? t("addClothing") : t("addScene");
+    group.appendChild(el("button", { text: addLabel, onclick: () => {
+      const rawKey = window.prompt(t("newPresetKey"), sectionName === "clothing" ? "new_clothing" : "new_scene");
+      const key = String(rawKey || "").trim();
+      if (!key || key === "none" || section[key]) return;
+      section[key] = { prompt: "new prompt", prompt_zh: "新提示词" }; markDirty(); renderContent();
+    } }));
+    if (!count && state.search) fragment.appendChild(el("div", { className: "cdna-vocab-empty", text: t("emptyPhrases") }));
+    fragment.appendChild(group); return fragment;
+  }
   function renderProfile() {
     const p = state.vocabulary.profile; const fragment = document.createDocumentFragment();
     const templates = el("section", { className: "cdna-vocab-group" }, [el("h3", { text: t("profile") })]); const card = el("article", { className: "cdna-vocab-card" });
@@ -207,13 +231,15 @@ function renderVocabularyPanel(container) {
       bodyFeatures: () => renderFeatures(state.vocabulary.body_features, BODY_FEATURE_GROUPS),
       faceComposites: () => renderComposites(state.vocabulary.composites, state.vocabulary.composites_zh, COMPOSITE_GROUPS),
       bodyComposites: () => renderComposites(state.vocabulary.body_composites, state.vocabulary.body_composites_zh, BODY_COMPOSITE_GROUPS),
+      clothing: () => renderPromptDictionary(state.vocabulary.clothing, "clothing"),
+      scenes: () => renderPromptDictionary(state.vocabulary.scenes, "scenes"),
       profile: renderProfile,
     };
     content.appendChild(views[state.activeTab]());
   }
 
   const tabs = el("div", { className: "cdna-vocab-tabs" }); const buttons = new Map();
-  for (const key of ["faceFeatures", "bodyFeatures", "faceComposites", "bodyComposites", "profile"]) { const button = el("button", { className: key === state.activeTab ? "active" : "", text: t(key), onclick: () => { state.activeTab = key; buttons.forEach((item, itemKey) => item.classList.toggle("active", itemKey === key)); search.placeholder = t(key.endsWith("Features") ? "searchFeatures" : key.endsWith("Composites") ? "searchComposites" : "searchProfile"); renderContent(); } }); buttons.set(key, button); tabs.appendChild(button); }
+  for (const key of ["faceFeatures", "bodyFeatures", "faceComposites", "bodyComposites", "clothing", "scenes", "profile"]) { const button = el("button", { className: key === state.activeTab ? "active" : "", text: t(key), onclick: () => { state.activeTab = key; buttons.forEach((item, itemKey) => item.classList.toggle("active", itemKey === key)); search.placeholder = t(key.endsWith("Features") ? "searchFeatures" : key.endsWith("Composites") ? "searchComposites" : ["clothing", "scenes"].includes(key) ? "searchPhrases" : "searchProfile"); renderContent(); } }); buttons.set(key, button); tabs.appendChild(button); }
   const toolbar = el("div", { className: "cdna-vocab-toolbar" }, [el("button", { className: "primary", text: t("save"), onclick: save }), el("button", { text: t("reload"), onclick: () => load(false) }), el("button", { text: t("export"), onclick: exportVocabulary }), el("button", { text: t("import"), onclick: () => importInput.click() }), el("button", { className: "danger", text: t("reset"), onclick: reset })]);
   const header = el("header", { className: "cdna-vocab-header" }, [el("div", { className: "cdna-vocab-title" }, [el("span", { text: `🧬 ${t("title")}` }), el("small", { text: t("autoApply") })]), toolbar, tabs, search, importInput]);
   root.append(header, content, status); container.replaceChildren(root); container.style.height = "100%"; container.style.overflow = "hidden"; load(true);

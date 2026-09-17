@@ -10,8 +10,10 @@ from .character_dna.parametric import FEATURE_META
 from .character_dna.body_parametric import BODY_FEATURE_META
 from .character_dna.vocabulary import (
     BODY_VOCABULARY_PATH,
+    PRESENTATION_VOCABULARY_PATH,
     VOCABULARY_PATH,
     get_body_vocabulary,
+    get_presentation_vocabulary,
     get_vocabulary,
     invalidate_vocabulary_cache,
 )
@@ -22,6 +24,9 @@ DEFAULT_VOCABULARY_PATH = VOCABULARY_PATH.with_name(
 )
 DEFAULT_BODY_VOCABULARY_PATH = BODY_VOCABULARY_PATH.with_name(
     "body_vocabulary.default.json"
+)
+DEFAULT_PRESENTATION_VOCABULARY_PATH = PRESENTATION_VOCABULARY_PATH.with_name(
+    "presentation_vocabulary.default.json"
 )
 
 COMPOSITE_GROUPS = {
@@ -57,6 +62,16 @@ def _ensure_default_vocabulary():
         default_body = None
     if not isinstance(default_body, dict) or "features" not in default_body:
         shutil.copy2(BODY_VOCABULARY_PATH, DEFAULT_BODY_VOCABULARY_PATH)
+    try:
+        with DEFAULT_PRESENTATION_VOCABULARY_PATH.open("r", encoding="utf-8") as handle:
+            default_presentation = json.load(handle)
+    except (FileNotFoundError, json.JSONDecodeError):
+        default_presentation = None
+    if not isinstance(default_presentation, dict):
+        shutil.copy2(
+            PRESENTATION_VOCABULARY_PATH,
+            DEFAULT_PRESENTATION_VOCABULARY_PATH,
+        )
 
 
 def _require_string(value, path):
@@ -229,17 +244,41 @@ def _validate_body_vocabulary(vocabulary):
     return vocabulary
 
 
+def _validate_presentation_vocabulary(vocabulary):
+    if not isinstance(vocabulary, dict):
+        raise ValueError("Presentation vocabulary must be a JSON object.")
+    if set(vocabulary) != {"clothing", "scenes"}:
+        raise ValueError("Presentation vocabulary must contain clothing and scenes.")
+    for section_name in ("clothing", "scenes"):
+        section = vocabulary[section_name]
+        if not isinstance(section, dict):
+            raise ValueError(f"{section_name} must be an object.")
+        for key, entry in section.items():
+            _require_string(key, f"{section_name} key")
+            if key == "none":
+                raise ValueError(f"{section_name}.none is reserved by the node.")
+            if not isinstance(entry, dict):
+                raise ValueError(f"{section_name}.{key} must be an object.")
+            _require_string(entry.get("prompt"), f"{section_name}.{key}.prompt")
+            _require_string(entry.get("prompt_zh"), f"{section_name}.{key}.prompt_zh")
+    return vocabulary
+
+
 def _combined_vocabulary():
     face = dict(get_vocabulary())
     body = get_body_vocabulary()
     face["body_features"] = body["features"]
     face["body_composites"] = body["composites"]
     face["body_composites_zh"] = body["composites_zh"]
+    presentation = get_presentation_vocabulary()
+    face["clothing"] = presentation["clothing"]
+    face["scenes"] = presentation["scenes"]
     return face
 
 
 def _split_vocabulary(vocabulary):
     current_body = get_body_vocabulary()
+    current_presentation = get_presentation_vocabulary()
     face = {
         key: vocabulary[key]
         for key in ("profile", "features", "composites", "composites_zh")
@@ -251,13 +290,18 @@ def _split_vocabulary(vocabulary):
             "body_composites_zh", current_body["composites_zh"]
         ),
     }
-    return face, body
+    presentation = {
+        "clothing": vocabulary.get("clothing", current_presentation["clothing"]),
+        "scenes": vocabulary.get("scenes", current_presentation["scenes"]),
+    }
+    return face, body, presentation
 
 
 def _write_vocabulary(vocabulary):
-    face, body = _split_vocabulary(vocabulary)
+    face, body, presentation = _split_vocabulary(vocabulary)
     _validate_vocabulary(face)
     _validate_body_vocabulary(body)
+    _validate_presentation_vocabulary(presentation)
 
     temporary_path = VOCABULARY_PATH.with_suffix(
         ".json.tmp"
@@ -284,6 +328,11 @@ def _write_vocabulary(vocabulary):
         json.dump(body, handle, ensure_ascii=False, indent=2)
         handle.write("\n")
     os.replace(body_temporary_path, BODY_VOCABULARY_PATH)
+    presentation_temporary_path = PRESENTATION_VOCABULARY_PATH.with_suffix(".json.tmp")
+    with presentation_temporary_path.open("w", encoding="utf-8") as handle:
+        json.dump(presentation, handle, ensure_ascii=False, indent=2)
+        handle.write("\n")
+    os.replace(presentation_temporary_path, PRESENTATION_VOCABULARY_PATH)
     invalidate_vocabulary_cache()
 
 
@@ -293,9 +342,10 @@ _ensure_default_vocabulary()
 async def get_character_dna_vocabulary(_request):
     try:
         vocabulary = _combined_vocabulary()
-        face, body = _split_vocabulary(vocabulary)
+        face, body, presentation = _split_vocabulary(vocabulary)
         _validate_vocabulary(face)
         _validate_body_vocabulary(body)
+        _validate_presentation_vocabulary(presentation)
         return web.json_response({
             "ok": True,
             "vocabulary": vocabulary,
@@ -348,9 +398,13 @@ async def reset_character_dna_vocabulary(_request):
             vocabulary = json.load(handle)
         with DEFAULT_BODY_VOCABULARY_PATH.open("r", encoding="utf-8") as handle:
             body = json.load(handle)
+        with DEFAULT_PRESENTATION_VOCABULARY_PATH.open("r", encoding="utf-8") as handle:
+            presentation = json.load(handle)
         vocabulary["body_features"] = body["features"]
         vocabulary["body_composites"] = body["composites"]
         vocabulary["body_composites_zh"] = body["composites_zh"]
+        vocabulary["clothing"] = presentation["clothing"]
+        vocabulary["scenes"] = presentation["scenes"]
 
         async with _WRITE_LOCK:
             _write_vocabulary(vocabulary)

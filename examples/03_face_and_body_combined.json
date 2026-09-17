@@ -1,13 +1,13 @@
 {
-  "id": "211e2c78-fa01-4dba-9479-50f05aab1f35",
+  "id": "51816703-eaab-4675-a72c-95d4ca737dac",
   "revision": 0,
-  "last_node_id": 9,
-  "last_link_id": 5,
+  "last_node_id": 10,
+  "last_link_id": 6,
   "nodes": [
     {
       "id": 1, "type": "Note", "pos": [0, 0], "size": [390, 310], "flags": {}, "order": 0, "mode": 0,
       "inputs": [], "outputs": [], "properties": {},
-      "widgets_values": ["面部 + 身体 DNA 示例\n\n1. 面部 Seed 生成 19 项面部结构参数。\n2. 身体 Seed 再生成 20 项身体比例参数。\n3. 两套参数保存在同一个 Character DNA 中，互不覆盖。\n4. 面部 Composite 先生成面部身份描述。\n5. 身体 Composite 生成身体描述，并输出合并后的完整身份提示词。\n\n面部与身体 seed 可分别固定或随机。"],
+      "widgets_values": ["面部 + 身体 DNA 示例\n\n1. 面部 Seed 生成 19 项面部结构参数。\n2. 身体 Seed 再生成 20 项身体比例参数。\n3. 两套参数保存在同一个 Character DNA 中，互不覆盖。\n4. 面部 Composite 先生成面部身份描述。\n5. 身体 Composite 生成身体描述。\n6. 服装与场景组合器在稳定 DNA 后添加可变内容，并输出最终提示词。\n\n面部与身体 seed 可分别固定或随机。服装和场景均可选择 none。"],
       "widgets_values_named": {"text": "面部 + 身体 DNA 示例"}, "color": "#3d315f", "bgcolor": "#574580"
     },
     {
@@ -37,28 +37,34 @@
     {
       "id": 6, "type": "CharacterDNABodyCompositeIdentity", "pos": [1940, 20], "size": [360, 250], "flags": {}, "order": 5, "mode": 0,
       "inputs": [{"name": "character_dna", "type": "CHARACTER_DNA", "link": 4}, {"name": "max_composites", "type": "INT", "widget": {"name": "max_composites"}, "link": null}],
-      "outputs": [{"name": "character_dna", "type": "CHARACTER_DNA", "links": null}, {"name": "body_composite_anchors_json", "type": "STRING", "links": null}, {"name": "body_identity_prompt", "type": "STRING", "links": null}, {"name": "body_identity_prompt_zh", "type": "STRING", "links": null}, {"name": "combined_identity_prompt", "type": "STRING", "links": null}, {"name": "combined_identity_prompt_zh", "type": "STRING", "links": [5]}],
+      "outputs": [{"name": "character_dna", "type": "CHARACTER_DNA", "links": [5]}, {"name": "body_composite_anchors_json", "type": "STRING", "links": null}, {"name": "body_identity_prompt", "type": "STRING", "links": null}, {"name": "body_identity_prompt_zh", "type": "STRING", "links": null}, {"name": "combined_identity_prompt", "type": "STRING", "links": null}, {"name": "combined_identity_prompt_zh", "type": "STRING", "links": null}],
       "properties": {"Node name for S&R": "CharacterDNABodyCompositeIdentity"}, "widgets_values": [5], "widgets_values_named": {"max_composites": 5}
     },
     {
-      "id": 7, "type": "SaveText", "pos": [2360, 20], "size": [300, 150], "flags": {}, "order": 6, "mode": 0,
-      "inputs": [{"name": "text", "type": "STRING", "link": 5}, {"name": "filename_prefix", "type": "STRING", "widget": {"name": "filename_prefix"}, "link": null}, {"name": "format", "type": "COMBO", "widget": {"name": "format"}, "link": null}],
+      "id": 7, "type": "SaveText", "pos": [2760, 20], "size": [300, 150], "flags": {}, "order": 7, "mode": 0,
+      "inputs": [{"name": "text", "type": "STRING", "link": 6}, {"name": "filename_prefix", "type": "STRING", "widget": {"name": "filename_prefix"}, "link": null}, {"name": "format", "type": "COMBO", "widget": {"name": "format"}, "link": null}],
       "outputs": [{"name": "text", "type": "STRING", "links": null}], "properties": {"Node name for S&R": "SaveText"},
       "widgets_values": ["CharacterDNA/face_body_identity_zh", "txt"], "widgets_values_named": {"filename_prefix": "CharacterDNA/face_body_identity_zh", "format": "txt"}
     },
     {
-      "id": 8, "type": "Note", "pos": [440, 350], "size": [620, 760], "flags": {}, "order": 7, "mode": 0,
+      "id": 10, "type": "CharacterDNAClothingSceneComposer", "pos": [2360, 20], "size": [350, 190], "flags": {}, "order": 6, "mode": 0,
+      "inputs": [{"name": "character_dna", "type": "CHARACTER_DNA", "link": 5}, {"name": "clothing", "type": "COMBO", "widget": {"name": "clothing"}, "link": null}, {"name": "scene", "type": "COMBO", "widget": {"name": "scene"}, "link": null}],
+      "outputs": [{"name": "character_dna", "type": "CHARACTER_DNA", "links": null}, {"name": "complete_prompt", "type": "STRING", "links": null}, {"name": "complete_prompt_zh", "type": "STRING", "links": [6]}],
+      "properties": {"Node name for S&R": "CharacterDNAClothingSceneComposer"}, "widgets_values": ["casual_tshirt_jeans", "studio_plain_background"], "widgets_values_named": {"clothing": "casual_tshirt_jeans", "scene": "studio_plain_background"}
+    },
+    {
+      "id": 8, "type": "Note", "pos": [440, 350], "size": [620, 760], "flags": {}, "order": 8, "mode": 0,
       "inputs": [], "outputs": [], "properties": {},
       "widgets_values": ["Face Parametric 全部可设置项\n\n范围：-1.0 ～ +1.0　步进：0.5\n0 = 不指定，不输出该结构词。\n多项修改：串联多个 Parametric Face Designer；后面的同名参数覆盖前面的。\n\n【脸部轮廓】\nface_length：短脸 ←→ 长脸\nface_width：窄脸 ←→ 宽脸\ncheekbone_width：窄而内收的颧骨 ←→ 宽且突出的颧骨\njaw_width：窄而收尖的下颌 ←→ 宽而有力的下颌\nchin_width：窄下巴 ←→ 宽下巴\nchin_length：短下巴 ←→ 长下巴\n\n【眼部与眉眼】\neye_elongation：圆、横向较短 ←→ 横向细长\neye_openness：开合较小 ←→ 开合较大、圆睁\neye_spacing：近眼距 ←→ 宽眼距\ncanthal_tilt：外眼角向下 ←→ 外眼角向上\nbrow_eye_distance：眉眼紧凑 ←→ 眉眼舒展\n\n【鼻部】\nnose_width：窄鼻 ←→ 宽鼻\nnose_length：短鼻 ←→ 长鼻\nnose_projection：低投影、较平 ←→ 高投影、立体\nnose_tip_rotation：鼻尖向下 ←→ 鼻尖向上\n\n【嘴唇】\nmouth_width：窄嘴 ←→ 宽嘴\nupper_lip_fullness：薄上唇 ←→ 丰满上唇\nlower_lip_fullness：薄下唇 ←→ 丰满下唇\ncupid_bow_definition：柔和唇峰 ←→ 清晰唇峰"],
       "widgets_values_named": {"text": "Face Parametric 全部可设置项"}, "color": "#24455a", "bgcolor": "#315f78"
     },
     {
-      "id": 9, "type": "Note", "pos": [1110, 350], "size": [620, 760], "flags": {}, "order": 8, "mode": 0,
+      "id": 9, "type": "Note", "pos": [1110, 350], "size": [620, 760], "flags": {}, "order": 9, "mode": 0,
       "inputs": [], "outputs": [], "properties": {},
       "widgets_values": ["Body Parametric 全部可设置项\n\n范围：-1.0 ～ +1.0　步进：0.5\n0 = 不指定，不输出该结构词。\n多项修改：串联多个 Parametric Body Designer；后面的同名参数覆盖前面的。\n\n【整体骨架】\nstature：紧凑体量 ←→ 高挑体量\nshoulder_width：窄肩 ←→ 宽肩\nshoulder_slope：平直方肩 ←→ 斜肩\nribcage_width：窄胸廓 ←→ 宽胸廓\npelvis_width：窄骨盆 ←→ 宽骨盆\n\n【躯干】\nneck_length：短颈 ←→ 长颈\nneck_thickness：纤细颈部 ←→ 厚实颈部\ntorso_length：短躯干 ←→ 长躯干\nchest_fullness：平坦胸部轮廓 ←→ 饱满胸部轮廓\nwaist_definition：平直腰线 ←→ 明显腰线\nhip_fullness：清瘦臀胯 ←→ 饱满臀胯\n\n【四肢】\narm_length：短手臂 ←→ 长手臂\nhand_scale：小手 ←→ 大手\nleg_length：短腿 ←→ 长腿\nthigh_length_ratio：紧凑大腿比例 ←→ 修长大腿比例\nfoot_scale：小足部 ←→ 大足部\n\n【体型】\nupper_body_fullness：清瘦上身 ←→ 厚实上身\nlower_body_fullness：清瘦下身 ←→ 厚实下身\nlimb_thickness：纤细四肢 ←→ 厚实四肢\nmuscularity：柔和、低肌肉感 ←→ 结实、运动型"],
       "widgets_values_named": {"text": "Body Parametric 全部可设置项"}, "color": "#4d3525", "bgcolor": "#684b32"
     }
   ],
-  "links": [[1, 2, 0, 3, 0, "CHARACTER_DNA"], [2, 3, 0, 4, 0, "CHARACTER_DNA"], [3, 4, 0, 5, 0, "CHARACTER_DNA"], [4, 5, 0, 6, 0, "CHARACTER_DNA"], [5, 6, 5, 7, 0, "STRING"]],
+  "links": [[1, 2, 0, 3, 0, "CHARACTER_DNA"], [2, 3, 0, 4, 0, "CHARACTER_DNA"], [3, 4, 0, 5, 0, "CHARACTER_DNA"], [4, 5, 0, 6, 0, "CHARACTER_DNA"], [5, 6, 0, 10, 0, "CHARACTER_DNA"], [6, 10, 2, 7, 0, "STRING"]],
   "groups": [], "config": {}, "extra": {"ds": {"scale": 0.72, "offset": [30, 170]}}, "version": 0.4
 }

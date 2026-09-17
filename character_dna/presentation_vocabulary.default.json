@@ -1,0 +1,30 @@
+{
+  "clothing": {
+    "casual_tshirt_jeans": {"prompt": "wearing a clean fitted T-shirt with classic jeans", "prompt_zh": "穿着简洁合身的 T 恤与经典牛仔裤"},
+    "oversized_sweater": {"prompt": "wearing a soft oversized sweater with relaxed trousers", "prompt_zh": "穿着柔软的宽松毛衣与休闲长裤"},
+    "knit_top_trousers": {"prompt": "wearing a refined knit top with tailored trousers", "prompt_zh": "穿着精致针织上衣与剪裁长裤"},
+    "white_shirt_trousers": {"prompt": "wearing a crisp white shirt with straight-leg trousers", "prompt_zh": "穿着挺括白衬衫与直筒长裤"},
+    "summer_dress": {"prompt": "wearing a light flowing summer dress", "prompt_zh": "穿着轻盈飘逸的夏日连衣裙"},
+    "evening_dress": {"prompt": "wearing an elegant understated evening dress", "prompt_zh": "穿着优雅克制的晚礼服"},
+    "business_suit": {"prompt": "wearing a modern well-tailored business suit", "prompt_zh": "穿着现代合体的商务西装"},
+    "sportswear": {"prompt": "wearing streamlined functional sportswear", "prompt_zh": "穿着利落实用的运动服"},
+    "streetwear": {"prompt": "wearing layered contemporary streetwear", "prompt_zh": "穿着富有层次的现代街头服饰"},
+    "denim_jacket": {"prompt": "wearing a denim jacket over a simple casual outfit", "prompt_zh": "穿着牛仔夹克与简洁休闲内搭"},
+    "trench_coat": {"prompt": "wearing a classic structured trench coat", "prompt_zh": "穿着经典挺括的风衣"},
+    "minimalist_black": {"prompt": "wearing a minimalist monochrome black outfit", "prompt_zh": "穿着极简的纯黑色服装"}
+  },
+  "scenes": {
+    "studio_plain_background": {"prompt": "in a clean portrait studio with a plain neutral background", "prompt_zh": "位于干净的人像摄影棚，背景简洁中性"},
+    "modern_living_room": {"prompt": "in a warm modern living room with natural daylight", "prompt_zh": "位于温暖的现代客厅，带有自然日光"},
+    "cozy_bedroom": {"prompt": "in a tidy cozy bedroom with soft ambient light", "prompt_zh": "位于整洁舒适的卧室，带有柔和环境光"},
+    "quiet_cafe": {"prompt": "in a quiet contemporary cafe by a window", "prompt_zh": "位于安静的现代咖啡馆窗边"},
+    "city_street_day": {"prompt": "on a lively modern city street in daylight", "prompt_zh": "位于白天充满活力的现代城市街道"},
+    "city_street_night": {"prompt": "on a city street at night with subtle neon reflections", "prompt_zh": "位于夜晚的城市街道，带有克制的霓虹反光"},
+    "green_park": {"prompt": "in a green urban park with soft natural light", "prompt_zh": "位于绿意盎然的城市公园，带有柔和自然光"},
+    "sunlit_beach": {"prompt": "on a calm sunlit beach beside the sea", "prompt_zh": "位于宁静明亮的海边沙滩"},
+    "forest_path": {"prompt": "on a quiet forest path with filtered sunlight", "prompt_zh": "位于安静的林间小径，阳光穿过树叶"},
+    "modern_office": {"prompt": "in a bright modern office with clean architectural lines", "prompt_zh": "位于明亮的现代办公室，空间线条简洁"},
+    "rooftop_sunset": {"prompt": "on a city rooftop during a warm sunset", "prompt_zh": "位于暖色夕阳下的城市屋顶"},
+    "library": {"prompt": "in a quiet library surrounded by bookshelves", "prompt_zh": "位于安静的图书馆，周围是整齐书架"}
+  }
+}

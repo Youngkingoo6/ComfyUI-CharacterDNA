@@ -29,6 +29,7 @@ from .character_dna.body_parametric import (
 )
 from .character_dna.body_genesis import generate_body_dna
 from .character_dna.body_composite import build_body_composite_identity
+from .character_dna.presentation import compose_presentation, presentation_options
 from .character_dna.landmark_provider import (
     InsightFace106Detector,
 )
@@ -571,6 +572,39 @@ class CharacterDNABodyCompositeIdentity:
             combined,
             combined_zh,
         )
+
+
+# ============================================================
+# Clothing & Scene Composer
+# ============================================================
+
+class CharacterDNAClothingSceneComposer:
+
+    @classmethod
+    def IS_CHANGED(cls, **_kwargs):
+        return get_vocabulary_revision()
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "character_dna": (DNA_TYPE,),
+                "clothing": (presentation_options("clothing"),),
+                "scene": (presentation_options("scenes"),),
+            }
+        }
+
+    RETURN_TYPES = (DNA_TYPE, "STRING", "STRING")
+    RETURN_NAMES = (
+        "character_dna",
+        "complete_prompt",
+        "complete_prompt_zh",
+    )
+    FUNCTION = "compose"
+    CATEGORY = "CharacterDNA/Presentation"
+
+    def compose(self, character_dna, clothing, scene):
+        return compose_presentation(character_dna, clothing, scene)
 
 # ============================================================
 # InsightFace 106 Detector
@@ -1271,6 +1305,9 @@ NODE_CLASS_MAPPINGS = {
     "CharacterDNABodyCompositeIdentity":
         CharacterDNABodyCompositeIdentity,
 
+    "CharacterDNAClothingSceneComposer":
+        CharacterDNAClothingSceneComposer,
+
     "CharacterDNAInsightFace106Detector":
         CharacterDNAInsightFace106Detector,
 
@@ -1309,6 +1346,9 @@ NODE_DISPLAY_NAME_MAPPINGS = {
 
     "CharacterDNABodyCompositeIdentity":
         "🧬 Body Composite Identity",
+
+    "CharacterDNAClothingSceneComposer":
+        "🧬 Clothing & Scene Composer",
 
     "CharacterDNAInsightFace106Detector":
         "🧬 InsightFace 106 Detector",
