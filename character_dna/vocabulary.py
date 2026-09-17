@@ -5,23 +5,36 @@ from pathlib import Path
 VOCABULARY_PATH = Path(__file__).with_name(
     "vocabulary.json"
 )
+BODY_VOCABULARY_PATH = Path(__file__).with_name(
+    "body_vocabulary.json"
+)
 
 _VOCABULARY_CACHE = None
 _VOCABULARY_MTIME_NS = None
+_BODY_VOCABULARY_CACHE = None
+_BODY_VOCABULARY_MTIME_NS = None
 
 
 def get_vocabulary_revision():
     """Return a cache key that changes whenever the vocabulary is saved."""
-    status = VOCABULARY_PATH.stat()
-    return f"{status.st_mtime_ns}:{status.st_size}"
+    face = VOCABULARY_PATH.stat()
+    body = BODY_VOCABULARY_PATH.stat()
+    return (
+        f"{face.st_mtime_ns}:{face.st_size}:"
+        f"{body.st_mtime_ns}:{body.st_size}"
+    )
 
 
 def invalidate_vocabulary_cache():
     global _VOCABULARY_CACHE
     global _VOCABULARY_MTIME_NS
+    global _BODY_VOCABULARY_CACHE
+    global _BODY_VOCABULARY_MTIME_NS
 
     _VOCABULARY_CACHE = None
     _VOCABULARY_MTIME_NS = None
+    _BODY_VOCABULARY_CACHE = None
+    _BODY_VOCABULARY_MTIME_NS = None
 
 
 def get_vocabulary():
@@ -51,6 +64,27 @@ def get_vocabulary():
     _VOCABULARY_MTIME_NS = modified_ns
 
     return _VOCABULARY_CACHE
+
+
+def get_body_vocabulary():
+    global _BODY_VOCABULARY_CACHE
+    global _BODY_VOCABULARY_MTIME_NS
+
+    modified_ns = BODY_VOCABULARY_PATH.stat().st_mtime_ns
+    if (
+        _BODY_VOCABULARY_CACHE is not None
+        and modified_ns == _BODY_VOCABULARY_MTIME_NS
+    ):
+        return _BODY_VOCABULARY_CACHE
+
+    with BODY_VOCABULARY_PATH.open("r", encoding="utf-8") as handle:
+        vocabulary = json.load(handle)
+    if not isinstance(vocabulary, dict):
+        raise ValueError("body_vocabulary.json must contain a JSON object.")
+
+    _BODY_VOCABULARY_CACHE = vocabulary
+    _BODY_VOCABULARY_MTIME_NS = modified_ns
+    return _BODY_VOCABULARY_CACHE
 
 
 def _language_suffix(language):

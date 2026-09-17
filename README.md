@@ -4,10 +4,11 @@ CharacterDNA 用一组可重复、可调节的结构参数描述原创角色身�
 
 ## 快速开始
 
-项目自带两个可直接拖入 ComfyUI 的示例：
+项目自带三个可直接拖入 ComfyUI 的示例：
 
 - [`examples/01_basic_seed_to_composite.json`](examples/01_basic_seed_to_composite.json)：从基础身份随机生成 19 个参数，再合成为自然的身份描述。
 - [`examples/02_multiple_feature_adjustments.json`](examples/02_multiple_feature_adjustments.json)：在随机 DNA 后连续修改多个 Feature，演示参数继承和覆盖。
+- [`examples/03_face_and_body_combined.json`](examples/03_face_and_body_combined.json)：分别生成面部和身体 DNA，再输出合并后的完整身份提示词。
 
 将 JSON 拖进 ComfyUI 后：
 
@@ -30,6 +31,24 @@ Parametric Character Designer（可选，可串联多个）
 Composite Identity
         ↓
 中英文身份核心提示词
+```
+
+身体 DNA 与面部 DNA 共用同一个 `CHARACTER_DNA`，推荐接法：
+
+```text
+Character DNA Designer
+        ↓
+DNA Seed Generator（面部）
+        ↓
+Body DNA Seed Generator（身体）
+        ↓
+Parametric Character / Body Designer（可选，可串联）
+        ↓
+Composite Identity（面部）
+        ↓
+Body Composite Identity
+        ↓
+中英文完整身份提示词
 ```
 
 ### Character DNA Designer
@@ -88,18 +107,21 @@ Seed Generator
 完整的 19 个 Feature、正负方向、所属 Composite 和常见联动关系见：
 
 - [`docs/parameters.zh-CN.md`](docs/parameters.zh-CN.md)
+- [`docs/body-parameters.zh-CN.md`](docs/body-parameters.zh-CN.md)：19 个身体 Feature、5 组身体 Composite 与组合方法。
 
 ## 词库管理
 
 打开 ComfyUI 左侧的 **CharacterDNA Vocabulary** 面板，可以编辑：
 
 - 每个 Feature 的五档中英文提示词；
-- 5 组 Composite 的中英文短语；
+- 面部和身体各 5 组 Composite 的中英文短语；
 - 年龄阶段、基础身份模板和固定质量词。
 
 点击保存后，后续执行的生成节点会直接使用新词库。修改前建议先导出备份。
 
 Parametric Character Designer、DNA Seed Generator 和 Composite Identity 会把词库修订版本加入执行缓存。即使节点输入没有改变，保存词库后再次完整运行也会重新生成提示词。
+
+身体词库独立保存，因此升级身体功能不会覆盖你已经修改过的面部固定质量词。
 
 ## 其他节点
 

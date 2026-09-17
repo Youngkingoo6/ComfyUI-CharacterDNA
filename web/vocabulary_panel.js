@@ -10,6 +10,13 @@ const FEATURE_GROUPS = {
   mouth: ["mouth_width", "upper_lip_fullness", "lower_lip_fullness", "cupid_bow_definition"],
 };
 const COMPOSITE_GROUPS = ["facial_silhouette", "eye_geometry", "brow_eye_relationship", "nose_profile", "lip_relationship"];
+const BODY_FEATURE_GROUPS = {
+  frame: ["stature", "shoulder_width", "shoulder_slope", "ribcage_width", "pelvis_width"],
+  torso: ["neck_length", "neck_thickness", "torso_length", "waist_definition", "hip_fullness"],
+  limbs: ["arm_length", "hand_scale", "leg_length", "thigh_length_ratio", "foot_scale"],
+  build: ["upper_body_fullness", "lower_body_fullness", "limb_thickness", "muscularity"],
+};
+const BODY_COMPOSITE_GROUPS = ["overall_frame", "torso_architecture", "limb_proportions", "build_distribution", "scale_balance"];
 
 const FALLBACK = {
   title: "CharacterDNA Vocabulary", autoApply: "Changes apply after saving", save: "Save", reload: "Reload",
@@ -26,6 +33,10 @@ const FALLBACK = {
   english: "English prompt", chinese: "Chinese prompt", value: "Value", identityTemplate: "Identity template",
   ageTemplate: "Age template", lifeStages: "Life stages", maxAge: "Upper age (blank for last)", addStage: "+ Add life stage",
   quality: "Fixed quality phrases", face: "Face", eyes: "Eyes", nose: "Nose", mouth: "Mouth",
+  faceFeatures: "Face Features", bodyFeatures: "Body Features", faceComposites: "Face Composite", bodyComposites: "Body Composite",
+  frame: "Frame", torso: "Torso", limbs: "Limbs", build: "Build",
+  overall_frame: "Overall frame", torso_architecture: "Torso architecture", limb_proportions: "Limb proportions",
+  build_distribution: "Build distribution", scale_balance: "Scale balance",
   facial_silhouette: "Facial silhouette", eye_geometry: "Eye geometry", brow_eye_relationship: "Brow-eye relationship",
   nose_profile: "Nose profile", lip_relationship: "Lip relationship", requestError: "Request failed",
 };
@@ -87,7 +98,7 @@ async function requestVocabulary(path = API_PATH, options = {}) {
 }
 
 function renderVocabularyPanel(container) {
-  const state = { vocabulary: null, activeTab: "features", search: "", dirty: false };
+  const state = { vocabulary: null, activeTab: "faceFeatures", search: "", dirty: false };
   const root = el("div", { className: "cdna-vocab" });
   const content = el("div", { className: "cdna-vocab-content" });
   const status = el("div", { className: "cdna-vocab-status", text: t("loading") });
@@ -131,12 +142,12 @@ function renderVocabularyPanel(container) {
   function bilingual(en, zh, updateEn, updateZh) {
     return el("div", { className: "cdna-vocab-bilingual" }, [field(t("english"), en, updateEn), field(t("chinese"), zh, updateZh)]);
   }
-  function renderFeatures() {
+  function renderFeatures(featureSection, featureGroups) {
     const fragment = document.createDocumentFragment(); let count = 0;
-    for (const [groupName, names] of Object.entries(FEATURE_GROUPS)) {
+    for (const [groupName, names] of Object.entries(featureGroups)) {
       const group = el("section", { className: "cdna-vocab-group" }); group.appendChild(el("h3", { text: t(groupName) })); let groupCount = 0;
       for (const name of names) {
-        const feature = state.vocabulary.features[name];
+        const feature = featureSection[name];
         if (!matches(name, ...feature.levels.flatMap((level) => [level.text, level.text_zh]))) continue;
         const card = el("article", { className: "cdna-vocab-card" }); card.appendChild(el("h4", { text: name }));
         for (const level of feature.levels) card.appendChild(el("div", { className: "cdna-vocab-level" }, [
@@ -150,10 +161,10 @@ function renderVocabularyPanel(container) {
     }
     if (!count) fragment.appendChild(el("div", { className: "cdna-vocab-empty", text: t("emptyFeatures") })); return fragment;
   }
-  function renderComposites() {
+  function renderComposites(compositeSection, localizedSection, compositeGroups) {
     const fragment = document.createDocumentFragment(); let count = 0;
-    for (const groupName of COMPOSITE_GROUPS) {
-      const entries = state.vocabulary.composites[groupName]; const localized = state.vocabulary.composites_zh[groupName];
+    for (const groupName of compositeGroups) {
+      const entries = compositeSection[groupName]; const localized = localizedSection[groupName];
       const keys = Object.keys(entries).filter((key) => matches(groupName, key, entries[key], localized[key])); if (!keys.length) continue;
       const group = el("section", { className: "cdna-vocab-group" }); group.appendChild(el("h3", { text: t(groupName) }));
       for (const key of keys) { const card = el("article", { className: "cdna-vocab-card" }); card.appendChild(el("h4", { text: key })); card.appendChild(bilingual(entries[key], localized[key], (value) => { entries[key] = value; }, (value) => { localized[key] = value; })); group.appendChild(card); count += 1; }
@@ -185,11 +196,18 @@ function renderVocabularyPanel(container) {
   }
   function renderContent() {
     content.replaceChildren(); if (!state.vocabulary) { content.appendChild(el("div", { className: "cdna-vocab-empty", text: t("notLoaded") })); return; }
-    content.appendChild(state.activeTab === "features" ? renderFeatures() : state.activeTab === "composites" ? renderComposites() : renderProfile());
+    const views = {
+      faceFeatures: () => renderFeatures(state.vocabulary.features, FEATURE_GROUPS),
+      bodyFeatures: () => renderFeatures(state.vocabulary.body_features, BODY_FEATURE_GROUPS),
+      faceComposites: () => renderComposites(state.vocabulary.composites, state.vocabulary.composites_zh, COMPOSITE_GROUPS),
+      bodyComposites: () => renderComposites(state.vocabulary.body_composites, state.vocabulary.body_composites_zh, BODY_COMPOSITE_GROUPS),
+      profile: renderProfile,
+    };
+    content.appendChild(views[state.activeTab]());
   }
 
   const tabs = el("div", { className: "cdna-vocab-tabs" }); const buttons = new Map();
-  for (const key of ["features", "composites", "profile"]) { const button = el("button", { className: key === state.activeTab ? "active" : "", text: t(key), onclick: () => { state.activeTab = key; buttons.forEach((item, itemKey) => item.classList.toggle("active", itemKey === key)); search.placeholder = t(key === "features" ? "searchFeatures" : key === "composites" ? "searchComposites" : "searchProfile"); renderContent(); } }); buttons.set(key, button); tabs.appendChild(button); }
+  for (const key of ["faceFeatures", "bodyFeatures", "faceComposites", "bodyComposites", "profile"]) { const button = el("button", { className: key === state.activeTab ? "active" : "", text: t(key), onclick: () => { state.activeTab = key; buttons.forEach((item, itemKey) => item.classList.toggle("active", itemKey === key)); search.placeholder = t(key.endsWith("Features") ? "searchFeatures" : key.endsWith("Composites") ? "searchComposites" : "searchProfile"); renderContent(); } }); buttons.set(key, button); tabs.appendChild(button); }
   const toolbar = el("div", { className: "cdna-vocab-toolbar" }, [el("button", { className: "primary", text: t("save"), onclick: save }), el("button", { text: t("reload"), onclick: () => load(false) }), el("button", { text: t("export"), onclick: exportVocabulary }), el("button", { text: t("import"), onclick: () => importInput.click() }), el("button", { className: "danger", text: t("reset"), onclick: reset })]);
   const header = el("header", { className: "cdna-vocab-header" }, [el("div", { className: "cdna-vocab-title" }, [el("span", { text: `🧬 ${t("title")}` }), el("small", { text: t("autoApply") })]), toolbar, tabs, search, importInput]);
   root.append(header, content, status); container.replaceChildren(root); container.style.height = "100%"; container.style.overflow = "hidden"; load(true);

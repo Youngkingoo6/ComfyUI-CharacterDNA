@@ -7,8 +7,11 @@ from aiohttp import web
 from server import PromptServer
 
 from .character_dna.parametric import FEATURE_META
+from .character_dna.body_parametric import BODY_FEATURE_META
 from .character_dna.vocabulary import (
+    BODY_VOCABULARY_PATH,
     VOCABULARY_PATH,
+    get_body_vocabulary,
     get_vocabulary,
     invalidate_vocabulary_cache,
 )
@@ -17,6 +20,9 @@ from .character_dna.vocabulary import (
 DEFAULT_VOCABULARY_PATH = VOCABULARY_PATH.with_name(
     "vocabulary.default.json"
 )
+DEFAULT_BODY_VOCABULARY_PATH = BODY_VOCABULARY_PATH.with_name(
+    "body_vocabulary.default.json"
+)
 
 COMPOSITE_GROUPS = {
     "facial_silhouette",
@@ -24,6 +30,13 @@ COMPOSITE_GROUPS = {
     "brow_eye_relationship",
     "nose_profile",
     "lip_relationship",
+}
+BODY_COMPOSITE_GROUPS = {
+    "overall_frame",
+    "torso_architecture",
+    "limb_proportions",
+    "build_distribution",
+    "scale_balance",
 }
 
 FEATURE_LEVELS = [-1.0, -0.5, 0.0, 0.5, 1.0]
@@ -37,6 +50,13 @@ def _ensure_default_vocabulary():
             VOCABULARY_PATH,
             DEFAULT_VOCABULARY_PATH,
         )
+    try:
+        with DEFAULT_BODY_VOCABULARY_PATH.open("r", encoding="utf-8") as handle:
+            default_body = json.load(handle)
+    except (FileNotFoundError, json.JSONDecodeError):
+        default_body = None
+    if not isinstance(default_body, dict) or "features" not in default_body:
+        shutil.copy2(BODY_VOCABULARY_PATH, DEFAULT_BODY_VOCABULARY_PATH)
 
 
 def _require_string(value, path):
@@ -57,6 +77,53 @@ def _require_string_list(value, path):
             item,
             f"{path}[{index}]",
         )
+
+
+def _validate_feature_vocabulary(features, expected_features, path="features"):
+    if not isinstance(features, dict):
+        raise ValueError(f"{path} must be an object.")
+    if set(features) != set(expected_features):
+        missing = sorted(set(expected_features) - set(features))
+        extra = sorted(set(features) - set(expected_features))
+        raise ValueError(f"{path} keys mismatch. Missing={missing}, extra={extra}")
+    for name, feature in features.items():
+        if not isinstance(feature, dict):
+            raise ValueError(f"{path}.{name} must be an object.")
+        levels = feature.get("levels")
+        if not isinstance(levels, list) or len(levels) != 5:
+            raise ValueError(f"{path}.{name}.levels must contain exactly five entries.")
+        actual_values = []
+        for index, level in enumerate(levels):
+            if not isinstance(level, dict):
+                raise ValueError(f"{path}.{name}.levels[{index}] must be an object.")
+            value = level.get("value")
+            if not isinstance(value, (int, float)):
+                raise ValueError(f"{path}.{name}.levels[{index}].value must be numeric.")
+            actual_values.append(float(value))
+            _require_string(level.get("text"), f"{path}.{name}.levels[{index}].text")
+            _require_string(level.get("text_zh"), f"{path}.{name}.levels[{index}].text_zh")
+        if actual_values != FEATURE_LEVELS:
+            raise ValueError(f"{path}.{name}.levels values must be exactly {FEATURE_LEVELS}.")
+
+
+def _validate_composites(composites, composites_zh, groups, path="composites"):
+    if not isinstance(composites, dict) or not isinstance(composites_zh, dict):
+        raise ValueError(f"{path} and {path}_zh must be objects.")
+    if set(composites) != set(groups):
+        missing = sorted(set(groups) - set(composites))
+        extra = sorted(set(composites) - set(groups))
+        raise ValueError(f"{path} groups mismatch. Missing={missing}, extra={extra}")
+    if set(composites_zh) != set(groups):
+        raise ValueError(f"{path}_zh groups must match {path}.")
+    for group, entries in composites.items():
+        if not isinstance(entries, dict) or not entries:
+            raise ValueError(f"{path}.{group} must be a non-empty object.")
+        localized_entries = composites_zh[group]
+        if not isinstance(localized_entries, dict) or set(localized_entries) != set(entries):
+            raise ValueError(f"{path}_zh.{group} keys must match {path}.{group}.")
+        for key, text in entries.items():
+            _require_string(text, f"{path}.{group}.{key}")
+            _require_string(localized_entries[key], f"{path}_zh.{group}.{key}")
 
 
 def _validate_vocabulary(vocabulary):
@@ -136,76 +203,56 @@ def _validate_vocabulary(vocabulary):
             "The final life stage must not define max_exclusive."
         )
 
-    expected_features = set(FEATURE_META)
-
-    if not isinstance(features, dict):
-        raise ValueError("features must be an object.")
-
-    if set(features) != expected_features:
-        missing = sorted(expected_features - set(features))
-        extra = sorted(set(features) - expected_features)
-        raise ValueError(
-            f"Feature keys mismatch. Missing={missing}, extra={extra}"
-        )
-
-    for name, feature in features.items():
-        if not isinstance(feature, dict):
-            raise ValueError(
-                f"features.{name} must be an object."
-            )
-
-        levels = feature.get("levels")
-        if not isinstance(levels, list) or len(levels) != 5:
-            raise ValueError(f"features.{name}.levels must contain exactly five entries.")
-        actual_values = []
-        for index, level in enumerate(levels):
-            if not isinstance(level, dict):
-                raise ValueError(f"features.{name}.levels[{index}] must be an object.")
-            value = level.get("value")
-            if not isinstance(value, (int, float)):
-                raise ValueError(f"features.{name}.levels[{index}].value must be numeric.")
-            actual_values.append(float(value))
-            _require_string(level.get("text"), f"features.{name}.levels[{index}].text")
-            _require_string(level.get("text_zh"), f"features.{name}.levels[{index}].text_zh")
-        if actual_values != FEATURE_LEVELS:
-            raise ValueError(
-                f"features.{name}.levels values must be exactly {FEATURE_LEVELS}."
-            )
-
-    if not isinstance(composites, dict) or not isinstance(composites_zh, dict):
-        raise ValueError("composites and composites_zh must be objects.")
-
-    if set(composites) != COMPOSITE_GROUPS:
-        missing = sorted(COMPOSITE_GROUPS - set(composites))
-        extra = sorted(set(composites) - COMPOSITE_GROUPS)
-        raise ValueError(
-            f"Composite groups mismatch. Missing={missing}, extra={extra}"
-        )
-    if set(composites_zh) != COMPOSITE_GROUPS:
-        raise ValueError("composites_zh groups must match composites.")
-
-    for group, entries in composites.items():
-        if not isinstance(entries, dict) or not entries:
-            raise ValueError(
-                f"composites.{group} must be a non-empty object."
-            )
-
-        for key, text in entries.items():
-            _require_string(
-                text,
-                f"composites.{group}.{key}",
-            )
-        localized_entries = composites_zh[group]
-        if not isinstance(localized_entries, dict) or set(localized_entries) != set(entries):
-            raise ValueError(f"composites_zh.{group} keys must match composites.{group}.")
-        for key, text in localized_entries.items():
-            _require_string(text, f"composites_zh.{group}.{key}")
+    _validate_feature_vocabulary(features, FEATURE_META)
+    _validate_composites(composites, composites_zh, COMPOSITE_GROUPS)
 
     return vocabulary
 
 
+def _validate_body_vocabulary(vocabulary):
+    if not isinstance(vocabulary, dict):
+        raise ValueError("Body vocabulary must be a JSON object.")
+    _validate_feature_vocabulary(
+        vocabulary.get("features"), BODY_FEATURE_META, "body_features"
+    )
+    _validate_composites(
+        vocabulary.get("composites"),
+        vocabulary.get("composites_zh"),
+        BODY_COMPOSITE_GROUPS,
+        "body_composites",
+    )
+    return vocabulary
+
+
+def _combined_vocabulary():
+    face = dict(get_vocabulary())
+    body = get_body_vocabulary()
+    face["body_features"] = body["features"]
+    face["body_composites"] = body["composites"]
+    face["body_composites_zh"] = body["composites_zh"]
+    return face
+
+
+def _split_vocabulary(vocabulary):
+    current_body = get_body_vocabulary()
+    face = {
+        key: vocabulary[key]
+        for key in ("profile", "features", "composites", "composites_zh")
+    }
+    body = {
+        "features": vocabulary.get("body_features", current_body["features"]),
+        "composites": vocabulary.get("body_composites", current_body["composites"]),
+        "composites_zh": vocabulary.get(
+            "body_composites_zh", current_body["composites_zh"]
+        ),
+    }
+    return face, body
+
+
 def _write_vocabulary(vocabulary):
-    _validate_vocabulary(vocabulary)
+    face, body = _split_vocabulary(vocabulary)
+    _validate_vocabulary(face)
+    _validate_body_vocabulary(body)
 
     temporary_path = VOCABULARY_PATH.with_suffix(
         ".json.tmp"
@@ -216,7 +263,7 @@ def _write_vocabulary(vocabulary):
         encoding="utf-8",
     ) as handle:
         json.dump(
-            vocabulary,
+            face,
             handle,
             ensure_ascii=False,
             indent=2,
@@ -227,6 +274,11 @@ def _write_vocabulary(vocabulary):
         temporary_path,
         VOCABULARY_PATH,
     )
+    body_temporary_path = BODY_VOCABULARY_PATH.with_suffix(".json.tmp")
+    with body_temporary_path.open("w", encoding="utf-8") as handle:
+        json.dump(body, handle, ensure_ascii=False, indent=2)
+        handle.write("\n")
+    os.replace(body_temporary_path, BODY_VOCABULARY_PATH)
     invalidate_vocabulary_cache()
 
 
@@ -235,8 +287,10 @@ _ensure_default_vocabulary()
 
 async def get_character_dna_vocabulary(_request):
     try:
-        vocabulary = get_vocabulary()
-        _validate_vocabulary(vocabulary)
+        vocabulary = _combined_vocabulary()
+        face, body = _split_vocabulary(vocabulary)
+        _validate_vocabulary(face)
+        _validate_body_vocabulary(body)
         return web.json_response({
             "ok": True,
             "vocabulary": vocabulary,
@@ -260,7 +314,7 @@ async def save_character_dna_vocabulary(request):
 
         return web.json_response({
             "ok": True,
-            "vocabulary": get_vocabulary(),
+            "vocabulary": _combined_vocabulary(),
         })
     except (json.JSONDecodeError, ValueError) as error:
         return web.json_response(
@@ -287,13 +341,18 @@ async def reset_character_dna_vocabulary(_request):
             encoding="utf-8",
         ) as handle:
             vocabulary = json.load(handle)
+        with DEFAULT_BODY_VOCABULARY_PATH.open("r", encoding="utf-8") as handle:
+            body = json.load(handle)
+        vocabulary["body_features"] = body["features"]
+        vocabulary["body_composites"] = body["composites"]
+        vocabulary["body_composites_zh"] = body["composites_zh"]
 
         async with _WRITE_LOCK:
             _write_vocabulary(vocabulary)
 
         return web.json_response({
             "ok": True,
-            "vocabulary": get_vocabulary(),
+            "vocabulary": _combined_vocabulary(),
         })
     except Exception as error:
         return web.json_response(

@@ -1,6 +1,9 @@
 import { app } from "../../scripts/app.js";
 
-const NODE_TYPE = "CharacterDNASeedGenerator";
+const NODE_TYPES = new Set([
+  "CharacterDNASeedGenerator",
+  "CharacterDNABodySeedGenerator",
+]);
 const CONTROL_NAMES = new Set([
   "control_after_generate",
   "control before generate",
@@ -12,7 +15,9 @@ const SAFE_INTEGER_MAX = 1125899906842624;
 
 function findWidgets(node) {
   const widgets = node.widgets ?? [];
-  const seed = widgets.find((widget) => widget.name === "seed");
+  const seed = widgets.find((widget) =>
+    widget.name === "seed" || widget.name === "body_seed"
+  );
   const control = widgets.find((widget) =>
     CONTROL_NAMES.has(String(widget.name ?? "").toLowerCase()),
   );
@@ -74,12 +79,12 @@ function installFallback(node) {
 app.registerExtension({
   name: "CharacterDNA.SeedControlCompatibility",
   nodeCreated(node) {
-    if (node.comfyClass === NODE_TYPE || node.type === NODE_TYPE) {
+    if (NODE_TYPES.has(node.comfyClass) || NODE_TYPES.has(node.type)) {
       installFallback(node);
     }
   },
   loadedGraphNode(node) {
-    if (node.comfyClass === NODE_TYPE || node.type === NODE_TYPE) {
+    if (NODE_TYPES.has(node.comfyClass) || NODE_TYPES.has(node.type)) {
       installFallback(node);
     }
   },

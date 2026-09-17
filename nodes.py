@@ -21,6 +21,13 @@ from .character_dna.genesis_engine import (
 from .character_dna.composite import (
     build_composite_identity,
 )
+from .character_dna.body_parametric import (
+    BODY_FEATURE_META,
+    override_body_feature,
+    build_body_feature_prompt,
+)
+from .character_dna.body_genesis import generate_body_dna
+from .character_dna.body_composite import build_body_composite_identity
 from .character_dna.landmark_provider import (
     InsightFace106Detector,
 )
@@ -403,6 +410,161 @@ class CharacterDNACompositeIdentity:
             composites_json,
             identity_prompt,
             identity_prompt_zh,
+        )
+
+# ============================================================
+# Body DNA Seed Generator
+# ============================================================
+
+class CharacterDNABodySeedGenerator:
+
+    @classmethod
+    def IS_CHANGED(cls, **_kwargs):
+        return get_vocabulary_revision()
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "character_dna": (DNA_TYPE,),
+                "body_seed": (
+                    "INT",
+                    {
+                        "default": 246813,
+                        "min": 0,
+                        "max": 0xffffffffffffffff,
+                        "control_after_generate": True,
+                    },
+                ),
+                "distinctiveness": (
+                    "FLOAT",
+                    {"default": 0.65, "min": 0.0, "max": 1.0, "step": 0.01},
+                ),
+                "harmony": (
+                    "FLOAT",
+                    {"default": 0.85, "min": 0.0, "max": 1.0, "step": 0.01},
+                ),
+            }
+        }
+
+    RETURN_TYPES = (DNA_TYPE, "STRING", "STRING", "STRING")
+    RETURN_NAMES = (
+        "character_dna",
+        "body_prompt",
+        "body_parameters_json",
+        "body_prompt_zh",
+    )
+    FUNCTION = "generate"
+    CATEGORY = "CharacterDNA/Body"
+
+    def generate(self, character_dna, body_seed, distinctiveness, harmony):
+        dna = generate_body_dna(
+            character_dna,
+            body_seed,
+            distinctiveness,
+            harmony,
+        )
+        prompt = build_body_feature_prompt(dna)
+        prompt_zh = build_body_feature_prompt(dna, "zh")
+        parameters_json = json.dumps(
+            {
+                "body_genesis": dna.get("body_genesis", {}),
+                "features": dna["body_identity"]["features"],
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+        return dna, prompt, parameters_json, prompt_zh
+
+
+# ============================================================
+# Parametric Body Designer
+# ============================================================
+
+class CharacterDNAParametricBodyDesigner:
+
+    @classmethod
+    def IS_CHANGED(cls, **_kwargs):
+        return get_vocabulary_revision()
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "character_dna": (DNA_TYPE,),
+                "feature": (list(BODY_FEATURE_META.keys()),),
+                "value": (
+                    "FLOAT",
+                    {
+                        "default": 0.0,
+                        "min": -1.0,
+                        "max": 1.0,
+                        "step": 0.0001,
+                        "round": 0.0001,
+                    },
+                ),
+            }
+        }
+
+    RETURN_TYPES = (DNA_TYPE, "STRING", "STRING")
+    RETURN_NAMES = ("character_dna", "body_prompt", "body_prompt_zh")
+    FUNCTION = "design"
+    CATEGORY = "CharacterDNA/Body"
+
+    def design(self, character_dna, feature, value):
+        dna = override_body_feature(character_dna, feature, value)
+        return (
+            dna,
+            build_body_feature_prompt(dna),
+            build_body_feature_prompt(dna, "zh"),
+        )
+
+
+# ============================================================
+# Body Composite Identity
+# ============================================================
+
+class CharacterDNABodyCompositeIdentity:
+
+    @classmethod
+    def IS_CHANGED(cls, **_kwargs):
+        return get_vocabulary_revision()
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "character_dna": (DNA_TYPE,),
+                "max_composites": (
+                    "INT",
+                    {"default": 5, "min": 1, "max": 5, "step": 1},
+                ),
+            }
+        }
+
+    RETURN_TYPES = (DNA_TYPE, "STRING", "STRING", "STRING", "STRING", "STRING")
+    RETURN_NAMES = (
+        "character_dna",
+        "body_composite_anchors_json",
+        "body_identity_prompt",
+        "body_identity_prompt_zh",
+        "combined_identity_prompt",
+        "combined_identity_prompt_zh",
+    )
+    FUNCTION = "build"
+    CATEGORY = "CharacterDNA/Body"
+
+    def build(self, character_dna, max_composites):
+        dna, composites, body, body_zh, combined, combined_zh = (
+            build_body_composite_identity(character_dna, max_composites)
+        )
+        return (
+            dna,
+            json.dumps(composites, ensure_ascii=False, indent=2),
+            body,
+            body_zh,
+            combined,
+            combined_zh,
         )
 
 # ============================================================
@@ -1095,6 +1257,15 @@ NODE_CLASS_MAPPINGS = {
     "CharacterDNACompositeIdentity":
         CharacterDNACompositeIdentity,
 
+    "CharacterDNABodySeedGenerator":
+        CharacterDNABodySeedGenerator,
+
+    "CharacterDNAParametricBodyDesigner":
+        CharacterDNAParametricBodyDesigner,
+
+    "CharacterDNABodyCompositeIdentity":
+        CharacterDNABodyCompositeIdentity,
+
     "CharacterDNAInsightFace106Detector":
         CharacterDNAInsightFace106Detector,
 
@@ -1124,6 +1295,15 @@ NODE_DISPLAY_NAME_MAPPINGS = {
 
     "CharacterDNACompositeIdentity":
         "🧬 Composite Identity Engine",
+
+    "CharacterDNABodySeedGenerator":
+        "🧬 Body DNA Seed Generator",
+
+    "CharacterDNAParametricBodyDesigner":
+        "🧬 Parametric Body Designer",
+
+    "CharacterDNABodyCompositeIdentity":
+        "🧬 Body Composite Identity",
 
     "CharacterDNAInsightFace106Detector":
         "🧬 InsightFace 106 Detector",
