@@ -106,6 +106,12 @@
     "tolerance": "Tolerance",
     "calibrationTarget": "DNA {value} · {label}",
     "measurementPrompt": "Measurement prompt template",
-    "standardBasis": "Standard basis"
+    "standardBasis": "Standard basis",
+    "ratioAnchors": "Ratio anchors",
+    "ratioReference": "Ratio reference",
+    "ratioStandard": "Standard ratio",
+    "ratioValue": "Anchor ratio",
+    "ratioMin": "Minimum (blank = open)",
+    "ratioMax": "Maximum (blank = open)"
   }
 }

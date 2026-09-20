@@ -106,6 +106,12 @@
     "tolerance": "容差",
     "calibrationTarget": "DNA {value} · {label}",
     "measurementPrompt": "测量提示词模板",
-    "standardBasis": "标准基准"
+    "standardBasis": "标准基准",
+    "ratioAnchors": "比值锚点",
+    "ratioReference": "比值定义",
+    "ratioStandard": "标准比值",
+    "ratioValue": "锚点比值",
+    "ratioMin": "区间下限（空白为开放）",
+    "ratioMax": "区间上限（空白为开放）"
   }
 }

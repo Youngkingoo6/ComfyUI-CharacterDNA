@@ -936,6 +936,13 @@ def measure_geometry(
         face_scale,
     )
 
+    nose["width_intercanthal_ratio"] = _round(
+        _safe_div(nose["width_px"], inter_eye_gap)
+    )
+    mouth["width_nose_width_ratio"] = _round(
+        _safe_div(mouth["width_px"], nose["width_px"])
+    )
+
     image_left_outer = np.asarray(image_left_eye["outer_canthus"], dtype=np.float64)
     image_right_outer = np.asarray(image_right_eye["outer_canthus"], dtype=np.float64)
     # The frozen anatomy names follow subject-side convention: the
@@ -999,6 +1006,14 @@ def measure_geometry(
             "average_aspect_ratio":
                 _round(
                     average_eye_aspect
+                ),
+
+            "average_openness_ratio":
+                _round(
+                    _safe_div(
+                        average_eye_height,
+                        average_eye_width,
+                    )
                 ),
 
             "inter_eye_gap_px":

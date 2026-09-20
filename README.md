@@ -85,13 +85,13 @@ harmony = 0.85
 
 ```text
 Seed Generator
-  → face_length = 0.5
-  → jaw_width = -0.5
-  → canthal_tilt = 0.5
+  → face_length = 0.3333
+  → jaw_width = -0.3333
+  → canthal_tilt = 0.3333
   → Face Composite Identity
 ```
 
-`value` 是 `-1.0` 到 `+1.0` 的连续值。词库提供 `-1、-0.5、0、0.5、1` 五个语义锚点，中间值会采用最接近的词条；实际 DNA 仍保留连续数值。数值为 `0` 表示未指定结构，该 Feature 不输出提示词；某个 Composite 组全部为 `0` 时也不会输出该组。
+`value` 是 `-1.0` 到 `+1.0` 的连续值。词库统一提供 `-1、-0.6667、-0.3333、0、0.3333、0.6667、1` 七个语义锚点，对应“极低 → 明显偏低 → 偏低 → 标准 → 偏高 → 明显偏高 → 极高”。中间值会采用最接近的词条；实际 DNA 仍保留连续数值。数值为 `0` 表示未指定结构，该 Feature 不输出提示词；某个 Composite 组全部为 `0` 时也不会输出该组。
 
 ### Face Composite Identity
 
@@ -118,7 +118,8 @@ Seed Generator
 
 打开 ComfyUI 左侧的 **CharacterDNA Vocabulary** 面板，可以编辑：
 
-- 每个 Feature 的五档中英文提示词；
+- 每个 Feature 的七档中英文提示词；
+- 已校准 Feature 的比值定义、标准值、各档锚点及区间；
 - 可测量面部 Feature 的 7 档目标比例、容差和中英文比例提示词模板；
 - 面部和身体各 5 组 Composite 的中英文短语；
 - 画面蓝图，以及造型、表演、场景、摄影四类中英文预设；

@@ -44,7 +44,7 @@ BODY_COMPOSITE_GROUPS = {
     "scale_balance",
 }
 
-FEATURE_LEVELS = [-1.0, -0.5, 0.0, 0.5, 1.0]
+FEATURE_LEVELS = [-1.0, -0.6667, -0.3333, 0.0, 0.3333, 0.6667, 1.0]
 MEASUREMENT_LEVELS = [-1.0, -0.6667, -0.3333, 0.0, 0.3333, 0.6667, 1.0]
 
 _WRITE_LOCK = asyncio.Lock()
@@ -106,9 +106,14 @@ def _validate_feature_vocabulary(features, expected_features, path="features"):
         if not isinstance(feature, dict):
             raise ValueError(f"{path}.{name} must be an object.")
         levels = feature.get("levels")
-        if not isinstance(levels, list) or len(levels) != 5:
-            raise ValueError(f"{path}.{name}.levels must contain exactly five entries.")
+        if not isinstance(levels, list) or len(levels) != 7:
+            raise ValueError(f"{path}.{name}.levels must contain exactly seven entries.")
         actual_values = []
+        has_ratio_system = "ratio_reference" in feature or "ratio_standard" in feature
+        if has_ratio_system:
+            _require_string(feature.get("ratio_reference"), f"{path}.{name}.ratio_reference")
+            if not isinstance(feature.get("ratio_standard"), (int, float)):
+                raise ValueError(f"{path}.{name}.ratio_standard must be numeric.")
         for index, level in enumerate(levels):
             if not isinstance(level, dict):
                 raise ValueError(f"{path}.{name}.levels[{index}] must be an object.")
@@ -118,6 +123,14 @@ def _validate_feature_vocabulary(features, expected_features, path="features"):
             actual_values.append(float(value))
             _require_string(level.get("text"), f"{path}.{name}.levels[{index}].text")
             _require_string(level.get("text_zh"), f"{path}.{name}.levels[{index}].text_zh")
+            if has_ratio_system:
+                if not isinstance(level.get("ratio"), (int, float)):
+                    raise ValueError(f"{path}.{name}.levels[{index}].ratio must be numeric.")
+                for bound in ("ratio_min", "ratio_max"):
+                    if level.get(bound) is not None and not isinstance(level.get(bound), (int, float)):
+                        raise ValueError(
+                            f"{path}.{name}.levels[{index}].{bound} must be numeric or null."
+                        )
         if actual_values != FEATURE_LEVELS:
             raise ValueError(f"{path}.{name}.levels values must be exactly {FEATURE_LEVELS}.")
         measurement = feature.get("measurement")

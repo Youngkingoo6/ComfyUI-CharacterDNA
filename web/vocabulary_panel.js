@@ -41,6 +41,8 @@ const FALLBACK = {
   negativePrompt: "Negative prompt",
   measurementCalibration: "Measurement calibration", metric: "Metric", unit: "Unit",
   calibrationTarget: "DNA {value} · {label}", tolerance: "Tolerance", measurementPrompt: "Measurement prompt template", standardBasis: "Standard basis",
+  ratioAnchors: "Ratio anchors", ratioReference: "Ratio reference", ratioStandard: "Standard ratio",
+  ratioValue: "Anchor ratio", ratioMin: "Minimum (blank = open)", ratioMax: "Maximum (blank = open)",
   frame: "Frame", torso: "Torso", limbs: "Limbs", build: "Build",
   overall_frame: "Overall frame", torso_architecture: "Torso architecture", limb_proportions: "Limb proportions",
   build_distribution: "Build distribution", scale_balance: "Scale balance",
@@ -157,10 +159,24 @@ function renderVocabularyPanel(container) {
         const feature = featureSection[name];
         if (!matches(name, ...feature.levels.flatMap((level) => [level.text, level.text_zh]))) continue;
         const card = el("article", { className: "cdna-vocab-card" }); card.appendChild(el("h4", { text: name }));
-        for (const level of feature.levels) card.appendChild(el("div", { className: "cdna-vocab-level" }, [
-          el("strong", { text: String(level.value) }),
-          field(t("english"), level.text, (value) => { level.text = value; }),
-          field(t("chinese"), level.text_zh, (value) => { level.text_zh = value; }),
+        const nullableNumber = (value) => value === "" ? null : Number(value);
+        for (const level of feature.levels) {
+          const row = el("div", { className: "cdna-vocab-level" }, [
+            el("strong", { text: String(level.value) }),
+            field(t("english"), level.text, (value) => { level.text = value; }),
+            field(t("chinese"), level.text_zh, (value) => { level.text_zh = value; }),
+          ]);
+          if ("ratio" in level) row.appendChild(el("div", { className: "cdna-vocab-ratio-level", style: "grid-column:2/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:6px" }, [
+            field(t("ratioValue"), level.ratio, (value) => { level.ratio = Number(value); }, false),
+            field(t("ratioMin"), level.ratio_min, (value) => { level.ratio_min = nullableNumber(value); }, false),
+            field(t("ratioMax"), level.ratio_max, (value) => { level.ratio_max = nullableNumber(value); }, false),
+          ]));
+          card.appendChild(row);
+        }
+        if ("ratio_reference" in feature) card.appendChild(el("div", { className: "cdna-vocab-measurement" }, [
+          el("h5", { text: t("ratioAnchors") }),
+          field(t("ratioReference"), feature.ratio_reference, (value) => { feature.ratio_reference = value; }, false),
+          field(t("ratioStandard"), feature.ratio_standard, (value) => { feature.ratio_standard = Number(value); }, false),
         ]));
         if (feature.measurement) {
           const measurement = feature.measurement;

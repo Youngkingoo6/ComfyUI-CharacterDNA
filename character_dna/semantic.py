@@ -16,6 +16,28 @@ def _rule_matches(rule, value):
     return True
 
 
+def feature_ratio_phrase(name, value, language="en"):
+    """Return the nearest seven-level ratio anchor without descriptive prose."""
+    feature = get_vocabulary().get("features", {}).get(name)
+    value = float(value)
+    if feature is None or abs(value) < 1e-9:
+        return None
+
+    levels = feature.get("levels", [])
+    if not levels:
+        return None
+    level = min(
+        levels,
+        key=lambda item: (
+            abs(float(item["value"]) - value),
+            -abs(float(item["value"])),
+        ),
+    )
+    if abs(float(level["value"])) < 1e-9 or level.get("ratio") is None:
+        return None
+    return f"{name} ≈ {level['ratio']}×"
+
+
 def feature_to_phrase(name, value, language="en"):
     feature = (
         get_vocabulary()
@@ -48,17 +70,17 @@ def feature_to_phrase(name, value, language="en"):
             return None
         key = "text_zh" if str(language).lower().startswith("zh") else "text"
         phrase = level.get(key, level.get("text"))
-        ratio = level.get("ratio")
-        if ratio is not None:
+        ratio_phrase = feature_ratio_phrase(name, value, language)
+        if ratio_phrase:
             separator = "，" if str(language).lower().startswith("zh") else ", "
-            return f"{phrase}{separator}{name} ≈ {ratio}×"
+            return f"{phrase}{separator}{ratio_phrase}"
         measurement_phrase = get_measurement_phrase(name, value, language)
         if measurement_phrase:
             separator = "，" if str(language).lower().startswith("zh") else ", "
             return phrase + separator + measurement_phrase
         return phrase
 
-    # Compatibility with vocabulary files exported before the five-level format.
+    # Compatibility with legacy vocabulary files that still use rule arrays.
     for rule in feature.get("rules", []):
         if _rule_matches(rule, value):
             key = "text_zh" if str(language).lower().startswith("zh") else "text"

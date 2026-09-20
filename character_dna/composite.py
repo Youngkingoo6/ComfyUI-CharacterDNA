@@ -8,7 +8,7 @@ from .vocabulary import (
     get_measurement_phrase,
     get_vocabulary,
 )
-from .semantic import feature_to_phrase
+from .semantic import feature_ratio_phrase, feature_to_phrase
 
 
 COMPOSITE_FEATURES = {
@@ -960,6 +960,10 @@ def build_identity_core_prompt(
     features = dna.get("parametric_identity", {}).get("features", {})
     for feature_name, value in features.items():
         if feature_name in residual_names or abs(float(value)) < 1e-9:
+            continue
+        anchor_phrase = feature_ratio_phrase(feature_name, value, language)
+        if anchor_phrase:
+            phrases.append(anchor_phrase)
             continue
         measurement_phrase = get_measurement_phrase(feature_name, value, language)
         if measurement_phrase:

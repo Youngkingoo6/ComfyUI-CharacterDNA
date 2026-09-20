@@ -26,7 +26,7 @@ FEATURE_MAP = {
     },
 
     "eye_openness": {
-        "metric": "eye_aperture_face_ratio",
+        "metric": "eye_openness_ratio",
         "direction": +1,
         "importance": 0.90,
     },
@@ -50,19 +50,13 @@ FEATURE_MAP = {
     },
 
     "nose_width": {
-        "metric": "nose_width_face_ratio",
+        "metric": "nose_width_intercanthal_ratio",
         "direction": +1,
         "importance": 0.75,
     },
 
-    "nose_length": {
-        "metric": "nose_length_face_ratio",
-        "direction": +1,
-        "importance": 0.70,
-    },
-
     "mouth_width": {
-        "metric": "mouth_width_face_ratio",
+        "metric": "mouth_width_nose_ratio",
         "direction": +1,
         "importance": 0.80,
     },

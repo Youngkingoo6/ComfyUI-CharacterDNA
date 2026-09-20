@@ -7,7 +7,7 @@ from .vocabulary import (
     get_body_vocabulary,
     strip_quality_block,
 )
-from .body_parametric import body_feature_to_phrase
+from .body_parametric import body_feature_ratio_phrase, body_feature_to_phrase
 
 
 BODY_COMPOSITE_IMPORTANCE = {
@@ -294,6 +294,13 @@ def build_body_composite_identity(dna, max_composites=5):
         features, composites, chosen, "en"
     )
     residual_zh, _ = _hybrid_body_residuals(features, composites, chosen, "zh")
+    for feature_name, value in features.items():
+        if feature_name in residual_names:
+            continue
+        ratio_phrase = body_feature_ratio_phrase(feature_name, value)
+        if ratio_phrase:
+            residual_en.append(ratio_phrase)
+            residual_zh.append(ratio_phrase)
     body_prompt = ", ".join(
         [item["semantic"] for item in chosen if item["semantic"]] + residual_en
     )

@@ -130,6 +130,12 @@ METRICS = {
                 "average_aspect_ratio"
             ],
 
+    "eye_openness_ratio":
+        lambda g:
+            g["eyes"][
+                "average_openness_ratio"
+            ],
+
     "eye_spacing_eye_widths":
         lambda g:
             g["eyes"][
@@ -175,6 +181,12 @@ METRICS = {
                 "width_face_scale_ratio"
             ],
 
+    "nose_width_intercanthal_ratio":
+        lambda g:
+            g["nose"][
+                "width_intercanthal_ratio"
+            ],
+
     "nose_length_face_ratio":
         lambda g:
             g["nose"][
@@ -189,6 +201,12 @@ METRICS = {
         lambda g:
             g["mouth"][
                 "width_face_scale_ratio"
+            ],
+
+    "mouth_width_nose_ratio":
+        lambda g:
+            g["mouth"][
+                "width_nose_width_ratio"
             ],
 
     "upper_lip_face_ratio":

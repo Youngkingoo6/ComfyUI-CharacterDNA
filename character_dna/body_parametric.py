@@ -81,7 +81,33 @@ def body_feature_to_phrase(name, value, language="en"):
     if abs(float(level["value"])) < 1e-9:
         return None
     key = "text_zh" if str(language).lower().startswith("zh") else "text"
-    return level.get(key, level.get("text"))
+    phrase = level.get(key, level.get("text"))
+    ratio_phrase = body_feature_ratio_phrase(name, value)
+    if ratio_phrase:
+        separator = "，" if str(language).lower().startswith("zh") else ", "
+        return f"{phrase}{separator}{ratio_phrase}"
+    return phrase
+
+
+def body_feature_ratio_phrase(name, value):
+    """Return the nearest seven-level body ratio anchor without prose."""
+    value = float(value)
+    if abs(value) < 1e-9:
+        return None
+    feature = get_body_vocabulary().get("features", {}).get(name)
+    levels = feature.get("levels", []) if feature else []
+    if not levels:
+        return None
+    level = min(
+        levels,
+        key=lambda item: (
+            abs(float(item["value"]) - value),
+            -abs(float(item["value"])),
+        ),
+    )
+    if abs(float(level["value"])) < 1e-9 or level.get("ratio") is None:
+        return None
+    return f"{name} ≈ {level['ratio']}×"
 
 
 def build_body_feature_prompt(dna, language="en"):

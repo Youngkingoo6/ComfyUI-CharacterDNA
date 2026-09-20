@@ -4,11 +4,13 @@
 
 19 个 Feature 都使用 `-1.0 ～ +1.0` 的连续坐标：
 
-- `-1`：明显偏向负方向。
-- `-0.5`：轻度偏向负方向。
+- `-1`：极度偏向负方向。
+- `-0.6667`：明显偏向负方向。
+- `-0.3333`：轻度偏向负方向。
 - `0`：中性基线，同时表示不指定该结构，不输出对应 Feature 提示词。
-- `+0.5`：轻度偏向正方向。
-- `+1`：明显偏向正方向。
+- `+0.3333`：轻度偏向正方向。
+- `+0.6667`：明显偏向正方向。
+- `+1`：极度偏向正方向。
 
 正负号只代表结构方向，不代表好坏、美丑或质量。参数改变的是身份结构，妆容、发型、表情、姿势和灯光应由其他提示词控制。Seeder 产生连续值时，最接近 `0` 档的数值保留在 DNA 中，但不输出“均衡”提示词。
 
@@ -102,9 +104,9 @@ Parametric Face Designer 每个节点只覆盖一个 Feature，并继承输入 D
 
 ```text
 Face DNA Seed Generator
-  → Parametric: face_length = 0.5
-  → Parametric: jaw_width = -0.5
-  → Parametric: canthal_tilt = 0.5
+  → Parametric: face_length = 0.3333
+  → Parametric: jaw_width = -0.3333
+  → Parametric: canthal_tilt = 0.3333
   → Face Composite Identity
 ```
 

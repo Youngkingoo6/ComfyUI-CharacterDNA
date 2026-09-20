@@ -15,7 +15,7 @@
       "inputs": [],
       "outputs": [],
       "properties": {},
-      "widgets_values": ["多参数调整示例\n\n每个 Parametric 节点只覆盖一个 Feature，并继承输入 DNA 中其余参数。\n\n本例依次修改：\n• face_length = +0.5：脸部略长\n• jaw_width = -0.5：下颌略窄、收尖\n• canthal_tilt = +0.5：外眼角略上扬\n\n同一 Feature 修改多次时，后面的节点覆盖前面的值。\n完整参数方向见 docs/parameters.zh-CN.md。"],
+      "widgets_values": ["多参数调整示例\n\n每个 Parametric 节点只覆盖一个 Feature，并继承输入 DNA 中其余参数。\n\n本例依次修改：\n• face_length = +0.3333：脸部略长\n• jaw_width = -0.3333：下颌略窄、收尖\n• canthal_tilt = +0.3333：外眼角略上扬\n\n同一 Feature 修改多次时，后面的节点覆盖前面的值。\n完整参数方向见 docs/parameters.zh-CN.md。"],
       "widgets_values_named": {"text": "多参数调整示例"},
       "color": "#4b3d1f",
       "bgcolor": "#715e2e"
@@ -82,8 +82,8 @@
         {"name": "parametric_prompt_zh", "type": "STRING", "links": null}
       ],
       "properties": {"Node name for S&R": "CharacterDNAParametricDesigner"},
-      "widgets_values": ["face_length", 0.5],
-      "widgets_values_named": {"feature": "face_length", "value": 0.5}
+      "widgets_values": ["face_length", 0.3333],
+      "widgets_values_named": {"feature": "face_length", "value": 0.3333}
     },
     {
       "id": 5,
@@ -104,8 +104,8 @@
         {"name": "parametric_prompt_zh", "type": "STRING", "links": null}
       ],
       "properties": {"Node name for S&R": "CharacterDNAParametricDesigner"},
-      "widgets_values": ["jaw_width", -0.5],
-      "widgets_values_named": {"feature": "jaw_width", "value": -0.5}
+      "widgets_values": ["jaw_width", -0.3333],
+      "widgets_values_named": {"feature": "jaw_width", "value": -0.3333}
     },
     {
       "id": 6,
@@ -126,8 +126,8 @@
         {"name": "parametric_prompt_zh", "type": "STRING", "links": null}
       ],
       "properties": {"Node name for S&R": "CharacterDNAParametricDesigner"},
-      "widgets_values": ["canthal_tilt", 0.5],
-      "widgets_values_named": {"feature": "canthal_tilt", "value": 0.5}
+      "widgets_values": ["canthal_tilt", 0.3333],
+      "widgets_values_named": {"feature": "canthal_tilt", "value": 0.3333}
     },
     {
       "id": 7,
@@ -180,7 +180,7 @@
       "inputs": [],
       "outputs": [],
       "properties": {},
-      "widgets_values": ["Face Parametric 全部可设置项\n\n范围：-1.0 ～ +1.0　步进：0.5\n0 = 不指定，不输出该结构词。\n修改多项：串联多个 Parametric Face Designer；后面的同名参数覆盖前面的。\n\n【脸部轮廓】\nface_length：短脸 ←→ 长脸\nface_width：窄脸 ←→ 宽脸\ncheekbone_width：窄而内收的颧骨 ←→ 宽且突出的颧骨\njaw_width：窄而收尖的下颌 ←→ 宽而有力的下颌\nchin_width：窄下巴 ←→ 宽下巴\nchin_length：短下巴 ←→ 长下巴\n\n【眼部与眉眼】\neye_elongation：圆、横向较短 ←→ 横向细长\neye_openness：开合较小 ←→ 开合较大、圆睁\neye_spacing：近眼距 ←→ 宽眼距\ncanthal_tilt：外眼角向下 ←→ 外眼角向上\nbrow_eye_distance：眉眼紧凑 ←→ 眉眼舒展\n\n【鼻部】\nnose_width：窄鼻 ←→ 宽鼻\nnose_length：短鼻 ←→ 长鼻\nnose_projection：低投影、较平 ←→ 高投影、立体\nnose_tip_rotation：鼻尖向下 ←→ 鼻尖向上\n\n【嘴唇】\nmouth_width：窄嘴 ←→ 宽嘴\nupper_lip_fullness：薄上唇 ←→ 丰满上唇\nlower_lip_fullness：薄下唇 ←→ 丰满下唇\ncupid_bow_definition：柔和唇峰 ←→ 清晰唇峰"],
+      "widgets_values": ["Face Parametric 全部可设置项\n\n范围：-1.0 ～ +1.0　步进：0.3333\n0 = 不指定，不输出该结构词。\n修改多项：串联多个 Parametric Face Designer；后面的同名参数覆盖前面的。\n\n【脸部轮廓】\nface_length：短脸 ←→ 长脸\nface_width：窄脸 ←→ 宽脸\ncheekbone_width：窄而内收的颧骨 ←→ 宽且突出的颧骨\njaw_width：窄而收尖的下颌 ←→ 宽而有力的下颌\nchin_width：窄下巴 ←→ 宽下巴\nchin_length：短下巴 ←→ 长下巴\n\n【眼部与眉眼】\neye_elongation：圆、横向较短 ←→ 横向细长\neye_openness：开合较小 ←→ 开合较大、圆睁\neye_spacing：近眼距 ←→ 宽眼距\ncanthal_tilt：外眼角向下 ←→ 外眼角向上\nbrow_eye_distance：眉眼紧凑 ←→ 眉眼舒展\n\n【鼻部】\nnose_width：窄鼻 ←→ 宽鼻\nnose_length：短鼻 ←→ 长鼻\nnose_projection：低投影、较平 ←→ 高投影、立体\nnose_tip_rotation：鼻尖向下 ←→ 鼻尖向上\n\n【嘴唇】\nmouth_width：窄嘴 ←→ 宽嘴\nupper_lip_fullness：薄上唇 ←→ 丰满上唇\nlower_lip_fullness：薄下唇 ←→ 丰满下唇\ncupid_bow_definition：柔和唇峰 ←→ 清晰唇峰"],
       "widgets_values_named": {"text": "Face Parametric 全部可设置项"},
       "color": "#24455a",
       "bgcolor": "#315f78"
