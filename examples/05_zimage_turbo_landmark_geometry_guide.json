@@ -15,7 +15,7 @@
       "inputs": [],
       "outputs": [],
       "properties": {},
-      "widgets_values": ["Z-Image-Turbo 关键点结构引导示例\n\n流程：\n1. Character DNA 设置身份。\n2. Parametric Face Designer 设置 eye_spacing。\n3. Z-Image-Turbo 生成标准正面头像。\n4. InsightFace 检测实际 106 点。\n5. Face Landmark Geometry Guide 把目标比例换算成像素位移。\n6. 变形参考图通过普通 VAE Encode 进入第二次 Z-Image-Turbo 低强度细化。\n7. 最终图片再次检测并输出 geometry JSON。\n\n默认 eye_spacing = -1.0，对应目标 0.7× 平均眼宽。\nGuide strength = 1.0 表示完整执行目标。\n第二次采样 denoise = 0.15；结构变化不足可提高到 0.20，身份漂移则降低到 0.10。\n\nZ-Image-Turbo 不是专用 inpaint 模型，因此本例不使用 VAE Encode for Inpainting，避免遮罩区变灰。edit_mask 仅供预览，或连接到真正支持局部修复的模型。\n\n蓝点为原始眼眉关键点，黄点为目标关键点，灰线为目标网格。"],
+      "widgets_values": ["Z-Image-Turbo 关键点结构引导示例\n\n流程：\n1. Character DNA 设置身份。\n2. Parametric Face Designer 设置 eye_spacing。\n3. Z-Image-Turbo 生成标准正面头像。\n4. InsightFace 检测实际 106 点。\n5. Face Landmark Geometry Guide 把目标比例换算成像素位移。\n6. 直接保存干净的 warped_reference。\n7. 对 warped_reference 再次检测并输出 geometry JSON。\n\n默认 eye_spacing = -1.0，对应目标 0.7× 平均眼宽。\nGuide strength 建议先用 0.5；变化不足再提高，避免一次移动过大。\n\n不要把 warped_reference 再接回 Z-Image-Turbo KSampler。Z-Image-Turbo 的部分去噪会产生整图高频斑驳。若需要生成式融合，请将 warped_reference 和 edit_mask 交给真正支持图像编辑或局部修复的模型。\n\n蓝点为原始眼眉关键点，黄点为目标关键点，灰线为目标网格。"],
       "color": "#4b3d1f",
       "bgcolor": "#715e2e"
     },
@@ -94,7 +94,7 @@
         {"name": "unet_name", "type": "COMBO", "widget": {"name": "unet_name"}, "link": null},
         {"name": "weight_dtype", "type": "COMBO", "widget": {"name": "weight_dtype"}, "link": null}
       ],
-      "outputs": [{"name": "MODEL", "type": "MODEL", "links": [5, 30]}],
+      "outputs": [{"name": "MODEL", "type": "MODEL", "links": [5]}],
       "properties": {"Node name for S&R": "UNETLoader"},
       "widgets_values": ["z_image_turbo_bf16.safetensors", "default"]
     },
@@ -124,7 +124,7 @@
       "order": 6,
       "mode": 0,
       "inputs": [{"name": "vae_name", "type": "COMBO", "widget": {"name": "vae_name"}, "link": null}],
-      "outputs": [{"name": "VAE", "type": "VAE", "links": [16, 27, 35]}],
+      "outputs": [{"name": "VAE", "type": "VAE", "links": [16]}],
       "properties": {"Node name for S&R": "VAELoader"},
       "widgets_values": ["ae.safetensors"]
     },
@@ -140,7 +140,7 @@
         {"name": "clip", "type": "CLIP", "link": 6},
         {"name": "text", "type": "STRING", "widget": {"name": "text"}, "link": 4}
       ],
-      "outputs": [{"name": "CONDITIONING", "type": "CONDITIONING", "links": [8, 9, 31]}],
+      "outputs": [{"name": "CONDITIONING", "type": "CONDITIONING", "links": [8, 9]}],
       "properties": {"Node name for S&R": "CLIPTextEncode"},
       "widgets_values": [""]
     },
@@ -153,7 +153,7 @@
       "order": 8,
       "mode": 0,
       "inputs": [{"name": "conditioning", "type": "CONDITIONING", "link": 8}],
-      "outputs": [{"name": "CONDITIONING", "type": "CONDITIONING", "links": [10, 32]}],
+      "outputs": [{"name": "CONDITIONING", "type": "CONDITIONING", "links": [10]}],
       "properties": {"Node name for S&R": "ConditioningZeroOut"}
     },
     {
@@ -202,7 +202,7 @@
       "order": 11,
       "mode": 0,
       "inputs": [],
-      "outputs": [{"dir": 4, "name": "SEED", "shape": 3, "type": "INT", "links": [13, 33]}],
+      "outputs": [{"dir": 4, "name": "SEED", "shape": 3, "type": "INT", "links": [13]}],
       "properties": {"Node name for S&R": "Seed (rgthree)"},
       "widgets_values": [-1, "", "", "okay"]
     },
@@ -282,14 +282,14 @@
         {"name": "strength", "type": "FLOAT", "widget": {"name": "strength"}, "link": null}
       ],
       "outputs": [
-        {"name": "warped_reference", "type": "IMAGE", "links": [21, 26]},
+        {"name": "warped_reference", "type": "IMAGE", "links": [21, 26, 27, 39]},
         {"name": "edit_mask", "type": "MASK", "links": [22]},
         {"name": "structure_guide", "type": "IMAGE", "links": [20]},
         {"name": "target_landmarks_106", "type": "LANDMARKS_106", "links": [23]},
         {"name": "guide_info", "type": "STRING", "links": [24]}
       ],
       "properties": {"Node name for S&R": "CharacterDNAFaceLandmarkGeometryGuide"},
-      "widgets_values": [1.0]
+      "widgets_values": [0.5]
     },
     {
       "id": 17,
@@ -367,69 +367,15 @@
       "properties": {"Node name for S&R": "PreviewAny"}
     },
     {
-      "id": 23,
-      "type": "VAEEncode",
+      "id": 26,
+      "type": "SaveImage",
       "pos": [3950, 0],
-      "size": [310, 90],
+      "size": [360, 420],
       "flags": {},
       "order": 22,
       "mode": 0,
       "inputs": [
-        {"name": "pixels", "type": "IMAGE", "link": 26},
-        {"name": "vae", "type": "VAE", "link": 27}
-      ],
-      "outputs": [{"name": "LATENT", "type": "LATENT", "links": [29]}],
-      "properties": {"Node name for S&R": "VAEEncode"}
-    },
-    {
-      "id": 24,
-      "type": "KSampler",
-      "pos": [4310, 0],
-      "size": [290, 470],
-      "flags": {},
-      "order": 23,
-      "mode": 0,
-      "inputs": [
-        {"name": "model", "type": "MODEL", "link": 30},
-        {"name": "positive", "type": "CONDITIONING", "link": 31},
-        {"name": "negative", "type": "CONDITIONING", "link": 32},
-        {"name": "latent_image", "type": "LATENT", "link": 29},
-        {"name": "seed", "type": "INT", "widget": {"name": "seed"}, "link": 33},
-        {"name": "steps", "type": "INT", "widget": {"name": "steps"}, "link": null},
-        {"name": "cfg", "type": "FLOAT", "widget": {"name": "cfg"}, "link": null},
-        {"name": "sampler_name", "type": "COMBO", "widget": {"name": "sampler_name"}, "link": null},
-        {"name": "scheduler", "type": "COMBO", "widget": {"name": "scheduler"}, "link": null},
-        {"name": "denoise", "type": "FLOAT", "widget": {"name": "denoise"}, "link": null}
-      ],
-      "outputs": [{"name": "LATENT", "type": "LATENT", "links": [34]}],
-      "properties": {"Node name for S&R": "KSampler"},
-      "widgets_values": [970987473430644, "fixed", 8, 1.0, "res_multistep", "simple", 0.15]
-    },
-    {
-      "id": 25,
-      "type": "VAEDecode",
-      "pos": [4660, 0],
-      "size": [160, 60],
-      "flags": {},
-      "order": 24,
-      "mode": 0,
-      "inputs": [
-        {"name": "samples", "type": "LATENT", "link": 34},
-        {"name": "vae", "type": "VAE", "link": 35}
-      ],
-      "outputs": [{"name": "IMAGE", "type": "IMAGE", "links": [36, 37, 39]}],
-      "properties": {"Node name for S&R": "VAEDecode"}
-    },
-    {
-      "id": 26,
-      "type": "SaveImage",
-      "pos": [5120, 0],
-      "size": [360, 420],
-      "flags": {},
-      "order": 25,
-      "mode": 0,
-      "inputs": [
-        {"name": "images", "type": "IMAGE", "link": 36},
+        {"name": "images", "type": "IMAGE", "link": 26},
         {"name": "filename_prefix", "type": "STRING", "widget": {"name": "filename_prefix"}, "link": null}
       ],
       "outputs": [{"name": "images", "type": "IMAGE", "links": null}],
@@ -439,13 +385,13 @@
     {
       "id": 27,
       "type": "CharacterDNAInsightFace106Detector",
-      "pos": [4860, 500],
+      "pos": [3950, 500],
       "size": [330, 210],
       "flags": {},
-      "order": 26,
+      "order": 23,
       "mode": 0,
       "inputs": [
-        {"name": "image", "type": "IMAGE", "link": 37},
+        {"name": "image", "type": "IMAGE", "link": 27},
         {"name": "insightface_model", "type": "COMBO", "widget": {"name": "insightface_model"}, "link": null},
         {"name": "execution_provider", "type": "COMBO", "widget": {"name": "execution_provider"}, "link": null},
         {"name": "detection_size", "type": "INT", "widget": {"name": "detection_size"}, "link": null}
@@ -461,10 +407,10 @@
     {
       "id": 28,
       "type": "CharacterDNAPhenotypeGeometry",
-      "pos": [5250, 500],
+      "pos": [4340, 500],
       "size": [330, 100],
       "flags": {},
-      "order": 27,
+      "order": 24,
       "mode": 0,
       "inputs": [{"name": "landmarks_106", "type": "LANDMARKS_106", "link": 38}],
       "outputs": [
@@ -476,10 +422,10 @@
     {
       "id": 29,
       "type": "PreviewImage",
-      "pos": [5620, 0],
+      "pos": [4340, 0],
       "size": [400, 450],
       "flags": {},
-      "order": 28,
+      "order": 25,
       "mode": 0,
       "inputs": [{"name": "images", "type": "IMAGE", "link": 39}],
       "outputs": [],
@@ -488,10 +434,10 @@
     {
       "id": 30,
       "type": "PreviewAny",
-      "pos": [5620, 500],
+      "pos": [4720, 500],
       "size": [400, 260],
       "flags": {},
-      "order": 29,
+      "order": 26,
       "mode": 0,
       "inputs": [{"name": "source", "type": "*", "link": 40}],
       "outputs": [{"name": "output", "type": "STRING", "links": null}],
@@ -523,19 +469,10 @@
     [23, 16, 3, 20, 0, "LANDMARKS_106"],
     [24, 16, 4, 21, 0, "STRING"],
     [25, 20, 1, 22, 0, "STRING"],
-    [26, 16, 0, 23, 0, "IMAGE"],
-    [27, 7, 0, 23, 1, "VAE"],
-    [29, 23, 0, 24, 3, "LATENT"],
-    [30, 5, 0, 24, 0, "MODEL"],
-    [31, 8, 0, 24, 1, "CONDITIONING"],
-    [32, 9, 0, 24, 2, "CONDITIONING"],
-    [33, 12, 0, 24, 4, "INT"],
-    [34, 24, 0, 25, 0, "LATENT"],
-    [35, 7, 0, 25, 1, "VAE"],
-    [36, 25, 0, 26, 0, "IMAGE"],
-    [37, 25, 0, 27, 0, "IMAGE"],
+    [26, 16, 0, 26, 0, "IMAGE"],
+    [27, 16, 0, 27, 0, "IMAGE"],
     [38, 27, 0, 28, 0, "LANDMARKS_106"],
-    [39, 25, 0, 29, 0, "IMAGE"],
+    [39, 16, 0, 29, 0, "IMAGE"],
     [40, 28, 1, 30, 0, "STRING"]
   ],
   "groups": [],
