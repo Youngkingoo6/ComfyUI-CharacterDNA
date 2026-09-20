@@ -4,11 +4,12 @@ CharacterDNA 用一组可重复、可调节的结构参数描述原创角色身�
 
 ## 快速开始
 
-项目自带三个可直接拖入 ComfyUI 的示例：
+项目自带四个可直接拖入 ComfyUI 的示例：
 
 - [`examples/01_basic_seed_to_composite.json`](examples/01_basic_seed_to_composite.json)：从基础身份随机生成 19 个参数，再合成为自然的身份描述。
 - [`examples/02_multiple_feature_adjustments.json`](examples/02_multiple_feature_adjustments.json)：在随机 DNA 后连续修改多个 Feature，演示参数继承和覆盖。
 - [`examples/03_face_and_body_combined.json`](examples/03_face_and_body_combined.json)：分别生成面部和身体 DNA，再输出合并后的完整身份提示词。
+- [`examples/04_batch_generate_analyze_select.json`](examples/04_batch_generate_analyze_select.json)：批量生成、比例分析、目标筛选和 Pareto 预览。
 
 将 JSON 拖进 ComfyUI 后：
 
@@ -155,7 +156,8 @@ Parametric Face Designer、Face DNA Seed Generator 和 Face Composite Identity �
 
 ## 其他节点
 
-- `InsightFace 106 Detector`：从图像检测 106 点人脸关键点，并输出带编号、区域框和眼轴的诊断图。
+- `InsightFace 106 Detector`：从图像检测 106 点人脸关键点，并输出三庭五眼及实测相对比例诊断图。
+- `Face Landmark Geometry Guide`：把 DNA 眼距目标换算为像素级位移，输出局部变形参考、编辑遮罩、目标结构网格和目标 106 点。
 - `Phenotype Geometry`：从关键点计算可比较的几何表型，并给出歪头/双眼不对称等拍摄质量指标。
 - `Batch Phenotype Analyzer`：统计一批候选图的表型分布，并保留每张图的批次位置。
 - `Casting Dataset Loader`：加载候选图数据集。
