@@ -54,6 +54,7 @@ from .character_dna.candidate_selector import (
     select_directional_candidates,
 )
 from .character_dna.diagnostic import draw_landmark_diagnostic
+from .character_dna.landmark_guide import build_eye_spacing_guide
 DNA_TYPE = "CHARACTER_DNA"
 
 
@@ -843,6 +844,69 @@ class CharacterDNAInsightFace106Detector:
         )
 
 # ============================================================
+# Face Landmark Geometry Guide
+# ============================================================
+
+class CharacterDNAFaceLandmarkGeometryGuide:
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {
+            "required": {
+                "image": ("IMAGE",),
+                "landmarks_106": ("LANDMARKS_106",),
+                "character_dna": (DNA_TYPE,),
+                "strength": (
+                    "FLOAT",
+                    {
+                        "default": 1.0,
+                        "min": 0.0,
+                        "max": 1.0,
+                        "step": 0.1,
+                        "round": 0.1,
+                    },
+                ),
+            }
+        }
+
+    RETURN_TYPES = (
+        "IMAGE",
+        "MASK",
+        "IMAGE",
+        "LANDMARKS_106",
+        "STRING",
+    )
+    RETURN_NAMES = (
+        "warped_reference",
+        "edit_mask",
+        "structure_guide",
+        "target_landmarks_106",
+        "guide_info",
+    )
+    FUNCTION = "guide"
+    CATEGORY = "CharacterDNA/Guidance"
+
+    def guide(self, image, landmarks_106, character_dna, strength):
+        if image is None or len(image) == 0:
+            raise ValueError("No image provided.")
+
+        image_np = image[0].detach().cpu().numpy()
+        image_rgb = np.clip(image_np * 255.0, 0, 255).astype(np.uint8)
+        warped, mask, structure, target_landmarks, info = build_eye_spacing_guide(
+            image_rgb,
+            landmarks_106,
+            character_dna,
+            strength=strength,
+        )
+        return (
+            image.new_tensor(warped / 255.0).unsqueeze(0),
+            image.new_tensor(mask).unsqueeze(0),
+            image.new_tensor(structure / 255.0).unsqueeze(0),
+            target_landmarks,
+            info,
+        )
+
+# ============================================================
 # Phenotype Geometry
 # ============================================================
 
@@ -1385,6 +1449,9 @@ NODE_CLASS_MAPPINGS = {
     "CharacterDNAInsightFace106Detector":
         CharacterDNAInsightFace106Detector,
 
+    "CharacterDNAFaceLandmarkGeometryGuide":
+        CharacterDNAFaceLandmarkGeometryGuide,
+
     "CharacterDNAPhenotypeGeometry":
         CharacterDNAPhenotypeGeometry,
 
@@ -1426,6 +1493,9 @@ NODE_DISPLAY_NAME_MAPPINGS = {
 
     "CharacterDNAInsightFace106Detector":
         "🧬 InsightFace 106 Detector",
+
+    "CharacterDNAFaceLandmarkGeometryGuide":
+        "🧬 Face Landmark Geometry Guide",
 
     "CharacterDNAPhenotypeGeometry":
         "🧬 Phenotype Geometry",

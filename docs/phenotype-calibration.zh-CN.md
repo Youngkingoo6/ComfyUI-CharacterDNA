@@ -28,6 +28,22 @@ slightly wide-set eyes, target inner-canthal distance is approximately 1.1 times
 
 DNA 为 `0` 时仍遵循极简规则：不输出该 Feature 的形容词，也不输出比例。
 
+## 关键点结构引导
+
+文字比例只能表达目标，不能保证生成模型真正执行。需要精确调整眼距时，使用：
+
+`原图 → InsightFace 106 Detector → Face Landmark Geometry Guide`
+
+把同一个 `Character DNA` 同时连接到结构引导节点。节点读取 DNA 中的 `eye_spacing`，将目标比值换算成左右眼的像素位移，并输出：
+
+- `warped_reference`：眼眶和眉区平滑移动后的编辑参考图；
+- `edit_mask`：只覆盖需要重绘的眼眶区域；
+- `structure_guide`：灰色为目标面部网格，蓝点为原始眼眉关键点，黄点为目标眼眉关键点；
+- `target_landmarks_106`：已经达到目标比值的关键点，可直接接 `Phenotype Geometry` 检查；
+- `guide_info`：原始比值、目标比值、目标像素间距和两眼位移量。
+
+`strength = 1.0` 表示执行完整 DNA 目标，`0.5` 表示只执行原始值到目标值之间的一半。变形参考图用于图像编辑或局部重绘，不应被当作最终成图；最终结果仍需重新连接 `InsightFace 106 Detector → Phenotype Geometry` 复测。第一阶段只对 `eye_spacing` 做结构引导，且保持平均眼宽、鼻口和二维脸宽不变。
+
 ## 当前可测量范围
 
 可校准：眼形横纵比、眼睛开合、眼距、眼角倾斜、眉眼距离、鼻宽、鼻长、嘴宽、上下唇厚度、唇峰。

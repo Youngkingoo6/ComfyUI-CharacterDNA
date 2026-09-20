@@ -248,7 +248,7 @@
   },
   "CharacterDNAInsightFace106Detector": {
     "display_name": "🧬 InsightFace 106 Detector",
-    "description": "Detects InsightFace 106 landmarks and outputs an annotated diagnostic image.",
+    "description": "Detects InsightFace 106 landmarks and outputs a proportion diagnostic image.",
     "outputs": {
       "0": {
         "name": "106 landmarks"
@@ -258,6 +258,41 @@
       },
       "2": {
         "name": "Diagnostic image"
+      }
+    }
+  },
+  "CharacterDNAFaceLandmarkGeometryGuide": {
+    "display_name": "🧬 Face Landmark Geometry Guide",
+    "description": "Converts the eye-spacing target in Character DNA into pixel-level landmark movement, a locally warped reference, an edit mask and a clean structure guide.",
+    "inputs": {
+      "image": {
+        "name": "Source image"
+      },
+      "landmarks_106": {
+        "name": "106 landmarks"
+      },
+      "character_dna": {
+        "name": "Character DNA"
+      },
+      "strength": {
+        "name": "Guide strength"
+      }
+    },
+    "outputs": {
+      "0": {
+        "name": "Warped reference"
+      },
+      "1": {
+        "name": "Edit mask"
+      },
+      "2": {
+        "name": "Structure guide"
+      },
+      "3": {
+        "name": "Target 106 landmarks"
+      },
+      "4": {
+        "name": "Guide info"
       }
     }
   },
