@@ -142,6 +142,12 @@ METRICS = {
                 "spacing_eye_widths"
             ],
 
+    "eye_spacing_face_ratio":
+        lambda g:
+            g["eyes"][
+                "spacing_face_width_ratio"
+            ],
+
     "canthal_tilt_degrees":
         lambda g:
             g["eyes"][

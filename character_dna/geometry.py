@@ -1026,6 +1026,14 @@ def measure_geometry(
                     spacing_eye_widths
                 ),
 
+            "spacing_face_width_ratio":
+                _round(
+                    _safe_div(
+                        inter_eye_gap,
+                        face_scale,
+                    )
+                ),
+
             "average_canthal_tilt_degrees":
                 _round(
                     average_canthal_tilt
