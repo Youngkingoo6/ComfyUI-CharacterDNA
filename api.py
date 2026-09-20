@@ -119,6 +119,19 @@ def _validate_feature_vocabulary(features, expected_features, path="features"):
             _require_string(level.get("text_zh"), f"{path}.{name}.levels[{index}].text_zh")
         if actual_values != FEATURE_LEVELS:
             raise ValueError(f"{path}.{name}.levels values must be exactly {FEATURE_LEVELS}.")
+        measurement = feature.get("measurement")
+        if measurement is not None:
+            if not isinstance(measurement, dict):
+                raise ValueError(f"{path}.{name}.measurement must be an object.")
+            _require_string(measurement.get("metric"), f"{path}.{name}.measurement.metric")
+            _require_string(measurement.get("unit"), f"{path}.{name}.measurement.unit")
+            for field in (
+                "negative_target", "baseline_target", "positive_target", "tolerance"
+            ):
+                if not isinstance(measurement.get(field), (int, float)):
+                    raise ValueError(f"{path}.{name}.measurement.{field} must be numeric.")
+            if float(measurement["tolerance"]) <= 0:
+                raise ValueError(f"{path}.{name}.measurement.tolerance must be positive.")
 
 
 def _validate_composites(composites, composites_zh, groups, path="composites"):

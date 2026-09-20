@@ -1,0 +1,1034 @@
+{
+  "id": "4e4cf54e-3f90-4e41-9b43-characterdna04",
+  "revision": 0,
+  "last_node_id": 15,
+  "last_link_id": 19,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "Note",
+      "pos": [
+        0,
+        0
+      ],
+      "size": [
+        470,
+        430
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "批量生成 → 表型分析 → 定向筛选\n\n1. 选择本机可用的 SDXL checkpoint。\n2. 校准选角蓝图固定正面、85mm、均匀光和中性表情。\n3. Empty Latent 的 batch_size 决定一次候选数量。\n4. 同一批解码图同时送入保存、批量分析和筛选器。\n5. 筛选器按可编辑目标比例 + 批内相对方向排名。\n6. top_images 是前 N 名；pareto_images 是多特征互不支配集合。\n7. 词库面板可修改 11 项测量目标与容差。\n\n注意：目标值是工作流校准初值，不是人类学真值。用于严谨选角前，应以自己的标准正面参考集重新校准。"
+      ],
+      "widgets_values_named": {
+        "text": "批量生成、分析与筛选"
+      },
+      "color": "#24455a",
+      "bgcolor": "#315f78"
+    },
+    {
+      "id": 2,
+      "type": "CharacterDNADesigner",
+      "pos": [
+        520,
+        0
+      ],
+      "size": [
+        300,
+        220
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "character_name",
+          "type": "STRING",
+          "widget": {
+            "name": "character_name"
+          },
+          "link": null
+        },
+        {
+          "name": "gender",
+          "type": "COMBO",
+          "widget": {
+            "name": "gender"
+          },
+          "link": null
+        },
+        {
+          "name": "ancestry",
+          "type": "COMBO",
+          "widget": {
+            "name": "ancestry"
+          },
+          "link": null
+        },
+        {
+          "name": "visual_age",
+          "type": "INT",
+          "widget": {
+            "name": "visual_age"
+          },
+          "link": null
+        },
+        {
+          "name": "identity_appearance",
+          "type": "COMBO",
+          "widget": {
+            "name": "identity_appearance"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "character_dna",
+          "type": "CHARACTER_DNA",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CharacterDNADesigner"
+      },
+      "widgets_values": [
+        "CASTING_001",
+        "female",
+        "East Asian",
+        23,
+        "oriental_clear_beauty"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "CharacterDNASeedGenerator",
+      "pos": [
+        870,
+        0
+      ],
+      "size": [
+        330,
+        220
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "character_dna",
+          "type": "CHARACTER_DNA",
+          "link": 1
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "widget": {
+            "name": "seed"
+          },
+          "link": null
+        },
+        {
+          "name": "distinctiveness",
+          "type": "FLOAT",
+          "widget": {
+            "name": "distinctiveness"
+          },
+          "link": null
+        },
+        {
+          "name": "harmony",
+          "type": "FLOAT",
+          "widget": {
+            "name": "harmony"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "character_dna",
+          "type": "CHARACTER_DNA",
+          "links": [
+            2
+          ]
+        },
+        {
+          "name": "parametric_prompt",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "parameters_json",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "parametric_prompt_zh",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CharacterDNASeedGenerator"
+      },
+      "widgets_values": [
+        137522,
+        "fixed",
+        0.7,
+        0.85
+      ]
+    },
+    {
+      "id": 4,
+      "type": "CharacterDNAVisualBlueprint",
+      "pos": [
+        1250,
+        0
+      ],
+      "size": [
+        360,
+        240
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "character_dna",
+          "type": "CHARACTER_DNA",
+          "link": 2
+        },
+        {
+          "name": "blueprint",
+          "type": "COMBO",
+          "widget": {
+            "name": "blueprint"
+          },
+          "link": null
+        },
+        {
+          "name": "variant_seed",
+          "type": "INT",
+          "widget": {
+            "name": "variant_seed"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "character_dna",
+          "type": "CHARACTER_DNA",
+          "links": [
+            5
+          ]
+        },
+        {
+          "name": "complete_prompt",
+          "type": "STRING",
+          "links": [
+            3
+          ]
+        },
+        {
+          "name": "complete_prompt_zh",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "negative_prompt",
+          "type": "STRING",
+          "links": [
+            4
+          ]
+        },
+        {
+          "name": "negative_prompt_zh",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CharacterDNAVisualBlueprint"
+      },
+      "widgets_values": [
+        "calibrated_casting_headshot",
+        0,
+        "fixed"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        520,
+        510
+      ],
+      "size": [
+        340,
+        100
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "ckpt_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "ckpt_name"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            6
+          ]
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            7,
+            8
+          ]
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            9
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "WildCardX-XL TURBO_WildCardX-XL TURBO v1.0.safetensors"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "CLIPTextEncode",
+      "pos": [
+        900,
+        430
+      ],
+      "size": [
+        390,
+        130
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 7
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 3
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            11
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      }
+    },
+    {
+      "id": 7,
+      "type": "CLIPTextEncode",
+      "pos": [
+        900,
+        600
+      ],
+      "size": [
+        390,
+        130
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 8
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 4
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            12
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      }
+    },
+    {
+      "id": 8,
+      "type": "EmptyLatentImage",
+      "pos": [
+        900,
+        780
+      ],
+      "size": [
+        300,
+        140
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": null
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": null
+        },
+        {
+          "name": "batch_size",
+          "type": "INT",
+          "widget": {
+            "name": "batch_size"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            10
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyLatentImage"
+      },
+      "widgets_values": [
+        1024,
+        1024,
+        16
+      ]
+    },
+    {
+      "id": 9,
+      "type": "KSampler",
+      "pos": [
+        1360,
+        430
+      ],
+      "size": [
+        300,
+        480
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 6
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 11
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 12
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 10
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "widget": {
+            "name": "seed"
+          },
+          "link": null
+        },
+        {
+          "name": "steps",
+          "type": "INT",
+          "widget": {
+            "name": "steps"
+          },
+          "link": null
+        },
+        {
+          "name": "cfg",
+          "type": "FLOAT",
+          "widget": {
+            "name": "cfg"
+          },
+          "link": null
+        },
+        {
+          "name": "sampler_name",
+          "type": "COMBO",
+          "widget": {
+            "name": "sampler_name"
+          },
+          "link": null
+        },
+        {
+          "name": "scheduler",
+          "type": "COMBO",
+          "widget": {
+            "name": "scheduler"
+          },
+          "link": null
+        },
+        {
+          "name": "denoise",
+          "type": "FLOAT",
+          "widget": {
+            "name": "denoise"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            13
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        970987473430644,
+        "randomize",
+        25,
+        5.5,
+        "dpmpp_2m",
+        "karras",
+        1
+      ]
+    },
+    {
+      "id": 10,
+      "type": "VAEDecode",
+      "pos": [
+        1730,
+        500
+      ],
+      "size": [
+        210,
+        70
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 13
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 9
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            14,
+            15,
+            16
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      }
+    },
+    {
+      "id": 11,
+      "type": "SaveImage",
+      "pos": [
+        1990,
+        270
+      ],
+      "size": [
+        310,
+        390
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 14
+        },
+        {
+          "name": "filename_prefix",
+          "type": "STRING",
+          "widget": {
+            "name": "filename_prefix"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "CharacterDNA/casting/C"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "CharacterDNABatchPhenotypeAnalyzer",
+      "pos": [
+        1990,
+        720
+      ],
+      "size": [
+        350,
+        260
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 15
+        },
+        {
+          "name": "insightface_model",
+          "type": "COMBO",
+          "widget": {
+            "name": "insightface_model"
+          },
+          "link": null
+        },
+        {
+          "name": "execution_provider",
+          "type": "COMBO",
+          "widget": {
+            "name": "execution_provider"
+          },
+          "link": null
+        },
+        {
+          "name": "detection_size",
+          "type": "INT",
+          "widget": {
+            "name": "detection_size"
+          },
+          "link": null
+        },
+        {
+          "name": "candidate_prefix",
+          "type": "STRING",
+          "widget": {
+            "name": "candidate_prefix"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "phenotype_dataset",
+          "type": "PHENOTYPE_DATASET",
+          "links": [
+            17
+          ]
+        },
+        {
+          "name": "dataset_json",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "statistics_json",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "valid_count",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "failed_count",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CharacterDNABatchPhenotypeAnalyzer"
+      },
+      "widgets_values": [
+        "buffalo_l",
+        "CUDA",
+        640,
+        "C"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "CharacterDNADirectionalCandidateSelector",
+      "pos": [
+        2430,
+        570
+      ],
+      "size": [
+        390,
+        300
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "character_dna",
+          "type": "CHARACTER_DNA",
+          "link": 5
+        },
+        {
+          "name": "phenotype_dataset",
+          "type": "PHENOTYPE_DATASET",
+          "link": 17
+        },
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 16
+        },
+        {
+          "name": "minimum_dna_magnitude",
+          "type": "FLOAT",
+          "widget": {
+            "name": "minimum_dna_magnitude"
+          },
+          "link": null
+        },
+        {
+          "name": "top_n",
+          "type": "INT",
+          "widget": {
+            "name": "top_n"
+          },
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "selection_json",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "summary",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "top_images",
+          "type": "IMAGE",
+          "links": [
+            18
+          ]
+        },
+        {
+          "name": "pareto_images",
+          "type": "IMAGE",
+          "links": [
+            19
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CharacterDNADirectionalCandidateSelector"
+      },
+      "widgets_values": [
+        0.1,
+        8
+      ]
+    },
+    {
+      "id": 14,
+      "type": "PreviewImage",
+      "pos": [
+        2890,
+        250
+      ],
+      "size": [
+        420,
+        420
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 18
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 15,
+      "type": "PreviewImage",
+      "pos": [
+        2890,
+        720
+      ],
+      "size": [
+        420,
+        420
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 19
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    }
+  ],
+  "links": [
+    [
+      1,
+      2,
+      0,
+      3,
+      0,
+      "CHARACTER_DNA"
+    ],
+    [
+      2,
+      3,
+      0,
+      4,
+      0,
+      "CHARACTER_DNA"
+    ],
+    [
+      3,
+      4,
+      1,
+      6,
+      1,
+      "STRING"
+    ],
+    [
+      4,
+      4,
+      3,
+      7,
+      1,
+      "STRING"
+    ],
+    [
+      5,
+      4,
+      0,
+      13,
+      0,
+      "CHARACTER_DNA"
+    ],
+    [
+      6,
+      5,
+      0,
+      9,
+      0,
+      "MODEL"
+    ],
+    [
+      7,
+      5,
+      1,
+      6,
+      0,
+      "CLIP"
+    ],
+    [
+      8,
+      5,
+      1,
+      7,
+      0,
+      "CLIP"
+    ],
+    [
+      9,
+      5,
+      2,
+      10,
+      1,
+      "VAE"
+    ],
+    [
+      10,
+      8,
+      0,
+      9,
+      3,
+      "LATENT"
+    ],
+    [
+      11,
+      6,
+      0,
+      9,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      12,
+      7,
+      0,
+      9,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      13,
+      9,
+      0,
+      10,
+      0,
+      "LATENT"
+    ],
+    [
+      14,
+      10,
+      0,
+      11,
+      0,
+      "IMAGE"
+    ],
+    [
+      15,
+      10,
+      0,
+      12,
+      0,
+      "IMAGE"
+    ],
+    [
+      16,
+      10,
+      0,
+      13,
+      2,
+      "IMAGE"
+    ],
+    [
+      17,
+      12,
+      0,
+      13,
+      1,
+      "PHENOTYPE_DATASET"
+    ],
+    [
+      18,
+      13,
+      2,
+      14,
+      0,
+      "IMAGE"
+    ],
+    [
+      19,
+      13,
+      3,
+      15,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.62,
+      "offset": [
+        20,
+        160
+      ]
+    }
+  },
+  "version": 0.4
+}

@@ -53,6 +53,7 @@ from .character_dna.casting_dataset import (
 from .character_dna.candidate_selector import (
     select_directional_candidates,
 )
+from .character_dna.diagnostic import draw_landmark_diagnostic
 DNA_TYPE = "CHARACTER_DNA"
 
 
@@ -680,11 +681,13 @@ class CharacterDNAInsightFace106Detector:
     RETURN_TYPES = (
         "LANDMARKS_106",
         "STRING",
+        "IMAGE",
     )
 
     RETURN_NAMES = (
         "landmarks_106",
         "detector_info",
+        "diagnostic_image",
     )
 
     FUNCTION = "detect"
@@ -829,6 +832,9 @@ class CharacterDNAInsightFace106Detector:
         return (
             landmark_data,
             detector_info,
+            image.new_tensor(
+                draw_landmark_diagnostic(image_rgb, landmark_data) / 255.0
+            ).unsqueeze(0),
         )
 
 # ============================================================
@@ -1201,6 +1207,10 @@ class CharacterDNADirectionalCandidateSelector:
                     "PHENOTYPE_DATASET",
                 ),
 
+                "images": (
+                    "IMAGE",
+                ),
+
                 "minimum_dna_magnitude": (
                     "FLOAT",
                     {
@@ -1210,17 +1220,31 @@ class CharacterDNADirectionalCandidateSelector:
                         "step": 0.01,
                     },
                 ),
+
+                "top_n": (
+                    "INT",
+                    {
+                        "default": 8,
+                        "min": 1,
+                        "max": 64,
+                        "step": 1,
+                    },
+                ),
             }
         }
 
     RETURN_TYPES = (
         "STRING",
         "STRING",
+        "IMAGE",
+        "IMAGE",
     )
 
     RETURN_NAMES = (
         "selection_json",
         "summary",
+        "top_images",
+        "pareto_images",
     )
 
     FUNCTION = "select"
@@ -1231,7 +1255,9 @@ class CharacterDNADirectionalCandidateSelector:
         self,
         character_dna,
         phenotype_dataset,
+        images,
         minimum_dna_magnitude,
+        top_n,
     ):
         result = (
             select_directional_candidates(
@@ -1257,9 +1283,7 @@ class CharacterDNADirectionalCandidateSelector:
             "=" * 42
         )
 
-        lines.append(
-            "Relative population ranking only"
-        )
+        lines.append("Calibrated target + relative population ranking")
 
         lines.append("")
 
@@ -1274,9 +1298,7 @@ class CharacterDNADirectionalCandidateSelector:
                 else ""
             )
 
-            index = candidate[
-                "relative_directional_index"
-            ]
+            index = candidate["calibrated_match_index"]
 
             if index is None:
                 index_text = "N/A"
@@ -1286,7 +1308,7 @@ class CharacterDNADirectionalCandidateSelector:
                 )
 
             lines.append(
-                f"#{candidate['relative_rank']:02d} "
+                f"#{candidate['rank']:02d} "
                 f"{candidate['candidate_id']}  "
                 f"{index_text}  "
                 f"{marker}"
@@ -1302,11 +1324,29 @@ class CharacterDNADirectionalCandidateSelector:
             )
         )
 
+        if not result["candidates"]:
+            raise ValueError("No valid phenotype candidates were available for selection.")
+
+        image_count = int(images.shape[0])
+        if image_count != int(phenotype_dataset.get("input_count", image_count)):
+            raise ValueError("The images input must be the same batch used by Batch Phenotype Analyzer.")
+
+        def image_batch(candidates):
+            indices = [int(candidate["batch_index"]) - 1 for candidate in candidates]
+            if any(index < 0 or index >= image_count for index in indices):
+                raise ValueError("Phenotype batch_index is outside the supplied image batch.")
+            return images[indices]
+
+        selected = result["candidates"][: int(top_n)]
+        pareto = [candidate for candidate in result["candidates"] if candidate["pareto_optimal"]]
+
         return (
             selection_json,
             "\n".join(
                 lines
             ),
+            image_batch(selected),
+            image_batch(pareto),
         )
 # ============================================================
 # NODE REGISTRATION

@@ -12,7 +12,7 @@ from .landmark_map import (
 )
 
 
-GEOMETRY_VERSION = "0.6.2"
+GEOMETRY_VERSION = "0.7.0"
 
 
 # ============================================================
@@ -895,6 +895,26 @@ def measure_geometry(
         average_eye_width,
     )
 
+    left_center = np.asarray(image_left_eye["center"], dtype=np.float64)
+    right_center = np.asarray(image_right_eye["center"], dtype=np.float64)
+    eye_line_roll = math.degrees(
+        math.atan2(
+            float(right_center[1] - left_center[1]),
+            abs(float(right_center[0] - left_center[0])),
+        )
+    )
+    eye_width_asymmetry = _safe_div(
+        abs(float(image_left_eye["width_px"]) - float(image_right_eye["width_px"])),
+        average_eye_width,
+    )
+    eye_height_asymmetry = _safe_div(
+        abs(
+            float(image_left_eye["aperture_height_px"])
+            - float(image_right_eye["aperture_height_px"])
+        ),
+        average_eye_height,
+    )
+
     brow_eye = _measure_brow_eye(
         lm,
         image_left_eye,
@@ -986,6 +1006,14 @@ def measure_geometry(
                         face_scale,
                     )
                 ),
+
+            "aperture_height_face_scale_ratio":
+                _round(
+                    _safe_div(
+                        average_eye_height,
+                        face_scale,
+                    )
+                ),
         },
 
         "brow_eye":
@@ -996,6 +1024,13 @@ def measure_geometry(
 
         "mouth":
             mouth,
+
+        "capture_quality": {
+            "eye_line_roll_degrees": _round(eye_line_roll),
+            "eye_width_asymmetry": _round(eye_width_asymmetry),
+            "eye_height_asymmetry": _round(eye_height_asymmetry),
+            "note": "Pose/expression diagnostics; lower absolute values are generally better for frontal casting calibration.",
+        },
 
         "measurement_capabilities": {
             "eye_geometry":
@@ -1014,7 +1049,9 @@ def measure_geometry(
                 "measured_2d",
 
             "nose_length":
-                "measured_2d",            "nose_projection":
+                "measured_2d",
+
+            "nose_projection":
                 "requires_3d_or_profile",
 
             "nose_tip_rotation":

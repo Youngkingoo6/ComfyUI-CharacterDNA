@@ -4,7 +4,7 @@ import numpy as np
 from .geometry import measure_geometry
 
 
-BATCH_VERSION = "0.6.3"
+BATCH_VERSION = "0.7.0"
 
 
 # ============================================================
@@ -148,6 +148,12 @@ METRICS = {
                 "width_face_scale_ratio"
             ],
 
+    "eye_aperture_face_ratio":
+        lambda g:
+            g["eyes"][
+                "aperture_height_face_scale_ratio"
+            ],
+
     # --------------------------------------------------------
     # Brow / Eye
     # provisional but useful for variance analysis
@@ -212,6 +218,15 @@ METRICS = {
             g["mouth"][
                 "cupid_bow_relative_to_upper_lip"
             ],
+
+    "eye_line_roll_degrees":
+        lambda g: g["capture_quality"]["eye_line_roll_degrees"],
+
+    "eye_width_asymmetry":
+        lambda g: g["capture_quality"]["eye_width_asymmetry"],
+
+    "eye_height_asymmetry":
+        lambda g: g["capture_quality"]["eye_height_asymmetry"],
 }
 
 
@@ -334,7 +349,12 @@ def analyze_phenotype_batch(
             "candidate_id":
                 record[
                     "candidate_id"
-                ]
+                ],
+
+            "batch_index":
+                record[
+                    "batch_index"
+                ],
         }
 
         for name, getter in METRICS.items():

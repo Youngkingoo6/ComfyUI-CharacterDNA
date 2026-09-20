@@ -1,8 +1,9 @@
-import copy
 import math
 
+from .vocabulary import get_vocabulary
 
-SELECTOR_VERSION = "0.7.0"
+
+SELECTOR_VERSION = "0.8.0"
 
 
 # ============================================================
@@ -19,9 +20,15 @@ SELECTOR_VERSION = "0.7.0"
 
 FEATURE_MAP = {
     "eye_elongation": {
-        "metric": "eye_aspect_ratio",
+        "metric": "eye_width_face_ratio",
         "direction": +1,
         "importance": 1.00,
+    },
+
+    "eye_openness": {
+        "metric": "eye_aperture_face_ratio",
+        "direction": +1,
+        "importance": 0.90,
     },
 
     "eye_spacing": {
@@ -100,6 +107,31 @@ def _finite(value):
         )
     except Exception:
         return False
+
+
+def _measurement_config(feature):
+    entry = get_vocabulary().get("features", {}).get(feature, {})
+    measurement = entry.get("measurement")
+    return measurement if isinstance(measurement, dict) else None
+
+
+def _target_for_value(dna_value, measurement):
+    baseline = float(measurement["baseline_target"])
+    edge = float(
+        measurement["positive_target"]
+        if dna_value >= 0
+        else measurement["negative_target"]
+    )
+    return baseline + abs(float(dna_value)) * (edge - baseline)
+
+
+def _target_match(value, target, tolerance):
+    """Gaussian match: 1 at target, about 0.61 at one tolerance."""
+    tolerance = float(tolerance)
+    if tolerance <= 0:
+        return None
+    z = (float(value) - float(target)) / tolerance
+    return math.exp(-0.5 * z * z)
 
 
 # ============================================================
@@ -252,12 +284,7 @@ def select_directional_candidates(
     phenotype_dataset,
     minimum_dna_magnitude=0.10,
 ):
-    """
-    Compare candidates RELATIVELY inside the current casting
-    population.
-
-    No absolute physical target is assumed.
-    """
+    """Rank candidates by editable physical targets plus population direction."""
 
     features = (
         dna
@@ -303,6 +330,17 @@ def select_directional_candidates(
             else -config["direction"]
         )
 
+        measurement = _measurement_config(feature)
+        target = None
+        tolerance = None
+        if measurement and measurement.get("metric") == config["metric"]:
+            try:
+                target = _target_for_value(dna_value, measurement)
+                tolerance = float(measurement["tolerance"])
+            except (KeyError, TypeError, ValueError):
+                target = None
+                tolerance = None
+
         active[feature] = {
             "dna_value":
                 dna_value,
@@ -330,6 +368,9 @@ def select_directional_candidates(
                 config[
                     "importance"
                 ],
+
+            "target_value": _round(target),
+            "tolerance": _round(tolerance),
         }
 
     # --------------------------------------------------------
@@ -374,7 +415,8 @@ def select_directional_candidates(
 
         feature_results = {}
 
-        weighted_sum = 0.0
+        relative_sum = 0.0
+        calibrated_sum = 0.0
         weight_sum = 0.0
 
         pareto_vector = {}
@@ -412,10 +454,18 @@ def select_directional_candidates(
                 "weight"
             ]
 
-            weighted_sum += (
-                percentile
-                * weight
+            target_match = None
+            if config["target_value"] is not None and config["tolerance"] is not None:
+                target_match = _target_match(value, config["target_value"], config["tolerance"])
+
+            combined = (
+                0.35 * percentile + 0.65 * target_match
+                if target_match is not None
+                else percentile
             )
+
+            relative_sum += percentile * weight
+            calibrated_sum += combined * weight
 
             weight_sum += (
                 weight
@@ -423,7 +473,7 @@ def select_directional_candidates(
 
             pareto_vector[
                 feature
-            ] = percentile
+            ] = combined
 
             feature_results[
                 feature
@@ -457,6 +507,15 @@ def select_directional_candidates(
                         percentile
                     ),
 
+                "target_value": _round(config["target_value"]),
+                "target_error": _round(
+                    abs(float(value) - float(config["target_value"]))
+                    if config["target_value"] is not None
+                    else None
+                ),
+                "target_match": _round(target_match),
+                "combined_match": _round(combined),
+
                 "weight":
                     _round(
                         weight
@@ -464,8 +523,14 @@ def select_directional_candidates(
             }
 
         relative_index = (
-            weighted_sum
+            relative_sum
             / weight_sum
+            if weight_sum > 0
+            else None
+        )
+
+        calibrated_index = (
+            calibrated_sum / weight_sum
             if weight_sum > 0
             else None
         )
@@ -474,6 +539,8 @@ def select_directional_candidates(
             "candidate_id":
                 cid,
 
+            "batch_index": row.get("batch_index"),
+
             # Important:
             # relative_index is only a within-casting
             # directional selection index.
@@ -481,6 +548,8 @@ def select_directional_candidates(
                 _round(
                     relative_index
                 ),
+
+            "calibrated_match_index": _round(calibrated_index),
 
             "feature_matches":
                 feature_results,
@@ -514,16 +583,14 @@ def select_directional_candidates(
             in pareto_set
         )
 
-    # Directional index is useful for navigation,
-    # but is deliberately NOT called a DNA score.
     candidates.sort(
         key=lambda x:
             (
                 x[
-                    "relative_directional_index"
+                    "calibrated_match_index"
                 ]
                 if x[
-                    "relative_directional_index"
+                    "calibrated_match_index"
                 ]
                 is not None
                 else -1
@@ -536,7 +603,7 @@ def select_directional_candidates(
         start=1,
     ):
         candidate[
-            "relative_rank"
+            "rank"
         ] = rank
 
     result = {
@@ -547,13 +614,12 @@ def select_directional_candidates(
             SELECTOR_VERSION,
 
         "selection_method":
-            "within_casting_directional_percentile",
+            "calibrated_target_error_plus_within_casting_direction",
 
         "warning":
             (
-                "Relative rank only. "
-                "This is not an absolute DNA "
-                "compliance probability or score."
+                "Targets are editable operational calibration values, not "
+                "anthropological truth or an identity probability."
             ),
 
         "active_features":

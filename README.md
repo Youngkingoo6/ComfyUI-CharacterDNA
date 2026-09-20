@@ -111,6 +111,7 @@ Seed Generator
 
 - [`docs/parameters.zh-CN.md`](docs/parameters.zh-CN.md)
 - [`docs/body-parameters.zh-CN.md`](docs/body-parameters.zh-CN.md)：20 个身体 Feature、5 组身体 Composite 与组合方法。
+- [`docs/phenotype-calibration.zh-CN.md`](docs/phenotype-calibration.zh-CN.md)：可测量比例、校准目标、批内排名与 Pareto 筛选。
 
 ## 词库管理
 
@@ -151,8 +152,10 @@ Parametric Face Designer、Face DNA Seed Generator 和 Face Composite Identity �
 
 ## 其他节点
 
-- `InsightFace 106 Detector`：从图像检测 106 点人脸关键点。
-- `Phenotype Geometry`：从关键点计算可比较的几何表型。
-- `Batch Phenotype Analyzer`：统计一批候选图的表型分布。
+- `InsightFace 106 Detector`：从图像检测 106 点人脸关键点，并输出带编号、区域框和眼轴的诊断图。
+- `Phenotype Geometry`：从关键点计算可比较的几何表型，并给出歪头/双眼不对称等拍摄质量指标。
+- `Batch Phenotype Analyzer`：统计一批候选图的表型分布，并保留每张图的批次位置。
 - `Casting Dataset Loader`：加载候选图数据集。
-- `Directional Candidate Selector`：按 DNA 的正负方向筛选更匹配的候选图。
+- `Directional Candidate Selector`：按可编辑比例目标与 DNA 方向共同筛选，并直接输出前 N 名图片和 Pareto 图片。
+
+完整示例见 [`examples/04_batch_generate_analyze_select.json`](examples/04_batch_generate_analyze_select.json)。它把 DNA 提示词、批量生图、106 点分析、目标比例排名、前 N 名和 Pareto 预览连成一条工作流。
