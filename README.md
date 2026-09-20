@@ -112,6 +112,7 @@ Seed Generator
 - [`docs/parameters.zh-CN.md`](docs/parameters.zh-CN.md)
 - [`docs/body-parameters.zh-CN.md`](docs/body-parameters.zh-CN.md)：20 个身体 Feature、5 组身体 Composite 与组合方法。
 - [`docs/phenotype-calibration.zh-CN.md`](docs/phenotype-calibration.zh-CN.md)：可测量比例、校准目标、批内排名与 Pareto 筛选。
+- [`docs/facial-proportion-standard.zh-CN.md`](docs/facial-proportion-standard.zh-CN.md)：三庭五眼基准、七档命名与统一比例规则。
 
 ## 词库管理
 

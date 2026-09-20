@@ -40,7 +40,7 @@ const FALLBACK = {
   newBlueprintKey: "New blueprint key", newPresetKey: "New preset key", deleteEntry: "Delete", blueprintLabel: "Display label", layerStack: "Advanced layer stack", variations: "Seed variations", enabled: "Enabled", layerType: "Layer", preset: "Preset", mergeMode: "Mode",
   negativePrompt: "Negative prompt",
   measurementCalibration: "Measurement calibration", metric: "Metric", unit: "Unit",
-  calibrationTarget: "DNA {value} target", tolerance: "Tolerance", measurementPrompt: "Measurement prompt template",
+  calibrationTarget: "DNA {value} · {label}", tolerance: "Tolerance", measurementPrompt: "Measurement prompt template", standardBasis: "Standard basis",
   frame: "Frame", torso: "Torso", limbs: "Limbs", build: "Build",
   overall_frame: "Overall frame", torso_architecture: "Torso architecture", limb_proportions: "Limb proportions",
   build_distribution: "Build distribution", scale_balance: "Scale balance",
@@ -171,10 +171,21 @@ function renderVocabularyPanel(container) {
             field(t("unit"), measurement.unit, (value) => { measurement.unit = value; }, false),
             numberField(t("tolerance"), measurement, "tolerance"),
             ...(measurement.targets || []).map((item) => numberField(
-              t("calibrationTarget").replace("{value}", Number(item.value).toFixed(4).replace(/0+$/, "").replace(/\.$/, "")),
+              t("calibrationTarget")
+                .replace("{value}", Number(item.value).toFixed(4).replace(/0+$/, "").replace(/\.$/, ""))
+                .replace("{label}", currentLocale().toLowerCase().startsWith("zh") ? item.label_zh : item.label),
               item,
               "target",
             )),
+            el("div", { style: "grid-column:1/-1" }, [
+              el("h5", { text: t("standardBasis") }),
+              bilingual(
+                measurement.standard_basis,
+                measurement.standard_basis_zh,
+                (value) => { measurement.standard_basis = value; },
+                (value) => { measurement.standard_basis_zh = value; },
+              ),
+            ]),
             el("div", { style: "grid-column:1/-1" }, [
               el("h5", { text: t("measurementPrompt") }),
               bilingual(

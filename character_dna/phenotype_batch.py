@@ -227,6 +227,18 @@ METRICS = {
 
     "eye_height_asymmetry":
         lambda g: g["capture_quality"]["eye_height_asymmetry"],
+
+    "five_eye_face_width_eye_widths":
+        lambda g: g["classical_proportions"]["five_eyes"]["face_width_eye_widths"],
+
+    "five_eye_left_margin_eye_widths":
+        lambda g: g["classical_proportions"]["five_eyes"]["image_left_lateral_margin_eye_widths"],
+
+    "five_eye_right_margin_eye_widths":
+        lambda g: g["classical_proportions"]["five_eyes"]["image_right_lateral_margin_eye_widths"],
+
+    "three_court_middle_lower_ratio":
+        lambda g: g["classical_proportions"]["three_courts"]["middle_to_lower_ratio"],
 }
 
 

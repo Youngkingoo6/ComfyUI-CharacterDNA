@@ -104,7 +104,8 @@
     "metric": "测量指标",
     "unit": "单位",
     "tolerance": "容差",
-    "calibrationTarget": "DNA {value} 目标比例",
-    "measurementPrompt": "测量提示词模板"
+    "calibrationTarget": "DNA {value} · {label}",
+    "measurementPrompt": "测量提示词模板",
+    "standardBasis": "标准基准"
   }
 }

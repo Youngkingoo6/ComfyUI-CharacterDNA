@@ -104,7 +104,8 @@
     "metric": "Metric",
     "unit": "Unit",
     "tolerance": "Tolerance",
-    "calibrationTarget": "DNA {value} target",
-    "measurementPrompt": "Measurement prompt template"
+    "calibrationTarget": "DNA {value} · {label}",
+    "measurementPrompt": "Measurement prompt template",
+    "standardBasis": "Standard basis"
   }
 }

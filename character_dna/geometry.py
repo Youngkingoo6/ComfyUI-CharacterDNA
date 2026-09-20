@@ -768,6 +768,10 @@ def _measure_face_scale(
                 width
             ),
 
+        "contour_x_min_px": _round(x_min),
+
+        "contour_x_max_px": _round(x_max),
+
         "chin": [
             _round(
                 chin[0]
@@ -932,6 +936,19 @@ def measure_geometry(
         face_scale,
     )
 
+    image_left_outer = np.asarray(image_left_eye["outer_canthus"], dtype=np.float64)
+    image_right_outer = np.asarray(image_right_eye["outer_canthus"], dtype=np.float64)
+    # The frozen anatomy names follow subject-side convention: the
+    # image-left anatomical eye appears on the right side of the raster.
+    image_left_margin = max(0.0, float(face["contour_x_max_px"]) - float(image_left_outer[0]))
+    image_right_margin = max(0.0, float(image_right_outer[0]) - float(face["contour_x_min_px"]))
+
+    brow_line_y = _mean(lm[list(LEFT_BROW + RIGHT_BROW), 1])
+    nose_base_y = float(nose["base_center"][1])
+    chin_y = float(face["chin"][1])
+    middle_third = abs(nose_base_y - brow_line_y)
+    lower_third = abs(chin_y - nose_base_y)
+
     geometry = {
         "schema":
             "character_phenotype_geometry",
@@ -1032,7 +1049,32 @@ def measure_geometry(
             "note": "Pose/expression diagnostics; lower absolute values are generally better for frontal casting calibration.",
         },
 
+        "classical_proportions": {
+            "three_courts": {
+                "standard": "hairline_to_brow = brow_to_nose_base = nose_base_to_chin = one_third_face_length",
+                "upper_third_px": None,
+                "middle_third_px": _round(middle_third),
+                "lower_third_px": _round(lower_third),
+                "middle_to_lower_ratio": _round(_safe_div(middle_third, lower_third)),
+                "status": "partial_only_hairline_not_available_in_insightface_106",
+            },
+            "five_eyes": {
+                "standard": "face_width = five_eye_widths; inner_canthal_gap = one_eye_width; each_lateral_margin = one_eye_width",
+                "face_width_eye_widths": _round(_safe_div(face_scale, average_eye_width)),
+                "inner_canthal_gap_eye_widths": _round(spacing_eye_widths),
+                "image_left_lateral_margin_eye_widths": _round(_safe_div(image_left_margin, average_eye_width)),
+                "image_right_lateral_margin_eye_widths": _round(_safe_div(image_right_margin, average_eye_width)),
+                "status": "measured_2d_lateral_margins_use_provisional_contour_extents",
+            },
+        },
+
         "measurement_capabilities": {
+            "three_courts":
+                "partial_2d_upper_third_requires_hairline",
+
+            "five_eyes":
+                "measured_2d_lateral_margins_provisional",
+
             "eye_geometry":
                 "measured_2d",
 

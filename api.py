@@ -134,6 +134,14 @@ def _validate_feature_vocabulary(features, expected_features, path="features"):
                 measurement.get("prompt_template_zh"),
                 f"{path}.{name}.measurement.prompt_template_zh",
             )
+            _require_string(
+                measurement.get("standard_basis"),
+                f"{path}.{name}.measurement.standard_basis",
+            )
+            _require_string(
+                measurement.get("standard_basis_zh"),
+                f"{path}.{name}.measurement.standard_basis_zh",
+            )
             if not isinstance(measurement.get("tolerance"), (int, float)):
                 raise ValueError(f"{path}.{name}.measurement.tolerance must be numeric.")
             if float(measurement["tolerance"]) <= 0:
@@ -147,6 +155,14 @@ def _validate_feature_vocabulary(features, expected_features, path="features"):
                     raise ValueError(f"{path}.{name}.measurement.targets[{index}] must be an object.")
                 if not isinstance(target.get("value"), (int, float)) or not isinstance(target.get("target"), (int, float)):
                     raise ValueError(f"{path}.{name}.measurement.targets[{index}] requires numeric value and target.")
+                _require_string(
+                    target.get("label"),
+                    f"{path}.{name}.measurement.targets[{index}].label",
+                )
+                _require_string(
+                    target.get("label_zh"),
+                    f"{path}.{name}.measurement.targets[{index}].label_zh",
+                )
                 values.append(round(float(target["value"]), 4))
             if values != MEASUREMENT_LEVELS:
                 raise ValueError(f"{path}.{name}.measurement target values must be {MEASUREMENT_LEVELS}.")
