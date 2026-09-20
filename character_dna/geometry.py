@@ -14,7 +14,15 @@ from .landmark_map import (
 
 GEOMETRY_VERSION = "0.7.0"
 
-FRONTAL_POSE_LIMITS = {
+FIVE_EYE_POSE_LIMITS = {
+    # Moderate pitch has little effect on horizontal five-eye projection.
+    "pitch": 10.0,
+    "yaw": 5.0,
+    "roll": 3.0,
+}
+
+THREE_COURT_POSE_LIMITS = {
+    # Vertical proportions are substantially more sensitive to pitch.
     "pitch": 5.0,
     "yaw": 5.0,
     "roll": 3.0,
@@ -856,6 +864,7 @@ def _measure_eye_level_face_boundaries(
 def _validate_frontal_pose(
     landmark_data,
     eye_line_roll,
+    limits,
 ):
     pose = landmark_data.get("head_pose")
     if isinstance(pose, dict):
@@ -865,7 +874,7 @@ def _validate_frontal_pose(
         }
         reasons = [
             f"{axis}_exceeds_{limit:g}_degrees"
-            for axis, limit in FRONTAL_POSE_LIMITS.items()
+            for axis, limit in limits.items()
             if abs(values[axis]) > limit
         ]
         return {
@@ -875,14 +884,14 @@ def _validate_frontal_pose(
                 axis: _round(value)
                 for axis, value in values.items()
             },
-            "limits_degrees": dict(FRONTAL_POSE_LIMITS),
+            "limits_degrees": dict(limits),
             "reasons": reasons,
             "source": pose.get("source", "insightface"),
         }
 
     # Old cached landmark payloads do not carry 3D pose. Roll can still be
     # checked, but pitch and yaw cannot be certified from 2D geometry alone.
-    roll_valid = abs(float(eye_line_roll)) <= FRONTAL_POSE_LIMITS["roll"]
+    roll_valid = abs(float(eye_line_roll)) <= limits["roll"]
     return {
         "is_valid": False,
         "status": "unknown_pose_requires_redetection",
@@ -891,11 +900,11 @@ def _validate_frontal_pose(
             "yaw": None,
             "roll": _round(eye_line_roll),
         },
-        "limits_degrees": dict(FRONTAL_POSE_LIMITS),
+        "limits_degrees": dict(limits),
         "reasons": (
             ["head_pose_missing"]
             if roll_valid
-            else ["head_pose_missing", "roll_exceeds_3_degrees"]
+            else ["head_pose_missing", f"roll_exceeds_{limits['roll']:g}_degrees"]
         ),
         "source": "2d_eye_line_fallback",
     }
@@ -1086,9 +1095,15 @@ def measure_geometry(
         - float(eye_level_boundaries["image_left_x_px"]),
     )
 
-    frontal_validation = _validate_frontal_pose(
+    five_eye_validation = _validate_frontal_pose(
         landmark_data,
         eye_line_roll,
+        FIVE_EYE_POSE_LIMITS,
+    )
+    three_court_validation = _validate_frontal_pose(
+        landmark_data,
+        eye_line_roll,
+        THREE_COURT_POSE_LIMITS,
     )
 
     brow_line_y = _mean(lm[list(LEFT_BROW + RIGHT_BROW), 1])
@@ -1218,13 +1233,19 @@ def measure_geometry(
             "eye_line_roll_degrees": _round(eye_line_roll),
             "eye_width_asymmetry": _round(eye_width_asymmetry),
             "eye_height_asymmetry": _round(eye_height_asymmetry),
-            "frontal_validation": frontal_validation,
+            "frontal_validation": three_court_validation,
+            "standard_validations": {
+                "five_eyes": five_eye_validation,
+                "three_courts": three_court_validation,
+            },
             "note": "Pose/expression diagnostics; lower absolute values are generally better for frontal casting calibration.",
         },
 
         "classical_proportions": {
             "three_courts": {
                 "standard": "hairline_to_brow = brow_to_nose_base = nose_base_to_chin = one_third_face_length",
+                "valid_for_standard_comparison": bool(three_court_validation["is_valid"]),
+                "validation_status": three_court_validation["status"],
                 "upper_third_px": None,
                 "middle_third_px": _round(middle_third),
                 "lower_third_px": _round(lower_third),
@@ -1234,8 +1255,8 @@ def measure_geometry(
             "five_eyes": {
                 "standard": "frontal 2D projection at eye-center height: lateral margin = eye width = inner-canthal gap = eye width = lateral margin",
                 "measurement_space": "frontal_2d_projection_at_eye_center_height",
-                "valid_for_standard_comparison": bool(frontal_validation["is_valid"]),
-                "validation_status": frontal_validation["status"],
+                "valid_for_standard_comparison": bool(five_eye_validation["is_valid"]),
+                "validation_status": five_eye_validation["status"],
                 "eye_level_boundaries": eye_level_boundaries,
                 "eye_level_face_width_px": _round(eye_level_face_width),
                 "face_width_eye_widths": _round(_safe_div(eye_level_face_width, average_eye_width)),
@@ -1244,7 +1265,7 @@ def measure_geometry(
                 "image_right_lateral_margin_eye_widths": _round(_safe_div(image_right_margin, average_eye_width)),
                 "status": (
                     "valid_frontal_2d_projection"
-                    if frontal_validation["is_valid"]
+                    if five_eye_validation["is_valid"]
                     else "not_comparable_to_standard"
                 ),
             },

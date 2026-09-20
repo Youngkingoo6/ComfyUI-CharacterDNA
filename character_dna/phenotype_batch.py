@@ -266,10 +266,13 @@ METRICS = {
 }
 
 
-FRONTAL_STANDARD_METRICS = {
+FIVE_EYE_STANDARD_METRICS = {
     "five_eye_face_width_eye_widths",
     "five_eye_left_margin_eye_widths",
     "five_eye_right_margin_eye_widths",
+}
+
+THREE_COURT_STANDARD_METRICS = {
     "three_court_middle_lower_ratio",
 }
 
@@ -400,19 +403,32 @@ def analyze_phenotype_batch(
                     "batch_index"
                 ],
 
-            "frontal_standard_valid":
+            "five_eye_standard_valid":
                 bool(
                     geometry
                     .get("capture_quality", {})
-                    .get("frontal_validation", {})
+                    .get("standard_validations", {})
+                    .get("five_eyes", {})
+                    .get("is_valid", False)
+                ),
+
+            "three_court_standard_valid":
+                bool(
+                    geometry
+                    .get("capture_quality", {})
+                    .get("standard_validations", {})
+                    .get("three_courts", {})
                     .get("is_valid", False)
                 ),
         }
 
         for name, getter in METRICS.items():
             if (
-                name in FRONTAL_STANDARD_METRICS
-                and not candidate_metrics["frontal_standard_valid"]
+                name in FIVE_EYE_STANDARD_METRICS
+                and not candidate_metrics["five_eye_standard_valid"]
+            ) or (
+                name in THREE_COURT_STANDARD_METRICS
+                and not candidate_metrics["three_court_standard_valid"]
             ):
                 candidate_metrics[name] = None
                 continue
@@ -478,11 +494,18 @@ def analyze_phenotype_batch(
         "failed_count":
             len(failures),
 
-        "frontal_standard_valid_count":
+        "five_eye_standard_valid_count":
             sum(
                 1
                 for item in per_candidate_metrics
-                if item["frontal_standard_valid"]
+                if item["five_eye_standard_valid"]
+            ),
+
+        "three_court_standard_valid_count":
+            sum(
+                1
+                for item in per_candidate_metrics
+                if item["three_court_standard_valid"]
             ),
 
         "records":

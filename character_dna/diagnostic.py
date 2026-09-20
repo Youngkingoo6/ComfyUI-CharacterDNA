@@ -98,7 +98,7 @@ def _draw_five_eyes(cv2, canvas, geometry, scale, face_height):
     )
 
     if not five_eyes["valid_for_standard_comparison"]:
-        pose = geometry["capture_quality"]["frontal_validation"]["pose_degrees"]
+        pose = geometry["capture_quality"]["standard_validations"]["five_eyes"]["pose_degrees"]
         pose_text = ", ".join(
             f"{axis}={value:.1f}°"
             for axis, value in pose.items()
@@ -206,9 +206,9 @@ def _draw_three_courts(cv2, canvas, geometry, points, scale):
         (standard_x, standard_boundaries[0] - tick * 1.8), scale, STANDARD_COLOR, align="left",
     )
 
-    frontal_validation = geometry["capture_quality"]["frontal_validation"]
-    if not frontal_validation["is_valid"]:
-        pose = frontal_validation["pose_degrees"]
+    three_court_validation = geometry["capture_quality"]["standard_validations"]["three_courts"]
+    if not three_court_validation["is_valid"]:
+        pose = three_court_validation["pose_degrees"]
         pose_text = ", ".join(
             f"{axis}={value:.1f}°"
             for axis, value in pose.items()

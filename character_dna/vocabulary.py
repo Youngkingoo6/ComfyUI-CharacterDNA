@@ -195,7 +195,31 @@ def get_quality_phrases(language="en"):
         if str(language).lower().startswith("zh")
         else "quality_phrases"
     )
-    return list(profile.get(key, []))
+    phrases = list(profile.get(key, []))
+    # Three-courts/five-eyes sentences are design constraints, not quality
+    # phrases. Keeping them here would force every non-neutral target back to
+    # the standard value (for example eye spacing 1.5x versus "one eye width").
+    # Standards are emitted dynamically by the semantic layer instead.
+    markers = (
+        "three thirds",
+        "three courts",
+        "face length is divided into three equal",
+        "hairline → brow bone → nose base → chin",
+        "five eyes",
+        "distance between the two eyes = one eye width",
+        "outer eye corner to the temple",
+        "三庭",
+        "脸长分成三等份",
+        "发际线→眉骨→鼻底→下巴",
+        "五眼",
+        "两眼间距 = 一只眼宽",
+        "眼尾到太阳穴",
+    )
+    return [
+        phrase
+        for phrase in phrases
+        if not any(marker in str(phrase).lower() for marker in markers)
+    ]
 
 
 def get_quality_position():
