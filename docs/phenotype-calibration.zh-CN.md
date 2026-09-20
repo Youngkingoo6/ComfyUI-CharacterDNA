@@ -44,6 +44,8 @@ DNA 为 `0` 时仍遵循极简规则：不输出该 Feature 的形容词，也�
 
 `strength = 1.0` 表示执行完整 DNA 目标，`0.5` 表示只执行原始值到目标值之间的一半。变形参考图用于图像编辑或局部重绘，不应被当作最终成图；最终结果仍需重新连接 `InsightFace 106 Detector → Phenotype Geometry` 复测。第一阶段只对 `eye_spacing` 做结构引导，且保持平均眼宽、鼻口和二维脸宽不变。
 
+Z-Image-Turbo 完整接法见 [`examples/05_zimage_turbo_landmark_geometry_guide.json`](../examples/05_zimage_turbo_landmark_geometry_guide.json)。该模型不是专用 inpaint 模型，因此示例使用 `warped_reference → VAE Encode → KSampler (denoise 0.15)` 做低强度二次细化；不要把遮罩接入 `VAE Encode for Inpainting`，否则低去噪强度可能保留灰色遮罩底图。`edit_mask` 在该示例中只用于预览，或交给真正支持局部修复的模型。
+
 ## 当前可测量范围
 
 可校准：眼形横纵比、眼睛开合、眼距、眼角倾斜、眉眼距离、鼻宽、鼻长、嘴宽、上下唇厚度、唇峰。
