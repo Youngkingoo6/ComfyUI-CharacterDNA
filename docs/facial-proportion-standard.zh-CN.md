@@ -20,7 +20,15 @@
 
 三庭以发际线、眉骨、鼻底、下巴为界，三段各约占全脸高的 `1/3`。InsightFace 106 没有稳定发际线点，因此当前分析器只把中庭和下庭用于可测量校准；上庭保留为设计标准。
 
-五眼以单眼宽为单位：脸宽约为五只眼宽，内眦间距约为一只眼宽，两侧眼尾到脸缘也各约为一只眼宽。
+五眼统一定义为**标准正面照片中的二维投影比例**，不表示头部表面的真实三维距离。以平均眼宽为单位：眼睛中心高度的二维投影脸宽约为五只眼宽，内眦间距约为一只眼宽，两侧眼尾到同高度脸部轮廓交点也各约为一只眼宽。
+
+诊断时不能使用整张脸轮廓的全局最宽点代替太阳穴位置，而是在双眼中心的平均高度画水平线，与 InsightFace 左右面部轮廓分别插值求交。五段依次为：
+
+```text
+左侧留白 : 左眼宽 : 内眦间距 : 右眼宽 : 右侧留白
+```
+
+只有 `|pitch| ≤ 5°`、`|yaw| ≤ 5°`、`|roll| ≤ 3°` 时，实测五眼比例才与标准比较。超出范围时仍可显示局部二维投影测量，但三庭五眼结论标记为 `NOT COMPARABLE`。旧的检测数据没有头部姿态时需要重新检测。
 
 ## 已写入词库的面部比例
 
@@ -51,13 +59,16 @@
 
 ## Prompt 规则
 
-非零、带比例定义的 Feature 会同时输出术语和数值锚点：
+非零、带比例定义的 Feature 会先输出一次规范坐标系，再输出术语、可读的目标比值以及需要保持不变的参照尺寸：
 
 ```text
-noticeably wide-set eyes, eye_spacing ≈ 1.3×
-眼距明显偏宽，eye_spacing ≈ 1.3×
+facial proportions defined in a canonical frontal 2D projection, using classical three-courts and five-eyes proportions as the relative baseline,
+noticeably wide-set eyes, target inner-canthal distance is approximately 1.3 times the average eye width; preserve average eye width and projected face width
+
+人物比例以标准正面二维投影为规范坐标系，并以经典三庭五眼比例为相对基准，
+眼距明显偏宽，目标内眦间距约为平均眼宽的1.3倍；保持平均眼宽和二维投影脸宽不变
 ```
 
-`0` 仍表示未指定，不输出“标准”词或比例锚点。Composite 可以重写关系语句，但最终提示词会补回所有非零的比例锚点。
+提示词不再把 `eye_spacing` 等内部字段名直接交给图像模型。`0` 仍表示未指定，不输出“标准”词或比例锚点。Composite 可以重写关系语句，但最终提示词会补回所有非零的比例目标；Parametric 与 Composite 使用同一套规范。
 
 词库面板可编辑比值定义、标准值、每档锚点和上下限；保存时后端会校验七档结构与数值类型。

@@ -74,10 +74,10 @@ def _dimension_line(cv2, canvas, start, end, color, thickness, tick_size, dashed
 
 def _draw_five_eyes(cv2, canvas, geometry, scale, face_height):
     eyes = geometry["eyes"]
-    face = geometry["face"]
     five_eyes = geometry["classical_proportions"]["five_eyes"]
-    face_left = float(face["contour_x_min_px"])
-    face_right = float(face["contour_x_max_px"])
+    boundaries = five_eyes["eye_level_boundaries"]
+    face_left = float(boundaries["image_left_x_px"])
+    face_right = float(boundaries["image_right_x_px"])
     face_width = face_right - face_left
     eye_y = float(np.mean([eyes["image_left"]["center"][1], eyes["image_right"]["center"][1]]))
     standard_y = eye_y - face_height * 0.095
@@ -96,6 +96,25 @@ def _draw_five_eyes(cv2, canvas, geometry, scale, face_height):
         cv2, canvas, "STANDARD FIVE-EYES  1 : 1 : 1 : 1 : 1",
         ((face_left + face_right) / 2.0, standard_y - tick * 1.8), scale, STANDARD_COLOR,
     )
+
+    if not five_eyes["valid_for_standard_comparison"]:
+        pose = geometry["capture_quality"]["frontal_validation"]["pose_degrees"]
+        pose_text = ", ".join(
+            f"{axis}={value:.1f}°"
+            for axis, value in pose.items()
+            if value is not None
+        )
+        _label(
+            cv2, canvas,
+            "MEASURED FIVE-EYES: NOT COMPARABLE",
+            ((face_left + face_right) / 2.0, measured_y), scale, MEASURED_COLOR,
+        )
+        _label(
+            cv2, canvas, pose_text or "pose unavailable",
+            ((face_left + face_right) / 2.0, measured_y + tick * 3.5),
+            scale * 0.86, MEASURED_COLOR,
+        )
+        return
 
     image_left = eyes["image_left"]
     image_right = eyes["image_right"]
@@ -187,6 +206,27 @@ def _draw_three_courts(cv2, canvas, geometry, points, scale):
         (standard_x, standard_boundaries[0] - tick * 1.8), scale, STANDARD_COLOR, align="left",
     )
 
+    frontal_validation = geometry["capture_quality"]["frontal_validation"]
+    if not frontal_validation["is_valid"]:
+        pose = frontal_validation["pose_degrees"]
+        pose_text = ", ".join(
+            f"{axis}={value:.1f}°"
+            for axis, value in pose.items()
+            if value is not None
+        )
+        _label(
+            cv2, canvas,
+            "MEASURED THREE COURTS: NOT COMPARABLE",
+            (measured_x, measured_boundaries[0] + tick * 3.0),
+            scale * 0.82, MEASURED_COLOR, align="right",
+        )
+        _label(
+            cv2, canvas, pose_text or "pose unavailable",
+            (measured_x, measured_boundaries[0] + tick * 5.8),
+            scale * 0.78, MEASURED_COLOR, align="right",
+        )
+        return
+
     for index, y in enumerate(measured_boundaries):
         cv2.line(canvas, _point((measured_x - guide_width, y)), _point((measured_x, y)), MEASURED_COLOR, thickness, cv2.LINE_AA)
         if index < 3:
@@ -218,7 +258,7 @@ def _draw_feature_ratios(cv2, canvas, geometry, scale):
     nose_y = float((nose_left[1] + nose_right[1]) / 2.0)
     _dimension_line(cv2, canvas, (nose_left[0], nose_y), (nose_right[0], nose_y), MEASURED_COLOR, thickness, tick)
     _label(
-        cv2, canvas, f"nose / eye gap = {nose['width_intercanthal_ratio']:.2f}x",
+        cv2, canvas, f"2D projected nose / eye gap = {nose['width_intercanthal_ratio']:.2f}x",
         ((nose_left[0] + nose_right[0]) / 2.0, nose_y + tick * 3.0), scale * 0.90, MEASURED_COLOR,
     )
 
@@ -227,7 +267,7 @@ def _draw_feature_ratios(cv2, canvas, geometry, scale):
     mouth_y = float((mouth_left[1] + mouth_right[1]) / 2.0)
     _dimension_line(cv2, canvas, (mouth_left[0], mouth_y), (mouth_right[0], mouth_y), MEASURED_COLOR, thickness, tick)
     _label(
-        cv2, canvas, f"mouth / nose = {mouth['width_nose_width_ratio']:.2f}x",
+        cv2, canvas, f"2D projected mouth / nose = {mouth['width_nose_width_ratio']:.2f}x",
         ((mouth_left[0] + mouth_right[0]) / 2.0, mouth_y + tick * 3.0), scale * 0.90, MEASURED_COLOR,
     )
 
@@ -237,7 +277,7 @@ def _draw_feature_ratios(cv2, canvas, geometry, scale):
     _dimension_line(cv2, canvas, (inner_left[0], gap_y), (inner_right[0], gap_y), MEASURED_COLOR, thickness, tick)
     _label(
         cv2, canvas,
-        f"eye gap = {eyes['spacing_eye_widths']:.2f}x eye width  /  {eyes['spacing_face_width_ratio']:.3f} face width",
+        f"2D projected eye gap = {eyes['spacing_eye_widths']:.2f}x eye width  /  {eyes['spacing_eye_level_face_width_ratio']:.3f} face width",
         ((inner_left[0] + inner_right[0]) / 2.0, gap_y - tick * 2.0), scale * 0.90, MEASURED_COLOR,
     )
 

@@ -8,7 +8,7 @@ from .vocabulary import (
     get_measurement_phrase,
     get_vocabulary,
 )
-from .semantic import feature_ratio_phrase, feature_to_phrase
+from .semantic import feature_ratio_phrase, feature_to_phrase, ratio_baseline_phrase
 
 
 COMPOSITE_FEATURES = {
@@ -905,6 +905,15 @@ def build_identity_core_prompt(
         language,
     )
 
+    features = dna.get("parametric_identity", {}).get("features", {})
+    if any(
+        feature_ratio_phrase(feature_name, value, language)
+        for feature_name, value in features.items()
+    ):
+        phrases.append(
+            ratio_baseline_phrase(language)
+        )
+
     for item in composites[:max_composites]:
         semantic_key = (
             "semantic_zh"
@@ -929,7 +938,6 @@ def build_identity_core_prompt(
     # Composite prose can summarize a relationship, but must not hide the
     # calibrated physical anchors requested by the DNA. Raw residual phrases
     # already include their measurement, so only append the remaining ones.
-    features = dna.get("parametric_identity", {}).get("features", {})
     for feature_name, value in features.items():
         if feature_name in residual_names or abs(float(value)) < 1e-9:
             continue

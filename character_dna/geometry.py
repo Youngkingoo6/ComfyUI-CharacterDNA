@@ -14,6 +14,12 @@ from .landmark_map import (
 
 GEOMETRY_VERSION = "0.7.0"
 
+FRONTAL_POSE_LIMITS = {
+    "pitch": 5.0,
+    "yaw": 5.0,
+    "roll": 3.0,
+}
+
 
 # ============================================================
 # Utilities
@@ -786,6 +792,115 @@ def _measure_face_scale(
     }
 
 
+def _side_intersection_x(
+    lm,
+    indices,
+    target_y,
+):
+    """Intersect one facial side contour with a horizontal image-space line."""
+    side = np.asarray(
+        lm[list(indices)],
+        dtype=np.float64,
+    )
+    intersections = []
+    for start, end in zip(side[:-1], side[1:]):
+        y0 = float(start[1])
+        y1 = float(end[1])
+        if target_y < min(y0, y1) or target_y > max(y0, y1):
+            continue
+        if abs(y1 - y0) < 1e-8:
+            intersections.extend([float(start[0]), float(end[0])])
+            continue
+        weight = (target_y - y0) / (y1 - y0)
+        intersections.append(
+            float(start[0] + weight * (end[0] - start[0]))
+        )
+
+    if intersections:
+        return _mean(intersections), "interpolated_at_eye_center_y"
+
+    nearest = side[int(np.argmin(np.abs(side[:, 1] - target_y)))]
+    return float(nearest[0]), "nearest_contour_point_fallback"
+
+
+def _measure_eye_level_face_boundaries(
+    lm,
+    eye_y,
+):
+    # InsightFace 2D-106 stores the image-left and image-right facial sides
+    # separately. The cross-face jump between points 16 and 17 is not a
+    # physical contour and must never be used as a temple boundary.
+    side_a_x, side_a_status = _side_intersection_x(
+        lm,
+        range(1, 17),
+        eye_y,
+    )
+    side_b_x, side_b_status = _side_intersection_x(
+        lm,
+        range(17, 33),
+        eye_y,
+    )
+    left_x, right_x = sorted([side_a_x, side_b_x])
+    return {
+        "image_left_x_px": _round(left_x),
+        "image_right_x_px": _round(right_x),
+        "eye_center_y_px": _round(eye_y),
+        "status": (
+            "interpolated_at_eye_center_y"
+            if side_a_status == side_b_status == "interpolated_at_eye_center_y"
+            else "nearest_contour_point_fallback"
+        ),
+    }
+
+
+def _validate_frontal_pose(
+    landmark_data,
+    eye_line_roll,
+):
+    pose = landmark_data.get("head_pose")
+    if isinstance(pose, dict):
+        values = {
+            axis: float(pose.get(axis, 0.0))
+            for axis in ("pitch", "yaw", "roll")
+        }
+        reasons = [
+            f"{axis}_exceeds_{limit:g}_degrees"
+            for axis, limit in FRONTAL_POSE_LIMITS.items()
+            if abs(values[axis]) > limit
+        ]
+        return {
+            "is_valid": not reasons,
+            "status": "valid_frontal" if not reasons else "invalid_non_frontal",
+            "pose_degrees": {
+                axis: _round(value)
+                for axis, value in values.items()
+            },
+            "limits_degrees": dict(FRONTAL_POSE_LIMITS),
+            "reasons": reasons,
+            "source": pose.get("source", "insightface"),
+        }
+
+    # Old cached landmark payloads do not carry 3D pose. Roll can still be
+    # checked, but pitch and yaw cannot be certified from 2D geometry alone.
+    roll_valid = abs(float(eye_line_roll)) <= FRONTAL_POSE_LIMITS["roll"]
+    return {
+        "is_valid": False,
+        "status": "unknown_pose_requires_redetection",
+        "pose_degrees": {
+            "pitch": None,
+            "yaw": None,
+            "roll": _round(eye_line_roll),
+        },
+        "limits_degrees": dict(FRONTAL_POSE_LIMITS),
+        "reasons": (
+            ["head_pose_missing"]
+            if roll_valid
+            else ["head_pose_missing", "roll_exceeds_3_degrees"]
+        ),
+        "source": "2d_eye_line_fallback",
+    }
+
+
 # ============================================================
 # Public API
 # ============================================================
@@ -943,12 +1058,38 @@ def measure_geometry(
         _safe_div(mouth["width_px"], nose["width_px"])
     )
 
-    image_left_outer = np.asarray(image_left_eye["outer_canthus"], dtype=np.float64)
-    image_right_outer = np.asarray(image_right_eye["outer_canthus"], dtype=np.float64)
-    # The frozen anatomy names follow subject-side convention: the
-    # image-left anatomical eye appears on the right side of the raster.
-    image_left_margin = max(0.0, float(face["contour_x_max_px"]) - float(image_left_outer[0]))
-    image_right_margin = max(0.0, float(image_right_outer[0]) - float(face["contour_x_min_px"]))
+    eye_center_y = _mean(
+        [
+            image_left_eye["center"][1],
+            image_right_eye["center"][1],
+        ]
+    )
+    eye_level_boundaries = _measure_eye_level_face_boundaries(
+        lm,
+        eye_center_y,
+    )
+    # The anatomy names are subject-side. image_right_eye appears on the
+    # left of the raster and image_left_eye appears on the right.
+    raster_left_outer = np.asarray(image_right_eye["outer_canthus"], dtype=np.float64)
+    raster_right_outer = np.asarray(image_left_eye["outer_canthus"], dtype=np.float64)
+    image_left_margin = max(
+        0.0,
+        float(raster_left_outer[0]) - float(eye_level_boundaries["image_left_x_px"]),
+    )
+    image_right_margin = max(
+        0.0,
+        float(eye_level_boundaries["image_right_x_px"]) - float(raster_right_outer[0]),
+    )
+    eye_level_face_width = max(
+        0.0,
+        float(eye_level_boundaries["image_right_x_px"])
+        - float(eye_level_boundaries["image_left_x_px"]),
+    )
+
+    frontal_validation = _validate_frontal_pose(
+        landmark_data,
+        eye_line_roll,
+    )
 
     brow_line_y = _mean(lm[list(LEFT_BROW + RIGHT_BROW), 1])
     nose_base_y = float(nose["base_center"][1])
@@ -1034,6 +1175,14 @@ def measure_geometry(
                     )
                 ),
 
+            "spacing_eye_level_face_width_ratio":
+                _round(
+                    _safe_div(
+                        inter_eye_gap,
+                        eye_level_face_width,
+                    )
+                ),
+
             "average_canthal_tilt_degrees":
                 _round(
                     average_canthal_tilt
@@ -1069,6 +1218,7 @@ def measure_geometry(
             "eye_line_roll_degrees": _round(eye_line_roll),
             "eye_width_asymmetry": _round(eye_width_asymmetry),
             "eye_height_asymmetry": _round(eye_height_asymmetry),
+            "frontal_validation": frontal_validation,
             "note": "Pose/expression diagnostics; lower absolute values are generally better for frontal casting calibration.",
         },
 
@@ -1082,12 +1232,21 @@ def measure_geometry(
                 "status": "partial_only_hairline_not_available_in_insightface_106",
             },
             "five_eyes": {
-                "standard": "face_width = five_eye_widths; inner_canthal_gap = one_eye_width; each_lateral_margin = one_eye_width",
-                "face_width_eye_widths": _round(_safe_div(face_scale, average_eye_width)),
+                "standard": "frontal 2D projection at eye-center height: lateral margin = eye width = inner-canthal gap = eye width = lateral margin",
+                "measurement_space": "frontal_2d_projection_at_eye_center_height",
+                "valid_for_standard_comparison": bool(frontal_validation["is_valid"]),
+                "validation_status": frontal_validation["status"],
+                "eye_level_boundaries": eye_level_boundaries,
+                "eye_level_face_width_px": _round(eye_level_face_width),
+                "face_width_eye_widths": _round(_safe_div(eye_level_face_width, average_eye_width)),
                 "inner_canthal_gap_eye_widths": _round(spacing_eye_widths),
                 "image_left_lateral_margin_eye_widths": _round(_safe_div(image_left_margin, average_eye_width)),
                 "image_right_lateral_margin_eye_widths": _round(_safe_div(image_right_margin, average_eye_width)),
-                "status": "measured_2d_lateral_margins_use_provisional_contour_extents",
+                "status": (
+                    "valid_frontal_2d_projection"
+                    if frontal_validation["is_valid"]
+                    else "not_comparable_to_standard"
+                ),
             },
         },
 

@@ -246,6 +246,26 @@ class InsightFace106Detector:
                 )
             )
 
+        head_pose = None
+        pose = getattr(
+            face,
+            "pose",
+            None,
+        )
+        if pose is not None:
+            pose = np.asarray(
+                pose,
+                dtype=np.float64,
+            ).reshape(-1)
+            if pose.size >= 3 and np.all(np.isfinite(pose[:3])):
+                # InsightFace landmark_3d_68 reports pitch, yaw and roll.
+                head_pose = {
+                    "pitch": float(pose[0]),
+                    "yaw": float(pose[1]),
+                    "roll": float(pose[2]),
+                    "source": "insightface_landmark_3d_68",
+                }
+
         return {
             "schema":
                 LANDMARK_SCHEMA,
@@ -267,6 +287,9 @@ class InsightFace106Detector:
 
             "det_score":
                 det_score,
+
+            "head_pose":
+                head_pose,
 
             # Transient source image.
             # Kept here so downstream topology/visualization

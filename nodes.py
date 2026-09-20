@@ -821,6 +821,11 @@ class CharacterDNAInsightFace106Detector:
                         ]
                     )
                 ),
+
+            "head_pose":
+                landmark_data.get(
+                    "head_pose"
+                ),
         }
 
         detector_info = json.dumps(

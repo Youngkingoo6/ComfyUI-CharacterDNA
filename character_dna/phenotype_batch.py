@@ -145,7 +145,7 @@ METRICS = {
     "eye_spacing_face_ratio":
         lambda g:
             g["eyes"][
-                "spacing_face_width_ratio"
+                "spacing_eye_level_face_width_ratio"
             ],
 
     "canthal_tilt_degrees":
@@ -263,6 +263,14 @@ METRICS = {
 
     "three_court_middle_lower_ratio":
         lambda g: g["classical_proportions"]["three_courts"]["middle_to_lower_ratio"],
+}
+
+
+FRONTAL_STANDARD_METRICS = {
+    "five_eye_face_width_eye_widths",
+    "five_eye_left_margin_eye_widths",
+    "five_eye_right_margin_eye_widths",
+    "three_court_middle_lower_ratio",
 }
 
 
@@ -391,9 +399,23 @@ def analyze_phenotype_batch(
                 record[
                     "batch_index"
                 ],
+
+            "frontal_standard_valid":
+                bool(
+                    geometry
+                    .get("capture_quality", {})
+                    .get("frontal_validation", {})
+                    .get("is_valid", False)
+                ),
         }
 
         for name, getter in METRICS.items():
+            if (
+                name in FRONTAL_STANDARD_METRICS
+                and not candidate_metrics["frontal_standard_valid"]
+            ):
+                candidate_metrics[name] = None
+                continue
             try:
                 value = getter(
                     geometry
@@ -455,6 +477,13 @@ def analyze_phenotype_batch(
 
         "failed_count":
             len(failures),
+
+        "frontal_standard_valid_count":
+            sum(
+                1
+                for item in per_candidate_metrics
+                if item["frontal_standard_valid"]
+            ),
 
         "records":
             records,
