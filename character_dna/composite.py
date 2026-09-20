@@ -5,6 +5,7 @@ from .vocabulary import (
     build_profile_phrases,
     compose_prompt,
     get_composite_phrase,
+    get_measurement_phrase,
     get_vocabulary,
 )
 from .semantic import feature_to_phrase
@@ -948,10 +949,21 @@ def build_identity_core_prompt(
                 semantic
             )
 
-    residual_phrases, _ = _hybrid_residual_features(
+    residual_phrases, residual_names = _hybrid_residual_features(
         dna, composites, max_composites, language
     )
     phrases.extend(residual_phrases)
+
+    # Composite prose can summarize a relationship, but must not hide the
+    # calibrated physical anchors requested by the DNA. Raw residual phrases
+    # already include their measurement, so only append the remaining ones.
+    features = dna.get("parametric_identity", {}).get("features", {})
+    for feature_name, value in features.items():
+        if feature_name in residual_names or abs(float(value)) < 1e-9:
+            continue
+        measurement_phrase = get_measurement_phrase(feature_name, value, language)
+        if measurement_phrase:
+            phrases.append(measurement_phrase)
 
     return compose_prompt(phrases, language)
 

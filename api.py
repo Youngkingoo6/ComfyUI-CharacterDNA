@@ -45,6 +45,7 @@ BODY_COMPOSITE_GROUPS = {
 }
 
 FEATURE_LEVELS = [-1.0, -0.5, 0.0, 0.5, 1.0]
+MEASUREMENT_LEVELS = [-1.0, -0.6667, -0.3333, 0.0, 0.3333, 0.6667, 1.0]
 
 _WRITE_LOCK = asyncio.Lock()
 
@@ -125,13 +126,30 @@ def _validate_feature_vocabulary(features, expected_features, path="features"):
                 raise ValueError(f"{path}.{name}.measurement must be an object.")
             _require_string(measurement.get("metric"), f"{path}.{name}.measurement.metric")
             _require_string(measurement.get("unit"), f"{path}.{name}.measurement.unit")
-            for field in (
-                "negative_target", "baseline_target", "positive_target", "tolerance"
-            ):
-                if not isinstance(measurement.get(field), (int, float)):
-                    raise ValueError(f"{path}.{name}.measurement.{field} must be numeric.")
+            _require_string(
+                measurement.get("prompt_template"),
+                f"{path}.{name}.measurement.prompt_template",
+            )
+            _require_string(
+                measurement.get("prompt_template_zh"),
+                f"{path}.{name}.measurement.prompt_template_zh",
+            )
+            if not isinstance(measurement.get("tolerance"), (int, float)):
+                raise ValueError(f"{path}.{name}.measurement.tolerance must be numeric.")
             if float(measurement["tolerance"]) <= 0:
                 raise ValueError(f"{path}.{name}.measurement.tolerance must be positive.")
+            targets = measurement.get("targets")
+            if not isinstance(targets, list) or len(targets) != 7:
+                raise ValueError(f"{path}.{name}.measurement.targets must contain seven entries.")
+            values = []
+            for index, target in enumerate(targets):
+                if not isinstance(target, dict):
+                    raise ValueError(f"{path}.{name}.measurement.targets[{index}] must be an object.")
+                if not isinstance(target.get("value"), (int, float)) or not isinstance(target.get("target"), (int, float)):
+                    raise ValueError(f"{path}.{name}.measurement.targets[{index}] requires numeric value and target.")
+                values.append(round(float(target["value"]), 4))
+            if values != MEASUREMENT_LEVELS:
+                raise ValueError(f"{path}.{name}.measurement target values must be {MEASUREMENT_LEVELS}.")
 
 
 def _validate_composites(composites, composites_zh, groups, path="composites"):

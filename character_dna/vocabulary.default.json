@@ -271,11 +271,40 @@
       ],
       "measurement": {
         "metric": "eye_width_face_ratio",
-        "negative_target": 0.15,
-        "baseline_target": 0.19,
-        "positive_target": 0.23,
         "tolerance": 0.02,
-        "unit": "face scale ratio"
+        "unit": "face scale ratio",
+        "targets": [
+          {
+            "value": -1,
+            "target": 0.15
+          },
+          {
+            "value": -0.6667,
+            "target": 0.163332
+          },
+          {
+            "value": -0.3333,
+            "target": 0.176668
+          },
+          {
+            "value": 0,
+            "target": 0.19
+          },
+          {
+            "value": 0.3333,
+            "target": 0.203332
+          },
+          {
+            "value": 0.6667,
+            "target": 0.216668
+          },
+          {
+            "value": 1,
+            "target": 0.23
+          }
+        ],
+        "prompt_template": "average eye width approximately {target:.3f} times facial width",
+        "prompt_template_zh": "平均眼宽约为脸部横向尺度的{target:.3f}倍"
       }
     },
     "eye_openness": {
@@ -308,11 +337,40 @@
       ],
       "measurement": {
         "metric": "eye_aperture_face_ratio",
-        "negative_target": 0.045,
-        "baseline_target": 0.07,
-        "positive_target": 0.10,
         "tolerance": 0.015,
-        "unit": "face scale ratio"
+        "unit": "face scale ratio",
+        "targets": [
+          {
+            "value": -1,
+            "target": 0.045
+          },
+          {
+            "value": -0.6667,
+            "target": 0.053332500000000005
+          },
+          {
+            "value": -0.3333,
+            "target": 0.0616675
+          },
+          {
+            "value": 0,
+            "target": 0.07
+          },
+          {
+            "value": 0.3333,
+            "target": 0.079999
+          },
+          {
+            "value": 0.6667,
+            "target": 0.090001
+          },
+          {
+            "value": 1,
+            "target": 0.10
+          }
+        ],
+        "prompt_template": "vertical eye aperture approximately {target:.3f} times facial width",
+        "prompt_template_zh": "眼睛纵向开合约为脸部横向尺度的{target:.3f}倍"
       }
     },
     "eye_spacing": {
@@ -345,11 +403,40 @@
       ],
       "measurement": {
         "metric": "eye_spacing_eye_widths",
-        "negative_target": 0.75,
-        "baseline_target": 1.0,
-        "positive_target": 1.3,
         "tolerance": 0.15,
-        "unit": "eye widths"
+        "unit": "eye widths",
+        "targets": [
+          {
+            "value": -1,
+            "target": 0.75
+          },
+          {
+            "value": -0.6667,
+            "target": 0.833325
+          },
+          {
+            "value": -0.3333,
+            "target": 0.916675
+          },
+          {
+            "value": 0,
+            "target": 1.0
+          },
+          {
+            "value": 0.3333,
+            "target": 1.09999
+          },
+          {
+            "value": 0.6667,
+            "target": 1.20001
+          },
+          {
+            "value": 1,
+            "target": 1.3
+          }
+        ],
+        "prompt_template": "inner-canthal distance approximately {target:.3f} times average eye width",
+        "prompt_template_zh": "内眼角间距约为平均眼宽的{target:.3f}倍"
       }
     },
     "canthal_tilt": {
@@ -382,11 +469,40 @@
       ],
       "measurement": {
         "metric": "canthal_tilt_degrees",
-        "negative_target": -8.0,
-        "baseline_target": 0.0,
-        "positive_target": 8.0,
         "tolerance": 4.0,
-        "unit": "degrees"
+        "unit": "degrees",
+        "targets": [
+          {
+            "value": -1,
+            "target": -8.0
+          },
+          {
+            "value": -0.6667,
+            "target": -5.3336
+          },
+          {
+            "value": -0.3333,
+            "target": -2.6664
+          },
+          {
+            "value": 0,
+            "target": 0.0
+          },
+          {
+            "value": 0.3333,
+            "target": 2.6664
+          },
+          {
+            "value": 0.6667,
+            "target": 5.3336
+          },
+          {
+            "value": 1,
+            "target": 8.0
+          }
+        ],
+        "prompt_template": "outer-canthal tilt approximately {target:+.1f} degrees",
+        "prompt_template_zh": "外眼角倾斜约{target:+.1f}度"
       }
     },
     "brow_eye_distance": {
@@ -419,11 +535,40 @@
       ],
       "measurement": {
         "metric": "brow_eye_relative",
-        "negative_target": 0.35,
-        "baseline_target": 0.5,
-        "positive_target": 0.7,
         "tolerance": 0.12,
-        "unit": "eye widths"
+        "unit": "eye widths",
+        "targets": [
+          {
+            "value": -1,
+            "target": 0.35
+          },
+          {
+            "value": -0.6667,
+            "target": 0.399995
+          },
+          {
+            "value": -0.3333,
+            "target": 0.450005
+          },
+          {
+            "value": 0,
+            "target": 0.5
+          },
+          {
+            "value": 0.3333,
+            "target": 0.5666599999999999
+          },
+          {
+            "value": 0.6667,
+            "target": 0.63334
+          },
+          {
+            "value": 1,
+            "target": 0.7
+          }
+        ],
+        "prompt_template": "brow-eye distance approximately {target:.3f} times average eye width",
+        "prompt_template_zh": "眉眼距离约为平均眼宽的{target:.3f}倍"
       }
     },
     "nose_width": {
@@ -456,11 +601,40 @@
       ],
       "measurement": {
         "metric": "nose_width_face_ratio",
-        "negative_target": 0.16,
-        "baseline_target": 0.21,
-        "positive_target": 0.27,
         "tolerance": 0.03,
-        "unit": "face scale ratio"
+        "unit": "face scale ratio",
+        "targets": [
+          {
+            "value": -1,
+            "target": 0.16
+          },
+          {
+            "value": -0.6667,
+            "target": 0.17666500000000002
+          },
+          {
+            "value": -0.3333,
+            "target": 0.193335
+          },
+          {
+            "value": 0,
+            "target": 0.21
+          },
+          {
+            "value": 0.3333,
+            "target": 0.229998
+          },
+          {
+            "value": 0.6667,
+            "target": 0.250002
+          },
+          {
+            "value": 1,
+            "target": 0.27
+          }
+        ],
+        "prompt_template": "nose width approximately {target:.3f} times facial width",
+        "prompt_template_zh": "鼻宽约为脸部横向尺度的{target:.3f}倍"
       }
     },
     "nose_length": {
@@ -493,11 +667,40 @@
       ],
       "measurement": {
         "metric": "nose_length_face_ratio",
-        "negative_target": 0.24,
-        "baseline_target": 0.32,
-        "positive_target": 0.40,
         "tolerance": 0.04,
-        "unit": "face scale ratio"
+        "unit": "face scale ratio",
+        "targets": [
+          {
+            "value": -1,
+            "target": 0.24
+          },
+          {
+            "value": -0.6667,
+            "target": 0.266664
+          },
+          {
+            "value": -0.3333,
+            "target": 0.293336
+          },
+          {
+            "value": 0,
+            "target": 0.32
+          },
+          {
+            "value": 0.3333,
+            "target": 0.346664
+          },
+          {
+            "value": 0.6667,
+            "target": 0.373336
+          },
+          {
+            "value": 1,
+            "target": 0.40
+          }
+        ],
+        "prompt_template": "nose length approximately {target:.3f} times facial width",
+        "prompt_template_zh": "鼻长约为脸部横向尺度的{target:.3f}倍"
       }
     },
     "nose_projection": {
@@ -588,11 +791,40 @@
       ],
       "measurement": {
         "metric": "mouth_width_face_ratio",
-        "negative_target": 0.28,
-        "baseline_target": 0.36,
-        "positive_target": 0.45,
         "tolerance": 0.04,
-        "unit": "face scale ratio"
+        "unit": "face scale ratio",
+        "targets": [
+          {
+            "value": -1,
+            "target": 0.28
+          },
+          {
+            "value": -0.6667,
+            "target": 0.30666400000000005
+          },
+          {
+            "value": -0.3333,
+            "target": 0.333336
+          },
+          {
+            "value": 0,
+            "target": 0.36
+          },
+          {
+            "value": 0.3333,
+            "target": 0.389997
+          },
+          {
+            "value": 0.6667,
+            "target": 0.420003
+          },
+          {
+            "value": 1,
+            "target": 0.45
+          }
+        ],
+        "prompt_template": "mouth width approximately {target:.3f} times facial width",
+        "prompt_template_zh": "嘴宽约为脸部横向尺度的{target:.3f}倍"
       }
     },
     "upper_lip_fullness": {
@@ -625,11 +857,40 @@
       ],
       "measurement": {
         "metric": "upper_lip_face_ratio",
-        "negative_target": 0.018,
-        "baseline_target": 0.035,
-        "positive_target": 0.06,
         "tolerance": 0.015,
-        "unit": "face scale ratio"
+        "unit": "face scale ratio",
+        "targets": [
+          {
+            "value": -1,
+            "target": 0.018
+          },
+          {
+            "value": -0.6667,
+            "target": 0.023666100000000002
+          },
+          {
+            "value": -0.3333,
+            "target": 0.029333900000000003
+          },
+          {
+            "value": 0,
+            "target": 0.035
+          },
+          {
+            "value": 0.3333,
+            "target": 0.0433325
+          },
+          {
+            "value": 0.6667,
+            "target": 0.0516675
+          },
+          {
+            "value": 1,
+            "target": 0.06
+          }
+        ],
+        "prompt_template": "upper-lip thickness approximately {target:.3f} times facial width",
+        "prompt_template_zh": "上唇厚度约为脸部横向尺度的{target:.3f}倍"
       }
     },
     "lower_lip_fullness": {
@@ -662,11 +923,40 @@
       ],
       "measurement": {
         "metric": "lower_lip_face_ratio",
-        "negative_target": 0.025,
-        "baseline_target": 0.045,
-        "positive_target": 0.075,
         "tolerance": 0.018,
-        "unit": "face scale ratio"
+        "unit": "face scale ratio",
+        "targets": [
+          {
+            "value": -1,
+            "target": 0.025
+          },
+          {
+            "value": -0.6667,
+            "target": 0.031666
+          },
+          {
+            "value": -0.3333,
+            "target": 0.038334
+          },
+          {
+            "value": 0,
+            "target": 0.045
+          },
+          {
+            "value": 0.3333,
+            "target": 0.054999
+          },
+          {
+            "value": 0.6667,
+            "target": 0.065001
+          },
+          {
+            "value": 1,
+            "target": 0.075
+          }
+        ],
+        "prompt_template": "lower-lip thickness approximately {target:.3f} times facial width",
+        "prompt_template_zh": "下唇厚度约为脸部横向尺度的{target:.3f}倍"
       }
     },
     "cupid_bow_definition": {
@@ -699,11 +989,40 @@
       ],
       "measurement": {
         "metric": "cupid_bow_relative",
-        "negative_target": 0.08,
-        "baseline_target": 0.25,
-        "positive_target": 0.55,
         "tolerance": 0.15,
-        "unit": "upper lip ratio"
+        "unit": "upper lip ratio",
+        "targets": [
+          {
+            "value": -1,
+            "target": 0.08
+          },
+          {
+            "value": -0.6667,
+            "target": 0.13666100000000003
+          },
+          {
+            "value": -0.3333,
+            "target": 0.193339
+          },
+          {
+            "value": 0,
+            "target": 0.25
+          },
+          {
+            "value": 0.3333,
+            "target": 0.34999
+          },
+          {
+            "value": 0.6667,
+            "target": 0.45001
+          },
+          {
+            "value": 1,
+            "target": 0.55
+          }
+        ],
+        "prompt_template": "Cupid bow depth approximately {target:.3f} times upper-lip thickness",
+        "prompt_template_zh": "唇峰深度约为上唇厚度的{target:.3f}倍"
       }
     }
   },

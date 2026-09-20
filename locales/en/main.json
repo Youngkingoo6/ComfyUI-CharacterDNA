@@ -103,9 +103,8 @@
     "measurementCalibration": "Measurement calibration",
     "metric": "Metric",
     "unit": "Unit",
-    "negativeTarget": "-1 target",
-    "baselineTarget": "0 target",
-    "positiveTarget": "+1 target",
-    "tolerance": "Tolerance"
+    "tolerance": "Tolerance",
+    "calibrationTarget": "DNA {value} target",
+    "measurementPrompt": "Measurement prompt template"
   }
 }

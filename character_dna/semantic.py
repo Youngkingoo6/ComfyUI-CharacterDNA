@@ -1,6 +1,7 @@
 from .vocabulary import (
     build_profile_phrases,
     compose_prompt,
+    get_measurement_phrase,
     get_vocabulary,
 )
 
@@ -46,7 +47,12 @@ def feature_to_phrase(name, value, language="en"):
         if abs(float(level["value"])) < 1e-9:
             return None
         key = "text_zh" if str(language).lower().startswith("zh") else "text"
-        return level.get(key, level.get("text"))
+        phrase = level.get(key, level.get("text"))
+        measurement_phrase = get_measurement_phrase(name, value, language)
+        if measurement_phrase:
+            separator = "，" if str(language).lower().startswith("zh") else ", "
+            return phrase + separator + measurement_phrase
+        return phrase
 
     # Compatibility with vocabulary files exported before the five-level format.
     for rule in feature.get("rules", []):

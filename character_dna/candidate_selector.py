@@ -1,6 +1,6 @@
 import math
 
-from .vocabulary import get_vocabulary
+from .vocabulary import get_measurement_target, get_vocabulary
 
 
 SELECTOR_VERSION = "0.8.0"
@@ -113,16 +113,6 @@ def _measurement_config(feature):
     entry = get_vocabulary().get("features", {}).get(feature, {})
     measurement = entry.get("measurement")
     return measurement if isinstance(measurement, dict) else None
-
-
-def _target_for_value(dna_value, measurement):
-    baseline = float(measurement["baseline_target"])
-    edge = float(
-        measurement["positive_target"]
-        if dna_value >= 0
-        else measurement["negative_target"]
-    )
-    return baseline + abs(float(dna_value)) * (edge - baseline)
 
 
 def _target_match(value, target, tolerance):
@@ -335,7 +325,9 @@ def select_directional_candidates(
         tolerance = None
         if measurement and measurement.get("metric") == config["metric"]:
             try:
-                target = _target_for_value(dna_value, measurement)
+                target = get_measurement_target(feature, dna_value)
+                if target is None:
+                    raise ValueError("Missing seven-point measurement calibration.")
                 tolerance = float(measurement["tolerance"])
             except (KeyError, TypeError, ValueError):
                 target = None

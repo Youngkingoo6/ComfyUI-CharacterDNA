@@ -40,7 +40,7 @@ const FALLBACK = {
   newBlueprintKey: "New blueprint key", newPresetKey: "New preset key", deleteEntry: "Delete", blueprintLabel: "Display label", layerStack: "Advanced layer stack", variations: "Seed variations", enabled: "Enabled", layerType: "Layer", preset: "Preset", mergeMode: "Mode",
   negativePrompt: "Negative prompt",
   measurementCalibration: "Measurement calibration", metric: "Metric", unit: "Unit",
-  negativeTarget: "-1 target", baselineTarget: "0 target", positiveTarget: "+1 target", tolerance: "Tolerance",
+  calibrationTarget: "DNA {value} target", tolerance: "Tolerance", measurementPrompt: "Measurement prompt template",
   frame: "Frame", torso: "Torso", limbs: "Limbs", build: "Build",
   overall_frame: "Overall frame", torso_architecture: "Torso architecture", limb_proportions: "Limb proportions",
   build_distribution: "Build distribution", scale_balance: "Scale balance",
@@ -164,15 +164,26 @@ function renderVocabularyPanel(container) {
         ]));
         if (feature.measurement) {
           const measurement = feature.measurement;
-          const numberField = (label, key) => field(label, measurement[key], (value) => { measurement[key] = Number(value); }, false);
+          const numberField = (label, object, key) => field(label, object[key], (value) => { object[key] = Number(value); }, false);
           card.appendChild(el("div", { className: "cdna-vocab-measurement" }, [
             el("h5", { text: t("measurementCalibration") }),
             field(t("metric"), measurement.metric, (value) => { measurement.metric = value; }, false),
             field(t("unit"), measurement.unit, (value) => { measurement.unit = value; }, false),
-            numberField(t("tolerance"), "tolerance"),
-            numberField(t("negativeTarget"), "negative_target"),
-            numberField(t("baselineTarget"), "baseline_target"),
-            numberField(t("positiveTarget"), "positive_target"),
+            numberField(t("tolerance"), measurement, "tolerance"),
+            ...(measurement.targets || []).map((item) => numberField(
+              t("calibrationTarget").replace("{value}", Number(item.value).toFixed(4).replace(/0+$/, "").replace(/\.$/, "")),
+              item,
+              "target",
+            )),
+            el("div", { style: "grid-column:1/-1" }, [
+              el("h5", { text: t("measurementPrompt") }),
+              bilingual(
+                measurement.prompt_template,
+                measurement.prompt_template_zh,
+                (value) => { measurement.prompt_template = value; },
+                (value) => { measurement.prompt_template_zh = value; },
+              ),
+            ]),
           ]));
         }
         group.appendChild(card); groupCount += 1; count += 1;

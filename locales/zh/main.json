@@ -103,9 +103,8 @@
     "measurementCalibration": "测量校准",
     "metric": "测量指标",
     "unit": "单位",
-    "negativeTarget": "-1 目标",
-    "baselineTarget": "0 基线",
-    "positiveTarget": "+1 目标",
-    "tolerance": "容差"
+    "tolerance": "容差",
+    "calibrationTarget": "DNA {value} 目标比例",
+    "measurementPrompt": "测量提示词模板"
   }
 }

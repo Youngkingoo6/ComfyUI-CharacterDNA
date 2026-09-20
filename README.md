@@ -118,6 +118,7 @@ Seed Generator
 打开 ComfyUI 左侧的 **CharacterDNA Vocabulary** 面板，可以编辑：
 
 - 每个 Feature 的五档中英文提示词；
+- 可测量面部 Feature 的 7 档目标比例、容差和中英文比例提示词模板；
 - 面部和身体各 5 组 Composite 的中英文短语；
 - 画面蓝图，以及造型、表演、场景、摄影四类中英文预设；
 - 稳定外观预设与每套画面蓝图的中英文负向提示词；

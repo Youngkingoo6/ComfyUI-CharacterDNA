@@ -203,6 +203,46 @@ def get_quality_position():
     return position if position in {"start", "end"} else "end"
 
 
+def get_measurement_target(feature_name, value):
+    """Interpolate a physical target from the feature's seven calibration anchors."""
+    feature = get_vocabulary().get("features", {}).get(feature_name, {})
+    measurement = feature.get("measurement")
+    if not isinstance(measurement, dict):
+        return None
+    targets = measurement.get("targets")
+    if not isinstance(targets, list) or not targets:
+        return None
+    anchors = sorted(
+        (float(item["value"]), float(item["target"]))
+        for item in targets
+    )
+    value = max(anchors[0][0], min(anchors[-1][0], float(value)))
+    for index, (anchor_value, anchor_target) in enumerate(anchors):
+        if value <= anchor_value or index == len(anchors) - 1:
+            if index == 0:
+                return anchor_target
+            previous_value, previous_target = anchors[index - 1]
+            span = anchor_value - previous_value
+            if abs(span) < 1e-9:
+                return anchor_target
+            weight = (value - previous_value) / span
+            return previous_target + weight * (anchor_target - previous_target)
+    return anchors[-1][1]
+
+
+def get_measurement_phrase(feature_name, value, language="en"):
+    feature = get_vocabulary().get("features", {}).get(feature_name, {})
+    measurement = feature.get("measurement")
+    target = get_measurement_target(feature_name, value)
+    if not isinstance(measurement, dict) or target is None:
+        return None
+    key = "prompt_template_zh" if str(language).lower().startswith("zh") else "prompt_template"
+    template = measurement.get(key)
+    if not isinstance(template, str) or not template.strip():
+        return None
+    return template.format(target=target)
+
+
 def compose_prompt(core_phrases, language="en"):
     """Join core identity phrases with quality phrases at the configured edge."""
     core = [str(phrase).strip() for phrase in core_phrases if str(phrase).strip()]
