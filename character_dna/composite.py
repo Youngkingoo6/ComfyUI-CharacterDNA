@@ -319,45 +319,11 @@ def _eye_geometry(features):
         pattern = "rounded"
 
     else:
-        phrases.append(
-            _phrase(
-                "eye_geometry",
-                "balanced",
-            )
-        )
-        pattern = "balanced_almond"
-
-    if openness >= 0.45:
-        phrases.append(
-            _phrase(
-                "eye_geometry",
-                "aperture_open",
-            )
-        )
-
-    elif openness <= -0.45:
-        phrases.append(
-            _phrase(
-                "eye_geometry",
-                "aperture_narrow",
-            )
-        )
-
-    if spacing >= 0.35:
-        phrases.append(
-            _phrase(
-                "eye_geometry",
-                "spacing_wide",
-            )
-        )
-
-    elif spacing <= -0.35:
-        phrases.append(
-            _phrase(
-                "eye_geometry",
-                "spacing_close",
-            )
-        )
+        # Zero means unspecified, not an instruction to create almond eyes.
+        # Calibrated openness and spacing are emitted by their exact seven-level
+        # Feature phrases below, so the Composite must not restate them with a
+        # weaker generic adjective.
+        pattern = "unspecified"
 
     if tilt >= 0.40:
         phrases.append(
@@ -908,8 +874,14 @@ def _hybrid_residual_features(dna, composites, max_composites, language="en"):
             # Selected groups already carry their overall relationship. Add
             # only strong residual coordinates; omitted groups retain every
             # non-neutral raw coordinate so max_composites never erases DNA.
-            if group_selected and abs(value) < HYBRID_RESIDUAL_THRESHOLD:
-                continue
+            if group_selected:
+                # Ratio-calibrated Features carry the exact seven-level term
+                # and numeric anchor. Keep that canonical phrase instead of a
+                # weaker Composite paraphrase.
+                if feature_ratio_phrase(feature_name, value, language):
+                    pass
+                elif abs(value) < HYBRID_RESIDUAL_THRESHOLD:
+                    continue
             if phrase.lower() in expressed:
                 continue
             phrases.append(phrase)
