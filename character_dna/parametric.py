@@ -128,7 +128,7 @@ def override_parametric_feature(
 
     normalized[feature] = round(
         clamp(value),
-        4,
+        1,
     )
 
     dna["parametric_identity"] = {

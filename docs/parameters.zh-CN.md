@@ -4,6 +4,8 @@
 
 19 个 Feature 都使用 `-1.0 ～ +1.0` 的连续坐标：
 
+Parametric 节点的界面步进为 `0.1`，手动覆盖值保留 1 位小数；语义输出仍匹配最近的七档锚点。
+
 - `-1`：极度偏向负方向。
 - `-0.6667`：明显偏向负方向。
 - `-0.3333`：轻度偏向负方向。
@@ -104,9 +106,9 @@ Parametric Face Designer 每个节点只覆盖一个 Feature，并继承输入 D
 
 ```text
 Face DNA Seed Generator
-  → Parametric: face_length = 0.3333
-  → Parametric: jaw_width = -0.3333
-  → Parametric: canthal_tilt = 0.3333
+  → Parametric: face_length = 0.3
+  → Parametric: jaw_width = -0.3
+  → Parametric: canthal_tilt = 0.3
   → Face Composite Identity
 ```
 

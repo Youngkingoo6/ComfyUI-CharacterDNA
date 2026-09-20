@@ -46,7 +46,7 @@ def override_body_feature(base_dna, feature, value):
         key: round(clamp_body_value(existing.get(key, 0.0)), 4)
         for key in BODY_FEATURE_META
     }
-    normalized[feature] = round(clamp_body_value(value), 4)
+    normalized[feature] = round(clamp_body_value(value), 1)
     dna["body_identity"] = {
         "coordinate_system": "normalized_body",
         "range": [-1.0, 1.0],
