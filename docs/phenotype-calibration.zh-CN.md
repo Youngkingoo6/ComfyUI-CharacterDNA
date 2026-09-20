@@ -11,40 +11,14 @@
 - `relative_directional_index`：候选在当前批次中是否朝 DNA 指定方向靠近。
 - `calibrated_match_index`：目标比例匹配占 65%，批内方向占 35%，作为最终排序依据。
 
-目标比例不是身份概率，也不是固定的人类学标准。它们是可编辑的工作流初始校准值。打开 **CharacterDNA Vocabulary → Face Features**，可为可测量特征修改：
+目标比例不是身份概率，也不是固定的人类学标准。它们只在生成后的分析与候选排序中使用，不会写进生图提示词。
 
 - 7 个目标档位：`-1、-0.6667、-0.3333、0、0.3333、0.6667、1`。
 - `tolerance`：允许误差尺度；越小越严格。
-- 中英文测量提示词模板：使用 `{target}` 插入当前目标比例。
 
 任意中间 DNA 值在相邻两档之间进行线性插值。例如眼距 `+0.3333 = 1.10`、`+0.6667 = 1.20`，则 `+0.5` 的目标为约 `1.15` 个平均眼宽。
 
-可测量 Feature 会把目标写成相对于标准正面二维投影基准的完整关系，并说明保持不变的参照尺寸。例如：
-
-```text
-slightly wide-set eyes, target inner-canthal distance is approximately 1.1 times the average eye width; preserve average eye width and projected face width
-眼距偏宽，目标内眦间距约为平均眼宽的1.1倍；保持平均眼宽和二维投影脸宽不变
-```
-
-DNA 为 `0` 时仍遵循极简规则：不输出该 Feature 的形容词，也不输出比例。
-
-## 关键点结构引导
-
-文字比例只能表达目标，不能保证生成模型真正执行。需要精确调整眼距时，使用：
-
-`原图 → InsightFace 106 Detector → Face Landmark Geometry Guide`
-
-把同一个 `Character DNA` 同时连接到结构引导节点。节点读取 DNA 中的 `eye_spacing`，将目标比值换算成左右眼的像素位移，并输出：
-
-- `warped_reference`：眼眶和眉区平滑移动后的编辑参考图；
-- `edit_mask`：只覆盖需要重绘的眼眶区域；
-- `structure_guide`：灰色为目标面部网格，蓝点为原始眼眉关键点，黄点为目标眼眉关键点；
-- `target_landmarks_106`：已经达到目标比值的关键点，可直接接 `Phenotype Geometry` 检查；
-- `guide_info`：原始比值、目标比值、目标像素间距和两眼位移量。
-
-`strength = 1.0` 表示执行完整 DNA 目标，`0.5` 表示只执行原始值到目标值之间的一半。变形参考图用于图像编辑或局部重绘，不应被当作最终成图；最终结果仍需重新连接 `InsightFace 106 Detector → Phenotype Geometry` 复测。第一阶段只对 `eye_spacing` 做结构引导，且保持平均眼宽、鼻口和二维脸宽不变。
-
-Z-Image-Turbo 完整接法见 [`examples/05_zimage_turbo_landmark_geometry_guide.json`](../examples/05_zimage_turbo_landmark_geometry_guide.json)。实测中，把 `warped_reference` 再接回 Z-Image-Turbo 的部分去噪 KSampler 会产生整图高频斑驳，因此示例直接保存干净的 `warped_reference` 并重新检测。`edit_mask` 只用于预览，或与 `warped_reference` 一起交给真正支持图像编辑或局部修复的模型；不要在本基础工作流中继续连接第二个 Z-Image-Turbo KSampler。
+DNA 为 `0` 时按中性目标处理。生成侧只输出简短的口语化特征词；校准值留在分析层，避免把伪精确数字塞进提示词。
 
 ## 当前可测量范围
 

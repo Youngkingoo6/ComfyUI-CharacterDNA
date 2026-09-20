@@ -195,31 +195,7 @@ def get_quality_phrases(language="en"):
         if str(language).lower().startswith("zh")
         else "quality_phrases"
     )
-    phrases = list(profile.get(key, []))
-    # Three-courts/five-eyes sentences are design constraints, not quality
-    # phrases. Keeping them here would force every non-neutral target back to
-    # the standard value (for example eye spacing 1.5x versus "one eye width").
-    # Standards are emitted dynamically by the semantic layer instead.
-    markers = (
-        "three thirds",
-        "three courts",
-        "face length is divided into three equal",
-        "hairline → brow bone → nose base → chin",
-        "five eyes",
-        "distance between the two eyes = one eye width",
-        "outer eye corner to the temple",
-        "三庭",
-        "脸长分成三等份",
-        "发际线→眉骨→鼻底→下巴",
-        "五眼",
-        "两眼间距 = 一只眼宽",
-        "眼尾到太阳穴",
-    )
-    return [
-        phrase
-        for phrase in phrases
-        if not any(marker in str(phrase).lower() for marker in markers)
-    ]
+    return list(profile.get(key, []))
 
 
 def get_quality_position():
@@ -254,19 +230,6 @@ def get_measurement_target(feature_name, value):
     return anchors[-1][1]
 
 
-def get_measurement_phrase(feature_name, value, language="en"):
-    feature = get_vocabulary().get("features", {}).get(feature_name, {})
-    measurement = feature.get("measurement")
-    target = get_measurement_target(feature_name, value)
-    if not isinstance(measurement, dict) or target is None:
-        return None
-    key = "prompt_template_zh" if str(language).lower().startswith("zh") else "prompt_template"
-    template = measurement.get(key)
-    if not isinstance(template, str) or not template.strip():
-        return None
-    return template.format(target=target)
-
-
 def compose_prompt(core_phrases, language="en"):
     """Join core identity phrases with quality phrases at the configured edge."""
     core = [str(phrase).strip() for phrase in core_phrases if str(phrase).strip()]
@@ -293,10 +256,3 @@ def strip_quality_block(prompt, language="en"):
     if prompt.endswith(suffix):
         return prompt[:-len(suffix)]
     return prompt
-
-
-def get_composite_phrase(section, key, language="en"):
-    vocabulary = get_vocabulary()
-    if str(language).lower().startswith("zh"):
-        return vocabulary["composites_zh"][section][key]
-    return vocabulary["composites"][section][key]

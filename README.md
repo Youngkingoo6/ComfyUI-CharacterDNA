@@ -1,16 +1,15 @@
 # ComfyUI-CharacterDNA
 
-CharacterDNA 用一组可重复、可调节的结构参数描述原创角色身份。它的目标不是训练模型，而是把角色身份拆成稳定的 DNA Seed、19 个连续 Feature 和 5 组 Composite，输出可用于图像生成的中英文提示词。
+CharacterDNA 用一组可重复、可调节的参数描述原创角色身份。它的目标不是训练模型，而是用 DNA Seed 和口语化特征词，直接输出可用于图像生成的中英文提示词。
 
 ## 快速开始
 
-项目自带五个可直接拖入 ComfyUI 的示例：
+项目自带四个可直接拖入 ComfyUI 的示例：
 
-- [`examples/01_basic_seed_to_composite.json`](examples/01_basic_seed_to_composite.json)：从基础身份随机生成 19 个参数，再合成为自然的身份描述。
+- [`examples/01_basic_face_seed.json`](examples/01_basic_face_seed.json)：从基础身份随机生成 19 个面部参数，并直接输出提示词。
 - [`examples/02_multiple_feature_adjustments.json`](examples/02_multiple_feature_adjustments.json)：在随机 DNA 后连续修改多个 Feature，演示参数继承和覆盖。
 - [`examples/03_face_and_body_combined.json`](examples/03_face_and_body_combined.json)：分别生成面部和身体 DNA，再输出合并后的完整身份提示词。
-- [`examples/04_batch_generate_analyze_select.json`](examples/04_batch_generate_analyze_select.json)：批量生成、比例分析、目标筛选和 Pareto 预览。
-- [`examples/05_zimage_turbo_landmark_geometry_guide.json`](examples/05_zimage_turbo_landmark_geometry_guide.json)：在 Z-Image-Turbo 基础工作流中完成首次生成、眼距关键点结构校正、干净参考图保存与最终比例复测。
+- [`examples/04_batch_generate_analyze_select.json`](examples/04_batch_generate_analyze_select.json)：批量生成、几何分析、目标筛选和 Pareto 预览。
 
 将 JSON 拖进 ComfyUI 后：
 
@@ -30,9 +29,7 @@ Face DNA Seed Generator
         ↓
 Parametric Face Designer（可选，可串联多个）
         ↓
-Face Composite Identity
-        ↓
-中英文身份核心提示词
+直接使用中英文面部提示词
 ```
 
 身体 DNA 与面部 DNA 共用同一个 `CHARACTER_DNA`，推荐接法：
@@ -46,9 +43,7 @@ Body DNA Seed Generator（身体）
         ↓
 Parametric Face / Body Designer（可选，可串联）
         ↓
-Face Composite Identity
-        ↓
-Body Composite Identity
+Body Composite Identity（可选）
         ↓
 Character Visual Blueprint（可选）
         ↓
@@ -90,22 +85,12 @@ Seed Generator
   → face_length = 0.3
   → jaw_width = -0.3
   → canthal_tilt = 0.3
-  → Face Composite Identity
+  → 直接使用最后一个节点的提示词
 ```
 
-`value` 是 `-1.0` 到 `+1.0` 的连续值，Parametric 节点以 `0.1` 步进并保留 1 位小数。词库统一提供 `-1、-0.6667、-0.3333、0、0.3333、0.6667、1` 七个语义锚点，对应“极低 → 明显偏低 → 偏低 → 标准 → 偏高 → 明显偏高 → 极高”。输入值会采用最接近的七档词条；数值为 `0` 表示未指定结构，该 Feature 不输出提示词；某个 Composite 组全部为 `0` 时也不会输出该组。
+`value` 是 `-1.0` 到 `+1.0` 的连续值，Parametric 节点以 `0.1` 步进并保留 1 位小数。内部仍使用七档匹配，但输出改为“短脸、眼距稍宽、鼻梁偏平”这类更直接的词。数值为 `0` 表示未指定结构，不输出该 Feature。
 
-### Face Composite Identity
-
-把多个 Feature 的数值关系合成为更自然的整体描述，并按显著度选择最重要的组合：
-
-1. Facial Silhouette：脸长、脸宽、颧骨、下颌和下巴。
-2. Eye Geometry：眼型、开合度、眼距和眼角倾斜。
-3. Brow–Eye Relationship：眉眼距离与眼部关系。
-4. Nose Profile：鼻宽、鼻长、立体度和鼻尖方向。
-5. Lip Relationship：嘴宽、上下唇厚度和唇峰。
-
-`max_composites` 控制最多输出几组整体关系，范围为 1–5。Composite 采用混合模式：保留关系描述后，会补充其中尚未充分表达的强显著原始 Feature；没有入选的 Composite 组则退回逐项 Feature 描述。因此 19 个数值始终保留在 DNA 中，减少 Composite 数量也不会把对应结构从最终提示词中静默删除。推荐保持 `5`，获得最自然的关系描述。
+每次执行 Parametric Face Designer 都会根据当前 DNA 重新生成完整面部提示词，因此最后一个 Parametric 节点的输出已经包含之前设置的所有非零特征。Face Composite Identity 已移除，避免重复改写和弱化具体参数。
 
 ## 参数说明
 
@@ -114,16 +99,13 @@ Seed Generator
 - [`docs/parameters.zh-CN.md`](docs/parameters.zh-CN.md)
 - [`docs/body-parameters.zh-CN.md`](docs/body-parameters.zh-CN.md)：20 个身体 Feature、5 组身体 Composite 与组合方法。
 - [`docs/phenotype-calibration.zh-CN.md`](docs/phenotype-calibration.zh-CN.md)：可测量比例、校准目标、批内排名与 Pareto 筛选。
-- [`docs/facial-proportion-standard.zh-CN.md`](docs/facial-proportion-standard.zh-CN.md)：三庭五眼基准、七档命名与统一比例规则。
 
 ## 词库管理
 
 打开 ComfyUI 左侧的 **CharacterDNA Vocabulary** 面板，可以编辑：
 
 - 每个 Feature 的七档中英文提示词；
-- 已校准 Feature 的比值定义、标准值、各档锚点及区间；
-- 可测量面部 Feature 的 7 档目标比例、容差和中英文比例提示词模板；
-- 面部和身体各 5 组 Composite 的中英文短语；
+- 身体 Composite 的中英文短语；
 - 画面蓝图，以及造型、表演、场景、摄影四类中英文预设；
 - 稳定外观预设与每套画面蓝图的中英文负向提示词；
 - 年龄阶段、基础身份模板和固定质量词。
@@ -132,7 +114,7 @@ Seed Generator
 
 点击保存后，后续执行的生成节点会直接使用新词库。修改前建议先导出备份。
 
-Parametric Face Designer、Face DNA Seed Generator 和 Face Composite Identity 会把词库修订版本加入执行缓存。即使节点输入没有改变，保存词库后再次完整运行也会重新生成提示词。
+Parametric Face Designer 和 Face DNA Seed Generator 会把词库修订版本加入执行缓存。即使节点输入没有改变，保存词库后再次完整运行也会重新生成提示词。
 
 身体词库独立保存，因此升级身体功能不会覆盖你已经修改过的面部固定质量词。
 
@@ -158,10 +140,9 @@ Parametric Face Designer、Face DNA Seed Generator 和 Face Composite Identity �
 ## 其他节点
 
 - `InsightFace 106 Detector`：从图像检测 106 点人脸关键点，并输出三庭五眼及实测相对比例诊断图。
-- `Face Landmark Geometry Guide`：把 DNA 眼距目标换算为像素级位移，输出局部变形参考、编辑遮罩、目标结构网格和目标 106 点。
 - `Phenotype Geometry`：从关键点计算可比较的几何表型，并给出歪头/双眼不对称等拍摄质量指标。
 - `Batch Phenotype Analyzer`：统计一批候选图的表型分布，并保留每张图的批次位置。
 - `Casting Dataset Loader`：加载候选图数据集。
 - `Directional Candidate Selector`：按可编辑比例目标与 DNA 方向共同筛选，并直接输出前 N 名图片和 Pareto 图片。
 
-完整示例见 [`examples/04_batch_generate_analyze_select.json`](examples/04_batch_generate_analyze_select.json)。它把 DNA 提示词、批量生图、106 点分析、目标比例排名、前 N 名和 Pareto 预览连成一条工作流。
+完整示例见 [`examples/04_batch_generate_analyze_select.json`](examples/04_batch_generate_analyze_select.json)。它把 DNA 提示词、批量生图、106 点分析、候选排名、前 N 名和 Pareto 预览连成一条工作流。比例只用于生成后的分析与筛选，不再写入生图提示词。

@@ -19,14 +19,9 @@ def blueprint_options():
 
 
 def _identity_prompt(dna, language="en"):
-    chinese = str(language).lower().startswith("zh")
-    combined_key = "combined_identity_prompt_zh" if chinese else "combined_identity_prompt"
-    if dna.get(combined_key):
-        return dna[combined_key]
     if dna.get("body_identity", {}).get("features"):
         return build_complete_body_prompt(dna, language)
-    key = "identity_core_prompt_zh" if chinese else "identity_core_prompt"
-    return dna.get(key) or build_parametric_prompt(
+    return build_parametric_prompt(
         dna,
         anchors_only=False,
         language=language,

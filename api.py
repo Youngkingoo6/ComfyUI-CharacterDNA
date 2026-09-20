@@ -29,13 +29,6 @@ DEFAULT_PRESENTATION_VOCABULARY_PATH = PRESENTATION_VOCABULARY_PATH.with_name(
     "presentation_vocabulary.default.json"
 )
 
-COMPOSITE_GROUPS = {
-    "facial_silhouette",
-    "eye_geometry",
-    "brow_eye_relationship",
-    "nose_profile",
-    "lip_relationship",
-}
 BODY_COMPOSITE_GROUPS = {
     "overall_frame",
     "torso_architecture",
@@ -210,8 +203,6 @@ def _validate_vocabulary(vocabulary):
     profile = vocabulary.get("profile")
     identity_appearances = vocabulary.get("identity_appearances")
     features = vocabulary.get("features")
-    composites = vocabulary.get("composites")
-    composites_zh = vocabulary.get("composites_zh")
 
     if not isinstance(profile, dict):
         raise ValueError("profile must be an object.")
@@ -298,8 +289,6 @@ def _validate_vocabulary(vocabulary):
         )
 
     _validate_feature_vocabulary(features, FEATURE_META)
-    _validate_composites(composites, composites_zh, COMPOSITE_GROUPS)
-
     return vocabulary
 
 
@@ -399,7 +388,6 @@ def _split_vocabulary(vocabulary):
         key: vocabulary[key]
         for key in (
             "profile", "identity_appearances", "features",
-            "composites", "composites_zh",
         )
     }
     body = {

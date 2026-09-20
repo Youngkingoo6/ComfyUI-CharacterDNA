@@ -93,33 +93,6 @@
       }
     }
   },
-  "CharacterDNACompositeIdentity": {
-    "display_name": "🧬 Face Composite Identity",
-    "description": "Combines the 19 face Features into five relational identity descriptions and ranks them by salience.",
-    "inputs": {
-      "character_dna": {
-        "name": "Character DNA"
-      },
-      "max_composites": {
-        "name": "Maximum composites",
-        "tooltip": "Keeps the top 1–5 face Composite groups without changing the DNA."
-      }
-    },
-    "outputs": {
-      "0": {
-        "name": "Character DNA"
-      },
-      "1": {
-        "name": "Face anchors JSON"
-      },
-      "2": {
-        "name": "Face identity prompt"
-      },
-      "3": {
-        "name": "Chinese face identity prompt"
-      }
-    }
-  },
   "CharacterDNABodySeedGenerator": {
     "display_name": "🧬 Body DNA Seed Generator",
     "description": "Deterministically generates 20 stable body-proportion dimensions and outputs the complete inherited face/base plus body prompt.",
@@ -258,41 +231,6 @@
       },
       "2": {
         "name": "Diagnostic image"
-      }
-    }
-  },
-  "CharacterDNAFaceLandmarkGeometryGuide": {
-    "display_name": "🧬 Face Landmark Geometry Guide",
-    "description": "Converts the eye-spacing target in Character DNA into pixel-level landmark movement, a locally warped reference, an edit mask and a clean structure guide.",
-    "inputs": {
-      "image": {
-        "name": "Source image"
-      },
-      "landmarks_106": {
-        "name": "106 landmarks"
-      },
-      "character_dna": {
-        "name": "Character DNA"
-      },
-      "strength": {
-        "name": "Guide strength"
-      }
-    },
-    "outputs": {
-      "0": {
-        "name": "Warped reference"
-      },
-      "1": {
-        "name": "Edit mask"
-      },
-      "2": {
-        "name": "Structure guide"
-      },
-      "3": {
-        "name": "Target 106 landmarks"
-      },
-      "4": {
-        "name": "Guide info"
       }
     }
   },

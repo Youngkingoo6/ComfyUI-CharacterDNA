@@ -42,20 +42,14 @@
       "Mixed": "混合族裔"
     },
     "quality_phrases": [
-      "harmonious realistic facial anatomy",
-      "subtle natural facial asymmetry",
+      "natural facial anatomy",
       "natural skin texture",
-      "realistic pores and fine skin detail",
-      "minimal beauty retouching",
-      "photorealistic human portrait"
+      "photorealistic portrait"
     ],
     "quality_phrases_zh": [
-      "和谐且真实的面部解剖结构",
-      "自然轻微的面部不对称",
+      "自然的面部结构",
       "自然皮肤质感",
-      "真实毛孔与细腻皮肤细节",
-      "极少美颜修饰",
-      "照片级写实人物肖像"
+      "照片级写实人像"
     ]
   },
   "identity_appearances": {
@@ -71,16 +65,16 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely short face",
-          "text_zh": "脸极短",
-          "ratio": 1.00,
+          "text": "very short face",
+          "text_zh": "脸很短",
+          "ratio": 1,
           "ratio_min": null,
           "ratio_max": 1.053
         },
         {
           "value": -0.6667,
-          "text": "noticeably short face",
-          "text_zh": "脸明显偏短",
+          "text": "short face",
+          "text_zh": "短脸",
           "ratio": 1.105,
           "ratio_min": 1.053,
           "ratio_max": 1.163
@@ -88,15 +82,15 @@
         {
           "value": -0.3333,
           "text": "slightly short face",
-          "text_zh": "脸偏短",
+          "text_zh": "脸稍短",
           "ratio": 1.22,
           "ratio_min": 1.163,
           "ratio_max": 1.282
         },
         {
           "value": 0,
-          "text": "standard facial length",
-          "text_zh": "脸长标准",
+          "text": "natural face length",
+          "text_zh": "自然脸长",
           "ratio": 1.37,
           "ratio_min": 1.282,
           "ratio_max": 1.389
@@ -104,23 +98,23 @@
         {
           "value": 0.3333,
           "text": "slightly long face",
-          "text_zh": "脸偏长",
+          "text_zh": "脸稍长",
           "ratio": 1.515,
           "ratio_min": 1.389,
           "ratio_max": 1.471
         },
         {
           "value": 0.6667,
-          "text": "noticeably long face",
-          "text_zh": "脸明显偏长",
+          "text": "long face",
+          "text_zh": "长脸",
           "ratio": 1.665,
           "ratio_min": 1.471,
           "ratio_max": 1.667
         },
         {
           "value": 1,
-          "text": "extremely long face",
-          "text_zh": "脸极长",
+          "text": "very long face",
+          "text_zh": "脸很长",
           "ratio": 1.82,
           "ratio_min": 1.667,
           "ratio_max": null
@@ -133,32 +127,32 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely narrow face",
-          "text_zh": "脸极窄长",
+          "text": "very narrow face",
+          "text_zh": "脸很窄",
           "ratio": 0.55,
           "ratio_min": null,
-          "ratio_max": 0.60
+          "ratio_max": 0.6
         },
         {
           "value": -0.6667,
-          "text": "noticeably narrow face",
-          "text_zh": "脸明显偏窄长",
+          "text": "narrow face",
+          "text_zh": "窄脸",
           "ratio": 0.62,
-          "ratio_min": 0.60,
+          "ratio_min": 0.6,
           "ratio_max": 0.64
         },
         {
           "value": -0.3333,
           "text": "slightly narrow face",
-          "text_zh": "脸偏窄长",
+          "text_zh": "脸稍窄",
           "ratio": 0.66,
           "ratio_min": 0.64,
           "ratio_max": 0.68
         },
         {
           "value": 0,
-          "text": "standard face width",
-          "text_zh": "脸宽标准",
+          "text": "natural face width",
+          "text_zh": "自然脸宽",
           "ratio": 0.73,
           "ratio_min": 0.68,
           "ratio_max": 0.78
@@ -166,24 +160,24 @@
         {
           "value": 0.3333,
           "text": "slightly wide face",
-          "text_zh": "脸偏宽",
+          "text_zh": "脸稍宽",
           "ratio": 0.82,
           "ratio_min": 0.78,
           "ratio_max": 0.86
         },
         {
           "value": 0.6667,
-          "text": "noticeably wide face",
-          "text_zh": "脸明显偏宽",
+          "text": "wide face",
+          "text_zh": "宽脸",
           "ratio": 0.905,
           "ratio_min": 0.86,
           "ratio_max": 0.95
         },
         {
           "value": 1,
-          "text": "extremely wide face",
-          "text_zh": "脸极宽",
-          "ratio": 1.00,
+          "text": "very wide face",
+          "text_zh": "脸很宽",
+          "ratio": 1,
           "ratio_min": 0.95,
           "ratio_max": null
         }
@@ -195,38 +189,38 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely narrow cheekbone structure",
-          "text_zh": "极其偏窄的颧骨结构"
+          "text": "very narrow cheekbones",
+          "text_zh": "颧骨很窄"
         },
         {
           "value": -0.6667,
-          "text": "distinctly narrow cheekbone structure",
-          "text_zh": "明显偏窄的颧骨结构"
+          "text": "narrow cheekbones",
+          "text_zh": "颧骨偏窄"
         },
         {
           "value": -0.3333,
-          "text": "subtle narrow cheekbone structure",
-          "text_zh": "略窄的颧骨结构"
+          "text": "slightly narrow cheekbones",
+          "text_zh": "颧骨稍窄"
         },
         {
           "value": 0,
-          "text": "balanced cheekbone width",
-          "text_zh": "均衡的颧骨宽度"
+          "text": "natural cheekbone width",
+          "text_zh": "自然颧骨宽度"
         },
         {
           "value": 0.3333,
-          "text": "moderately defined cheekbones",
-          "text_zh": "较清晰的颧骨结构"
+          "text": "slightly wide cheekbones",
+          "text_zh": "颧骨稍宽"
         },
         {
           "value": 0.6667,
-          "text": "prominent wide cheekbone structure",
-          "text_zh": "突出且宽阔的颧骨结构"
+          "text": "wide cheekbones",
+          "text_zh": "颧骨偏宽"
         },
         {
           "value": 1,
-          "text": "extremely prominent wide cheekbone structure",
-          "text_zh": "极其突出且宽阔的颧骨结构"
+          "text": "very wide cheekbones",
+          "text_zh": "颧骨很宽"
         }
       ]
     },
@@ -234,38 +228,38 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely narrow tapered jaw",
-          "text_zh": "极其窄而收尖的下颌"
+          "text": "very narrow jaw",
+          "text_zh": "下颌很窄"
         },
         {
           "value": -0.6667,
-          "text": "distinctly narrow tapered jaw",
-          "text_zh": "明显窄而收尖的下颌"
+          "text": "narrow jaw",
+          "text_zh": "窄下颌"
         },
         {
           "value": -0.3333,
-          "text": "narrow tapered lower face",
-          "text_zh": "较窄且收拢的下半脸"
+          "text": "slightly narrow jaw",
+          "text_zh": "下颌稍窄"
         },
         {
           "value": 0,
-          "text": "balanced jaw width",
-          "text_zh": "均衡的下颌宽度"
+          "text": "natural jaw width",
+          "text_zh": "自然下颌宽度"
         },
         {
           "value": 0.3333,
-          "text": "moderately broad jaw",
-          "text_zh": "较宽的下颌"
+          "text": "slightly wide jaw",
+          "text_zh": "下颌稍宽"
         },
         {
           "value": 0.6667,
-          "text": "strong broad jaw structure",
-          "text_zh": "强健宽阔的下颌结构"
+          "text": "wide jaw",
+          "text_zh": "宽下颌"
         },
         {
           "value": 1,
-          "text": "extremely strong broad jaw structure",
-          "text_zh": "极其强健宽阔的下颌结构"
+          "text": "very wide jaw",
+          "text_zh": "下颌很宽"
         }
       ]
     },
@@ -273,38 +267,38 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely narrow delicate chin",
-          "text_zh": "极其窄且精致的下巴"
+          "text": "very narrow chin",
+          "text_zh": "下巴很窄"
         },
         {
           "value": -0.6667,
-          "text": "very narrow delicate chin",
-          "text_zh": "非常窄且精致的下巴"
+          "text": "narrow chin",
+          "text_zh": "窄下巴"
         },
         {
           "value": -0.3333,
-          "text": "narrow delicate chin",
-          "text_zh": "窄而精致的下巴"
+          "text": "slightly narrow chin",
+          "text_zh": "下巴稍窄"
         },
         {
           "value": 0,
-          "text": "balanced chin width",
-          "text_zh": "均衡的下巴宽度"
+          "text": "natural chin width",
+          "text_zh": "自然下巴宽度"
         },
         {
           "value": 0.3333,
-          "text": "relatively broad chin",
-          "text_zh": "较宽的下巴"
+          "text": "slightly wide chin",
+          "text_zh": "下巴稍宽"
         },
         {
           "value": 0.6667,
-          "text": "distinctly broad chin",
-          "text_zh": "明显宽阔的下巴"
+          "text": "wide chin",
+          "text_zh": "宽下巴"
         },
         {
           "value": 1,
-          "text": "extremely broad chin",
-          "text_zh": "极其宽阔的下巴"
+          "text": "very wide chin",
+          "text_zh": "下巴很宽"
         }
       ]
     },
@@ -312,16 +306,16 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely short lower face",
-          "text_zh": "下庭极短",
+          "text": "very short chin",
+          "text_zh": "下巴很短",
           "ratio": 0.22,
           "ratio_min": null,
           "ratio_max": 0.25
         },
         {
           "value": -0.6667,
-          "text": "noticeably short lower face",
-          "text_zh": "下庭明显偏短",
+          "text": "short chin",
+          "text_zh": "短下巴",
           "ratio": 0.26,
           "ratio_min": 0.25,
           "ratio_max": 0.275
@@ -329,40 +323,40 @@
         {
           "value": -0.3333,
           "text": "slightly short chin",
-          "text_zh": "下庭偏短",
+          "text_zh": "下巴稍短",
           "ratio": 0.285,
           "ratio_min": 0.275,
-          "ratio_max": 0.30
+          "ratio_max": 0.3
         },
         {
           "value": 0,
-          "text": "standard lower face proportion",
-          "text_zh": "下庭标准",
+          "text": "natural chin length",
+          "text_zh": "自然下巴长度",
           "ratio": 0.33,
-          "ratio_min": 0.30,
+          "ratio_min": 0.3,
           "ratio_max": 0.36
         },
         {
           "value": 0.3333,
           "text": "slightly long chin",
-          "text_zh": "下庭偏长",
+          "text_zh": "下巴稍长",
           "ratio": 0.39,
           "ratio_min": 0.36,
           "ratio_max": 0.42
         },
         {
           "value": 0.6667,
-          "text": "noticeably long chin",
-          "text_zh": "下庭明显偏长",
+          "text": "long chin",
+          "text_zh": "长下巴",
           "ratio": 0.45,
           "ratio_min": 0.42,
           "ratio_max": 0.48
         },
         {
           "value": 1,
-          "text": "extremely long lower face",
-          "text_zh": "下庭极长",
-          "ratio": 0.50,
+          "text": "very long chin",
+          "text_zh": "下巴很长",
+          "ratio": 0.5,
           "ratio_min": 0.48,
           "ratio_max": null
         }
@@ -374,38 +368,38 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely rounded eyes with short horizontal length",
-          "text_zh": "极其圆润且横向较短的眼型"
+          "text": "very round eyes",
+          "text_zh": "眼睛很圆"
         },
         {
           "value": -0.6667,
-          "text": "distinctly rounded eyes with short horizontal length",
-          "text_zh": "明显圆润且横向较短的眼型"
+          "text": "round eyes",
+          "text_zh": "圆眼"
         },
         {
           "value": -0.3333,
-          "text": "soft rounded eye shape",
-          "text_zh": "柔和圆润的眼型"
+          "text": "slightly rounded eyes",
+          "text_zh": "眼睛稍圆"
         },
         {
           "value": 0,
-          "text": "balanced natural almond-shaped eyes",
-          "text_zh": "均衡自然的杏仁眼"
+          "text": "natural eye shape",
+          "text_zh": "自然眼型"
         },
         {
           "value": 0.3333,
-          "text": "elongated almond-shaped eyes",
-          "text_zh": "横向修长的杏仁眼"
+          "text": "slightly elongated eyes",
+          "text_zh": "眼睛稍长"
         },
         {
           "value": 0.6667,
-          "text": "long distinctly elongated almond-shaped eyes",
-          "text_zh": "明显细长的杏仁眼"
+          "text": "elongated eyes",
+          "text_zh": "细长眼"
         },
         {
           "value": 1,
-          "text": "long extremely elongated almond-shaped eyes",
-          "text_zh": "极其细长的杏仁眼"
+          "text": "very elongated eyes",
+          "text_zh": "眼睛很细长"
         }
       ],
       "measurement": {
@@ -466,32 +460,32 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely narrow eye opening",
-          "text_zh": "眼裂极窄",
+          "text": "very narrow eyes",
+          "text_zh": "眼睛很细",
           "ratio": 0.15,
           "ratio_min": null,
-          "ratio_max": 0.20
+          "ratio_max": 0.2
         },
         {
           "value": -0.6667,
-          "text": "noticeably narrow eye opening",
-          "text_zh": "眼裂明显偏窄",
+          "text": "narrow eyes",
+          "text_zh": "细眼",
           "ratio": 0.22,
-          "ratio_min": 0.20,
+          "ratio_min": 0.2,
           "ratio_max": 0.24
         },
         {
           "value": -0.3333,
           "text": "slightly narrow eyes",
-          "text_zh": "眼裂偏窄",
+          "text_zh": "眼睛稍细",
           "ratio": 0.26,
           "ratio_min": 0.24,
           "ratio_max": 0.28
         },
         {
           "value": 0,
-          "text": "standard eye aperture",
-          "text_zh": "眼裂标准",
+          "text": "natural eye openness",
+          "text_zh": "自然眼睛大小",
           "ratio": 0.33,
           "ratio_min": 0.28,
           "ratio_max": 0.38
@@ -499,23 +493,23 @@
         {
           "value": 0.3333,
           "text": "slightly large eyes",
-          "text_zh": "眼裂偏大",
+          "text_zh": "眼睛稍大",
           "ratio": 0.43,
           "ratio_min": 0.38,
           "ratio_max": 0.48
         },
         {
           "value": 0.6667,
-          "text": "noticeably large eyes",
-          "text_zh": "眼裂明显偏大",
+          "text": "large eyes",
+          "text_zh": "大眼睛",
           "ratio": 0.53,
           "ratio_min": 0.48,
           "ratio_max": 0.58
         },
         {
           "value": 1,
-          "text": "extremely large eyes",
-          "text_zh": "眼裂极大",
+          "text": "very large eyes",
+          "text_zh": "眼睛很大",
           "ratio": 0.62,
           "ratio_min": 0.58,
           "ratio_max": null
@@ -581,71 +575,71 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely close-set eyes",
-          "text_zh": "眼距极窄",
-          "ratio": 0.70,
+          "text": "eyes very close together",
+          "text_zh": "两眼靠得很近",
+          "ratio": 0.7,
           "ratio_min": null,
-          "ratio_max": 0.80
+          "ratio_max": 0.8
         },
         {
           "value": -0.6667,
-          "text": "noticeably close-set eyes",
-          "text_zh": "眼距明显偏窄",
+          "text": "close-set eyes",
+          "text_zh": "近眼距",
           "ratio": 0.8375,
-          "ratio_min": 0.80,
+          "ratio_min": 0.8,
           "ratio_max": 0.875
         },
         {
           "value": -0.3333,
           "text": "slightly close-set eyes",
-          "text_zh": "眼距偏窄",
+          "text_zh": "眼距稍近",
           "ratio": 0.9125,
           "ratio_min": 0.875,
           "ratio_max": 0.95
         },
         {
           "value": 0,
-          "text": "standard interocular distance",
-          "text_zh": "眼距标准",
-          "ratio": 1.00,
+          "text": "natural eye spacing",
+          "text_zh": "自然眼距",
+          "ratio": 1,
           "ratio_min": 0.95,
           "ratio_max": 1.05
         },
         {
           "value": 0.3333,
           "text": "slightly wide-set eyes",
-          "text_zh": "眼距偏宽",
+          "text_zh": "眼距稍宽",
           "ratio": 1.125,
           "ratio_min": 1.05,
-          "ratio_max": 1.20
+          "ratio_max": 1.2
         },
         {
           "value": 0.6667,
-          "text": "noticeably wide-set eyes",
-          "text_zh": "眼距明显偏宽",
-          "ratio": 1.30,
-          "ratio_min": 1.20,
-          "ratio_max": 1.40
+          "text": "wide-set eyes",
+          "text_zh": "宽眼距",
+          "ratio": 1.3,
+          "ratio_min": 1.2,
+          "ratio_max": 1.4
         },
         {
           "value": 1,
-          "text": "extremely wide-set eyes",
-          "text_zh": "眼距极宽",
-          "ratio": 1.50,
-          "ratio_min": 1.40,
+          "text": "eyes very far apart",
+          "text_zh": "两眼离得很远",
+          "ratio": 1.5,
+          "ratio_min": 1.4,
           "ratio_max": null
         }
       ],
       "measurement": {
         "metric": "eye_spacing_eye_widths",
-        "tolerance": 0.10,
+        "tolerance": 0.1,
         "unit": "eye widths",
         "targets": [
           {
             "value": -1,
             "label": "extremely close-set eyes",
             "label_zh": "眼距极窄",
-            "target": 0.70
+            "target": 0.7
           },
           {
             "value": -0.6667,
@@ -663,7 +657,7 @@
             "value": 0,
             "label": "standard interocular distance",
             "label_zh": "眼距标准",
-            "target": 1.00
+            "target": 1
           },
           {
             "value": 0.3333,
@@ -675,13 +669,13 @@
             "value": 0.6667,
             "label": "noticeably wide-set eyes",
             "label_zh": "眼距明显偏宽",
-            "target": 1.30
+            "target": 1.3
           },
           {
             "value": 1,
             "label": "extremely wide-set eyes",
             "label_zh": "眼距极宽",
-            "target": 1.50
+            "target": 1.5
           }
         ],
         "prompt_template": "inner-canthal distance approximately {target:.3f} times single-eye width",
@@ -690,49 +684,49 @@
         "standard_basis_zh": "标准：内眦间距 ÷ 单眼宽度 = 1.00"
       },
       "ratio_reference": "inner_canthal_distance / single_eye_width",
-      "ratio_standard": 1.0
+      "ratio_standard": 1
     },
     "canthal_tilt": {
       "levels": [
         {
           "value": -1,
-          "text": "extremely clearly downturned outer eye corners",
-          "text_zh": "极其下垂的外眼角"
+          "text": "strongly downturned eyes",
+          "text_zh": "眼尾明显下垂"
         },
         {
           "value": -0.6667,
-          "text": "clearly downturned outer eye corners",
-          "text_zh": "明显下垂的外眼角"
+          "text": "downturned eyes",
+          "text_zh": "眼尾下垂"
         },
         {
           "value": -0.3333,
-          "text": "slightly downturned outer eye corners",
-          "text_zh": "略微下垂的外眼角"
+          "text": "slightly downturned eyes",
+          "text_zh": "眼尾稍微下垂"
         },
         {
           "value": 0,
-          "text": "neutral outer eye corner tilt",
-          "text_zh": "平直自然的外眼角"
+          "text": "level outer eye corners",
+          "text_zh": "平直眼尾"
         },
         {
           "value": 0.3333,
-          "text": "subtly upturned outer eye corners",
-          "text_zh": "略微上扬的外眼角"
+          "text": "slightly upturned eyes",
+          "text_zh": "眼尾稍微上扬"
         },
         {
           "value": 0.6667,
-          "text": "clearly upturned outer eye corners",
-          "text_zh": "明显上扬的外眼角"
+          "text": "upturned eyes",
+          "text_zh": "眼尾上扬"
         },
         {
           "value": 1,
-          "text": "extremely clearly upturned outer eye corners",
-          "text_zh": "极其上扬的外眼角"
+          "text": "strongly upturned eyes",
+          "text_zh": "眼尾明显上扬"
         }
       ],
       "measurement": {
         "metric": "canthal_tilt_degrees",
-        "tolerance": 4.0,
+        "tolerance": 4,
         "unit": "degrees",
         "targets": [
           {
@@ -788,38 +782,38 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely close brow-eye distance",
-          "text_zh": "极其紧凑的眉眼距离"
+          "text": "eyebrows very close to the eyes",
+          "text_zh": "眉毛非常靠近眼睛"
         },
         {
           "value": -0.6667,
-          "text": "distinctly close brow-eye distance",
-          "text_zh": "明显紧凑的眉眼距离"
+          "text": "eyebrows close to the eyes",
+          "text_zh": "眉眼距离近"
         },
         {
           "value": -0.3333,
-          "text": "relatively close brow-eye distance",
-          "text_zh": "较近的眉眼距离"
+          "text": "slightly close brow-eye spacing",
+          "text_zh": "眉眼距离稍近"
         },
         {
           "value": 0,
-          "text": "balanced brow-eye spacing",
-          "text_zh": "均衡的眉眼距离"
+          "text": "natural brow-eye spacing",
+          "text_zh": "自然眉眼距离"
         },
         {
           "value": 0.3333,
-          "text": "relatively open brow-eye spacing",
-          "text_zh": "较开阔的眉眼距离"
+          "text": "slightly open brow-eye spacing",
+          "text_zh": "眉眼距离稍远"
         },
         {
           "value": 0.6667,
-          "text": "distinctly open brow-eye spacing",
-          "text_zh": "明显开阔的眉眼距离"
+          "text": "open brow-eye spacing",
+          "text_zh": "眉眼距离远"
         },
         {
           "value": 1,
-          "text": "extremely open brow-eye spacing",
-          "text_zh": "极其开阔的眉眼距离"
+          "text": "eyebrows very far from the eyes",
+          "text_zh": "眉毛离眼睛很远"
         }
       ],
       "measurement": {
@@ -880,71 +874,71 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely narrow nose",
-          "text_zh": "鼻翼极窄",
-          "ratio": 0.70,
+          "text": "very narrow nose",
+          "text_zh": "鼻子很窄",
+          "ratio": 0.7,
           "ratio_min": null,
-          "ratio_max": 0.80
+          "ratio_max": 0.8
         },
         {
           "value": -0.6667,
-          "text": "noticeably narrow nose",
-          "text_zh": "鼻翼明显偏窄",
+          "text": "narrow nose",
+          "text_zh": "窄鼻",
           "ratio": 0.8375,
-          "ratio_min": 0.80,
+          "ratio_min": 0.8,
           "ratio_max": 0.875
         },
         {
           "value": -0.3333,
           "text": "slightly narrow nose",
-          "text_zh": "鼻翼偏窄",
+          "text_zh": "鼻子稍窄",
           "ratio": 0.9125,
           "ratio_min": 0.875,
           "ratio_max": 0.95
         },
         {
           "value": 0,
-          "text": "standard nose width",
-          "text_zh": "鼻翼标准",
-          "ratio": 1.00,
+          "text": "natural nose width",
+          "text_zh": "自然鼻宽",
+          "ratio": 1,
           "ratio_min": 0.95,
           "ratio_max": 1.05
         },
         {
           "value": 0.3333,
           "text": "slightly wide nose",
-          "text_zh": "鼻翼偏宽",
+          "text_zh": "鼻子稍宽",
           "ratio": 1.125,
           "ratio_min": 1.05,
-          "ratio_max": 1.20
+          "ratio_max": 1.2
         },
         {
           "value": 0.6667,
-          "text": "noticeably wide nose",
-          "text_zh": "鼻翼明显偏宽",
-          "ratio": 1.30,
-          "ratio_min": 1.20,
-          "ratio_max": 1.40
+          "text": "wide nose",
+          "text_zh": "宽鼻",
+          "ratio": 1.3,
+          "ratio_min": 1.2,
+          "ratio_max": 1.4
         },
         {
           "value": 1,
-          "text": "extremely wide nose",
-          "text_zh": "鼻翼极宽",
-          "ratio": 1.50,
-          "ratio_min": 1.40,
+          "text": "very wide nose",
+          "text_zh": "鼻子很宽",
+          "ratio": 1.5,
+          "ratio_min": 1.4,
           "ratio_max": null
         }
       ],
       "measurement": {
         "metric": "nose_width_intercanthal_ratio",
-        "tolerance": 0.10,
+        "tolerance": 0.1,
         "unit": "intercanthal widths",
         "targets": [
           {
             "value": -1,
             "label": "extremely narrow nose",
             "label_zh": "鼻翼极窄",
-            "target": 0.70
+            "target": 0.7
           },
           {
             "value": -0.6667,
@@ -962,7 +956,7 @@
             "value": 0,
             "label": "standard nose width",
             "label_zh": "鼻翼标准",
-            "target": 1.00
+            "target": 1
           },
           {
             "value": 0.3333,
@@ -974,13 +968,13 @@
             "value": 0.6667,
             "label": "noticeably wide nose",
             "label_zh": "鼻翼明显偏宽",
-            "target": 1.30
+            "target": 1.3
           },
           {
             "value": 1,
             "label": "extremely wide nose",
             "label_zh": "鼻翼极宽",
-            "target": 1.50
+            "target": 1.5
           }
         ],
         "prompt_template": "nose alar width approximately {target:.3f} times inner-canthal distance",
@@ -989,63 +983,63 @@
         "standard_basis_zh": "标准：鼻翼宽 ÷ 内眦间距 = 1.00"
       },
       "ratio_reference": "nose_alar_width / inner_canthal_distance",
-      "ratio_standard": 1.0
+      "ratio_standard": 1
     },
     "nose_length": {
       "levels": [
         {
           "value": -1,
-          "text": "extremely short midface",
-          "text_zh": "中庭极短",
+          "text": "very short nose",
+          "text_zh": "鼻子很短",
           "ratio": 0.22,
           "ratio_min": null,
           "ratio_max": 0.25
         },
         {
           "value": -0.6667,
-          "text": "noticeably short midface",
-          "text_zh": "中庭明显偏短",
+          "text": "short nose",
+          "text_zh": "短鼻",
           "ratio": 0.26,
           "ratio_min": 0.25,
           "ratio_max": 0.275
         },
         {
           "value": -0.3333,
-          "text": "slightly short midface",
-          "text_zh": "中庭偏短",
+          "text": "slightly short nose",
+          "text_zh": "鼻子稍短",
           "ratio": 0.285,
           "ratio_min": 0.275,
-          "ratio_max": 0.30
+          "ratio_max": 0.3
         },
         {
           "value": 0,
-          "text": "standard midface proportion",
-          "text_zh": "中庭标准",
+          "text": "natural nose length",
+          "text_zh": "自然鼻长",
           "ratio": 0.33,
-          "ratio_min": 0.30,
+          "ratio_min": 0.3,
           "ratio_max": 0.36
         },
         {
           "value": 0.3333,
-          "text": "slightly long midface",
-          "text_zh": "中庭偏长",
+          "text": "slightly long nose",
+          "text_zh": "鼻子稍长",
           "ratio": 0.39,
           "ratio_min": 0.36,
           "ratio_max": 0.42
         },
         {
           "value": 0.6667,
-          "text": "noticeably long midface",
-          "text_zh": "中庭明显偏长",
+          "text": "long nose",
+          "text_zh": "长鼻",
           "ratio": 0.45,
           "ratio_min": 0.42,
           "ratio_max": 0.48
         },
         {
           "value": 1,
-          "text": "extremely long midface",
-          "text_zh": "中庭极长",
-          "ratio": 0.50,
+          "text": "very long nose",
+          "text_zh": "鼻子很长",
+          "ratio": 0.5,
           "ratio_min": 0.48,
           "ratio_max": null
         }
@@ -1057,38 +1051,38 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely soft low nose projection",
-          "text_zh": "极其柔和低平的鼻部突出度"
+          "text": "very flat nose",
+          "text_zh": "鼻梁很平"
         },
         {
           "value": -0.6667,
-          "text": "very soft low nose projection",
-          "text_zh": "非常柔和低平的鼻部突出度"
+          "text": "flat nose",
+          "text_zh": "鼻梁偏平"
         },
         {
           "value": -0.3333,
-          "text": "soft low nose projection",
-          "text_zh": "柔和偏低的鼻部突出度"
+          "text": "slightly flat nose",
+          "text_zh": "鼻梁稍平"
         },
         {
           "value": 0,
-          "text": "balanced natural nose projection",
-          "text_zh": "均衡自然的鼻部突出度"
+          "text": "natural nose projection",
+          "text_zh": "自然鼻梁立体度"
         },
         {
           "value": 0.3333,
-          "text": "well-defined natural nose projection",
-          "text_zh": "清晰自然的鼻部突出度"
+          "text": "slightly prominent nose",
+          "text_zh": "鼻梁稍挺"
         },
         {
           "value": 0.6667,
-          "text": "strong well-defined nose projection",
-          "text_zh": "强烈清晰的鼻部突出度"
+          "text": "prominent nose",
+          "text_zh": "挺鼻"
         },
         {
           "value": 1,
-          "text": "extremely strong well-defined nose projection",
-          "text_zh": "极其强烈清晰的鼻部突出度"
+          "text": "very prominent nose",
+          "text_zh": "鼻梁很挺"
         }
       ]
     },
@@ -1096,38 +1090,38 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely clearly downward-oriented nasal tip",
-          "text_zh": "极其向下的鼻尖"
+          "text": "strongly downturned nose tip",
+          "text_zh": "鼻尖明显向下"
         },
         {
           "value": -0.6667,
-          "text": "clearly downward-oriented nasal tip",
-          "text_zh": "明显向下的鼻尖"
+          "text": "downturned nose tip",
+          "text_zh": "鼻尖向下"
         },
         {
           "value": -0.3333,
-          "text": "slightly downward-oriented nasal tip",
-          "text_zh": "略微向下的鼻尖"
+          "text": "slightly downturned nose tip",
+          "text_zh": "鼻尖稍微向下"
         },
         {
           "value": 0,
-          "text": "neutral natural nasal tip",
-          "text_zh": "自然平直的鼻尖"
+          "text": "natural nose tip",
+          "text_zh": "自然鼻尖"
         },
         {
           "value": 0.3333,
-          "text": "subtly upturned nasal tip",
-          "text_zh": "略微上翘的鼻尖"
+          "text": "slightly upturned nose tip",
+          "text_zh": "鼻尖稍微上翘"
         },
         {
           "value": 0.6667,
-          "text": "clearly upturned nasal tip",
-          "text_zh": "明显上翘的鼻尖"
+          "text": "upturned nose tip",
+          "text_zh": "鼻尖上翘"
         },
         {
           "value": 1,
-          "text": "extremely clearly upturned nasal tip",
-          "text_zh": "极其上翘的鼻尖"
+          "text": "strongly upturned nose tip",
+          "text_zh": "鼻尖明显上翘"
         }
       ]
     },
@@ -1135,58 +1129,58 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely narrow mouth",
-          "text_zh": "嘴极窄",
-          "ratio": 1.10,
+          "text": "very narrow mouth",
+          "text_zh": "嘴很窄",
+          "ratio": 1.1,
           "ratio_min": null,
-          "ratio_max": 1.20
+          "ratio_max": 1.2
         },
         {
           "value": -0.6667,
-          "text": "noticeably narrow mouth",
-          "text_zh": "嘴明显偏窄",
+          "text": "narrow mouth",
+          "text_zh": "窄嘴",
           "ratio": 1.25,
-          "ratio_min": 1.20,
-          "ratio_max": 1.30
+          "ratio_min": 1.2,
+          "ratio_max": 1.3
         },
         {
           "value": -0.3333,
           "text": "slightly narrow mouth",
-          "text_zh": "嘴偏窄",
+          "text_zh": "嘴稍窄",
           "ratio": 1.35,
-          "ratio_min": 1.30,
-          "ratio_max": 1.40
+          "ratio_min": 1.3,
+          "ratio_max": 1.4
         },
         {
           "value": 0,
-          "text": "standard mouth width",
-          "text_zh": "嘴宽标准",
-          "ratio": 1.50,
-          "ratio_min": 1.40,
-          "ratio_max": 1.60
+          "text": "natural mouth width",
+          "text_zh": "自然嘴宽",
+          "ratio": 1.5,
+          "ratio_min": 1.4,
+          "ratio_max": 1.6
         },
         {
           "value": 0.3333,
           "text": "slightly wide mouth",
-          "text_zh": "嘴偏宽",
-          "ratio": 1.70,
-          "ratio_min": 1.60,
-          "ratio_max": 1.80
+          "text_zh": "嘴稍宽",
+          "ratio": 1.7,
+          "ratio_min": 1.6,
+          "ratio_max": 1.8
         },
         {
           "value": 0.6667,
-          "text": "noticeably wide mouth",
-          "text_zh": "嘴明显偏宽",
+          "text": "wide mouth",
+          "text_zh": "宽嘴",
           "ratio": 1.95,
-          "ratio_min": 1.80,
-          "ratio_max": 2.10
+          "ratio_min": 1.8,
+          "ratio_max": 2.1
         },
         {
           "value": 1,
-          "text": "extremely wide mouth",
-          "text_zh": "嘴极宽",
-          "ratio": 2.20,
-          "ratio_min": 2.10,
+          "text": "very wide mouth",
+          "text_zh": "嘴很宽",
+          "ratio": 2.2,
+          "ratio_min": 2.1,
           "ratio_max": null
         }
       ],
@@ -1199,7 +1193,7 @@
             "value": -1,
             "label": "extremely narrow mouth",
             "label_zh": "嘴极窄",
-            "target": 1.10
+            "target": 1.1
           },
           {
             "value": -0.6667,
@@ -1217,13 +1211,13 @@
             "value": 0,
             "label": "standard mouth width",
             "label_zh": "嘴宽标准",
-            "target": 1.50
+            "target": 1.5
           },
           {
             "value": 0.3333,
             "label": "slightly wide mouth",
             "label_zh": "嘴偏宽",
-            "target": 1.70
+            "target": 1.7
           },
           {
             "value": 0.6667,
@@ -1235,7 +1229,7 @@
             "value": 1,
             "label": "extremely wide mouth",
             "label_zh": "嘴极宽",
-            "target": 2.20
+            "target": 2.2
           }
         ],
         "prompt_template": "mouth width approximately {target:.3f} times nose alar width",
@@ -1250,38 +1244,38 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely thin upper lip",
-          "text_zh": "极其偏薄的上唇"
+          "text": "very thin upper lip",
+          "text_zh": "上唇很薄"
         },
         {
           "value": -0.6667,
-          "text": "distinctly thin upper lip",
-          "text_zh": "明显偏薄的上唇"
+          "text": "thin upper lip",
+          "text_zh": "薄上唇"
         },
         {
           "value": -0.3333,
-          "text": "relatively thin upper lip",
-          "text_zh": "较薄的上唇"
+          "text": "slightly thin upper lip",
+          "text_zh": "上唇稍薄"
         },
         {
           "value": 0,
-          "text": "balanced upper lip fullness",
-          "text_zh": "均衡的上唇厚度"
+          "text": "natural upper lip fullness",
+          "text_zh": "自然上唇厚度"
         },
         {
           "value": 0.3333,
-          "text": "full upper lip",
-          "text_zh": "较丰满的上唇"
+          "text": "slightly full upper lip",
+          "text_zh": "上唇稍厚"
         },
         {
           "value": 0.6667,
-          "text": "distinctly full upper lip",
-          "text_zh": "明显丰满的上唇"
+          "text": "full upper lip",
+          "text_zh": "丰满上唇"
         },
         {
           "value": 1,
-          "text": "extremely full upper lip",
-          "text_zh": "极其丰满的上唇"
+          "text": "very full upper lip",
+          "text_zh": "上唇很丰满"
         }
       ],
       "measurement": {
@@ -1342,38 +1336,38 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely thin lower lip",
-          "text_zh": "极其偏薄的下唇"
+          "text": "very thin lower lip",
+          "text_zh": "下唇很薄"
         },
         {
           "value": -0.6667,
-          "text": "distinctly thin lower lip",
-          "text_zh": "明显偏薄的下唇"
+          "text": "thin lower lip",
+          "text_zh": "薄下唇"
         },
         {
           "value": -0.3333,
-          "text": "relatively thin lower lip",
-          "text_zh": "较薄的下唇"
+          "text": "slightly thin lower lip",
+          "text_zh": "下唇稍薄"
         },
         {
           "value": 0,
-          "text": "balanced lower lip fullness",
-          "text_zh": "均衡的下唇厚度"
+          "text": "natural lower lip fullness",
+          "text_zh": "自然下唇厚度"
         },
         {
           "value": 0.3333,
-          "text": "slightly fuller lower lip",
-          "text_zh": "较丰满的下唇"
+          "text": "slightly full lower lip",
+          "text_zh": "下唇稍厚"
         },
         {
           "value": 0.6667,
-          "text": "noticeably fuller lower lip",
-          "text_zh": "明显丰满的下唇"
+          "text": "full lower lip",
+          "text_zh": "丰满下唇"
         },
         {
           "value": 1,
-          "text": "extremely fuller lower lip",
-          "text_zh": "极其丰满的下唇"
+          "text": "very full lower lip",
+          "text_zh": "下唇很丰满"
         }
       ],
       "measurement": {
@@ -1434,38 +1428,38 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely soft understated cupid's bow",
-          "text_zh": "极其柔和不极其的唇峰"
+          "text": "barely visible cupid bow",
+          "text_zh": "唇峰很不明显"
         },
         {
           "value": -0.6667,
-          "text": "very soft understated cupid's bow",
-          "text_zh": "非常柔和不明显的唇峰"
+          "text": "soft cupid bow",
+          "text_zh": "唇峰偏柔和"
         },
         {
           "value": -0.3333,
-          "text": "soft understated cupid's bow",
-          "text_zh": "柔和不突出的唇峰"
+          "text": "slightly soft cupid bow",
+          "text_zh": "唇峰稍柔和"
         },
         {
           "value": 0,
-          "text": "balanced natural cupid's bow",
-          "text_zh": "自然均衡的唇峰"
+          "text": "natural cupid bow",
+          "text_zh": "自然唇峰"
         },
         {
           "value": 0.3333,
-          "text": "clearly defined cupid's bow",
-          "text_zh": "清晰的唇峰"
+          "text": "slightly defined cupid bow",
+          "text_zh": "唇峰稍清晰"
         },
         {
           "value": 0.6667,
-          "text": "sharply defined cupid's bow",
-          "text_zh": "非常清晰鲜明的唇峰"
+          "text": "defined cupid bow",
+          "text_zh": "清晰唇峰"
         },
         {
           "value": 1,
-          "text": "extremely sharply defined cupid's bow",
-          "text_zh": "极其清晰鲜明的唇峰"
+          "text": "sharply defined cupid bow",
+          "text_zh": "唇峰非常清晰"
         }
       ],
       "measurement": {
@@ -1521,126 +1515,6 @@
         "standard_basis": "Operational baseline: Cupid-bow depth / upper-lip thickness = 0.25",
         "standard_basis_zh": "项目基准：唇峰深度 ÷ 上唇厚度 = 0.25"
       }
-    }
-  },
-  "composites": {
-    "facial_silhouette": {
-      "distinctly_elongated": "distinctly elongated facial silhouette",
-      "moderately_elongated": "moderately elongated facial silhouette",
-      "compact_broad": "compact broad facial silhouette",
-      "balanced": "balanced facial silhouette",
-      "cheekbones_broad": "relatively broad defined cheekbones",
-      "cheekbones_narrow": "relatively narrow cheekbone structure",
-      "jaw_broad": "broad lower jaw",
-      "jaw_narrow": "narrow tapered lower face",
-      "chin_narrow": "narrow chin",
-      "chin_broad": "relatively broad chin",
-      "chin_elongated": "slightly elongated chin",
-      "chin_compact": "compact chin"
-    },
-    "eye_geometry": {
-      "elongated": "distinctly elongated almond-shaped eyes",
-      "moderately_elongated": "moderately elongated almond-shaped eyes",
-      "rounded": "soft rounded eye geometry",
-      "balanced": "balanced almond-shaped eye geometry",
-      "aperture_open": "relatively open eye aperture",
-      "aperture_narrow": "narrow relaxed eye aperture",
-      "spacing_wide": "slightly wider-set eye placement",
-      "spacing_close": "relatively close-set eye placement",
-      "tilt_up": "subtly upturned outer eye corners",
-      "tilt_down": "slightly downturned outer eye corners"
-    },
-    "brow_eye_relationship": {
-      "close": "distinctly close brow-eye relationship",
-      "moderately_close": "relatively close brow-eye relationship",
-      "open": "open brow-eye relationship",
-      "moderately_open": "slightly open brow-eye spacing",
-      "balanced": "balanced brow-eye relationship"
-    },
-    "nose_profile": {
-      "narrow": "distinctly narrow nose",
-      "slender": "slender nose",
-      "broad": "relatively broad nose",
-      "elongated": "slightly elongated nasal structure",
-      "compact": "compact nasal structure",
-      "projected": "well-defined nose projection",
-      "low_projection": "soft low nose projection",
-      "tip_up": "subtly upturned nasal tip",
-      "tip_down": "slightly downward-oriented nasal tip",
-      "balanced": "balanced natural nose profile"
-    },
-    "lip_relationship": {
-      "mouth_wide": "relatively wide mouth",
-      "mouth_narrow": "compact narrow mouth",
-      "upper_dominant_contrast": "distinctly fuller upper lip contrasted with a thinner lower lip",
-      "lower_dominant_contrast": "thinner upper lip contrasted with a distinctly fuller lower lip",
-      "both_full": "balanced full upper and lower lips",
-      "both_thin": "relatively thin upper and lower lips",
-      "upper_dominant": "upper lip visibly fuller than the lower lip",
-      "lower_dominant": "lower lip visibly fuller than the upper lip",
-      "balanced": "balanced upper-to-lower lip relationship",
-      "cupid_defined": "clearly defined cupid's bow",
-      "cupid_soft": "soft understated cupid's bow"
-    }
-  },
-  "composites_zh": {
-    "facial_silhouette": {
-      "distinctly_elongated": "明显修长的面部轮廓",
-      "moderately_elongated": "较修长的面部轮廓",
-      "compact_broad": "紧凑宽阔的面部轮廓",
-      "balanced": "均衡的面部轮廓",
-      "cheekbones_broad": "较宽且清晰的颧骨",
-      "cheekbones_narrow": "较窄的颧骨结构",
-      "jaw_broad": "宽阔的下颌",
-      "jaw_narrow": "窄而收尖的下半脸",
-      "chin_narrow": "窄下巴",
-      "chin_broad": "较宽的下巴",
-      "chin_elongated": "略长的下巴",
-      "chin_compact": "紧凑的下巴"
-    },
-    "eye_geometry": {
-      "elongated": "明显修长的杏仁眼",
-      "moderately_elongated": "较修长的杏仁眼",
-      "rounded": "柔和圆润的眼部形态",
-      "balanced": "均衡的杏仁眼形态",
-      "aperture_open": "较开阔的眼裂",
-      "aperture_narrow": "狭窄放松的眼裂",
-      "spacing_wide": "略宽的眼距",
-      "spacing_close": "较近的眼距",
-      "tilt_up": "略微上扬的外眼角",
-      "tilt_down": "略微下垂的外眼角"
-    },
-    "brow_eye_relationship": {
-      "close": "明显紧凑的眉眼关系",
-      "moderately_close": "较紧凑的眉眼关系",
-      "open": "开阔的眉眼关系",
-      "moderately_open": "略开阔的眉眼距离",
-      "balanced": "均衡的眉眼关系"
-    },
-    "nose_profile": {
-      "narrow": "明显偏窄的鼻部",
-      "slender": "纤细的鼻部",
-      "broad": "较宽的鼻部",
-      "elongated": "略长的鼻部结构",
-      "compact": "紧凑的鼻部结构",
-      "projected": "清晰的鼻部突出度",
-      "low_projection": "柔和低平的鼻部突出度",
-      "tip_up": "略微上翘的鼻尖",
-      "tip_down": "略微向下的鼻尖",
-      "balanced": "均衡自然的鼻部轮廓"
-    },
-    "lip_relationship": {
-      "mouth_wide": "较宽的嘴部",
-      "mouth_narrow": "紧凑偏窄的嘴部",
-      "upper_dominant_contrast": "明显丰满的上唇与较薄下唇形成对比",
-      "lower_dominant_contrast": "较薄上唇与明显丰满的下唇形成对比",
-      "both_full": "上下唇均衡丰满",
-      "both_thin": "上下唇都较薄",
-      "upper_dominant": "上唇明显比下唇丰满",
-      "lower_dominant": "下唇明显比上唇丰满",
-      "balanced": "均衡的上下唇关系",
-      "cupid_defined": "清晰的唇峰",
-      "cupid_soft": "柔和不突出的唇峰"
     }
   }
 }

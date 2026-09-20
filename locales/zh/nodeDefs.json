@@ -93,33 +93,6 @@
       }
     }
   },
-  "CharacterDNACompositeIdentity": {
-    "display_name": "🧬 面部组合身份",
-    "description": "把 19 个面部 Feature 按关系合成为 5 组整体身份描述，并按显著度排序。",
-    "inputs": {
-      "character_dna": {
-        "name": "角色 DNA"
-      },
-      "max_composites": {
-        "name": "最大组合数",
-        "tooltip": "保留排名最前的 1–5 组面部 Composite；不会改变 DNA。"
-      }
-    },
-    "outputs": {
-      "0": {
-        "name": "角色 DNA"
-      },
-      "1": {
-        "name": "面部组合锚点 JSON"
-      },
-      "2": {
-        "name": "英文面部身份提示词"
-      },
-      "3": {
-        "name": "中文面部身份提示词"
-      }
-    }
-  },
   "CharacterDNABodySeedGenerator": {
     "display_name": "🧬 身体 DNA 种子生成器",
     "description": "确定性生成 20 维稳定身体比例参数，并输出继承面部/基础身份后的完整提示词。",
@@ -258,41 +231,6 @@
       },
       "2": {
         "name": "诊断图"
-      }
-    }
-  },
-  "CharacterDNAFaceLandmarkGeometryGuide": {
-    "display_name": "🧬 面部关键点结构引导",
-    "description": "把角色 DNA 的眼距目标转换成像素级关键点位移、局部变形参考图、编辑遮罩和干净结构引导图。",
-    "inputs": {
-      "image": {
-        "name": "原图"
-      },
-      "landmarks_106": {
-        "name": "106 点坐标"
-      },
-      "character_dna": {
-        "name": "角色 DNA"
-      },
-      "strength": {
-        "name": "引导强度"
-      }
-    },
-    "outputs": {
-      "0": {
-        "name": "变形参考图"
-      },
-      "1": {
-        "name": "编辑遮罩"
-      },
-      "2": {
-        "name": "结构引导图"
-      },
-      "3": {
-        "name": "目标 106 点"
-      },
-      "4": {
-        "name": "引导信息"
       }
     }
   },

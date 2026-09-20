@@ -16,40 +16,40 @@ Parametric 节点的界面步进为 `0.1`，手动覆盖值保留 1 位小数；
 
 正负号只代表结构方向，不代表好坏、美丑或质量。参数改变的是身份结构，妆容、发型、表情、姿势和灯光应由其他提示词控制。Seeder 产生连续值时，最接近 `0` 档的数值保留在 DNA 中，但不输出“均衡”提示词。
 
-如果某个 Composite 组的来源参数全部为 `0`，该组不会输出“均衡”描述；19 项全部为 `0` 时，结构提示词和 Composite anchors 都为空，只保留基础身份、年龄与固定质量词。
+19 项全部为 `0` 时不输出面部结构词，只保留基础身份、年龄与固定质量词。
 
 ## 19 个 Feature
 
-| 分组 | 参数 | `-1` 方向 | `0` | `+1` 方向 | 所属 Composite |
-|---|---|---|---|---|---|
-| 脸部 | `face_length` | 明显较短的面部比例 | 均衡脸长 | 明显较长的面部比例 | Facial Silhouette |
-| 脸部 | `face_width` | 明显较窄的脸 | 均衡脸宽 | 明显较宽的脸 | Facial Silhouette |
-| 脸部 | `cheekbone_width` | 窄、较收的颧骨 | 均衡颧宽 | 宽且突出的颧骨 | Facial Silhouette |
-| 脸部 | `jaw_width` | 窄而收尖的下颌 | 均衡下颌 | 宽而有力的下颌 | Facial Silhouette |
-| 脸部 | `chin_width` | 窄下巴 | 均衡下巴宽度 | 宽下巴 | Facial Silhouette |
-| 脸部 | `chin_length` | 短而紧凑的下巴 | 均衡下巴长度 | 较长的下巴 | Facial Silhouette |
-| 眼部 | `eye_elongation` | 圆、横向较短的眼型 | 均衡杏眼 | 横向细长的眼型 | Eye Geometry、Brow–Eye Relationship 显著度 |
-| 眼部 | `eye_openness` | 窄、开合较小 | 均衡开合 | 开合较大、较圆睁 | Eye Geometry、Brow–Eye Relationship 显著度 |
-| 眼部 | `eye_spacing` | 近眼距 | 均衡眼距 | 宽眼距 | Eye Geometry |
-| 眼部 | `canthal_tilt` | 外眼角向下 | 接近水平 | 外眼角向上 | Eye Geometry |
-| 眉眼 | `brow_eye_distance` | 眉眼距离紧凑 | 均衡眉眼距离 | 眉眼距离舒展 | Brow–Eye Relationship |
-| 鼻部 | `nose_width` | 窄鼻 | 均衡鼻宽 | 宽鼻 | Nose Profile |
-| 鼻部 | `nose_length` | 短鼻 | 均衡鼻长 | 长鼻 | Nose Profile |
-| 鼻部 | `nose_projection` | 鼻部较平、投影较低 | 均衡立体度 | 鼻部更立体、更突出 | Nose Profile |
-| 鼻部 | `nose_tip_rotation` | 鼻尖向下 | 中性鼻尖方向 | 鼻尖向上 | Nose Profile |
-| 嘴唇 | `mouth_width` | 窄嘴 | 均衡嘴宽 | 宽嘴 | Lip Relationship |
-| 嘴唇 | `upper_lip_fullness` | 上唇较薄 | 均衡上唇 | 上唇丰满 | Lip Relationship |
-| 嘴唇 | `lower_lip_fullness` | 下唇较薄 | 均衡下唇 | 下唇丰满 | Lip Relationship |
-| 嘴唇 | `cupid_bow_definition` | 唇峰柔和、不明显 | 均衡唇峰 | 唇峰清晰、明确 | Lip Relationship |
+| 分组 | 参数 | `-1` 方向 | `0` | `+1` 方向 |
+|---|---|---|---|---|
+| 脸部 | `face_length` | 短脸 | 不输出 | 长脸 |
+| 脸部 | `face_width` | 窄脸 | 不输出 | 宽脸 |
+| 脸部 | `cheekbone_width` | 窄颧骨 | 不输出 | 宽颧骨 |
+| 脸部 | `jaw_width` | 窄下颌 | 不输出 | 宽下颌 |
+| 脸部 | `chin_width` | 窄下巴 | 不输出 | 宽下巴 |
+| 脸部 | `chin_length` | 短下巴 | 不输出 | 长下巴 |
+| 眼部 | `eye_elongation` | 圆眼 | 不输出 | 细长眼 |
+| 眼部 | `eye_openness` | 细眼 | 不输出 | 大眼睛 |
+| 眼部 | `eye_spacing` | 近眼距 | 不输出 | 宽眼距 |
+| 眼部 | `canthal_tilt` | 眼尾下垂 | 不输出 | 眼尾上扬 |
+| 眉眼 | `brow_eye_distance` | 眉眼距离近 | 不输出 | 眉眼距离远 |
+| 鼻部 | `nose_width` | 窄鼻 | 不输出 | 宽鼻 |
+| 鼻部 | `nose_length` | 短鼻 | 不输出 | 长鼻 |
+| 鼻部 | `nose_projection` | 鼻梁偏平 | 不输出 | 鼻梁挺 |
+| 鼻部 | `nose_tip_rotation` | 鼻尖向下 | 不输出 | 鼻尖上翘 |
+| 嘴唇 | `mouth_width` | 窄嘴 | 不输出 | 宽嘴 |
+| 嘴唇 | `upper_lip_fullness` | 薄上唇 | 不输出 | 丰满上唇 |
+| 嘴唇 | `lower_lip_fullness` | 薄下唇 | 不输出 | 丰满下唇 |
+| 嘴唇 | `cupid_bow_definition` | 唇峰柔和 | 不输出 | 唇峰清晰 |
 
 ## 常见关系
 
-Composite 会看参数之间的关系，而不是机械拼接单项词语：
+Seed Generator 的 `harmony` 会在生成参数时处理明显冲突，例如：
 
 - `face_length` 高、`face_width` 低：修长感会同时增强。
 - `face_length` 高、`face_width` 也高：脸长仍存在，但宽度会削弱修长观感。
 - `face_width` 很窄、`jaw_width` 很宽：属于较强结构冲突，高 `harmony` 会柔化宽下颌。
-- `upper_lip_fullness` 与 `lower_lip_fullness` 一正一负：Composite 会表达为上下唇的对比关系。
+- `upper_lip_fullness` 与 `lower_lip_fullness` 一正一负：会形成上下唇厚度对比。
 - `eye_elongation` 与 `eye_openness` 共同决定细长、杏眼或圆睁的整体观感。
 - `brow_eye_distance` 决定眉眼关系的主要方向；眼型和开合度只参与该组显著度。
 
@@ -88,18 +88,6 @@ Composite 会看参数之间的关系，而不是机械拼接单项词语：
 - 低值：保留更多夸张、偶然性和极端组合。
 - 它不是美感分数，也不会把所有参数拉回 0。
 
-## Composite 参数
-
-### `max_composites`
-
-现有系统计算 5 组 Composite，再按 `salience × identity importance` 排序。该参数控制排名最前的 N 组使用整体关系描述：
-
-- `1–2`：只有最显著分组使用整体关系描述；其他分组退回非中性的逐项 Feature 描述。
-- `3`：三组使用整体关系，其余结构仍以 Feature 形式保留。
-- `5`：全部五组都使用自然关系描述，推荐默认值。
-
-Composite 使用混合输出：已选分组会补回没有被关系语句充分表达、绝对值达到 `0.5` 的强显著 Feature；未选分组会补回所有非中性 Feature。它只改变语言组织方式，不删除或覆盖 `parametric_identity.features` 中的任何数值。`composite_identity_v4.hybrid_residual_features` 会记录实际补回的参数名。
-
 ## 多参数调整方法
 
 Parametric Face Designer 每个节点只覆盖一个 Feature，并继承输入 DNA 中其余 18 个值。修改多个参数时按顺序串联：
@@ -109,7 +97,7 @@ Face DNA Seed Generator
   → Parametric: face_length = 0.3
   → Parametric: jaw_width = -0.3
   → Parametric: canthal_tilt = 0.3
-  → Face Composite Identity
+  → 直接使用最后一个 Parametric 的提示词
 ```
 
 同一个 Feature 被修改多次时，后面的节点覆盖前面的值。

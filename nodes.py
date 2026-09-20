@@ -19,9 +19,6 @@ from .character_dna.vocabulary import (
 from .character_dna.genesis_engine import (
     generate_seeded_parametric_dna,
 )
-from .character_dna.composite import (
-    build_composite_identity,
-)
 from .character_dna.body_parametric import (
     BODY_FEATURE_META,
     override_body_feature,
@@ -54,7 +51,6 @@ from .character_dna.candidate_selector import (
     select_directional_candidates,
 )
 from .character_dna.diagnostic import draw_landmark_diagnostic
-from .character_dna.landmark_guide import build_eye_spacing_guide
 DNA_TYPE = "CHARACTER_DNA"
 
 
@@ -350,80 +346,6 @@ class CharacterDNASeedGenerator:
             prompt,
             parameters_json,
             prompt_zh,
-        )
-
-# ============================================================
-# Composite Identity Engine
-# ============================================================
-
-class CharacterDNACompositeIdentity:
-
-    @classmethod
-    def IS_CHANGED(cls, **_kwargs):
-        return get_vocabulary_revision()
-
-    @classmethod
-    def INPUT_TYPES(cls):
-        return {
-            "required": {
-                "character_dna": (
-                    DNA_TYPE,
-                ),
-
-                "max_composites": (
-                    "INT",
-                    {
-                        "default": 5,
-                        "min": 1,
-                        "max": 5,
-                        "step": 1,
-                    },
-                ),
-            }
-        }
-
-    RETURN_TYPES = (
-        DNA_TYPE,
-        "STRING",
-        "STRING",
-        "STRING",
-    )
-
-    RETURN_NAMES = (
-        "character_dna",
-        "composite_anchors_json",
-        "identity_core_prompt",
-        "identity_core_prompt_zh",
-    )
-
-    FUNCTION = "build"
-
-    CATEGORY = "CharacterDNA/Identity"
-
-    def build(
-        self,
-        character_dna,
-        max_composites,
-    ):
-
-        dna, composites, identity_prompt, identity_prompt_zh = (
-            build_composite_identity(
-                character_dna,
-                max_composites=max_composites,
-            )
-        )
-
-        composites_json = json.dumps(
-            composites,
-            ensure_ascii=False,
-            indent=2,
-        )
-
-        return (
-            dna,
-            composites_json,
-            identity_prompt,
-            identity_prompt_zh,
         )
 
 # ============================================================
@@ -841,69 +763,6 @@ class CharacterDNAInsightFace106Detector:
             image.new_tensor(
                 draw_landmark_diagnostic(image_rgb, landmark_data) / 255.0
             ).unsqueeze(0),
-        )
-
-# ============================================================
-# Face Landmark Geometry Guide
-# ============================================================
-
-class CharacterDNAFaceLandmarkGeometryGuide:
-
-    @classmethod
-    def INPUT_TYPES(cls):
-        return {
-            "required": {
-                "image": ("IMAGE",),
-                "landmarks_106": ("LANDMARKS_106",),
-                "character_dna": (DNA_TYPE,),
-                "strength": (
-                    "FLOAT",
-                    {
-                        "default": 1.0,
-                        "min": 0.0,
-                        "max": 1.0,
-                        "step": 0.1,
-                        "round": 0.1,
-                    },
-                ),
-            }
-        }
-
-    RETURN_TYPES = (
-        "IMAGE",
-        "MASK",
-        "IMAGE",
-        "LANDMARKS_106",
-        "STRING",
-    )
-    RETURN_NAMES = (
-        "warped_reference",
-        "edit_mask",
-        "structure_guide",
-        "target_landmarks_106",
-        "guide_info",
-    )
-    FUNCTION = "guide"
-    CATEGORY = "CharacterDNA/Guidance"
-
-    def guide(self, image, landmarks_106, character_dna, strength):
-        if image is None or len(image) == 0:
-            raise ValueError("No image provided.")
-
-        image_np = image[0].detach().cpu().numpy()
-        image_rgb = np.clip(image_np * 255.0, 0, 255).astype(np.uint8)
-        warped, mask, structure, target_landmarks, info = build_eye_spacing_guide(
-            image_rgb,
-            landmarks_106,
-            character_dna,
-            strength=strength,
-        )
-        return (
-            image.new_tensor(warped / 255.0).unsqueeze(0),
-            image.new_tensor(mask).unsqueeze(0),
-            image.new_tensor(structure / 255.0).unsqueeze(0),
-            target_landmarks,
-            info,
         )
 
 # ============================================================
@@ -1431,9 +1290,6 @@ NODE_CLASS_MAPPINGS = {
     "CharacterDNASeedGenerator":
         CharacterDNASeedGenerator,
 
-    "CharacterDNACompositeIdentity":
-        CharacterDNACompositeIdentity,
-
     "CharacterDNABodySeedGenerator":
         CharacterDNABodySeedGenerator,
 
@@ -1448,9 +1304,6 @@ NODE_CLASS_MAPPINGS = {
 
     "CharacterDNAInsightFace106Detector":
         CharacterDNAInsightFace106Detector,
-
-    "CharacterDNAFaceLandmarkGeometryGuide":
-        CharacterDNAFaceLandmarkGeometryGuide,
 
     "CharacterDNAPhenotypeGeometry":
         CharacterDNAPhenotypeGeometry,
@@ -1476,9 +1329,6 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "CharacterDNASeedGenerator":
         "🧬 Face DNA Seed Generator",
 
-    "CharacterDNACompositeIdentity":
-        "🧬 Face Composite Identity",
-
     "CharacterDNABodySeedGenerator":
         "🧬 Body DNA Seed Generator",
 
@@ -1493,9 +1343,6 @@ NODE_DISPLAY_NAME_MAPPINGS = {
 
     "CharacterDNAInsightFace106Detector":
         "🧬 InsightFace 106 Detector",
-
-    "CharacterDNAFaceLandmarkGeometryGuide":
-        "🧬 Face Landmark Geometry Guide",
 
     "CharacterDNAPhenotypeGeometry":
         "🧬 Phenotype Geometry",

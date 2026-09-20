@@ -1,7 +1,6 @@
 {
   "nodeCategories": {
     "CharacterDNA/Genesis": "CharacterDNA/角色生成",
-    "CharacterDNA/Identity": "CharacterDNA/身份",
     "CharacterDNA/Landmarks": "CharacterDNA/关键点",
     "CharacterDNA/Analysis": "CharacterDNA/分析",
     "CharacterDNA/Casting": "CharacterDNA/选角",
@@ -58,18 +57,12 @@
     "eyes": "眼睛",
     "nose": "鼻子",
     "mouth": "嘴部",
-    "facial_silhouette": "脸部轮廓",
-    "eye_geometry": "眼部几何",
-    "brow_eye_relationship": "眉眼关系",
-    "nose_profile": "鼻部轮廓",
-    "lip_relationship": "唇部关系",
     "requestError": "请求失败",
     "identityAppearances": "稳定外观",
     "addAppearance": "+ 添加外观",
     "newAppearanceKey": "新外观标识",
     "faceFeatures": "面部参数",
     "bodyFeatures": "身体参数",
-    "faceComposites": "面部组合",
     "bodyComposites": "身体组合",
     "visualBlueprints": "画面蓝图",
     "look": "人物造型",
@@ -99,19 +92,6 @@
     "torso_architecture": "躯干结构",
     "limb_proportions": "四肢比例",
     "build_distribution": "体量分布",
-    "scale_balance": "尺度协调",
-    "measurementCalibration": "测量校准",
-    "metric": "测量指标",
-    "unit": "单位",
-    "tolerance": "容差",
-    "calibrationTarget": "DNA {value} · {label}",
-    "measurementPrompt": "测量提示词模板",
-    "standardBasis": "标准基准",
-    "ratioAnchors": "比值锚点",
-    "ratioReference": "比值定义",
-    "ratioStandard": "标准比值",
-    "ratioValue": "锚点比值",
-    "ratioMin": "区间下限（空白为开放）",
-    "ratioMax": "区间上限（空白为开放）"
+    "scale_balance": "尺度协调"
   }
 }

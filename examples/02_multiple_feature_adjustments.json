@@ -2,200 +2,531 @@
   "id": "e42c4cb2-66c6-4956-ab85-e16e3d3e9fc2",
   "revision": 0,
   "last_node_id": 9,
-  "last_link_id": 6,
+  "last_link_id": 5,
   "nodes": [
     {
       "id": 1,
       "type": "Note",
-      "pos": [0, 0],
-      "size": [390, 310],
+      "pos": [
+        0,
+        0
+      ],
+      "size": [
+        390,
+        310
+      ],
       "flags": {},
       "order": 0,
       "mode": 0,
       "inputs": [],
       "outputs": [],
       "properties": {},
-      "widgets_values": ["多参数调整示例\n\n每个 Parametric 节点只覆盖一个 Feature，并继承输入 DNA 中其余参数。\n\n本例依次修改：\n• face_length = +0.3：脸部略长\n• jaw_width = -0.3：下颌略窄、收尖\n• canthal_tilt = +0.3：外眼角略上扬\n\n同一 Feature 修改多次时，后面的节点覆盖前面的值。\n完整参数方向见 docs/parameters.zh-CN.md。"],
-      "widgets_values_named": {"text": "多参数调整示例"},
+      "widgets_values": [
+        "多参数调整示例\n\n每个 Parametric 节点只覆盖一个 Feature，并继承输入 DNA 中其余参数。\n\n本例依次修改：\n• face_length = +0.3：脸部略长\n• jaw_width = -0.3：下颌略窄、收尖\n• canthal_tilt = +0.3：外眼角略上扬\n\n同一 Feature 修改多次时，后面的节点覆盖前面的值。\n完整参数方向见 docs/parameters.zh-CN.md。"
+      ],
+      "widgets_values_named": {
+        "text": "多参数调整示例"
+      },
       "color": "#4b3d1f",
       "bgcolor": "#715e2e"
     },
     {
       "id": 2,
       "type": "CharacterDNADesigner",
-      "pos": [440, 40],
-      "size": [290, 190],
+      "pos": [
+        440,
+        40
+      ],
+      "size": [
+        290,
+        190
+      ],
       "flags": {},
       "order": 1,
       "mode": 0,
       "inputs": [
-        {"name": "character_name", "type": "STRING", "widget": {"name": "character_name"}, "link": null},
-        {"name": "gender", "type": "COMBO", "widget": {"name": "gender"}, "link": null},
-        {"name": "ancestry", "type": "COMBO", "widget": {"name": "ancestry"}, "link": null},
-        {"name": "visual_age", "type": "INT", "widget": {"name": "visual_age"}, "link": null}
+        {
+          "name": "character_name",
+          "type": "STRING",
+          "widget": {
+            "name": "character_name"
+          },
+          "link": null
+        },
+        {
+          "name": "gender",
+          "type": "COMBO",
+          "widget": {
+            "name": "gender"
+          },
+          "link": null
+        },
+        {
+          "name": "ancestry",
+          "type": "COMBO",
+          "widget": {
+            "name": "ancestry"
+          },
+          "link": null
+        },
+        {
+          "name": "visual_age",
+          "type": "INT",
+          "widget": {
+            "name": "visual_age"
+          },
+          "link": null
+        }
       ],
-      "outputs": [{"name": "character_dna", "type": "CHARACTER_DNA", "links": [1]}],
-      "properties": {"Node name for S&R": "CharacterDNADesigner"},
-      "widgets_values": ["IP_002", "female", "East Asian", 26],
-      "widgets_values_named": {"character_name": "IP_002", "gender": "female", "ancestry": "East Asian", "visual_age": 26}
+      "outputs": [
+        {
+          "name": "character_dna",
+          "type": "CHARACTER_DNA",
+          "links": [
+            1
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CharacterDNADesigner"
+      },
+      "widgets_values": [
+        "IP_002",
+        "female",
+        "East Asian",
+        26
+      ],
+      "widgets_values_named": {
+        "character_name": "IP_002",
+        "gender": "female",
+        "ancestry": "East Asian",
+        "visual_age": 26
+      }
     },
     {
       "id": 3,
       "type": "CharacterDNASeedGenerator",
-      "pos": [790, 40],
-      "size": [320, 210],
+      "pos": [
+        790,
+        40
+      ],
+      "size": [
+        320,
+        210
+      ],
       "flags": {},
       "order": 2,
       "mode": 0,
       "inputs": [
-        {"name": "character_dna", "type": "CHARACTER_DNA", "link": 1},
-        {"name": "seed", "type": "INT", "widget": {"name": "seed"}, "link": null},
-        {"name": "distinctiveness", "type": "FLOAT", "widget": {"name": "distinctiveness"}, "link": null},
-        {"name": "harmony", "type": "FLOAT", "widget": {"name": "harmony"}, "link": null}
+        {
+          "name": "character_dna",
+          "type": "CHARACTER_DNA",
+          "link": 1
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "widget": {
+            "name": "seed"
+          },
+          "link": null
+        },
+        {
+          "name": "distinctiveness",
+          "type": "FLOAT",
+          "widget": {
+            "name": "distinctiveness"
+          },
+          "link": null
+        },
+        {
+          "name": "harmony",
+          "type": "FLOAT",
+          "widget": {
+            "name": "harmony"
+          },
+          "link": null
+        }
       ],
       "outputs": [
-        {"name": "character_dna", "type": "CHARACTER_DNA", "links": [2]},
-        {"name": "parametric_prompt", "type": "STRING", "links": null},
-        {"name": "parameters_json", "type": "STRING", "links": null},
-        {"name": "parametric_prompt_zh", "type": "STRING", "links": null}
+        {
+          "name": "character_dna",
+          "type": "CHARACTER_DNA",
+          "links": [
+            2
+          ]
+        },
+        {
+          "name": "parametric_prompt",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "parameters_json",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "parametric_prompt_zh",
+          "type": "STRING",
+          "links": null
+        }
       ],
-      "properties": {"Node name for S&R": "CharacterDNASeedGenerator"},
-      "widgets_values": [137522, "fixed", 0.7, 0.85],
-      "widgets_values_named": {"seed": 137522, "control_after_generate": "fixed", "distinctiveness": 0.7, "harmony": 0.85}
+      "properties": {
+        "Node name for S&R": "CharacterDNASeedGenerator"
+      },
+      "widgets_values": [
+        137522,
+        "fixed",
+        0.7,
+        0.85
+      ],
+      "widgets_values_named": {
+        "seed": 137522,
+        "control_after_generate": "fixed",
+        "distinctiveness": 0.7,
+        "harmony": 0.85
+      }
     },
     {
       "id": 4,
       "type": "CharacterDNAParametricDesigner",
-      "pos": [1170, 40],
-      "size": [300, 170],
+      "pos": [
+        1170,
+        40
+      ],
+      "size": [
+        300,
+        170
+      ],
       "flags": {},
       "order": 3,
       "mode": 0,
       "inputs": [
-        {"name": "character_dna", "type": "CHARACTER_DNA", "link": 2},
-        {"name": "feature", "type": "COMBO", "widget": {"name": "feature"}, "link": null},
-        {"name": "value", "type": "FLOAT", "widget": {"name": "value"}, "link": null}
+        {
+          "name": "character_dna",
+          "type": "CHARACTER_DNA",
+          "link": 2
+        },
+        {
+          "name": "feature",
+          "type": "COMBO",
+          "widget": {
+            "name": "feature"
+          },
+          "link": null
+        },
+        {
+          "name": "value",
+          "type": "FLOAT",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        }
       ],
       "outputs": [
-        {"name": "character_dna", "type": "CHARACTER_DNA", "links": [3]},
-        {"name": "parametric_prompt", "type": "STRING", "links": null},
-        {"name": "parametric_prompt_zh", "type": "STRING", "links": null}
+        {
+          "name": "character_dna",
+          "type": "CHARACTER_DNA",
+          "links": [
+            3
+          ]
+        },
+        {
+          "name": "parametric_prompt",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "parametric_prompt_zh",
+          "type": "STRING",
+          "links": null
+        }
       ],
-      "properties": {"Node name for S&R": "CharacterDNAParametricDesigner"},
-      "widgets_values": ["face_length", 0.3],
-      "widgets_values_named": {"feature": "face_length", "value": 0.3}
+      "properties": {
+        "Node name for S&R": "CharacterDNAParametricDesigner"
+      },
+      "widgets_values": [
+        "face_length",
+        0.3
+      ],
+      "widgets_values_named": {
+        "feature": "face_length",
+        "value": 0.3
+      }
     },
     {
       "id": 5,
       "type": "CharacterDNAParametricDesigner",
-      "pos": [1530, 40],
-      "size": [300, 170],
+      "pos": [
+        1530,
+        40
+      ],
+      "size": [
+        300,
+        170
+      ],
       "flags": {},
       "order": 4,
       "mode": 0,
       "inputs": [
-        {"name": "character_dna", "type": "CHARACTER_DNA", "link": 3},
-        {"name": "feature", "type": "COMBO", "widget": {"name": "feature"}, "link": null},
-        {"name": "value", "type": "FLOAT", "widget": {"name": "value"}, "link": null}
+        {
+          "name": "character_dna",
+          "type": "CHARACTER_DNA",
+          "link": 3
+        },
+        {
+          "name": "feature",
+          "type": "COMBO",
+          "widget": {
+            "name": "feature"
+          },
+          "link": null
+        },
+        {
+          "name": "value",
+          "type": "FLOAT",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        }
       ],
       "outputs": [
-        {"name": "character_dna", "type": "CHARACTER_DNA", "links": [4]},
-        {"name": "parametric_prompt", "type": "STRING", "links": null},
-        {"name": "parametric_prompt_zh", "type": "STRING", "links": null}
+        {
+          "name": "character_dna",
+          "type": "CHARACTER_DNA",
+          "links": [
+            4
+          ]
+        },
+        {
+          "name": "parametric_prompt",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "parametric_prompt_zh",
+          "type": "STRING",
+          "links": null
+        }
       ],
-      "properties": {"Node name for S&R": "CharacterDNAParametricDesigner"},
-      "widgets_values": ["jaw_width", -0.3],
-      "widgets_values_named": {"feature": "jaw_width", "value": -0.3}
+      "properties": {
+        "Node name for S&R": "CharacterDNAParametricDesigner"
+      },
+      "widgets_values": [
+        "jaw_width",
+        -0.3
+      ],
+      "widgets_values_named": {
+        "feature": "jaw_width",
+        "value": -0.3
+      }
     },
     {
       "id": 6,
       "type": "CharacterDNAParametricDesigner",
-      "pos": [1890, 40],
-      "size": [300, 170],
+      "pos": [
+        1890,
+        40
+      ],
+      "size": [
+        300,
+        170
+      ],
       "flags": {},
       "order": 5,
       "mode": 0,
       "inputs": [
-        {"name": "character_dna", "type": "CHARACTER_DNA", "link": 4},
-        {"name": "feature", "type": "COMBO", "widget": {"name": "feature"}, "link": null},
-        {"name": "value", "type": "FLOAT", "widget": {"name": "value"}, "link": null}
+        {
+          "name": "character_dna",
+          "type": "CHARACTER_DNA",
+          "link": 4
+        },
+        {
+          "name": "feature",
+          "type": "COMBO",
+          "widget": {
+            "name": "feature"
+          },
+          "link": null
+        },
+        {
+          "name": "value",
+          "type": "FLOAT",
+          "widget": {
+            "name": "value"
+          },
+          "link": null
+        }
       ],
       "outputs": [
-        {"name": "character_dna", "type": "CHARACTER_DNA", "links": [5]},
-        {"name": "parametric_prompt", "type": "STRING", "links": null},
-        {"name": "parametric_prompt_zh", "type": "STRING", "links": null}
+        {
+          "name": "character_dna",
+          "type": "CHARACTER_DNA",
+          "links": null
+        },
+        {
+          "name": "parametric_prompt",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "parametric_prompt_zh",
+          "type": "STRING",
+          "links": [
+            5
+          ]
+        }
       ],
-      "properties": {"Node name for S&R": "CharacterDNAParametricDesigner"},
-      "widgets_values": ["canthal_tilt", 0.3],
-      "widgets_values_named": {"feature": "canthal_tilt", "value": 0.3}
-    },
-    {
-      "id": 7,
-      "type": "CharacterDNACompositeIdentity",
-      "pos": [2250, 40],
-      "size": [330, 180],
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "inputs": [
-        {"name": "character_dna", "type": "CHARACTER_DNA", "link": 5},
-        {"name": "max_composites", "type": "INT", "widget": {"name": "max_composites"}, "link": null}
+      "properties": {
+        "Node name for S&R": "CharacterDNAParametricDesigner"
+      },
+      "widgets_values": [
+        "canthal_tilt",
+        0.3
       ],
-      "outputs": [
-        {"name": "character_dna", "type": "CHARACTER_DNA", "links": null},
-        {"name": "composite_anchors_json", "type": "STRING", "links": null},
-        {"name": "identity_core_prompt", "type": "STRING", "links": null},
-        {"name": "identity_core_prompt_zh", "type": "STRING", "links": [6]}
-      ],
-      "properties": {"Node name for S&R": "CharacterDNACompositeIdentity"},
-      "widgets_values": [5],
-      "widgets_values_named": {"max_composites": 5}
+      "widgets_values_named": {
+        "feature": "canthal_tilt",
+        "value": 0.3
+      }
     },
     {
       "id": 8,
       "type": "SaveText",
-      "pos": [2640, 40],
-      "size": [300, 150],
+      "pos": [
+        2250,
+        40
+      ],
+      "size": [
+        300,
+        150
+      ],
       "flags": {},
-      "order": 7,
+      "order": 6,
       "mode": 0,
       "inputs": [
-        {"name": "text", "type": "STRING", "link": 6},
-        {"name": "filename_prefix", "type": "STRING", "widget": {"name": "filename_prefix"}, "link": null},
-        {"name": "format", "type": "COMBO", "widget": {"name": "format"}, "link": null}
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 5
+        },
+        {
+          "name": "filename_prefix",
+          "type": "STRING",
+          "widget": {
+            "name": "filename_prefix"
+          },
+          "link": null
+        },
+        {
+          "name": "format",
+          "type": "COMBO",
+          "widget": {
+            "name": "format"
+          },
+          "link": null
+        }
       ],
-      "outputs": [{"name": "text", "type": "STRING", "links": null}],
-      "properties": {"Node name for S&R": "SaveText"},
-      "widgets_values": ["CharacterDNA/adjusted_identity_zh", "txt"],
-      "widgets_values_named": {"filename_prefix": "CharacterDNA/adjusted_identity_zh", "format": "txt"}
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SaveText"
+      },
+      "widgets_values": [
+        "CharacterDNA/adjusted_identity_zh",
+        "txt"
+      ],
+      "widgets_values_named": {
+        "filename_prefix": "CharacterDNA/adjusted_identity_zh",
+        "format": "txt"
+      }
     },
     {
       "id": 9,
       "type": "Note",
-      "pos": [440, 330],
-      "size": [620, 760],
+      "pos": [
+        440,
+        330
+      ],
+      "size": [
+        620,
+        760
+      ],
       "flags": {},
-      "order": 8,
+      "order": 7,
       "mode": 0,
       "inputs": [],
       "outputs": [],
       "properties": {},
-      "widgets_values": ["Face Parametric 全部可设置项\n\n范围：-1.0 ～ +1.0　步进：0.1\n0 = 不指定，不输出该结构词。\n修改多项：串联多个 Parametric Face Designer；后面的同名参数覆盖前面的。\n\n【脸部轮廓】\nface_length：短脸 ←→ 长脸\nface_width：窄脸 ←→ 宽脸\ncheekbone_width：窄而内收的颧骨 ←→ 宽且突出的颧骨\njaw_width：窄而收尖的下颌 ←→ 宽而有力的下颌\nchin_width：窄下巴 ←→ 宽下巴\nchin_length：短下巴 ←→ 长下巴\n\n【眼部与眉眼】\neye_elongation：圆、横向较短 ←→ 横向细长\neye_openness：开合较小 ←→ 开合较大、圆睁\neye_spacing：近眼距 ←→ 宽眼距\ncanthal_tilt：外眼角向下 ←→ 外眼角向上\nbrow_eye_distance：眉眼紧凑 ←→ 眉眼舒展\n\n【鼻部】\nnose_width：窄鼻 ←→ 宽鼻\nnose_length：短鼻 ←→ 长鼻\nnose_projection：低投影、较平 ←→ 高投影、立体\nnose_tip_rotation：鼻尖向下 ←→ 鼻尖向上\n\n【嘴唇】\nmouth_width：窄嘴 ←→ 宽嘴\nupper_lip_fullness：薄上唇 ←→ 丰满上唇\nlower_lip_fullness：薄下唇 ←→ 丰满下唇\ncupid_bow_definition：柔和唇峰 ←→ 清晰唇峰"],
-      "widgets_values_named": {"text": "Face Parametric 全部可设置项"},
+      "widgets_values": [
+        "Face Parametric 全部可设置项\n\n范围：-1.0 ～ +1.0　步进：0.1\n0 = 不指定，不输出该结构词。\n修改多项：串联多个 Parametric Face Designer；后面的同名参数覆盖前面的。\n\n【脸部轮廓】\nface_length：短脸 ←→ 长脸\nface_width：窄脸 ←→ 宽脸\ncheekbone_width：窄而内收的颧骨 ←→ 宽且突出的颧骨\njaw_width：窄而收尖的下颌 ←→ 宽而有力的下颌\nchin_width：窄下巴 ←→ 宽下巴\nchin_length：短下巴 ←→ 长下巴\n\n【眼部与眉眼】\neye_elongation：圆、横向较短 ←→ 横向细长\neye_openness：开合较小 ←→ 开合较大、圆睁\neye_spacing：近眼距 ←→ 宽眼距\ncanthal_tilt：外眼角向下 ←→ 外眼角向上\nbrow_eye_distance：眉眼紧凑 ←→ 眉眼舒展\n\n【鼻部】\nnose_width：窄鼻 ←→ 宽鼻\nnose_length：短鼻 ←→ 长鼻\nnose_projection：低投影、较平 ←→ 高投影、立体\nnose_tip_rotation：鼻尖向下 ←→ 鼻尖向上\n\n【嘴唇】\nmouth_width：窄嘴 ←→ 宽嘴\nupper_lip_fullness：薄上唇 ←→ 丰满上唇\nlower_lip_fullness：薄下唇 ←→ 丰满下唇\ncupid_bow_definition：柔和唇峰 ←→ 清晰唇峰"
+      ],
+      "widgets_values_named": {
+        "text": "Face Parametric 全部可设置项"
+      },
       "color": "#24455a",
       "bgcolor": "#315f78"
     }
   ],
   "links": [
-    [1, 2, 0, 3, 0, "CHARACTER_DNA"],
-    [2, 3, 0, 4, 0, "CHARACTER_DNA"],
-    [3, 4, 0, 5, 0, "CHARACTER_DNA"],
-    [4, 5, 0, 6, 0, "CHARACTER_DNA"],
-    [5, 6, 0, 7, 0, "CHARACTER_DNA"],
-    [6, 7, 3, 8, 0, "STRING"]
+    [
+      1,
+      2,
+      0,
+      3,
+      0,
+      "CHARACTER_DNA"
+    ],
+    [
+      2,
+      3,
+      0,
+      4,
+      0,
+      "CHARACTER_DNA"
+    ],
+    [
+      3,
+      4,
+      0,
+      5,
+      0,
+      "CHARACTER_DNA"
+    ],
+    [
+      4,
+      5,
+      0,
+      6,
+      0,
+      "CHARACTER_DNA"
+    ],
+    [
+      5,
+      6,
+      2,
+      8,
+      0,
+      "STRING"
+    ]
   ],
   "groups": [],
   "config": {},
-  "extra": {"ds": {"scale": 0.7, "offset": [40, 200]}},
+  "extra": {
+    "ds": {
+      "scale": 0.7,
+      "offset": [
+        40,
+        200
+      ]
+    }
+  },
   "version": 0.4
 }

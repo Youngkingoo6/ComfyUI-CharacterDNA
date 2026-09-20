@@ -9,7 +9,6 @@ const FEATURE_GROUPS = {
   nose: ["nose_width", "nose_length", "nose_projection", "nose_tip_rotation"],
   mouth: ["mouth_width", "upper_lip_fullness", "lower_lip_fullness", "cupid_bow_definition"],
 };
-const COMPOSITE_GROUPS = ["facial_silhouette", "eye_geometry", "brow_eye_relationship", "nose_profile", "lip_relationship"];
 const BODY_FEATURE_GROUPS = {
   frame: ["stature", "shoulder_width", "shoulder_slope", "ribcage_width", "pelvis_width"],
   torso: ["neck_length", "neck_thickness", "torso_length", "chest_fullness", "waist_definition", "hip_fullness"],
@@ -33,21 +32,16 @@ const FALLBACK = {
   english: "English prompt", chinese: "Chinese prompt", value: "Value", identityTemplate: "Identity template",
   ageTemplate: "Age template", lifeStages: "Life stages", maxAge: "Upper age (blank for last)", addStage: "+ Add life stage",
   quality: "Fixed quality phrases", qualityPosition: "Fixed quality position", qualityAtStart: "At prompt start", qualityAtEnd: "At prompt end", face: "Face", eyes: "Eyes", nose: "Nose", mouth: "Mouth",
-  faceFeatures: "Face Features", bodyFeatures: "Body Features", faceComposites: "Face Composite", bodyComposites: "Body Composite",
+  faceFeatures: "Face Features", bodyFeatures: "Body Features", bodyComposites: "Body Composite",
   identityAppearances: "Identity Appearance", addAppearance: "+ Add appearance", newAppearanceKey: "New appearance key",
   visualBlueprints: "Visual Blueprints", look: "Look", performance: "Performance", scene: "Scene", photography: "Photography",
   addBlueprint: "+ Add blueprint", addPreset: "+ Add preset", addLayer: "+ Add layer", addVariation: "+ Add variation",
   newBlueprintKey: "New blueprint key", newPresetKey: "New preset key", deleteEntry: "Delete", blueprintLabel: "Display label", layerStack: "Advanced layer stack", variations: "Seed variations", enabled: "Enabled", layerType: "Layer", preset: "Preset", mergeMode: "Mode",
   negativePrompt: "Negative prompt",
-  measurementCalibration: "Measurement calibration", metric: "Metric", unit: "Unit",
-  calibrationTarget: "DNA {value} · {label}", tolerance: "Tolerance", measurementPrompt: "Measurement prompt template", standardBasis: "Standard basis",
-  ratioAnchors: "Ratio anchors", ratioReference: "Ratio reference", ratioStandard: "Standard ratio",
-  ratioValue: "Anchor ratio", ratioMin: "Minimum (blank = open)", ratioMax: "Maximum (blank = open)",
   frame: "Frame", torso: "Torso", limbs: "Limbs", build: "Build",
   overall_frame: "Overall frame", torso_architecture: "Torso architecture", limb_proportions: "Limb proportions",
   build_distribution: "Build distribution", scale_balance: "Scale balance",
-  facial_silhouette: "Facial silhouette", eye_geometry: "Eye geometry", brow_eye_relationship: "Brow-eye relationship",
-  nose_profile: "Nose profile", lip_relationship: "Lip relationship", requestError: "Request failed",
+  requestError: "Request failed",
 };
 
 let messages = FALLBACK;
@@ -159,59 +153,13 @@ function renderVocabularyPanel(container) {
         const feature = featureSection[name];
         if (!matches(name, ...feature.levels.flatMap((level) => [level.text, level.text_zh]))) continue;
         const card = el("article", { className: "cdna-vocab-card" }); card.appendChild(el("h4", { text: name }));
-        const nullableNumber = (value) => value === "" ? null : Number(value);
         for (const level of feature.levels) {
           const row = el("div", { className: "cdna-vocab-level" }, [
             el("strong", { text: String(level.value) }),
             field(t("english"), level.text, (value) => { level.text = value; }),
             field(t("chinese"), level.text_zh, (value) => { level.text_zh = value; }),
           ]);
-          if ("ratio" in level) row.appendChild(el("div", { className: "cdna-vocab-ratio-level", style: "grid-column:2/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:6px" }, [
-            field(t("ratioValue"), level.ratio, (value) => { level.ratio = Number(value); }, false),
-            field(t("ratioMin"), level.ratio_min, (value) => { level.ratio_min = nullableNumber(value); }, false),
-            field(t("ratioMax"), level.ratio_max, (value) => { level.ratio_max = nullableNumber(value); }, false),
-          ]));
           card.appendChild(row);
-        }
-        if ("ratio_reference" in feature) card.appendChild(el("div", { className: "cdna-vocab-measurement" }, [
-          el("h5", { text: t("ratioAnchors") }),
-          field(t("ratioReference"), feature.ratio_reference, (value) => { feature.ratio_reference = value; }, false),
-          field(t("ratioStandard"), feature.ratio_standard, (value) => { feature.ratio_standard = Number(value); }, false),
-        ]));
-        if (feature.measurement) {
-          const measurement = feature.measurement;
-          const numberField = (label, object, key) => field(label, object[key], (value) => { object[key] = Number(value); }, false);
-          card.appendChild(el("div", { className: "cdna-vocab-measurement" }, [
-            el("h5", { text: t("measurementCalibration") }),
-            field(t("metric"), measurement.metric, (value) => { measurement.metric = value; }, false),
-            field(t("unit"), measurement.unit, (value) => { measurement.unit = value; }, false),
-            numberField(t("tolerance"), measurement, "tolerance"),
-            ...(measurement.targets || []).map((item) => numberField(
-              t("calibrationTarget")
-                .replace("{value}", Number(item.value).toFixed(4).replace(/0+$/, "").replace(/\.$/, ""))
-                .replace("{label}", currentLocale().toLowerCase().startsWith("zh") ? item.label_zh : item.label),
-              item,
-              "target",
-            )),
-            el("div", { style: "grid-column:1/-1" }, [
-              el("h5", { text: t("standardBasis") }),
-              bilingual(
-                measurement.standard_basis,
-                measurement.standard_basis_zh,
-                (value) => { measurement.standard_basis = value; },
-                (value) => { measurement.standard_basis_zh = value; },
-              ),
-            ]),
-            el("div", { style: "grid-column:1/-1" }, [
-              el("h5", { text: t("measurementPrompt") }),
-              bilingual(
-                measurement.prompt_template,
-                measurement.prompt_template_zh,
-                (value) => { measurement.prompt_template = value; },
-                (value) => { measurement.prompt_template_zh = value; },
-              ),
-            ]),
-          ]));
         }
         group.appendChild(card); groupCount += 1; count += 1;
       }
@@ -361,7 +309,6 @@ function renderVocabularyPanel(container) {
       identityAppearances: renderIdentityAppearances,
       faceFeatures: () => renderFeatures(state.vocabulary.features, FEATURE_GROUPS),
       bodyFeatures: () => renderFeatures(state.vocabulary.body_features, BODY_FEATURE_GROUPS),
-      faceComposites: () => renderComposites(state.vocabulary.composites, state.vocabulary.composites_zh, COMPOSITE_GROUPS),
       bodyComposites: () => renderComposites(state.vocabulary.body_composites, state.vocabulary.body_composites_zh, BODY_COMPOSITE_GROUPS),
       visualBlueprints: renderBlueprints,
       look: () => renderLayerPresets(state.vocabulary.visual_layers.look, "look"),
@@ -374,7 +321,7 @@ function renderVocabularyPanel(container) {
   }
 
   const tabs = el("div", { className: "cdna-vocab-tabs" }); const buttons = new Map();
-  for (const key of ["identityAppearances", "faceFeatures", "bodyFeatures", "faceComposites", "bodyComposites", "visualBlueprints", "look", "performance", "scene", "photography", "profile"]) { const button = el("button", { className: key === state.activeTab ? "active" : "", text: t(key), onclick: () => { state.activeTab = key; buttons.forEach((item, itemKey) => item.classList.toggle("active", itemKey === key)); search.placeholder = t(key.endsWith("Features") ? "searchFeatures" : key.endsWith("Composites") ? "searchComposites" : ["identityAppearances", "visualBlueprints", "look", "performance", "scene", "photography"].includes(key) ? "searchPhrases" : "searchProfile"); renderContent(); } }); buttons.set(key, button); tabs.appendChild(button); }
+  for (const key of ["identityAppearances", "faceFeatures", "bodyFeatures", "bodyComposites", "visualBlueprints", "look", "performance", "scene", "photography", "profile"]) { const button = el("button", { className: key === state.activeTab ? "active" : "", text: t(key), onclick: () => { state.activeTab = key; buttons.forEach((item, itemKey) => item.classList.toggle("active", itemKey === key)); search.placeholder = t(key.endsWith("Features") ? "searchFeatures" : key.endsWith("Composites") ? "searchComposites" : ["identityAppearances", "visualBlueprints", "look", "performance", "scene", "photography"].includes(key) ? "searchPhrases" : "searchProfile"); renderContent(); } }); buttons.set(key, button); tabs.appendChild(button); }
   const toolbar = el("div", { className: "cdna-vocab-toolbar" }, [el("button", { className: "primary", text: t("save"), onclick: save }), el("button", { text: t("reload"), onclick: () => load(false) }), el("button", { text: t("export"), onclick: exportVocabulary }), el("button", { text: t("import"), onclick: () => importInput.click() }), el("button", { className: "danger", text: t("reset"), onclick: reset })]);
   const header = el("header", { className: "cdna-vocab-header" }, [el("div", { className: "cdna-vocab-title" }, [el("span", { text: `🧬 ${t("title")}` }), el("small", { text: t("autoApply") })]), toolbar, tabs, search, importInput]);
   root.append(header, content, status); container.replaceChildren(root); container.style.height = "100%"; container.style.overflow = "hidden"; load(true);

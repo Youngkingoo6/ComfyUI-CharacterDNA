@@ -7,8 +7,9 @@
 将 `Character Visual Blueprint / 角色画面蓝图` 接在完整身份链路的最后：
 
 ```text
-Face Composite Identity
-  → Body Composite Identity
+Face DNA Seed Generator / Parametric Face Designer
+  → Body DNA Seed Generator（可选）
+  → Body Composite Identity（可选）
   → Character Visual Blueprint
 ```
 

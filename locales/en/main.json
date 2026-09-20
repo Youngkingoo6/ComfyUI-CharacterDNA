@@ -1,7 +1,6 @@
 {
   "nodeCategories": {
     "CharacterDNA/Genesis": "CharacterDNA/Genesis",
-    "CharacterDNA/Identity": "CharacterDNA/Identity",
     "CharacterDNA/Landmarks": "CharacterDNA/Landmarks",
     "CharacterDNA/Analysis": "CharacterDNA/Analysis",
     "CharacterDNA/Casting": "CharacterDNA/Casting",
@@ -58,18 +57,12 @@
     "eyes": "Eyes",
     "nose": "Nose",
     "mouth": "Mouth",
-    "facial_silhouette": "Facial silhouette",
-    "eye_geometry": "Eye geometry",
-    "brow_eye_relationship": "Brow-eye relationship",
-    "nose_profile": "Nose profile",
-    "lip_relationship": "Lip relationship",
     "requestError": "Request failed",
     "identityAppearances": "Identity Appearance",
     "addAppearance": "+ Add appearance",
     "newAppearanceKey": "New appearance key",
     "faceFeatures": "Face Features",
     "bodyFeatures": "Body Features",
-    "faceComposites": "Face Composite",
     "bodyComposites": "Body Composite",
     "visualBlueprints": "Visual Blueprints",
     "look": "Look",
@@ -99,19 +92,6 @@
     "torso_architecture": "Torso architecture",
     "limb_proportions": "Limb proportions",
     "build_distribution": "Build distribution",
-    "scale_balance": "Scale balance",
-    "measurementCalibration": "Measurement calibration",
-    "metric": "Metric",
-    "unit": "Unit",
-    "tolerance": "Tolerance",
-    "calibrationTarget": "DNA {value} · {label}",
-    "measurementPrompt": "Measurement prompt template",
-    "standardBasis": "Standard basis",
-    "ratioAnchors": "Ratio anchors",
-    "ratioReference": "Ratio reference",
-    "ratioStandard": "Standard ratio",
-    "ratioValue": "Anchor ratio",
-    "ratioMin": "Minimum (blank = open)",
-    "ratioMax": "Maximum (blank = open)"
+    "scale_balance": "Scale balance"
   }
 }
