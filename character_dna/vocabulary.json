@@ -72,27 +72,32 @@
         {
           "value": -1,
           "text": "distinctly short facial proportions",
-          "text_zh": "明显偏短的面部比例"
+          "text_zh": "明显偏短的面部比例",
+          "ratio": 0.945
         },
         {
           "value": -0.5,
           "text": "slightly shorter facial proportions",
-          "text_zh": "略短的面部比例"
+          "text_zh": "略短的面部比例",
+          "ratio": 1.1475
         },
         {
           "value": 0,
           "text": "balanced facial length",
-          "text_zh": "均衡的脸部长度"
+          "text_zh": "均衡的脸部长度",
+          "ratio": 1.350
         },
         {
           "value": 0.5,
           "text": "slightly elongated facial proportions",
-          "text_zh": "略长的面部比例"
+          "text_zh": "略长的面部比例",
+          "ratio": 1.5525
         },
         {
           "value": 1,
           "text": "distinctly elongated facial proportions",
-          "text_zh": "明显偏长的面部比例"
+          "text_zh": "明显偏长的面部比例",
+          "ratio": 1.755
         }
       ]
     },
@@ -101,27 +106,32 @@
         {
           "value": -1,
           "text": "distinctly narrow facial structure",
-          "text_zh": "明显偏窄的面部结构"
+          "text_zh": "明显偏窄的面部结构",
+          "ratio": 0.518
         },
         {
           "value": -0.5,
           "text": "moderately narrow facial structure",
-          "text_zh": "较窄的面部结构"
+          "text_zh": "较窄的面部结构",
+          "ratio": 0.629
         },
         {
           "value": 0,
           "text": "balanced facial width",
-          "text_zh": "均衡的脸部宽度"
+          "text_zh": "均衡的脸部宽度",
+          "ratio": 0.740
         },
         {
           "value": 0.5,
           "text": "moderately broad facial structure",
-          "text_zh": "较宽的面部结构"
+          "text_zh": "较宽的面部结构",
+          "ratio": 0.851
         },
         {
           "value": 1,
           "text": "noticeably broad facial structure",
-          "text_zh": "明显偏宽的面部结构"
+          "text_zh": "明显偏宽的面部结构",
+          "ratio": 0.962
         }
       ]
     },
@@ -217,27 +227,32 @@
         {
           "value": -1,
           "text": "very compact short chin",
-          "text_zh": "非常紧凑短小的下巴"
+          "text_zh": "非常紧凑短小的下巴",
+          "ratio": 0.119
         },
         {
           "value": -0.5,
           "text": "compact short chin",
-          "text_zh": "紧凑偏短的下巴"
+          "text_zh": "紧凑偏短的下巴",
+          "ratio": 0.1445
         },
         {
           "value": 0,
           "text": "balanced chin length",
-          "text_zh": "均衡的下巴长度"
+          "text_zh": "均衡的下巴长度",
+          "ratio": 0.170
         },
         {
           "value": 0.5,
           "text": "slightly elongated chin",
-          "text_zh": "略长的下巴"
+          "text_zh": "略长的下巴",
+          "ratio": 0.1955
         },
         {
           "value": 1,
           "text": "distinctly elongated chin",
-          "text_zh": "明显偏长的下巴"
+          "text_zh": "明显偏长的下巴",
+          "ratio": 0.221
         }
       ]
     },
@@ -410,27 +425,32 @@
         {
           "value": -1,
           "text": "distinctly close-set eyes",
-          "text_zh": "明显偏近的眼距"
+          "text_zh": "明显偏近的眼距",
+          "ratio": 0.70
         },
         {
           "value": -0.5,
           "text": "relatively close-set eyes",
-          "text_zh": "较近的眼距"
+          "text_zh": "较近的眼距",
+          "ratio": 0.85
         },
         {
           "value": 0,
           "text": "balanced eye spacing",
-          "text_zh": "均衡的眼距"
+          "text_zh": "均衡的眼距",
+          "ratio": 1.00
         },
         {
           "value": 0.5,
           "text": "slightly wide-set eyes",
-          "text_zh": "略宽的眼距"
+          "text_zh": "略宽的眼距",
+          "ratio": 1.15
         },
         {
           "value": 1,
           "text": "distinctly wide-set eyes",
-          "text_zh": "明显偏宽的眼距"
+          "text_zh": "明显偏宽的眼距",
+          "ratio": 1.30
         }
       ],
       "measurement": {
@@ -656,27 +676,32 @@
         {
           "value": -1,
           "text": "distinctly narrow nose",
-          "text_zh": "明显偏窄的鼻部"
+          "text_zh": "明显偏窄的鼻部",
+          "ratio": 0.147
         },
         {
           "value": -0.5,
           "text": "slender narrow nose",
-          "text_zh": "纤细偏窄的鼻部"
+          "text_zh": "纤细偏窄的鼻部",
+          "ratio": 0.1785
         },
         {
           "value": 0,
           "text": "balanced nose width",
-          "text_zh": "均衡的鼻部宽度"
+          "text_zh": "均衡的鼻部宽度",
+          "ratio": 0.210
         },
         {
           "value": 0.5,
           "text": "relatively broad nose",
-          "text_zh": "较宽的鼻部"
+          "text_zh": "较宽的鼻部",
+          "ratio": 0.2415
         },
         {
           "value": 1,
           "text": "distinctly broad nose",
-          "text_zh": "明显宽阔的鼻部"
+          "text_zh": "明显宽阔的鼻部",
+          "ratio": 0.273
         }
       ],
       "measurement": {
@@ -738,27 +763,32 @@
         {
           "value": -1,
           "text": "distinctly compact short nose",
-          "text_zh": "明显紧凑短小的鼻部"
+          "text_zh": "明显紧凑短小的鼻部",
+          "ratio": 0.224
         },
         {
           "value": -0.5,
           "text": "compact short nose",
-          "text_zh": "紧凑偏短的鼻部"
+          "text_zh": "紧凑偏短的鼻部",
+          "ratio": 0.272
         },
         {
           "value": 0,
           "text": "balanced nose length",
-          "text_zh": "均衡的鼻部长度"
+          "text_zh": "均衡的鼻部长度",
+          "ratio": 0.320
         },
         {
           "value": 0.5,
           "text": "slightly elongated nose",
-          "text_zh": "略长的鼻部"
+          "text_zh": "略长的鼻部",
+          "ratio": 0.368
         },
         {
           "value": 1,
           "text": "distinctly elongated nose",
-          "text_zh": "明显偏长的鼻部"
+          "text_zh": "明显偏长的鼻部",
+          "ratio": 0.416
         }
       ],
       "measurement": {
@@ -878,27 +908,32 @@
         {
           "value": -1,
           "text": "distinctly compact narrow mouth",
-          "text_zh": "明显紧凑偏窄的嘴部"
+          "text_zh": "明显紧凑偏窄的嘴部",
+          "ratio": 0.252
         },
         {
           "value": -0.5,
           "text": "compact narrow mouth",
-          "text_zh": "紧凑偏窄的嘴部"
+          "text_zh": "紧凑偏窄的嘴部",
+          "ratio": 0.306
         },
         {
           "value": 0,
           "text": "balanced mouth width",
-          "text_zh": "均衡的嘴部宽度"
+          "text_zh": "均衡的嘴部宽度",
+          "ratio": 0.360
         },
         {
           "value": 0.5,
           "text": "moderately wide mouth",
-          "text_zh": "较宽的嘴部"
+          "text_zh": "较宽的嘴部",
+          "ratio": 0.414
         },
         {
           "value": 1,
           "text": "distinctly wide mouth",
-          "text_zh": "明显宽阔的嘴部"
+          "text_zh": "明显宽阔的嘴部",
+          "ratio": 0.468
         }
       ],
       "measurement": {

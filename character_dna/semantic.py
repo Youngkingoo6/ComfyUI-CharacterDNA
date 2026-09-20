@@ -48,6 +48,10 @@ def feature_to_phrase(name, value, language="en"):
             return None
         key = "text_zh" if str(language).lower().startswith("zh") else "text"
         phrase = level.get(key, level.get("text"))
+        ratio = level.get("ratio")
+        if ratio is not None:
+            separator = "，" if str(language).lower().startswith("zh") else ", "
+            return f"{phrase}{separator}{name} ≈ {ratio}×"
         measurement_phrase = get_measurement_phrase(name, value, language)
         if measurement_phrase:
             separator = "，" if str(language).lower().startswith("zh") else ", "
