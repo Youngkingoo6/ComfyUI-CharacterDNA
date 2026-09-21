@@ -34,7 +34,7 @@ const FALLBACK = {
   quality: "Fixed quality phrases", qualityPosition: "Fixed quality position", qualityAtStart: "At prompt start", qualityAtEnd: "At prompt end", face: "Face", eyebrows: "Eyebrows", eyes: "Eyes", nose: "Nose", mouth: "Mouth",
   faceFeatures: "Face Features", bodyFeatures: "Body Features",
   identityAppearances: "Identity Appearance", addAppearance: "+ Add appearance", newAppearanceKey: "New appearance key",
-  visualBlueprints: "Visual Blueprints", look: "Look", performance: "Performance", scene: "Scene", photography: "Photography",
+  visualBlueprints: "Visual Blueprints", look: "Outfit", performance: "Expression & Pose", scene: "Scene", photography: "Photography",
   addBlueprint: "+ Add blueprint", addPreset: "+ Add preset", addLayer: "+ Add layer", addVariation: "+ Add variation",
   newBlueprintKey: "New blueprint key", newPresetKey: "New preset key", deleteEntry: "Delete", blueprintLabel: "Display label", layerStack: "Advanced layer stack", variations: "Seed variations", enabled: "Enabled", layerType: "Layer", preset: "Preset", mergeMode: "Mode",
   negativePrompt: "Negative prompt",

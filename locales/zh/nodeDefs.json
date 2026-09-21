@@ -161,7 +161,7 @@
   },
   "CharacterDNAVisualBlueprint": {
     "display_name": "🧬 角色画面蓝图",
-    "description": "为完整 DNA 身份提示词应用一套可复用的画面蓝图，并按种子稳定选择细节变化。造型、表演、场景和摄影图层在词库面板中编辑。",
+    "description": "为完整 DNA 身份提示词应用一套可复用的画面蓝图，并按种子稳定选择细节变化。穿搭、表情跟姿态、场景和摄影图层在词库面板中编辑。",
     "inputs": {
       "character_dna": {
         "name": "角色 DNA"

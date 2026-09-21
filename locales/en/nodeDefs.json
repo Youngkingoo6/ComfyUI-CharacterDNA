@@ -161,7 +161,7 @@
   },
   "CharacterDNAVisualBlueprint": {
     "display_name": "🧬 Character Visual Blueprint",
-    "description": "Applies one reusable visual blueprint and a deterministic seed variation to the complete DNA identity prompt. Advanced Look, Performance, Scene and Photography layers are edited in the vocabulary panel.",
+    "description": "Applies one reusable visual blueprint and a deterministic seed variation to the complete DNA identity prompt. Advanced Outfit, Expression & Pose, Scene and Photography layers are edited in the vocabulary panel.",
     "inputs": {
       "character_dna": {
         "name": "Character DNA"

@@ -23,7 +23,7 @@ Face DNA Seed Generator / Parametric Face Designer
 输出顺序是：
 
 ```text
-完整身份 → Look → Performance → Scene → Photography
+完整身份 → Outfit → Expression & Pose → Scene → Photography
          → Seed 变化 → Fixed quality phrases
 ```
 
@@ -31,8 +31,8 @@ Face DNA Seed Generator / Parametric Face Designer
 
 ## 四类可复用图层
 
-- `Look / 人物造型`：服装、材质、发型、配饰和妆容。
-- `Performance / 表演`：动作、姿态、表情、视线和情绪。
+- `Outfit / 穿搭`：服装、材质、发型、配饰和妆容。
+- `Expression & Pose / 表情跟姿态`：动作、姿态、表情、视线和情绪。
 - `Scene / 场景`：地点、空间关系、环境物件和氛围细节。
 - `Photography / 摄影`：镜头、视角、构图、景深、光线、色彩和画面质感。
 
@@ -54,7 +54,7 @@ Face DNA Seed Generator / Parametric Face Designer
 - `street_walk_documentary`：休闲牛仔造型、行走抓拍与 35mm 环境纪实摄影。
 - `rembrandt_evening_portrait`：单色晚宴造型、回肩姿态与 85mm 伦勃朗棚拍。
 
-默认词库控制在便于筛选的规模：16 套 Look、14 套 Performance、16 套 Scene、12 套 Photography，以及 8 套稳定外观。所有新增内容均使用独立编写的中英文视觉句子，不直接复制外部节点的原始单词列表。
+默认词库控制在便于筛选的规模：16 套 Outfit、14 套 Expression & Pose、16 套 Scene、12 套 Photography，以及 12 套稳定外观。所有新增内容均使用独立编写的中英文视觉句子，不直接复制外部节点的原始单词列表。
 
 ## 在界面修改
 
@@ -62,7 +62,7 @@ Face DNA Seed Generator / Parametric Face Designer
 2. 在 **Identity Appearance / 稳定外观** 中维护会被所有身份提示词继承的瞳色、肤色、发色和辨识标记。
 3. 在 **Visual Blueprints / 画面蓝图** 中编辑显示名称、正负向提示词和 Seed 变化。
 4. 展开 **Advanced layer stack / 高级图层栈**，添加、删除、排序或停用图层。
-5. 在 Look、Performance、Scene、Photography 标签页维护可复用预设。
+5. 在 Outfit、Expression & Pose、Scene、Photography 标签页维护可复用预设。
 6. 点击保存，再完整运行工作流。
 
 每个预设都有中文显示名、英文显示名和稳定内部键。面板会根据 ComfyUI 当前语言显示对应名称，在蓝图的图层下拉菜单中也使用当前语言；内部键会以小字保留，便于导出 JSON 后准确定位。
@@ -76,8 +76,8 @@ Face DNA Seed Generator / Parametric Face Designer
 
 ## 自由组合
 
-画面蓝图不检查或推断年龄。无论 `visual_age` 的数值是多少，或身份提示词使用“少女”等不明确表达，所选 Look、Performance、Scene、Photography 都会正常组合，不会跳过任何图层。年龄表达只由身份 DNA 本身决定。
+画面蓝图不检查或推断年龄。无论 `visual_age` 的数值是多少，或身份提示词使用“少女”等不明确表达，所选 Outfit、Expression & Pose、Scene、Photography 都会正常组合，不会跳过任何图层。年龄表达只由身份 DNA 本身决定。
 
 ## 从旧节点升级
 
-新版节点 ID 为 `CharacterDNAVisualBlueprint`，不保留旧版 `Clothing & Scene Composer` 的隐藏输入或自动迁移代码。旧工作流中删除原节点，添加一次新的角色画面蓝图节点并重新连线即可。旧词库中的自定义内容可在新版面板的 Look 或 Scene 页重新建立。
+新版节点 ID 为 `CharacterDNAVisualBlueprint`，不保留旧版 `Clothing & Scene Composer` 的隐藏输入或自动迁移代码。旧工作流中删除原节点，添加一次新的角色画面蓝图节点并重新连线即可。旧词库中的自定义内容可在新版面板的 Outfit 或 Scene 页重新建立。
