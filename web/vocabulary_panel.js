@@ -56,8 +56,11 @@ async function loadMessages() {
     const locale = currentLocale();
     const candidates = [locale, locale.replace("_", "-"), locale.split(/[-_]/)[0], "en"];
     for (const candidate of candidates) {
-      if (all?.[candidate]?.characterDNA) {
-        messages = { ...FALLBACK, ...all[candidate].characterDNA };
+      const localeKey = Object.keys(all || {}).find(
+        (key) => key.toLowerCase() === String(candidate).toLowerCase(),
+      );
+      if (localeKey && all[localeKey]?.characterDNA) {
+        messages = { ...FALLBACK, ...all[localeKey].characterDNA };
         return;
       }
     }
@@ -71,7 +74,7 @@ function ensureStyles() {
   const style = document.createElement("style");
   style.id = "character-dna-vocabulary-styles";
   style.textContent = `
-    .character-dna-vocab-icon::before{content:"🧬";font-size:20px}.cdna-vocab{height:100%;display:flex;flex-direction:column;color:var(--fg-color,#ddd);background:var(--comfy-menu-bg,#202020);font:13px/1.4 system-ui,sans-serif}.cdna-vocab *{box-sizing:border-box}.cdna-vocab-header{padding:12px;border-bottom:1px solid var(--border-color,#444);display:grid;gap:9px}.cdna-vocab-title{font-size:16px;font-weight:700;display:flex;justify-content:space-between;gap:8px;align-items:center}.cdna-vocab-title small{font-size:11px;font-weight:500;opacity:.65}.cdna-vocab-toolbar,.cdna-vocab-tabs{display:flex;flex-wrap:wrap;gap:6px}.cdna-vocab button{border:1px solid var(--border-color,#555);border-radius:6px;padding:6px 9px;color:inherit;background:var(--comfy-input-bg,#303030);cursor:pointer}.cdna-vocab button:hover{filter:brightness(1.15)}.cdna-vocab button:disabled{opacity:.45;cursor:wait}.cdna-vocab button.primary{background:#2f6fda;color:white;border-color:#4d86e8}.cdna-vocab button.danger{color:#ffb3b3}.cdna-vocab-tabs button.active{background:#6741a5;color:white;border-color:#8d67cb}.cdna-vocab input,.cdna-vocab textarea,.cdna-vocab select{width:100%;border:1px solid var(--border-color,#555);border-radius:5px;padding:6px 7px;color:inherit;background:var(--comfy-input-bg,#292929);font:inherit}.cdna-vocab textarea{min-height:54px;resize:vertical}.cdna-vocab-content{min-height:0;flex:1;overflow:auto;padding:10px}.cdna-vocab-status{min-height:32px;padding:7px 11px;border-top:1px solid var(--border-color,#444);font-size:12px;opacity:.85}.cdna-vocab-status.error{color:#ff8e8e;opacity:1}.cdna-vocab-status.success{color:#8ee5aa;opacity:1}.cdna-vocab-group{margin-bottom:14px}.cdna-vocab-group>h3{position:sticky;top:-10px;z-index:2;margin:0 0 7px;padding:8px 2px 5px;background:var(--comfy-menu-bg,#202020);font-size:13px}.cdna-vocab-card{border:1px solid var(--border-color,#444);border-radius:7px;padding:9px;margin-bottom:8px;background:color-mix(in srgb,var(--comfy-input-bg,#292929) 70%,transparent)}.cdna-vocab-card h4{margin:0 0 8px;font:600 12px/1.3 ui-monospace,monospace;word-break:break-all}.cdna-vocab-field{display:grid;gap:4px;margin-bottom:8px}.cdna-vocab-field>label{font-size:11px;opacity:.72}.cdna-vocab-level{display:grid;grid-template-columns:48px 1fr 1fr;gap:6px;align-items:start;margin-bottom:7px}.cdna-vocab-level strong{padding:7px 2px;text-align:center}.cdna-vocab-bilingual{display:grid;grid-template-columns:1fr 1fr;gap:7px}.cdna-vocab-measurement{border-top:1px dashed var(--border-color,#555);margin-top:9px;padding-top:9px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.cdna-vocab-measurement h5{grid-column:1/-1;margin:0;font-size:11px;opacity:.8}.cdna-vocab-empty{padding:24px 8px;text-align:center;opacity:.6}.cdna-vocab-life-stage{display:grid;grid-template-columns:90px 1fr 1fr auto;gap:5px;margin-bottom:6px}.cdna-layer-row{display:grid;grid-template-columns:26px 1fr 1.4fr .8fr auto;gap:5px;align-items:center;margin-bottom:6px}.cdna-layer-actions{display:flex;gap:3px}.cdna-layer-actions button{padding:4px 6px}@media(max-width:700px){.cdna-layer-row{grid-template-columns:26px 1fr}.cdna-layer-row select,.cdna-layer-actions{grid-column:2}.cdna-vocab-level,.cdna-vocab-bilingual,.cdna-vocab-measurement{grid-template-columns:1fr}.cdna-vocab-level strong{text-align:left}.cdna-vocab-life-stage{grid-template-columns:80px 1fr}.cdna-vocab-life-stage button{grid-column:2;justify-self:end}}
+    .character-dna-vocab-icon::before{content:"🧬";font-size:20px}.cdna-vocab{height:100%;display:flex;flex-direction:column;color:var(--fg-color,#ddd);background:var(--comfy-menu-bg,#202020);font:13px/1.4 system-ui,sans-serif}.cdna-vocab *{box-sizing:border-box}.cdna-vocab-header{padding:12px;border-bottom:1px solid var(--border-color,#444);display:grid;gap:9px}.cdna-vocab-title{font-size:16px;font-weight:700;display:flex;justify-content:space-between;gap:8px;align-items:center}.cdna-vocab-title small{font-size:11px;font-weight:500;opacity:.65}.cdna-vocab-toolbar,.cdna-vocab-tabs{display:flex;flex-wrap:wrap;gap:6px}.cdna-vocab button{border:1px solid var(--border-color,#555);border-radius:6px;padding:6px 9px;color:inherit;background:var(--comfy-input-bg,#303030);cursor:pointer}.cdna-vocab button:hover{filter:brightness(1.15)}.cdna-vocab button:disabled{opacity:.45;cursor:wait}.cdna-vocab button.primary{background:#2f6fda;color:white;border-color:#4d86e8}.cdna-vocab button.danger{color:#ffb3b3}.cdna-vocab-tabs button.active{background:#6741a5;color:white;border-color:#8d67cb}.cdna-vocab input,.cdna-vocab textarea,.cdna-vocab select{width:100%;border:1px solid var(--border-color,#555);border-radius:5px;padding:6px 7px;color:inherit;background:var(--comfy-input-bg,#292929);font:inherit}.cdna-vocab textarea{min-height:54px;resize:vertical}.cdna-vocab-content{min-height:0;flex:1;overflow:auto;padding:10px}.cdna-vocab-status{min-height:32px;padding:7px 11px;border-top:1px solid var(--border-color,#444);font-size:12px;opacity:.85}.cdna-vocab-status.error{color:#ff8e8e;opacity:1}.cdna-vocab-status.success{color:#8ee5aa;opacity:1}.cdna-vocab-group{margin-bottom:14px}.cdna-vocab-group>h3{position:sticky;top:-10px;z-index:2;margin:0 0 7px;padding:8px 2px 5px;background:var(--comfy-menu-bg,#202020);font-size:13px}.cdna-vocab-card{border:1px solid var(--border-color,#444);border-radius:7px;padding:9px;margin-bottom:8px;background:color-mix(in srgb,var(--comfy-input-bg,#292929) 70%,transparent)}.cdna-vocab-card h4{margin:0 0 8px;font:600 13px/1.3 system-ui,sans-serif;word-break:break-all}.cdna-vocab-key{display:block;margin-top:2px;font:11px/1.3 ui-monospace,monospace;opacity:.55}.cdna-vocab-field{display:grid;gap:4px;margin-bottom:8px}.cdna-vocab-field>label{font-size:11px;opacity:.72}.cdna-vocab-level{display:grid;grid-template-columns:48px 1fr 1fr;gap:6px;align-items:start;margin-bottom:7px}.cdna-vocab-level strong{padding:7px 2px;text-align:center}.cdna-vocab-bilingual{display:grid;grid-template-columns:1fr 1fr;gap:7px}.cdna-vocab-measurement{border-top:1px dashed var(--border-color,#555);margin-top:9px;padding-top:9px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.cdna-vocab-measurement h5{grid-column:1/-1;margin:0;font-size:11px;opacity:.8}.cdna-vocab-empty{padding:24px 8px;text-align:center;opacity:.6}.cdna-vocab-life-stage{display:grid;grid-template-columns:90px 1fr 1fr auto;gap:5px;margin-bottom:6px}.cdna-layer-row{display:grid;grid-template-columns:26px 1fr 1.4fr .8fr auto;gap:5px;align-items:center;margin-bottom:6px}.cdna-layer-actions{display:flex;gap:3px}.cdna-layer-actions button{padding:4px 6px}@media(max-width:700px){.cdna-layer-row{grid-template-columns:26px 1fr}.cdna-layer-row select,.cdna-layer-actions{grid-column:2}.cdna-vocab-level,.cdna-vocab-bilingual,.cdna-vocab-measurement{grid-template-columns:1fr}.cdna-vocab-level strong{text-align:left}.cdna-vocab-life-stage{grid-template-columns:80px 1fr}.cdna-vocab-life-stage button{grid-column:2;justify-self:end}}
   `;
   document.head.appendChild(style);
 }
@@ -107,6 +110,12 @@ function renderVocabularyPanel(container) {
   const markDirty = () => { state.dirty = true; setStatus(t("unsaved")); };
   const setBusy = (busy) => root.querySelectorAll("button").forEach((button) => { button.disabled = busy; });
   const matches = (...values) => !state.search || values.some((value) => String(value ?? "").toLowerCase().includes(state.search));
+  const isChinese = () => currentLocale().toLowerCase().startsWith("zh");
+  const featureLabel = (feature, key) => (
+    isChinese()
+      ? feature.label_zh || feature.label || key
+      : feature.label || key
+  );
 
   async function load(force = false) {
     if (state.dirty && !force && !window.confirm(t("discard"))) return;
@@ -148,8 +157,12 @@ function renderVocabularyPanel(container) {
       const group = el("section", { className: "cdna-vocab-group" }); group.appendChild(el("h3", { text: t(groupName) })); let groupCount = 0;
       for (const name of names) {
         const feature = featureSection[name];
-        if (!matches(name, ...feature.levels.flatMap((level) => [level.text, level.text_zh]))) continue;
-        const card = el("article", { className: "cdna-vocab-card" }); card.appendChild(el("h4", { text: name }));
+        if (!matches(name, feature.label, feature.label_zh, ...feature.levels.flatMap((level) => [level.text, level.text_zh]))) continue;
+        const card = el("article", { className: "cdna-vocab-card" });
+        card.appendChild(el("h4", {}, [
+          el("span", { text: featureLabel(feature, name) }),
+          el("small", { className: "cdna-vocab-key", text: name }),
+        ]));
         for (const level of feature.levels) {
           const row = el("div", { className: "cdna-vocab-level" }, [
             el("strong", { text: String(level.value) }),

@@ -90,6 +90,8 @@ def _validate_feature_vocabulary(features, expected_features, path="features"):
     for name, feature in features.items():
         if not isinstance(feature, dict):
             raise ValueError(f"{path}.{name} must be an object.")
+        _require_string(feature.get("label"), f"{path}.{name}.label")
+        _require_string(feature.get("label_zh"), f"{path}.{name}.label_zh")
         levels = feature.get("levels")
         if not isinstance(levels, list) or len(levels) != 7:
             raise ValueError(f"{path}.{name}.levels must contain exactly seven entries.")

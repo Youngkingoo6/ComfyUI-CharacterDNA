@@ -121,7 +121,9 @@
         }
       ],
       "ratio_reference": "face_height / face_width",
-      "ratio_standard": 1.37
+      "ratio_standard": 1.37,
+      "label": "Face Length",
+      "label_zh": "脸长"
     },
     "face_width": {
       "levels": [
@@ -183,7 +185,9 @@
         }
       ],
       "ratio_reference": "face_width / face_height",
-      "ratio_standard": 0.73
+      "ratio_standard": 0.73,
+      "label": "Face Width",
+      "label_zh": "脸宽"
     },
     "cheekbone_width": {
       "levels": [
@@ -222,7 +226,9 @@
           "text": "very wide cheekbones",
           "text_zh": "颧骨很宽"
         }
-      ]
+      ],
+      "label": "Cheekbone Width",
+      "label_zh": "颧骨宽度"
     },
     "jaw_width": {
       "levels": [
@@ -261,7 +267,9 @@
           "text": "very wide jaw",
           "text_zh": "下颌很宽"
         }
-      ]
+      ],
+      "label": "Jaw Width",
+      "label_zh": "下颌宽度"
     },
     "chin_width": {
       "levels": [
@@ -300,7 +308,9 @@
           "text": "very wide chin",
           "text_zh": "下巴很宽"
         }
-      ]
+      ],
+      "label": "Chin Width",
+      "label_zh": "下巴宽度"
     },
     "chin_length": {
       "levels": [
@@ -362,7 +372,9 @@
         }
       ],
       "ratio_reference": "lower_face_height / full_face_height",
-      "ratio_standard": 0.33
+      "ratio_standard": 0.33,
+      "label": "Chin Length",
+      "label_zh": "下巴长度"
     },
     "eye_elongation": {
       "levels": [
@@ -454,7 +466,9 @@
         "prompt_template_zh": "平均眼宽约为脸部横向尺度的{target:.3f}倍",
         "standard_basis": "Five-eye baseline: average eye width / facial width = 0.20",
         "standard_basis_zh": "五眼基准：平均眼宽 ÷ 脸宽 = 0.20"
-      }
+      },
+      "label": "Eye Shape",
+      "label_zh": "眼型"
     },
     "eye_openness": {
       "levels": [
@@ -569,7 +583,9 @@
         "standard_basis_zh": "标准：眼裂高度 ÷ 眼裂宽度 = 0.30–0.35"
       },
       "ratio_reference": "eye_aperture_height / eye_aperture_width",
-      "ratio_standard": 0.33
+      "ratio_standard": 0.33,
+      "label": "Eye Openness",
+      "label_zh": "眼睛大小"
     },
     "eye_spacing": {
       "levels": [
@@ -684,7 +700,9 @@
         "standard_basis_zh": "标准：内眦间距 ÷ 单眼宽度 = 1.00"
       },
       "ratio_reference": "inner_canthal_distance / single_eye_width",
-      "ratio_standard": 1
+      "ratio_standard": 1,
+      "label": "Eye Spacing",
+      "label_zh": "眼距"
     },
     "canthal_tilt": {
       "levels": [
@@ -776,7 +794,9 @@
         "prompt_template_zh": "外眼角倾斜约{target:+.1f}度",
         "standard_basis": "Neutral canthal baseline = 0 degrees; each grade changes by 3 degrees",
         "standard_basis_zh": "平直眼角基准为0度，每档变化3度"
-      }
+      },
+      "label": "Outer Eye Corner Tilt",
+      "label_zh": "眼尾倾斜"
     },
     "brow_eye_distance": {
       "levels": [
@@ -868,7 +888,9 @@
         "prompt_template_zh": "眉眼距离约为平均眼宽的{target:.3f}倍",
         "standard_basis": "Operational baseline: brow-eye distance / average eye width = 0.50",
         "standard_basis_zh": "项目基准：眉眼距离 ÷ 平均眼宽 = 0.50"
-      }
+      },
+      "label": "Brow-Eye Distance",
+      "label_zh": "眉眼距离"
     },
     "nose_width": {
       "levels": [
@@ -983,7 +1005,9 @@
         "standard_basis_zh": "标准：鼻翼宽 ÷ 内眦间距 = 1.00"
       },
       "ratio_reference": "nose_alar_width / inner_canthal_distance",
-      "ratio_standard": 1
+      "ratio_standard": 1,
+      "label": "Nose Width",
+      "label_zh": "鼻子宽度"
     },
     "nose_length": {
       "levels": [
@@ -1045,7 +1069,9 @@
         }
       ],
       "ratio_reference": "midface_height / full_face_height",
-      "ratio_standard": 0.33
+      "ratio_standard": 0.33,
+      "label": "Nose Length",
+      "label_zh": "鼻子长度"
     },
     "nose_projection": {
       "levels": [
@@ -1084,7 +1110,9 @@
           "text": "very prominent nose",
           "text_zh": "鼻梁很挺"
         }
-      ]
+      ],
+      "label": "Nose Bridge Projection",
+      "label_zh": "鼻梁立体度"
     },
     "nose_tip_rotation": {
       "levels": [
@@ -1123,7 +1151,9 @@
           "text": "strongly upturned nose tip",
           "text_zh": "鼻尖明显上翘"
         }
-      ]
+      ],
+      "label": "Nose Tip Direction",
+      "label_zh": "鼻尖方向"
     },
     "mouth_width": {
       "levels": [
@@ -1238,7 +1268,9 @@
         "standard_basis_zh": "标准：嘴宽 ÷ 鼻翼宽 = 1.50"
       },
       "ratio_reference": "mouth_width / nose_alar_width",
-      "ratio_standard": 1.5
+      "ratio_standard": 1.5,
+      "label": "Mouth Width",
+      "label_zh": "嘴巴宽度"
     },
     "upper_lip_fullness": {
       "levels": [
@@ -1330,7 +1362,9 @@
         "prompt_template_zh": "上唇厚度约为脸部横向尺度的{target:.3f}倍",
         "standard_basis": "Operational baseline: upper-lip thickness / facial width = 0.035",
         "standard_basis_zh": "项目基准：上唇厚度 ÷ 脸宽 = 0.035"
-      }
+      },
+      "label": "Upper Lip Fullness",
+      "label_zh": "上唇厚度"
     },
     "lower_lip_fullness": {
       "levels": [
@@ -1422,7 +1456,9 @@
         "prompt_template_zh": "下唇厚度约为脸部横向尺度的{target:.3f}倍",
         "standard_basis": "Operational baseline: lower-lip thickness / facial width = 0.045",
         "standard_basis_zh": "项目基准：下唇厚度 ÷ 脸宽 = 0.045"
-      }
+      },
+      "label": "Lower Lip Fullness",
+      "label_zh": "下唇厚度"
     },
     "cupid_bow_definition": {
       "levels": [
@@ -1514,7 +1550,9 @@
         "prompt_template_zh": "唇峰深度约为上唇厚度的{target:.3f}倍",
         "standard_basis": "Operational baseline: Cupid-bow depth / upper-lip thickness = 0.25",
         "standard_basis_zh": "项目基准：唇峰深度 ÷ 上唇厚度 = 0.25"
-      }
+      },
+      "label": "Cupid Bow Definition",
+      "label_zh": "唇峰清晰度"
     }
   }
 }
