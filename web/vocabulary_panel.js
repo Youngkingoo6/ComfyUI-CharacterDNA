@@ -318,13 +318,14 @@ function renderVocabularyPanel(container) {
     card.appendChild(bilingual(p.identity_template, p.identity_template_zh, (v) => { p.identity_template = v; }, (v) => { p.identity_template_zh = v; }));
     card.appendChild(bilingual(p.age_template, p.age_template_zh, (v) => { p.age_template = v; }, (v) => { p.age_template_zh = v; })); templates.appendChild(card); fragment.appendChild(templates);
     const stages = el("section", { className: "cdna-vocab-group" }, [el("h3", { text: t("lifeStages") })]); const stageCard = el("article", { className: "cdna-vocab-card" });
+    stageCard.appendChild(el("button", { className: "cdna-add-button", text: t("addStage"), onclick: () => { p.life_stages.push({ text: "new stage", text_zh: "新阶段" }); markDirty(); renderContent(); } }));
     p.life_stages.forEach((stage, index) => stageCard.appendChild(el("div", { className: "cdna-vocab-life-stage" }, [
       el("input", { type: "number", min: 0, placeholder: t("maxAge"), value: stage.max_exclusive ?? "", oninput: (e) => { if (e.target.value === "") delete stage.max_exclusive; else stage.max_exclusive = Number(e.target.value); markDirty(); } }),
       el("input", { value: stage.text, placeholder: t("english"), oninput: (e) => { stage.text = e.target.value; markDirty(); } }),
       el("input", { value: stage.text_zh, placeholder: t("chinese"), oninput: (e) => { stage.text_zh = e.target.value; markDirty(); } }),
       el("button", { className: "danger", text: "×", onclick: () => { p.life_stages.splice(index, 1); markDirty(); renderContent(); } }),
     ])));
-    stageCard.appendChild(el("button", { text: t("addStage"), onclick: () => { p.life_stages.push({ text: "new stage", text_zh: "新阶段" }); markDirty(); renderContent(); } })); stages.appendChild(stageCard); fragment.appendChild(stages);
+    stages.appendChild(stageCard); fragment.appendChild(stages);
     const quality = el("section", { className: "cdna-vocab-group" }, [el("h3", { text: t("quality") })]); const qc = el("article", { className: "cdna-vocab-card" });
     const positionSelect = el("select", { onchange: (event) => { p.quality_position = event.target.value; markDirty(); } }, [
       el("option", { value: "end", text: t("qualityAtEnd") }),
