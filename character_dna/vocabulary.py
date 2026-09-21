@@ -204,7 +204,7 @@ def get_quality_position():
 
 
 def get_measurement_target(feature_name, value):
-    """Interpolate a physical target from the feature's seven calibration anchors."""
+    """Interpolate a physical target from the feature's calibration anchors."""
     feature = get_vocabulary().get("features", {}).get(feature_name, {})
     measurement = feature.get("measurement")
     if not isinstance(measurement, dict):

@@ -86,6 +86,8 @@
     "frame": "Frame",
     "torso": "Torso",
     "limbs": "Limbs",
-    "build": "Build"
+    "build": "Build",
+    "confirm": "Confirm",
+    "cancel": "Cancel"
   }
 }

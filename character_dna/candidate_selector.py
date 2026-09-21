@@ -321,7 +321,7 @@ def select_directional_candidates(
             try:
                 target = get_measurement_target(feature, dna_value)
                 if target is None:
-                    raise ValueError("Missing seven-point measurement calibration.")
+                    raise ValueError("Missing measurement calibration anchors.")
                 tolerance = float(measurement["tolerance"])
             except (KeyError, TypeError, ValueError):
                 target = None

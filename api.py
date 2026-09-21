@@ -29,8 +29,8 @@ DEFAULT_PRESENTATION_VOCABULARY_PATH = PRESENTATION_VOCABULARY_PATH.with_name(
     "presentation_vocabulary.default.json"
 )
 
-FEATURE_LEVELS = [-1.0, -0.6667, -0.3333, 0.0, 0.3333, 0.6667, 1.0]
-MEASUREMENT_LEVELS = [-1.0, -0.6667, -0.3333, 0.0, 0.3333, 0.6667, 1.0]
+FEATURE_LEVELS = [-1.0, -0.5, 0.0, 0.5, 1.0]
+MEASUREMENT_LEVELS = [-1.0, -0.5, 0.0, 0.5, 1.0]
 
 _WRITE_LOCK = asyncio.Lock()
 
@@ -93,8 +93,8 @@ def _validate_feature_vocabulary(features, expected_features, path="features"):
         _require_string(feature.get("label"), f"{path}.{name}.label")
         _require_string(feature.get("label_zh"), f"{path}.{name}.label_zh")
         levels = feature.get("levels")
-        if not isinstance(levels, list) or len(levels) != 7:
-            raise ValueError(f"{path}.{name}.levels must contain exactly seven entries.")
+        if not isinstance(levels, list) or len(levels) != 5:
+            raise ValueError(f"{path}.{name}.levels must contain exactly five entries.")
         actual_values = []
         has_ratio_system = "ratio_reference" in feature or "ratio_standard" in feature
         if has_ratio_system:
@@ -147,8 +147,8 @@ def _validate_feature_vocabulary(features, expected_features, path="features"):
             if float(measurement["tolerance"]) <= 0:
                 raise ValueError(f"{path}.{name}.measurement.tolerance must be positive.")
             targets = measurement.get("targets")
-            if not isinstance(targets, list) or len(targets) != 7:
-                raise ValueError(f"{path}.{name}.measurement.targets must contain seven entries.")
+            if not isinstance(targets, list) or len(targets) != 5:
+                raise ValueError(f"{path}.{name}.measurement.targets must contain five entries.")
             values = []
             for index, target in enumerate(targets):
                 if not isinstance(target, dict):

@@ -15,7 +15,7 @@ Face DNA Seed Generator / Parametric Face Designer
 
 画布上只显示两个设置：
 
-- `blueprint`：整套画面方向；`identity_only` 表示不添加表现层内容。
+- `blueprint`：整套画面方向；内置键 `identity_only` 在界面显示为“默认人像”，会组合唯一的默认表现层预设。
 - `variant_seed`：从该蓝图的 Seed 变化中稳定选择一条。相同蓝图与种子始终得到同一结果，并支持生成后固定、递增、递减或随机。
 
 节点另外输出 `negative_prompt` 与 `negative_prompt_zh`。每套蓝图可维护自己的中英文负向提示词；未填写时输出空字符串。
@@ -38,23 +38,13 @@ Face DNA Seed Generator / Parametric Face Designer
 
 图层本身不包含角色的长期身份结构。身份由前面的 Face / Body DNA 节点提供。
 
-## 默认蓝图
+## 默认内容
 
-- `identity_only`：只保留身份。
-- `quiet_luxury_studio`：静奢通勤造型与柔和 85mm 编辑人像。
-- `classical_chinese_studio`：现代中式造型、古典室内和棚拍镜头。
-- `bathroom_hair_drying_vlog`：浴室吹发动态与手机纪实镜头。
-- `dark_cozy_bedroom`：暗调卧室、安静凝视与浪漫 HDR 氛围。
-- `warm_minimal_bedroom_lifestyle`：暖色现代卧室里的手机生活方式画面。
-- `golden_hour_coast`：海岸度假造型与金色时刻胶片感。
-- `cool_jewelry_beauty_closeup`：清冷珠宝美妆大头特写、高调灰白棚拍与独立负向提示词。
-- `calibrated_casting_headshot`：正面校准选角头像，用于身份分析和候选筛选。
-- `natural_window_closeup`：裸妆造型、自然窗光和放松坐姿。
-- `modern_office_half_body`：极简职场造型、日光阁楼与自然半身摄影。
-- `street_walk_documentary`：休闲牛仔造型、行走抓拍与 35mm 环境纪实摄影。
-- `rembrandt_evening_portrait`：单色晚宴造型、回肩姿态与 85mm 伦勃朗棚拍。
+- `identity_only`：界面显示为“默认人像”，组合默认穿搭、默认表情跟姿态、默认场景和默认摄影。
+- Outfit、Expression & Pose、Scene、Photography 各只保留一套内置默认预设。
+- 外观辨识特征只保留 `oriental_clear_beauty` 一套内置默认。
 
-默认词库控制在便于筛选的规模：16 套 Outfit、14 套 Expression & Pose、16 套 Scene、12 套 Photography，以及 12 套外观辨识特征。所有新增内容均使用独立编写的中英文视觉句子，不直接复制外部节点的原始单词列表。
+需要更多风格时可在词库面板自行添加；所有“添加”入口位于对应列表顶部，新增内容不会要求增加节点。
 
 ## 在界面修改
 

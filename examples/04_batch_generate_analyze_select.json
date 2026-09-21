@@ -259,7 +259,7 @@
         "Node name for S&R": "CharacterDNAVisualBlueprint"
       },
       "widgets_values": [
-        "calibrated_casting_headshot",
+        "identity_only",
         0,
         "fixed"
       ]

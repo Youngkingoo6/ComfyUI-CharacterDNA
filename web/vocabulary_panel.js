@@ -40,6 +40,7 @@ const FALLBACK = {
   negativePrompt: "Negative prompt",
   frame: "Frame", torso: "Torso", limbs: "Limbs", build: "Build",
   requestError: "Request failed",
+  confirm: "Confirm", cancel: "Cancel",
 };
 
 let messages = FALLBACK;
@@ -75,7 +76,7 @@ function ensureStyles() {
   const style = document.createElement("style");
   style.id = "character-dna-vocabulary-styles";
   style.textContent = `
-    .character-dna-vocab-icon::before{content:"🧬";font-size:20px}.cdna-vocab{height:100%;display:flex;flex-direction:column;color:var(--fg-color,#ddd);background:var(--comfy-menu-bg,#202020);font:13px/1.4 system-ui,sans-serif}.cdna-vocab *{box-sizing:border-box}.cdna-vocab-header{padding:12px;border-bottom:1px solid var(--border-color,#444);display:grid;gap:9px}.cdna-vocab-title{font-size:16px;font-weight:700;display:flex;justify-content:space-between;gap:8px;align-items:center}.cdna-vocab-title small{font-size:11px;font-weight:500;opacity:.65}.cdna-vocab-toolbar,.cdna-vocab-tabs{display:flex;flex-wrap:wrap;gap:6px}.cdna-vocab button{border:1px solid var(--border-color,#555);border-radius:6px;padding:6px 9px;color:inherit;background:var(--comfy-input-bg,#303030);cursor:pointer}.cdna-vocab button:hover{filter:brightness(1.15)}.cdna-vocab button:disabled{opacity:.45;cursor:wait}.cdna-vocab button.primary{background:#2f6fda;color:white;border-color:#4d86e8}.cdna-vocab button.danger{color:#ffb3b3}.cdna-vocab-tabs button.active{background:#6741a5;color:white;border-color:#8d67cb}.cdna-vocab input,.cdna-vocab textarea,.cdna-vocab select{width:100%;border:1px solid var(--border-color,#555);border-radius:5px;padding:6px 7px;color:inherit;background:var(--comfy-input-bg,#292929);font:inherit}.cdna-vocab textarea{min-height:54px;resize:vertical}.cdna-vocab-content{min-height:0;flex:1;overflow:auto;padding:10px}.cdna-vocab-status{min-height:32px;padding:7px 11px;border-top:1px solid var(--border-color,#444);font-size:12px;opacity:.85}.cdna-vocab-status.error{color:#ff8e8e;opacity:1}.cdna-vocab-status.success{color:#8ee5aa;opacity:1}.cdna-vocab-group{margin-bottom:14px}.cdna-vocab-group>h3{position:sticky;top:-10px;z-index:2;margin:0 0 7px;padding:8px 2px 5px;background:var(--comfy-menu-bg,#202020);font-size:13px}.cdna-vocab-card{border:1px solid var(--border-color,#444);border-radius:7px;padding:9px;margin-bottom:8px;background:color-mix(in srgb,var(--comfy-input-bg,#292929) 70%,transparent)}.cdna-vocab-card h4{margin:0 0 8px;font:600 13px/1.3 system-ui,sans-serif;word-break:break-all}.cdna-vocab-key{display:block;margin-top:2px;font:11px/1.3 ui-monospace,monospace;opacity:.55}.cdna-vocab-field{display:grid;gap:4px;margin-bottom:8px}.cdna-vocab-field>label{font-size:11px;opacity:.72}.cdna-vocab-level{display:grid;grid-template-columns:48px 1fr 1fr;gap:6px;align-items:start;margin-bottom:7px}.cdna-vocab-level strong{padding:7px 2px;text-align:center}.cdna-vocab-bilingual{display:grid;grid-template-columns:1fr 1fr;gap:7px}.cdna-vocab-measurement{border-top:1px dashed var(--border-color,#555);margin-top:9px;padding-top:9px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.cdna-vocab-measurement h5{grid-column:1/-1;margin:0;font-size:11px;opacity:.8}.cdna-vocab-empty{padding:24px 8px;text-align:center;opacity:.6}.cdna-vocab-life-stage{display:grid;grid-template-columns:90px 1fr 1fr auto;gap:5px;margin-bottom:6px}.cdna-layer-row{display:grid;grid-template-columns:26px 1fr 1.4fr .8fr auto;gap:5px;align-items:center;margin-bottom:6px}.cdna-layer-actions{display:flex;gap:3px}.cdna-layer-actions button{padding:4px 6px}@media(max-width:700px){.cdna-layer-row{grid-template-columns:26px 1fr}.cdna-layer-row select,.cdna-layer-actions{grid-column:2}.cdna-vocab-level,.cdna-vocab-bilingual,.cdna-vocab-measurement{grid-template-columns:1fr}.cdna-vocab-level strong{text-align:left}.cdna-vocab-life-stage{grid-template-columns:80px 1fr}.cdna-vocab-life-stage button{grid-column:2;justify-self:end}}
+    .character-dna-vocab-icon::before{content:"🧬";font-size:20px}.cdna-vocab{position:relative;height:100%;display:flex;flex-direction:column;color:var(--fg-color,#ddd);background:var(--comfy-menu-bg,#202020);font:13px/1.4 system-ui,sans-serif}.cdna-vocab *{box-sizing:border-box}.cdna-vocab-header{padding:12px;border-bottom:1px solid var(--border-color,#444);display:grid;gap:9px}.cdna-vocab-title{font-size:16px;font-weight:700;display:flex;justify-content:space-between;gap:8px;align-items:center}.cdna-vocab-title small{font-size:11px;font-weight:500;opacity:.65}.cdna-vocab-toolbar,.cdna-vocab-tabs{display:flex;flex-wrap:wrap;gap:6px}.cdna-vocab button{border:1px solid var(--border-color,#555);border-radius:6px;padding:6px 9px;color:inherit;background:var(--comfy-input-bg,#303030);cursor:pointer}.cdna-vocab button:hover{filter:brightness(1.15)}.cdna-vocab button:disabled{opacity:.45;cursor:wait}.cdna-vocab button.primary{background:#2f6fda;color:white;border-color:#4d86e8}.cdna-vocab button.danger{color:#ffb3b3}.cdna-vocab-tabs button.active{background:#6741a5;color:white;border-color:#8d67cb}.cdna-vocab input,.cdna-vocab textarea,.cdna-vocab select{width:100%;border:1px solid var(--border-color,#555);border-radius:5px;padding:6px 7px;color:inherit;background:var(--comfy-input-bg,#292929);font:inherit}.cdna-vocab textarea{min-height:54px;resize:vertical}.cdna-vocab-content{min-height:0;flex:1;overflow:auto;padding:10px}.cdna-vocab-status{min-height:32px;padding:7px 11px;border-top:1px solid var(--border-color,#444);font-size:12px;opacity:.85}.cdna-vocab-status.error{color:#ff8e8e;opacity:1}.cdna-vocab-status.success{color:#8ee5aa;opacity:1}.cdna-vocab-group{margin-bottom:14px}.cdna-vocab-group>h3{position:sticky;top:-10px;z-index:2;margin:0 0 7px;padding:8px 2px 5px;background:var(--comfy-menu-bg,#202020);font-size:13px}.cdna-vocab-card{border:1px solid var(--border-color,#444);border-radius:7px;padding:9px;margin-bottom:8px;background:color-mix(in srgb,var(--comfy-input-bg,#292929) 70%,transparent)}.cdna-vocab-card h4{margin:0 0 8px;font:600 13px/1.3 system-ui,sans-serif;word-break:break-all}.cdna-vocab-key{display:block;margin-top:2px;font:11px/1.3 ui-monospace,monospace;opacity:.55}.cdna-vocab-field{display:grid;gap:4px;margin-bottom:8px}.cdna-vocab-field>label{font-size:11px;opacity:.72}.cdna-vocab-level{display:grid;grid-template-columns:48px 1fr 1fr;gap:6px;align-items:start;margin-bottom:7px}.cdna-vocab-level strong{padding:7px 2px;text-align:center}.cdna-vocab-bilingual{display:grid;grid-template-columns:1fr 1fr;gap:7px}.cdna-vocab-measurement{border-top:1px dashed var(--border-color,#555);margin-top:9px;padding-top:9px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.cdna-vocab-measurement h5{grid-column:1/-1;margin:0;font-size:11px;opacity:.8}.cdna-vocab-empty{padding:24px 8px;text-align:center;opacity:.6}.cdna-vocab-life-stage{display:grid;grid-template-columns:90px 1fr 1fr auto;gap:5px;margin-bottom:6px}.cdna-layer-row{display:grid;grid-template-columns:26px 1fr 1.4fr .8fr auto;gap:5px;align-items:center;margin-bottom:6px}.cdna-layer-actions{display:flex;gap:3px}.cdna-layer-actions button{padding:4px 6px}.cdna-add-button{margin:0 0 9px}.cdna-modal-backdrop{position:absolute;inset:0;z-index:20;display:grid;place-items:center;padding:18px;background:rgba(0,0,0,.66)}.cdna-modal{width:min(420px,100%);border:1px solid var(--border-color,#555);border-radius:9px;padding:14px;background:var(--comfy-menu-bg,#202020);box-shadow:0 18px 50px rgba(0,0,0,.5)}.cdna-modal h3{margin:0 0 12px;font-size:15px}.cdna-modal-actions{display:flex;justify-content:flex-end;gap:7px;margin-top:12px}@media(max-width:700px){.cdna-layer-row{grid-template-columns:26px 1fr}.cdna-layer-row select,.cdna-layer-actions{grid-column:2}.cdna-vocab-level,.cdna-vocab-bilingual,.cdna-vocab-measurement{grid-template-columns:1fr}.cdna-vocab-level strong{text-align:left}.cdna-vocab-life-stage{grid-template-columns:80px 1fr}.cdna-vocab-life-stage button{grid-column:2;justify-self:end}}
   `;
   document.head.appendChild(style);
 }
@@ -118,8 +119,34 @@ function renderVocabularyPanel(container) {
       : feature.label || key
   );
 
+  function panelDialog(message, defaultValue) {
+    return new Promise((resolve) => {
+      const hasInput = defaultValue !== undefined;
+      const input = hasInput ? el("input", { value: defaultValue }) : null;
+      const backdrop = el("div", { className: "cdna-modal-backdrop" });
+      const finish = (value) => { backdrop.remove(); resolve(value); };
+      const dialog = el("div", { className: "cdna-modal" }, [
+        el("h3", { text: message }),
+        input,
+        el("div", { className: "cdna-modal-actions" }, [
+          el("button", { text: t("cancel"), onclick: () => finish(null) }),
+          el("button", { className: "primary", text: t("confirm"), onclick: () => finish(hasInput ? input.value : true) }),
+        ]),
+      ]);
+      backdrop.appendChild(dialog);
+      backdrop.addEventListener("click", (event) => { if (event.target === backdrop) finish(null); });
+      dialog.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") finish(null);
+        if (event.key === "Enter" && (!hasInput || event.target === input)) finish(hasInput ? input.value : true);
+      });
+      root.appendChild(backdrop);
+      (input || dialog.querySelector("button.primary"))?.focus();
+      if (input) input.select();
+    });
+  }
+
   async function load(force = false) {
-    if (state.dirty && !force && !window.confirm(t("discard"))) return;
+    if (state.dirty && !force && !(await panelDialog(t("discard")))) return;
     setBusy(true); setStatus(t("loading"));
     try { state.vocabulary = clone(await requestVocabulary()); state.dirty = false; renderContent(); setStatus(t("loaded"), "success"); }
     catch (error) { setStatus(error.message, "error"); } finally { setBusy(false); }
@@ -130,7 +157,7 @@ function renderVocabularyPanel(container) {
     catch (error) { setStatus(t("saveFailed") + error.message, "error"); } finally { setBusy(false); }
   }
   async function reset() {
-    if (!window.confirm(t("resetConfirm"))) return;
+    if (!(await panelDialog(t("resetConfirm")))) return;
     setBusy(true); setStatus(t("resetting"));
     try { state.vocabulary = clone(await requestVocabulary(`${API_PATH}/reset`, { method: "POST" })); state.dirty = false; renderContent(); setStatus(t("resetDone"), "success"); }
     catch (error) { setStatus(t("resetFailed") + error.message, "error"); } finally { setBusy(false); }
@@ -181,6 +208,12 @@ function renderVocabularyPanel(container) {
   function renderLayerPresets(section, sectionName) {
     const fragment = document.createDocumentFragment(); let count = 0;
     const group = el("section", { className: "cdna-vocab-group" }); group.appendChild(el("h3", { text: t(sectionName) }));
+    group.appendChild(el("button", { className: "cdna-add-button", text: t("addPreset"), onclick: async () => {
+      const rawKey = await panelDialog(t("newPresetKey"), `new_${sectionName}`);
+      const key = String(rawKey || "").trim();
+      if (!key || key === "none" || section[key]) return;
+      section[key] = { label: key.replaceAll("_", " "), label_zh: "新预设", prompt: "new prompt", prompt_zh: "新提示词" }; markDirty(); renderContent();
+    } }));
     for (const [key, entry] of Object.entries(section)) {
       if (!matches(key, entry.label, entry.label_zh, entry.prompt, entry.prompt_zh)) continue;
       const card = el("article", { className: "cdna-vocab-card" });
@@ -202,17 +235,16 @@ function renderVocabularyPanel(container) {
       card.appendChild(bilingual(entry.prompt, entry.prompt_zh, (value) => { entry.prompt = value; }, (value) => { entry.prompt_zh = value; }));
       group.appendChild(card); count += 1;
     }
-    group.appendChild(el("button", { text: t("addPreset"), onclick: () => {
-      const rawKey = window.prompt(t("newPresetKey"), `new_${sectionName}`);
-      const key = String(rawKey || "").trim();
-      if (!key || key === "none" || section[key]) return;
-      section[key] = { label: key.replaceAll("_", " "), label_zh: "新预设", prompt: "new prompt", prompt_zh: "新提示词" }; markDirty(); renderContent();
-    } }));
     if (!count && state.search) fragment.appendChild(el("div", { className: "cdna-vocab-empty", text: t("emptyPhrases") }));
     fragment.appendChild(group); return fragment;
   }
   function renderIdentityAppearances() {
     const fragment = document.createDocumentFragment(); const section = state.vocabulary.identity_appearances; let count = 0;
+    fragment.appendChild(el("button", { className: "cdna-add-button", text: t("addAppearance"), onclick: async () => {
+      const rawKey = await panelDialog(t("newAppearanceKey"), "new_appearance"); const key = String(rawKey || "").trim();
+      if (!key || key === "none" || section[key]) return;
+      section[key] = { label: key.replaceAll("_", " "), label_zh: "新外观辨识特征", prompt: "new distinctive appearance feature", prompt_zh: "新的外观辨识特征描述" }; markDirty(); renderContent();
+    } }));
     for (const [key, entry] of Object.entries(section)) {
       if (!matches(key, entry.label, entry.label_zh, entry.prompt, entry.prompt_zh)) continue;
       const card = el("article", { className: "cdna-vocab-card" });
@@ -227,17 +259,17 @@ function renderVocabularyPanel(container) {
       card.appendChild(bilingual(entry.prompt, entry.prompt_zh, (value) => { entry.prompt = value; }, (value) => { entry.prompt_zh = value; }));
       fragment.appendChild(card); count += 1;
     }
-    fragment.appendChild(el("button", { text: t("addAppearance"), onclick: () => {
-      const rawKey = window.prompt(t("newAppearanceKey"), "new_appearance"); const key = String(rawKey || "").trim();
-      if (!key || key === "none" || section[key]) return;
-      section[key] = { label: key.replaceAll("_", " "), label_zh: "新外观辨识特征", prompt: "new distinctive appearance feature", prompt_zh: "新的外观辨识特征描述" }; markDirty(); renderContent();
-    } }));
     if (!count && state.search) fragment.appendChild(el("div", { className: "cdna-vocab-empty", text: t("emptyPhrases") }));
     return fragment;
   }
   function renderBlueprints() {
     const fragment = document.createDocumentFragment(); const blueprints = state.vocabulary.visual_blueprints; const layers = state.vocabulary.visual_layers;
     const layerTypes = ["look", "performance", "scene", "photography"]; const modes = ["replace", "append", "merge", "clear"];
+    fragment.appendChild(el("button", { className: "cdna-add-button", text: t("addBlueprint"), onclick: async () => {
+      const rawKey = await panelDialog(t("newBlueprintKey"), "new_blueprint"); const key = String(rawKey || "").trim();
+      if (!key || blueprints[key]) return;
+      blueprints[key] = { label: key.replaceAll("_", " "), label_zh: "新画面蓝图", layers: [], variations: [], negative_prompt: "", negative_prompt_zh: "" }; markDirty(); renderContent();
+    } }));
     for (const [name, blueprint] of Object.entries(blueprints)) {
       if (!matches(name, blueprint.label, blueprint.label_zh, ...(blueprint.layers || []).flatMap((item) => [item.type, item.preset]))) continue;
       const card = el("article", { className: "cdna-vocab-card" });
@@ -252,6 +284,7 @@ function renderVocabularyPanel(container) {
       card.appendChild(el("h4", { text: t("negativePrompt") }));
       card.appendChild(bilingual(blueprint.negative_prompt || "", blueprint.negative_prompt_zh || "", (value) => { blueprint.negative_prompt = value; }, (value) => { blueprint.negative_prompt_zh = value; }));
       card.appendChild(el("h4", { text: t("layerStack") }));
+      card.appendChild(el("button", { className: "cdna-add-button", text: t("addLayer"), onclick: () => { blueprint.layers ??= []; blueprint.layers.push({ type: "look", preset: Object.keys(layers.look)[0] || "none", mode: "replace", enabled: true }); markDirty(); renderContent(); } }));
       (blueprint.layers || []).forEach((layer, index) => {
         const typeSelect = el("select", { onchange: (event) => { layer.type = event.target.value; layer.preset = Object.keys(layers[layer.type] || {})[0] || "none"; markDirty(); renderContent(); } }, layerTypes.map((key) => el("option", { value: key, text: t(key) })));
         typeSelect.value = layer.type;
@@ -269,20 +302,14 @@ function renderVocabularyPanel(container) {
           ]),
         ]));
       });
-      card.appendChild(el("button", { text: t("addLayer"), onclick: () => { blueprint.layers ??= []; blueprint.layers.push({ type: "look", preset: Object.keys(layers.look)[0] || "none", mode: "replace", enabled: true }); markDirty(); renderContent(); } }));
       card.appendChild(el("h4", { text: t("variations") }));
+      card.appendChild(el("button", { className: "cdna-add-button", text: t("addVariation"), onclick: () => { blueprint.variations ??= []; blueprint.variations.push({ prompt: "new variation", prompt_zh: "新变化" }); markDirty(); renderContent(); } }));
       (blueprint.variations || []).forEach((variation, index) => card.appendChild(el("div", { className: "cdna-vocab-card" }, [
         bilingual(variation.prompt, variation.prompt_zh, (value) => { variation.prompt = value; }, (value) => { variation.prompt_zh = value; }),
         el("button", { className: "danger", text: t("deleteEntry"), onclick: () => { blueprint.variations.splice(index, 1); markDirty(); renderContent(); } }),
       ])));
-      card.appendChild(el("button", { text: t("addVariation"), onclick: () => { blueprint.variations ??= []; blueprint.variations.push({ prompt: "new variation", prompt_zh: "新变化" }); markDirty(); renderContent(); } }));
       fragment.appendChild(card);
     }
-    fragment.appendChild(el("button", { text: t("addBlueprint"), onclick: () => {
-      const rawKey = window.prompt(t("newBlueprintKey"), "new_blueprint"); const key = String(rawKey || "").trim();
-      if (!key || blueprints[key]) return;
-      blueprints[key] = { label: key.replaceAll("_", " "), label_zh: "新画面蓝图", layers: [], variations: [] }; markDirty(); renderContent();
-    } }));
     return fragment;
   }
   function renderProfile() {

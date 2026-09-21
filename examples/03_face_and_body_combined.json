@@ -419,12 +419,12 @@
         "Node name for S&R": "CharacterDNAVisualBlueprint"
       },
       "widgets_values": [
-        "cool_jewelry_beauty_closeup",
+        "identity_only",
         0,
         "fixed"
       ],
       "widgets_values_named": {
-        "blueprint": "cool_jewelry_beauty_closeup",
+        "blueprint": "identity_only",
         "variant_seed": 0,
         "control_after_generate": "fixed"
       }

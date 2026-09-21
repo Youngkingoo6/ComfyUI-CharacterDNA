@@ -86,7 +86,7 @@ Seed Generator
   → 直接使用最后一个节点的提示词
 ```
 
-`value` 是 `-1.0` 到 `+1.0` 的连续值，Parametric 节点以 `0.1` 步进并保留 1 位小数。内部仍使用七档匹配，但输出改为“短脸、眼距稍宽、鼻梁偏平”这类更直接的词。数值为 `0` 表示未指定结构，不输出该 Feature。
+`value` 是 `-1.0` 到 `+1.0` 的连续值，Parametric 节点以 `0.1` 步进并保留 1 位小数。词库使用 `-1、-0.5、0、0.5、1` 五档匹配，输出“短脸、眼距稍宽、鼻梁偏平”这类直接的词。数值为 `0` 表示未指定结构，不输出该 Feature。
 
 `weight` 只控制当前节点所修改 Feature 的提示词权重。`0` 表示关闭加权、保持原文；启用值为 `1.0–2.0`，步进 `0.1`。例如设置为 `1.2` 后输出 `(slightly wide-set eyes:1.2)`，中文输出同样使用 `(特征描述:1.2)`。权重保存在 DNA 中并随后续 Parametric 节点继承；再次修改同一 Feature 且设为 `0` 会移除该项已有权重。
 
@@ -106,7 +106,7 @@ Seed Generator
 
 打开 ComfyUI 左侧的 **CharacterDNA Vocabulary** 面板，可以编辑：
 
-- 每个 Feature 的七档中英文提示词；
+- 每个 Feature 的五档中英文提示词；
 - 画面蓝图，以及穿搭、表情跟姿态、场景、摄影四类带中英文显示名称的预设；
 - 外观辨识特征（含瞳色、肤色、肤质、发型与自然标记组合）与每套画面蓝图的中英文负向提示词；
 - 年龄阶段、基础身份模板和固定质量词。
@@ -128,15 +128,15 @@ Parametric Face Designer 和 Face DNA Seed Generator 会把词库修订版本加
          → Photography 摄影 → Seed 细节变化 → 固定质量词
 ```
 
-默认操作保持极简：选蓝图即可，`identity_only` 表示只输出身份。相同蓝图与相同 `variant_seed` 会得到相同细节变化；生成后控制支持固定、递增、递减和随机。
+默认操作保持极简：选择唯一的 `identity_only`（界面显示为“默认人像”）即可组合默认的穿搭、表情跟姿态、场景和摄影。相同蓝图与相同 `variant_seed` 会得到相同细节变化；生成后控制支持固定、递增、递减和随机。
 
 蓝图不设置年龄门槛：无论角色年龄数值或“少女”等年龄表达是否明确，所有造型、动作、场景和摄影预设都可以自由组合。
 
-节点同时输出英文和中文负向提示词，可直接连接到对应模型的负向条件输入。默认新增 `cool_jewelry_beauty_closeup` 清冷珠宝美妆特写蓝图；配合 Character DNA Designer 的 `oriental_clear_beauty` 外观辨识特征，可保持灰棕瞳色、真实皮肤、小痣和深棕黑发等身份标记。
+节点同时输出英文和中文负向提示词，可直接连接到对应模型的负向条件输入。内置内容只保留一套默认外观辨识特征和一套默认画面蓝图，用户仍可在词库面板自行添加预设。
 
 需要精调时，在 **CharacterDNA Vocabulary** 面板打开 **Visual Blueprints / 画面蓝图**：可调整高级图层栈、顺序、启用状态和 `replace / append / merge / clear` 合并方式，也可以维护每个蓝图的多条 Seed 变化。Outfit、Expression & Pose、Scene、Photography 四套词库可以独立复用，不必为更多需求继续增加节点。
 
-默认表现层词库经过精简整理，包含 16 套 Outfit、14 套 Expression & Pose、16 套 Scene 和 12 套 Photography。内容采用可直接观察的自然语言描述，而不是堆叠孤立标签；镜头焦距、景别、机位、动作和环境也分别归入正确类别。外观辨识特征提供 12 套可编辑的瞳色、发型、皮肤与自然标记组合。词库面板会随界面语言显示中文或英文名称，同时保留内部键名作为小字标识。
+内置表现层词库各保留一套默认 Outfit、Expression & Pose、Scene 和 Photography；外观辨识特征也只保留一套默认。内容采用可直接观察的自然语言描述，而不是堆叠孤立标签。词库面板会随界面语言显示中文或英文名称，同时保留内部键名作为小字标识；新增按钮固定显示在列表顶部。
 
 新版使用独立节点 ID `CharacterDNAVisualBlueprint`，不保留旧 `Clothing & Scene Composer` 的输入结构。已有工作流需要删除旧节点并添加一次新的角色画面蓝图节点。详细说明见 [`docs/presentation-vocabulary.zh-CN.md`](docs/presentation-vocabulary.zh-CN.md)。
 

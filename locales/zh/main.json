@@ -86,6 +86,8 @@
     "frame": "整体骨架",
     "torso": "躯干",
     "limbs": "四肢",
-    "build": "体型"
+    "build": "体型",
+    "confirm": "确认",
+    "cancel": "取消"
   }
 }
