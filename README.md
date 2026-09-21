@@ -56,7 +56,7 @@ Character Visual Blueprint（可选）
 - `gender`：提示词中的性别表达。
 - `ancestry`：提示词中的外观族裔表达。
 - `visual_age`：视觉年龄，范围 0–120，不限制为成年人。
-- `identity_appearance`：可选的稳定外观预设，用于瞳色、肤色、发色和辨识标记；会被后续所有身份提示词继承。
+- `identity_appearance`：可选的外观辨识特征，用于固定有辨识度的瞳色、肤色、发型和自然标记；会被后续所有身份提示词继承。
 
 ### Face DNA Seed Generator
 
@@ -106,7 +106,7 @@ Seed Generator
 
 - 每个 Feature 的七档中英文提示词；
 - 画面蓝图，以及穿搭、表情跟姿态、场景、摄影四类带中英文显示名称的预设；
-- 稳定外观预设（含肤色、肤质与光泽组合）与每套画面蓝图的中英文负向提示词；
+- 外观辨识特征（含瞳色、肤色、肤质、发型与自然标记组合）与每套画面蓝图的中英文负向提示词；
 - 年龄阶段、基础身份模板和固定质量词。
 
 `Fixed quality position` 可选择固定质量词位于完整提示词的最前面或最后面，默认放在最后。面部、身体和 Parametric 输出统一遵循该设置。
@@ -130,11 +130,11 @@ Parametric Face Designer 和 Face DNA Seed Generator 会把词库修订版本加
 
 蓝图不设置年龄门槛：无论角色年龄数值或“少女”等年龄表达是否明确，所有造型、动作、场景和摄影预设都可以自由组合。
 
-节点同时输出英文和中文负向提示词，可直接连接到对应模型的负向条件输入。默认新增 `cool_jewelry_beauty_closeup` 清冷珠宝美妆特写蓝图；配合 Character DNA Designer 的 `oriental_clear_beauty` 稳定外观，可保持灰棕瞳色、真实皮肤、小痣和深棕黑发等身份标记。
+节点同时输出英文和中文负向提示词，可直接连接到对应模型的负向条件输入。默认新增 `cool_jewelry_beauty_closeup` 清冷珠宝美妆特写蓝图；配合 Character DNA Designer 的 `oriental_clear_beauty` 外观辨识特征，可保持灰棕瞳色、真实皮肤、小痣和深棕黑发等身份标记。
 
 需要精调时，在 **CharacterDNA Vocabulary** 面板打开 **Visual Blueprints / 画面蓝图**：可调整高级图层栈、顺序、启用状态和 `replace / append / merge / clear` 合并方式，也可以维护每个蓝图的多条 Seed 变化。Outfit、Expression & Pose、Scene、Photography 四套词库可以独立复用，不必为更多需求继续增加节点。
 
-默认表现层词库经过精简整理，包含 16 套 Outfit、14 套 Expression & Pose、16 套 Scene 和 12 套 Photography。内容采用可直接观察的自然语言描述，而不是堆叠孤立标签；镜头焦距、景别、机位、动作和环境也分别归入正确类别。稳定外观提供 12 套可编辑的发型与皮肤组合。词库面板会随界面语言显示中文或英文名称，同时保留内部键名作为小字标识。
+默认表现层词库经过精简整理，包含 16 套 Outfit、14 套 Expression & Pose、16 套 Scene 和 12 套 Photography。内容采用可直接观察的自然语言描述，而不是堆叠孤立标签；镜头焦距、景别、机位、动作和环境也分别归入正确类别。外观辨识特征提供 12 套可编辑的瞳色、发型、皮肤与自然标记组合。词库面板会随界面语言显示中文或英文名称，同时保留内部键名作为小字标识。
 
 新版使用独立节点 ID `CharacterDNAVisualBlueprint`，不保留旧 `Clothing & Scene Composer` 的输入结构。已有工作流需要删除旧节点并添加一次新的角色画面蓝图节点。详细说明见 [`docs/presentation-vocabulary.zh-CN.md`](docs/presentation-vocabulary.zh-CN.md)。
 

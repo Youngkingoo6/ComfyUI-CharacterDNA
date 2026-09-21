@@ -20,8 +20,8 @@
         "tooltip": "The age the character appears to be, from 0 to 120."
       },
       "identity_appearance": {
-        "name": "Identity appearance",
-        "tooltip": "Stable eye color, skin, hair color and identifying marks inherited by every prompt."
+        "name": "Distinctive appearance features",
+        "tooltip": "Recognizable eye color, skin, hair and identifying marks inherited by every identity prompt."
       }
     },
     "outputs": {

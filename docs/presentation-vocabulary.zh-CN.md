@@ -54,12 +54,12 @@ Face DNA Seed Generator / Parametric Face Designer
 - `street_walk_documentary`：休闲牛仔造型、行走抓拍与 35mm 环境纪实摄影。
 - `rembrandt_evening_portrait`：单色晚宴造型、回肩姿态与 85mm 伦勃朗棚拍。
 
-默认词库控制在便于筛选的规模：16 套 Outfit、14 套 Expression & Pose、16 套 Scene、12 套 Photography，以及 12 套稳定外观。所有新增内容均使用独立编写的中英文视觉句子，不直接复制外部节点的原始单词列表。
+默认词库控制在便于筛选的规模：16 套 Outfit、14 套 Expression & Pose、16 套 Scene、12 套 Photography，以及 12 套外观辨识特征。所有新增内容均使用独立编写的中英文视觉句子，不直接复制外部节点的原始单词列表。
 
 ## 在界面修改
 
 1. 打开 ComfyUI 左侧的 **CharacterDNA Vocabulary**。
-2. 在 **Identity Appearance / 稳定外观** 中维护会被所有身份提示词继承的瞳色、肤色、发色和辨识标记。
+2. 在 **Distinctive Appearance Features / 外观辨识特征** 中维护会被所有身份提示词继承、用于增强角色辨识度的瞳色、肤色、发型和自然标记。
 3. 在 **Visual Blueprints / 画面蓝图** 中编辑显示名称、正负向提示词和 Seed 变化。
 4. 展开 **Advanced layer stack / 高级图层栈**，添加、删除、排序或停用图层。
 5. 在 Outfit、Expression & Pose、Scene、Photography 标签页维护可复用预设。

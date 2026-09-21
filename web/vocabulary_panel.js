@@ -33,7 +33,7 @@ const FALLBACK = {
   ageTemplate: "Age template", lifeStages: "Life stages", maxAge: "Upper age (blank for last)", addStage: "+ Add life stage",
   quality: "Fixed quality phrases", qualityPosition: "Fixed quality position", qualityAtStart: "At prompt start", qualityAtEnd: "At prompt end", face: "Face", eyebrows: "Eyebrows", eyes: "Eyes", nose: "Nose", mouth: "Mouth",
   faceFeatures: "Face Features", bodyFeatures: "Body Features",
-  identityAppearances: "Identity Appearance", addAppearance: "+ Add appearance", newAppearanceKey: "New appearance key",
+  identityAppearances: "Distinctive Appearance Features", addAppearance: "+ Add distinctive feature", newAppearanceKey: "New distinctive feature key",
   visualBlueprints: "Visual Blueprints", look: "Outfit", performance: "Expression & Pose", scene: "Scene", photography: "Photography",
   addBlueprint: "+ Add blueprint", addPreset: "+ Add preset", addLayer: "+ Add layer", addVariation: "+ Add variation",
   newBlueprintKey: "New blueprint key", newPresetKey: "New preset key", deleteEntry: "Delete", blueprintLabel: "Display label", layerStack: "Advanced layer stack", variations: "Seed variations", enabled: "Enabled", layerType: "Layer", preset: "Preset", mergeMode: "Mode",
@@ -230,7 +230,7 @@ function renderVocabularyPanel(container) {
     fragment.appendChild(el("button", { text: t("addAppearance"), onclick: () => {
       const rawKey = window.prompt(t("newAppearanceKey"), "new_appearance"); const key = String(rawKey || "").trim();
       if (!key || key === "none" || section[key]) return;
-      section[key] = { label: key.replaceAll("_", " "), label_zh: "新稳定外观", prompt: "new stable appearance", prompt_zh: "新稳定外观描述" }; markDirty(); renderContent();
+      section[key] = { label: key.replaceAll("_", " "), label_zh: "新外观辨识特征", prompt: "new distinctive appearance feature", prompt_zh: "新的外观辨识特征描述" }; markDirty(); renderContent();
     } }));
     if (!count && state.search) fragment.appendChild(el("div", { className: "cdna-vocab-empty", text: t("emptyPhrases") }));
     return fragment;
