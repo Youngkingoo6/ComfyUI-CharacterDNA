@@ -48,6 +48,13 @@ Face DNA Seed Generator / Parametric Face Designer
 - `warm_minimal_bedroom_lifestyle`：暖色现代卧室里的手机生活方式画面。
 - `golden_hour_coast`：海岸度假造型与金色时刻胶片感。
 - `cool_jewelry_beauty_closeup`：清冷珠宝美妆大头特写、高调灰白棚拍与独立负向提示词。
+- `calibrated_casting_headshot`：正面校准选角头像，用于身份分析和候选筛选。
+- `natural_window_closeup`：裸妆造型、自然窗光和放松坐姿。
+- `modern_office_half_body`：极简职场造型、日光阁楼与自然半身摄影。
+- `street_walk_documentary`：休闲牛仔造型、行走抓拍与 35mm 环境纪实摄影。
+- `rembrandt_evening_portrait`：单色晚宴造型、回肩姿态与 85mm 伦勃朗棚拍。
+
+默认词库控制在便于筛选的规模：16 套 Look、14 套 Performance、16 套 Scene、12 套 Photography，以及 8 套稳定外观。所有新增内容均使用独立编写的中英文视觉句子，不直接复制外部节点的原始单词列表。
 
 ## 在界面修改
 
@@ -57,6 +64,8 @@ Face DNA Seed Generator / Parametric Face Designer
 4. 展开 **Advanced layer stack / 高级图层栈**，添加、删除、排序或停用图层。
 5. 在 Look、Performance、Scene、Photography 标签页维护可复用预设。
 6. 点击保存，再完整运行工作流。
+
+每个预设都有中文显示名、英文显示名和稳定内部键。面板会根据 ComfyUI 当前语言显示对应名称，在蓝图的图层下拉菜单中也使用当前语言；内部键会以小字保留，便于导出 JSON 后准确定位。
 
 每个蓝图图层支持四种合并方式：
 

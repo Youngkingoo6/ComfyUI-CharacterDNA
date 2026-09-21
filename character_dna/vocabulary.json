@@ -58,6 +58,48 @@
       "label_zh": "东方清透美人",
       "prompt": "clear gray-brown irises, fair translucent skin with a soft natural flush, one small natural facial beauty mark, deep brown-black hair",
       "prompt_zh": "清澈灰棕色瞳孔，白皙通透且带柔和自然血色的肌肤，面部一颗自然小痣，深棕黑色头发"
+    },
+    "natural_black_bob": {
+      "label": "Natural Black Bob",
+      "label_zh": "自然黑色短发",
+      "prompt": "jaw-length natural black bob with soft movement, a few loose strands around the cheeks, clear neutral skin with visible natural texture",
+      "prompt_zh": "及下颌的自然黑色短发，发尾带轻柔动感，几缕碎发落在脸颊，清透中性肤色并保留自然纹理"
+    },
+    "soft_freckled_chestnut": {
+      "label": "Soft Freckled Chestnut",
+      "label_zh": "柔和雀斑栗棕发",
+      "prompt": "soft chestnut-brown wavy hair, light natural freckles across the cheeks and nose, warm neutral skin with a gentle healthy flush",
+      "prompt_zh": "柔和栗棕色微卷发，鼻梁与双颊分布浅淡自然雀斑，暖中性肌肤带轻柔健康血色"
+    },
+    "sleek_black_porcelain": {
+      "label": "Sleek Black and Porcelain",
+      "label_zh": "顺直黑发瓷白肤色",
+      "prompt": "sleek straight black hair with a clean center part, porcelain-fair skin with subtle pores, restrained natural sheen and no heavy retouching",
+      "prompt_zh": "干净中分的顺直黑发，瓷白肤色并保留细微毛孔，光泽自然克制，不过度修饰"
+    },
+    "dewy_dark_waves": {
+      "label": "Dewy Dark Waves",
+      "label_zh": "水润深色波浪发",
+      "prompt": "loose deep-brown waves with airy volume, naturally dewy skin, soft reflected highlights and delicate visible skin texture",
+      "prompt_zh": "蓬松轻盈的深棕色自然波浪发，肌肤带自然水润感、柔和反光和细腻可见纹理"
+    },
+    "sun_kissed_warm_brown": {
+      "label": "Sun-kissed Warm Brown",
+      "label_zh": "暖棕发阳光肤色",
+      "prompt": "warm brown layered hair, lightly sun-kissed skin, subtle freckles and an even natural complexion with realistic texture",
+      "prompt_zh": "暖棕色层次发型，轻微日晒感肤色与浅淡雀斑，肤色自然均匀并保留真实纹理"
+    },
+    "cool_short_texture": {
+      "label": "Cool Short Texture",
+      "label_zh": "清冷短发质感",
+      "prompt": "short dark textured hair with soft separated strands, cool neutral skin tone, natural matte finish and faint visible pores",
+      "prompt_zh": "深色短发带柔和分束纹理，清冷中性肤色，自然哑光质感并保留隐约毛孔"
+    },
+    "soft_ash_brown_layers": {
+      "label": "Soft Ash-brown Layers",
+      "label_zh": "柔雾灰棕层次发",
+      "prompt": "medium-length ash-brown layered hair with soft face-framing strands, calm neutral skin, delicate natural texture and a muted finish",
+      "prompt_zh": "中长灰棕色层次发，柔和碎发修饰脸侧，平静中性肤色、细腻自然纹理与柔雾质感"
     }
   },
   "features": {

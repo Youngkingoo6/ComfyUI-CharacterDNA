@@ -295,6 +295,11 @@ def _validate_presentation_vocabulary(vocabulary):
                 raise ValueError(f"layers.{section_name}.none is reserved.")
             if not isinstance(entry, dict):
                 raise ValueError(f"layers.{section_name}.{key} must be an object.")
+            _require_string(entry.get("label"), f"layers.{section_name}.{key}.label")
+            _require_string(
+                entry.get("label_zh"),
+                f"layers.{section_name}.{key}.label_zh",
+            )
             _require_string(entry.get("prompt"), f"layers.{section_name}.{key}.prompt")
             _require_string(entry.get("prompt_zh"), f"layers.{section_name}.{key}.prompt_zh")
     if not isinstance(blueprints, dict) or "identity_only" not in blueprints:

@@ -40,6 +40,8 @@
     "notLoaded": "词库尚未载入",
     "english": "英文提示词",
     "chinese": "中文提示词",
+    "englishLabel": "英文名称",
+    "chineseLabel": "中文名称",
     "value": "参数值",
     "identityTemplate": "身份模板",
     "ageTemplate": "年龄模板",

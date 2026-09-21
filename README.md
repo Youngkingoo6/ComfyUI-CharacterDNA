@@ -105,7 +105,7 @@ Seed Generator
 打开 ComfyUI 左侧的 **CharacterDNA Vocabulary** 面板，可以编辑：
 
 - 每个 Feature 的七档中英文提示词；
-- 画面蓝图，以及造型、表演、场景、摄影四类中英文预设；
+- 画面蓝图，以及造型、表演、场景、摄影四类带中英文显示名称的预设；
 - 稳定外观预设与每套画面蓝图的中英文负向提示词；
 - 年龄阶段、基础身份模板和固定质量词。
 
@@ -133,6 +133,8 @@ Parametric Face Designer 和 Face DNA Seed Generator 会把词库修订版本加
 节点同时输出英文和中文负向提示词，可直接连接到对应模型的负向条件输入。默认新增 `cool_jewelry_beauty_closeup` 清冷珠宝美妆特写蓝图；配合 Character DNA Designer 的 `oriental_clear_beauty` 稳定外观，可保持灰棕瞳色、真实皮肤、小痣和深棕黑发等身份标记。
 
 需要精调时，在 **CharacterDNA Vocabulary** 面板打开 **Visual Blueprints / 画面蓝图**：可调整高级图层栈、顺序、启用状态和 `replace / append / merge / clear` 合并方式，也可以维护每个蓝图的多条 Seed 变化。Look、Performance、Scene、Photography 四套词库可以独立复用，不必为更多需求继续增加节点。
+
+默认表现层词库经过精简整理，包含 16 套 Look、14 套 Performance、16 套 Scene 和 12 套 Photography。内容采用可直接观察的自然语言描述，而不是堆叠孤立标签；镜头焦距、景别、机位、动作和环境也分别归入正确类别。稳定外观提供 8 套可编辑的发型与皮肤组合。词库面板会随界面语言显示中文或英文名称，同时保留内部键名作为小字标识。
 
 新版使用独立节点 ID `CharacterDNAVisualBlueprint`，不保留旧 `Clothing & Scene Composer` 的输入结构。已有工作流需要删除旧节点并添加一次新的角色画面蓝图节点。详细说明见 [`docs/presentation-vocabulary.zh-CN.md`](docs/presentation-vocabulary.zh-CN.md)。
 

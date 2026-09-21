@@ -40,6 +40,8 @@
     "notLoaded": "Vocabulary is not loaded",
     "english": "English prompt",
     "chinese": "Chinese prompt",
+    "englishLabel": "English name",
+    "chineseLabel": "Chinese name",
     "value": "Value",
     "identityTemplate": "Identity template",
     "ageTemplate": "Age template",

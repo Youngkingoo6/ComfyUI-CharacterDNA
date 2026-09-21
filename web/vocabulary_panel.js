@@ -28,7 +28,7 @@ const FALLBACK = {
   resetDone: "Default vocabulary restored", resetFailed: "Restore failed: ", exported: "Vocabulary exported",
   imported: "Imported into the editor; click Save to apply", importFailed: "Import failed: ", invalidRoot: "JSON root must be an object",
   emptyFeatures: "No matching features", emptyPhrases: "No matching presets", notLoaded: "Vocabulary is not loaded",
-  english: "English prompt", chinese: "Chinese prompt", value: "Value", identityTemplate: "Identity template",
+  english: "English prompt", chinese: "Chinese prompt", englishLabel: "English name", chineseLabel: "Chinese name", value: "Value", identityTemplate: "Identity template",
   ageTemplate: "Age template", lifeStages: "Life stages", maxAge: "Upper age (blank for last)", addStage: "+ Add life stage",
   quality: "Fixed quality phrases", qualityPosition: "Fixed quality position", qualityAtStart: "At prompt start", qualityAtEnd: "At prompt end", face: "Face", eyes: "Eyes", nose: "Nose", mouth: "Mouth",
   faceFeatures: "Face Features", bodyFeatures: "Body Features",
@@ -148,8 +148,8 @@ function renderVocabularyPanel(container) {
   function field(label, value, update, multiline = true) {
     return el("div", { className: "cdna-vocab-field" }, [el("label", { text: label }), el(multiline ? "textarea" : "input", { value: value ?? "", oninput: (event) => { update(event.target.value); markDirty(); } })]);
   }
-  function bilingual(en, zh, updateEn, updateZh) {
-    return el("div", { className: "cdna-vocab-bilingual" }, [field(t("english"), en, updateEn), field(t("chinese"), zh, updateZh)]);
+  function bilingual(en, zh, updateEn, updateZh, englishLabel = t("english"), chineseLabel = t("chinese")) {
+    return el("div", { className: "cdna-vocab-bilingual" }, [field(englishLabel, en, updateEn), field(chineseLabel, zh, updateZh)]);
   }
   function renderFeatures(featureSection, featureGroups) {
     const fragment = document.createDocumentFragment(); let count = 0;
@@ -181,10 +181,13 @@ function renderVocabularyPanel(container) {
     const fragment = document.createDocumentFragment(); let count = 0;
     const group = el("section", { className: "cdna-vocab-group" }); group.appendChild(el("h3", { text: t(sectionName) }));
     for (const [key, entry] of Object.entries(section)) {
-      if (!matches(key, entry.prompt, entry.prompt_zh)) continue;
+      if (!matches(key, entry.label, entry.label_zh, entry.prompt, entry.prompt_zh)) continue;
       const card = el("article", { className: "cdna-vocab-card" });
       card.appendChild(el("div", { className: "cdna-vocab-title" }, [
-        el("h4", { text: key }),
+        el("h4", {}, [
+          el("span", { text: featureLabel(entry, key) }),
+          el("small", { className: "cdna-vocab-key", text: key }),
+        ]),
         el("button", { className: "danger", text: t("deleteEntry"), onclick: () => {
           for (const blueprint of Object.values(state.vocabulary.visual_blueprints)) {
             for (const layer of blueprint.layers || []) {
@@ -194,6 +197,7 @@ function renderVocabularyPanel(container) {
           delete section[key]; markDirty(); renderContent();
         } }),
       ]));
+      card.appendChild(bilingual(entry.label, entry.label_zh, (value) => { entry.label = value; }, (value) => { entry.label_zh = value; }, t("englishLabel"), t("chineseLabel")));
       card.appendChild(bilingual(entry.prompt, entry.prompt_zh, (value) => { entry.prompt = value; }, (value) => { entry.prompt_zh = value; }));
       group.appendChild(card); count += 1;
     }
@@ -201,7 +205,7 @@ function renderVocabularyPanel(container) {
       const rawKey = window.prompt(t("newPresetKey"), `new_${sectionName}`);
       const key = String(rawKey || "").trim();
       if (!key || key === "none" || section[key]) return;
-      section[key] = { prompt: "new prompt", prompt_zh: "新提示词" }; markDirty(); renderContent();
+      section[key] = { label: key.replaceAll("_", " "), label_zh: "新预设", prompt: "new prompt", prompt_zh: "新提示词" }; markDirty(); renderContent();
     } }));
     if (!count && state.search) fragment.appendChild(el("div", { className: "cdna-vocab-empty", text: t("emptyPhrases") }));
     fragment.appendChild(group); return fragment;
@@ -212,10 +216,13 @@ function renderVocabularyPanel(container) {
       if (!matches(key, entry.label, entry.label_zh, entry.prompt, entry.prompt_zh)) continue;
       const card = el("article", { className: "cdna-vocab-card" });
       card.appendChild(el("div", { className: "cdna-vocab-title" }, [
-        el("h4", { text: key }),
+        el("h4", {}, [
+          el("span", { text: featureLabel(entry, key) }),
+          el("small", { className: "cdna-vocab-key", text: key }),
+        ]),
         el("button", { className: "danger", text: t("deleteEntry"), onclick: () => { delete section[key]; markDirty(); renderContent(); } }),
       ]));
-      card.appendChild(bilingual(entry.label, entry.label_zh, (value) => { entry.label = value; }, (value) => { entry.label_zh = value; }));
+      card.appendChild(bilingual(entry.label, entry.label_zh, (value) => { entry.label = value; }, (value) => { entry.label_zh = value; }, t("englishLabel"), t("chineseLabel")));
       card.appendChild(bilingual(entry.prompt, entry.prompt_zh, (value) => { entry.prompt = value; }, (value) => { entry.prompt_zh = value; }));
       fragment.appendChild(card); count += 1;
     }
@@ -234,17 +241,20 @@ function renderVocabularyPanel(container) {
       if (!matches(name, blueprint.label, blueprint.label_zh, ...(blueprint.layers || []).flatMap((item) => [item.type, item.preset]))) continue;
       const card = el("article", { className: "cdna-vocab-card" });
       card.appendChild(el("div", { className: "cdna-vocab-title" }, [
-        el("h4", { text: name }),
+        el("h4", {}, [
+          el("span", { text: featureLabel(blueprint, name) }),
+          el("small", { className: "cdna-vocab-key", text: name }),
+        ]),
         name === "identity_only" ? null : el("button", { className: "danger", text: t("deleteEntry"), onclick: () => { delete blueprints[name]; markDirty(); renderContent(); } }),
       ]));
-      card.appendChild(bilingual(blueprint.label, blueprint.label_zh, (value) => { blueprint.label = value; }, (value) => { blueprint.label_zh = value; }));
+      card.appendChild(bilingual(blueprint.label, blueprint.label_zh, (value) => { blueprint.label = value; }, (value) => { blueprint.label_zh = value; }, t("englishLabel"), t("chineseLabel")));
       card.appendChild(el("h4", { text: t("negativePrompt") }));
       card.appendChild(bilingual(blueprint.negative_prompt || "", blueprint.negative_prompt_zh || "", (value) => { blueprint.negative_prompt = value; }, (value) => { blueprint.negative_prompt_zh = value; }));
       card.appendChild(el("h4", { text: t("layerStack") }));
       (blueprint.layers || []).forEach((layer, index) => {
         const typeSelect = el("select", { onchange: (event) => { layer.type = event.target.value; layer.preset = Object.keys(layers[layer.type] || {})[0] || "none"; markDirty(); renderContent(); } }, layerTypes.map((key) => el("option", { value: key, text: t(key) })));
         typeSelect.value = layer.type;
-        const presetSelect = el("select", { onchange: (event) => { layer.preset = event.target.value; markDirty(); } }, [el("option", { value: "none", text: "none" }), ...Object.keys(layers[layer.type] || {}).map((key) => el("option", { value: key, text: key }))]);
+        const presetSelect = el("select", { onchange: (event) => { layer.preset = event.target.value; markDirty(); } }, [el("option", { value: "none", text: "none" }), ...Object.entries(layers[layer.type] || {}).map(([key, entry]) => el("option", { value: key, text: featureLabel(entry, key) }))]);
         presetSelect.value = layer.preset;
         const modeSelect = el("select", { onchange: (event) => { layer.mode = event.target.value; markDirty(); } }, modes.map((key) => el("option", { value: key, text: key })));
         modeSelect.value = layer.mode || "replace";
