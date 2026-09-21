@@ -100,9 +100,98 @@
       "label_zh": "柔雾灰棕层次发",
       "prompt": "medium-length ash-brown layered hair with soft face-framing strands, calm neutral skin, delicate natural texture and a muted finish",
       "prompt_zh": "中长灰棕色层次发，柔和碎发修饰脸侧，平静中性肤色、细腻自然纹理与柔雾质感"
+    },
+    "olive_satin_skin": {
+      "label": "Olive Satin Skin",
+      "label_zh": "橄榄色缎光肌",
+      "prompt": "natural olive skin tone with visible fine texture, a restrained satin finish and soft highlights along the cheekbones",
+      "prompt_zh": "自然橄榄色肤调，保留细微可见纹理，呈克制缎光质感并在颧骨处形成柔和高光"
+    },
+    "deep_warm_velvet_skin": {
+      "label": "Deep Warm Velvet Skin",
+      "label_zh": "深暖色天鹅绒肌",
+      "prompt": "deep warm-brown skin tone with rich even color, visible natural pores and a soft velvet-matte finish",
+      "prompt_zh": "深暖棕色肤调，色泽浓郁均匀，保留自然毛孔并呈柔和天鹅绒哑光质感"
+    },
+    "neutral_matte_textured_skin": {
+      "label": "Neutral Matte Textured Skin",
+      "label_zh": "中性哑光纹理肌",
+      "prompt": "neutral skin tone with realistic pores, faint natural tonal variation and a clean matte finish without retouching",
+      "prompt_zh": "中性肤调，真实毛孔与轻微自然色差清晰可见，呈干净哑光质感且不过度修饰"
+    },
+    "honey_luminous_skin": {
+      "label": "Honey Luminous Skin",
+      "label_zh": "蜂蜜色通透光泽肌",
+      "prompt": "warm honey skin tone with translucent depth, delicate visible texture and a soft luminous sheen on raised facial planes",
+      "prompt_zh": "温暖蜂蜜色肤调，具有通透层次和细腻可见纹理，面部凸起处带柔和自然光泽"
     }
   },
   "features": {
+    "cheekbone_height": {
+      "label": "Cheekbone Height",
+      "label_zh": "颧骨高度",
+      "levels": [
+        {"value": -1, "text": "very low-set cheekbone peaks, with the fullest cheek contour sitting well below the outer eyes", "text_zh": "颧骨最高点明显偏低，面颊最饱满处远低于外眼角"},
+        {"value": -0.6667, "text": "clearly low-set cheekbone peaks, with fullness concentrated in the lower cheeks", "text_zh": "颧骨最高点明显偏低，面部饱满感集中在较低的双颊"},
+        {"value": -0.3333, "text": "slightly low-set cheekbone peaks, giving the cheeks a softer lower emphasis", "text_zh": "颧骨最高点略低，使双颊重心轻微下移且更柔和"},
+        {"value": 0, "text": "naturally placed cheekbone peaks", "text_zh": "自然位置的颧骨最高点"},
+        {"value": 0.3333, "text": "slightly high-set cheekbone peaks, lifting the contour beneath the outer eyes", "text_zh": "颧骨最高点略高，外眼角下方轮廓轻微上提"},
+        {"value": 0.6667, "text": "clearly high-set cheekbone peaks close to the outer eyes, creating a lifted midface", "text_zh": "颧骨最高点明显靠近外眼角，形成上提的面中轮廓"},
+        {"value": 1, "text": "very high-set cheekbone peaks directly beneath the outer eyes, strongly lifting the midface", "text_zh": "颧骨最高点非常靠近外眼角下方，面中轮廓明显上提"}
+      ]
+    },
+    "cheekbone_projection": {
+      "label": "Cheekbone Projection",
+      "label_zh": "颧骨立体度",
+      "levels": [
+        {"value": -1, "text": "very flat cheekbone contour with almost no forward highlight or side shadow", "text_zh": "颧骨轮廓非常平缓，几乎没有向前高光或侧面阴影"},
+        {"value": -0.6667, "text": "clearly flat cheekbone contour with little separation from the cheeks", "text_zh": "颧骨轮廓明显偏平，与面颊之间的起伏很弱"},
+        {"value": -0.3333, "text": "slightly flat cheekbone contour with soft, restrained facial relief", "text_zh": "颧骨轮廓略平，面部起伏柔和克制"},
+        {"value": 0, "text": "natural cheekbone projection", "text_zh": "自然的颧骨立体度"},
+        {"value": 0.3333, "text": "slightly projected cheekbones with a gentle highlight across the upper cheeks", "text_zh": "颧骨略微向前，上颊形成轻柔高光"},
+        {"value": 0.6667, "text": "clearly projected cheekbones with visible upper-cheek highlights and sculpted side shadows", "text_zh": "颧骨明显向前，上颊高光和侧面塑形阴影清晰可见"},
+        {"value": 1, "text": "strongly projected cheekbones with pronounced highlights and deep sculpted contour beneath them", "text_zh": "颧骨强烈向前突出，高光鲜明且下方具有深刻塑形轮廓"}
+      ]
+    },
+    "jawline_definition": {
+      "label": "Jawline Definition",
+      "label_zh": "下颌线清晰度",
+      "levels": [
+        {"value": -1, "text": "very soft jawline with almost no visible separation between the lower face and neck", "text_zh": "下颌线非常柔和，下脸与颈部之间几乎没有清晰分界"},
+        {"value": -0.6667, "text": "clearly soft jawline with a smooth, blurred transition into the neck", "text_zh": "下颌线明显柔和，向颈部过渡平滑而模糊"},
+        {"value": -0.3333, "text": "slightly soft jawline with a gentle lower-face transition", "text_zh": "下颌线略柔和，下脸过渡自然圆润"},
+        {"value": 0, "text": "naturally defined jawline", "text_zh": "自然清晰的下颌线"},
+        {"value": 0.3333, "text": "slightly crisp jawline with visible separation from the neck", "text_zh": "下颌线略清晰，与颈部之间可见轻微分界"},
+        {"value": 0.6667, "text": "clearly defined jawline with a crisp lower-face edge and clean neck separation", "text_zh": "下颌线明显清晰，下脸边缘利落并与颈部干净分离"},
+        {"value": 1, "text": "very sharply defined jawline with a strong, crisp edge from ear to chin", "text_zh": "下颌线非常锐利清晰，从耳下到下巴形成强烈利落边缘"}
+      ]
+    },
+    "eyebrow_shape": {
+      "label": "Eyebrow Shape",
+      "label_zh": "眉形",
+      "levels": [
+        {"value": -1, "text": "very straight horizontal eyebrows with almost no visible arch", "text_zh": "非常平直的横向眉形，几乎看不到眉峰弧度"},
+        {"value": -0.6667, "text": "clearly straight eyebrows with a low, restrained arch", "text_zh": "明显平直的眉形，眉峰低而克制"},
+        {"value": -0.3333, "text": "slightly straight eyebrows with only a gentle lift near the outer third", "text_zh": "略微平直的眉形，仅在外侧三分之一处轻柔抬起"},
+        {"value": 0, "text": "natural softly curved eyebrows", "text_zh": "自然柔和弯曲的眉形"},
+        {"value": 0.3333, "text": "slightly arched eyebrows with a visible soft peak", "text_zh": "略带弧度的眉形，眉峰柔和可见"},
+        {"value": 0.6667, "text": "clearly arched eyebrows with a lifted outer third and defined peak", "text_zh": "明显弯曲的眉形，外侧三分之一上扬且眉峰清晰"},
+        {"value": 1, "text": "highly arched eyebrows with a strong raised peak and descending tail", "text_zh": "高度弯曲的眉形，眉峰明显抬高并向眉尾下落"}
+      ]
+    },
+    "eyebrow_thickness": {
+      "label": "Eyebrow Thickness",
+      "label_zh": "眉毛粗细",
+      "levels": [
+        {"value": -1, "text": "very thin, sparse eyebrows forming a delicate narrow line", "text_zh": "非常纤细稀疏的眉毛，形成精细狭窄的线条"},
+        {"value": -0.6667, "text": "clearly thin eyebrows with light density and a narrow silhouette", "text_zh": "明显偏细的眉毛，密度较轻且轮廓狭窄"},
+        {"value": -0.3333, "text": "slightly thin eyebrows with fine individual hairs still visible", "text_zh": "略细的眉毛，仍可见纤细的单根眉毛纹理"},
+        {"value": 0, "text": "natural medium-thickness eyebrows", "text_zh": "自然中等粗细的眉毛"},
+        {"value": 0.3333, "text": "slightly thick eyebrows with fuller visible hair density", "text_zh": "略粗的眉毛，毛发密度更饱满可见"},
+        {"value": 0.6667, "text": "clearly thick, full eyebrows with a broad dense silhouette", "text_zh": "明显粗密饱满的眉毛，整体轮廓宽而浓密"},
+        {"value": 1, "text": "very thick, dense eyebrows with strong individual hairs and a bold broad shape", "text_zh": "非常粗密的眉毛，单根毛流清晰且整体形状宽阔醒目"}
+      ]
+    },
     "face_length": {
       "levels": [
         {

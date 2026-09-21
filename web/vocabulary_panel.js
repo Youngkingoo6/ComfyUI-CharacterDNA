@@ -4,7 +4,8 @@ import { api } from "../../scripts/api.js";
 const API_PATH = "/character-dna/vocabulary";
 const TAB_ID = "character-dna-vocabulary";
 const FEATURE_GROUPS = {
-  face: ["face_length", "face_width", "cheekbone_width", "jaw_width", "chin_width", "chin_length"],
+  face: ["face_length", "face_width", "cheekbone_width", "cheekbone_height", "cheekbone_projection", "jaw_width", "jawline_definition", "chin_width", "chin_length"],
+  eyebrows: ["eyebrow_shape", "eyebrow_thickness"],
   eyes: ["eye_elongation", "eye_openness", "eye_spacing", "canthal_tilt", "brow_eye_distance"],
   nose: ["nose_width", "nose_length", "nose_projection", "nose_tip_rotation"],
   mouth: ["mouth_width", "upper_lip_fullness", "lower_lip_fullness", "cupid_bow_definition"],
@@ -30,7 +31,7 @@ const FALLBACK = {
   emptyFeatures: "No matching features", emptyPhrases: "No matching presets", notLoaded: "Vocabulary is not loaded",
   english: "English prompt", chinese: "Chinese prompt", englishLabel: "English name", chineseLabel: "Chinese name", value: "Value", identityTemplate: "Identity template",
   ageTemplate: "Age template", lifeStages: "Life stages", maxAge: "Upper age (blank for last)", addStage: "+ Add life stage",
-  quality: "Fixed quality phrases", qualityPosition: "Fixed quality position", qualityAtStart: "At prompt start", qualityAtEnd: "At prompt end", face: "Face", eyes: "Eyes", nose: "Nose", mouth: "Mouth",
+  quality: "Fixed quality phrases", qualityPosition: "Fixed quality position", qualityAtStart: "At prompt start", qualityAtEnd: "At prompt end", face: "Face", eyebrows: "Eyebrows", eyes: "Eyes", nose: "Nose", mouth: "Mouth",
   faceFeatures: "Face Features", bodyFeatures: "Body Features",
   identityAppearances: "Identity Appearance", addAppearance: "+ Add appearance", newAppearanceKey: "New appearance key",
   visualBlueprints: "Visual Blueprints", look: "Look", performance: "Performance", scene: "Scene", photography: "Photography",

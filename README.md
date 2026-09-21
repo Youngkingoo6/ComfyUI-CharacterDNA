@@ -6,7 +6,7 @@ CharacterDNA 用一组可重复、可调节的参数描述原创角色身份。�
 
 项目自带四个可直接拖入 ComfyUI 的示例：
 
-- [`examples/01_basic_face_seed.json`](examples/01_basic_face_seed.json)：从基础身份随机生成 19 个面部参数，并直接输出提示词。
+- [`examples/01_basic_face_seed.json`](examples/01_basic_face_seed.json)：从基础身份随机生成 24 个面部参数，并直接输出提示词。
 - [`examples/02_multiple_feature_adjustments.json`](examples/02_multiple_feature_adjustments.json)：在随机 DNA 后连续修改多个 Feature，演示参数继承和覆盖。
 - [`examples/03_face_and_body_combined.json`](examples/03_face_and_body_combined.json)：分别生成面部和身体 DNA，再输出合并后的完整身份提示词。
 - [`examples/04_batch_generate_analyze_select.json`](examples/04_batch_generate_analyze_select.json)：批量生成、几何分析、目标筛选和 Pareto 预览。
@@ -60,7 +60,7 @@ Character Visual Blueprint（可选）
 
 ### Face DNA Seed Generator
 
-根据同一组 `seed + distinctiveness + harmony` 确定性生成同一套 19 维参数。
+根据同一组 `seed + distinctiveness + harmony` 确定性生成同一套 24 维参数。
 
 - `seed`：决定各 Feature 的方向和组合；相同输入会得到相同身份。
 - `control after generate`：`fixed` 保持、`increment` 递增、`decrement` 递减、`randomize` 随机。
@@ -90,7 +90,7 @@ Seed Generator
 
 每次执行 Parametric Face Designer 都会根据当前 DNA 重新生成完整面部提示词，因此最后一个 Parametric 节点的输出已经包含之前设置的所有非零特征。Face Composite Identity 已移除，避免重复改写和弱化具体参数。
 
-身体部分采用相同方式：Body DNA Seed Generator 和 Parametric Body Designer 会直接输出继承面部后的完整身份提示词。多个 Parametric Body 节点可以串联，最后一个节点包含此前所有非零身体参数。Body Composite Identity 已移除。
+身体部分采用相同方式：Body DNA Seed Generator 和 Parametric Body Designer 会直接输出继承面部后的完整身份提示词。`body_profile` 可选择按种子随机生成，或直接使用 `balanced / petite / athletic / curvy / slender_tall` 组合预设；预设只映射现有 20 项身体参数，不增加新参数。多个 Parametric Body 节点可以串联，最后一个节点包含此前所有非零身体参数。Body Composite Identity 已移除。
 
 ## 参数说明
 
@@ -106,7 +106,7 @@ Seed Generator
 
 - 每个 Feature 的七档中英文提示词；
 - 画面蓝图，以及造型、表演、场景、摄影四类带中英文显示名称的预设；
-- 稳定外观预设与每套画面蓝图的中英文负向提示词；
+- 稳定外观预设（含肤色、肤质与光泽组合）与每套画面蓝图的中英文负向提示词；
 - 年龄阶段、基础身份模板和固定质量词。
 
 `Fixed quality position` 可选择固定质量词位于完整提示词的最前面或最后面，默认放在最后。面部、身体和 Parametric 输出统一遵循该设置。

@@ -25,7 +25,7 @@ from .character_dna.body_parametric import (
     build_body_feature_prompt,
     build_complete_body_prompt,
 )
-from .character_dna.body_genesis import generate_body_dna
+from .character_dna.body_genesis import body_profile_options, generate_body_dna
 from .character_dna.presentation import (
     blueprint_options,
     compose_visual_blueprint,
@@ -379,6 +379,10 @@ class CharacterDNABodySeedGenerator:
                     "FLOAT",
                     {"default": 0.85, "min": 0.0, "max": 1.0, "step": 0.01},
                 ),
+                "body_profile": (
+                    body_profile_options(),
+                    {"default": "seeded"},
+                ),
             }
         }
 
@@ -392,12 +396,20 @@ class CharacterDNABodySeedGenerator:
     FUNCTION = "generate"
     CATEGORY = "CharacterDNA/Body"
 
-    def generate(self, character_dna, body_seed, distinctiveness, harmony):
+    def generate(
+        self,
+        character_dna,
+        body_seed,
+        distinctiveness,
+        harmony,
+        body_profile="seeded",
+    ):
         dna = generate_body_dna(
             character_dna,
             body_seed,
             distinctiveness,
             harmony,
+            body_profile,
         )
         prompt = build_complete_body_prompt(dna)
         prompt_zh = build_complete_body_prompt(dna, "zh")

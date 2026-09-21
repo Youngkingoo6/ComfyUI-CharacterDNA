@@ -22,7 +22,7 @@
       "outputs": [],
       "properties": {},
       "widgets_values": [
-        "最简面部 DNA 示例\n\n1. Designer 建立角色基础资料。\n2. Face DNA Seed Generator 生成 19 个面部参数，并直接输出完整提示词。\n3. 中文提示词可直接连接生图或保存。\n\n不再需要 Face Composite Identity。相同 seed、distinctiveness 和 harmony 会得到相同身份。"
+        "最简面部 DNA 示例\n\n1. Designer 建立角色基础资料。\n2. Face DNA Seed Generator 生成 24 个面部参数，并直接输出完整提示词。\n3. 中文提示词可直接连接生图或保存。\n\n不再需要 Face Composite Identity。相同 seed、distinctiveness 和 harmony 会得到相同身份。"
       ],
       "widgets_values_named": {
         "text": "基础示例"

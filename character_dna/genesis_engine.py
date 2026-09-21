@@ -36,6 +36,14 @@ FEATURE_GROUPS = {
         "jaw_width",
         "chin_width",
         "chin_length",
+        "cheekbone_height",
+        "cheekbone_projection",
+        "jawline_definition",
+    ],
+
+    "eyebrows": [
+        "eyebrow_shape",
+        "eyebrow_thickness",
     ],
 
     "eyes": [
@@ -70,6 +78,12 @@ FEATURE_LIMITS = {
     "jaw_width": 0.72,
     "chin_width": 0.65,
     "chin_length": 0.60,
+    "cheekbone_height": 0.68,
+    "cheekbone_projection": 0.65,
+    "jawline_definition": 0.72,
+
+    "eyebrow_shape": 0.78,
+    "eyebrow_thickness": 0.75,
 
     "eye_elongation": 0.82,
     "eye_openness": 0.62,
@@ -515,7 +529,7 @@ def generate_seeded_parametric_dna(
     harmony=0.85,
 ):
     """
-    Generate deterministic 19-dimensional Character DNA.
+    Generate deterministic 24-dimensional Character DNA.
 
     Same:
         dna_seed
@@ -649,7 +663,7 @@ def generate_seeded_parametric_dna(
 
     dna["genesis"].update({
         "engine":
-            "seeded_parametric_v0.3",
+            "seeded_parametric_v0.4",
 
         "dna_seed":
             dna_seed,

@@ -53,6 +53,7 @@
     "qualityAtStart": "At prompt start",
     "qualityAtEnd": "At prompt end",
     "face": "Face",
+    "eyebrows": "Eyebrows",
     "eyes": "Eyes",
     "nose": "Nose",
     "mouth": "Mouth",

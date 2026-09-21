@@ -60,14 +60,14 @@
   },
   "CharacterDNASeedGenerator": {
     "display_name": "🧬 面部 DNA 种子生成器",
-    "description": "根据 seed、独特度和协调度，确定性生成 19 维面部结构参数。",
+    "description": "根据 seed、独特度和协调度，确定性生成 24 维面部结构参数。",
     "inputs": {
       "character_dna": {
         "name": "角色 DNA"
       },
       "seed": {
         "name": "面部种子",
-        "tooltip": "决定 19 个面部 Feature 的方向与组合；相同输入得到相同面部 DNA。"
+        "tooltip": "决定 24 个面部 Feature 的方向与组合；相同输入得到相同面部 DNA。"
       },
       "distinctiveness": {
         "name": "独特度",
@@ -111,6 +111,10 @@
       "harmony": {
         "name": "协调度",
         "tooltip": "柔化冲突或不自然的极端组合。"
+      },
+      "body_profile": {
+        "name": "身体组合",
+        "tooltip": "seeded 按种子生成；也可直接选择均衡、娇小、运动、曲线或修长高挑组合预设。"
       }
     },
     "outputs": {

@@ -22,7 +22,7 @@
       "outputs": [],
       "properties": {},
       "widgets_values": [
-        "面部 + 身体 DNA 极简示例\n\n1. Designer 建立基础身份。\n2. Face DNA Seed Generator 生成面部 DNA。\n3. Body DNA Seed Generator 继承面部 DNA，加入身体参数，并直接输出完整身份提示词。\n4. Character Visual Blueprint 可选加入造型、动作、场景和摄影。\n\nFace 和 Body Composite 均已取消；最后一个 Seed 或 Parametric 节点的提示词可直接使用。"
+        "面部 + 身体 DNA 极简示例\n\n1. Designer 建立基础身份。\n2. Face DNA Seed Generator 生成面部 DNA。\n3. Body DNA Seed Generator 继承面部 DNA；body_profile 可按 seed 随机，也可直接选择身体组合。\n4. Character Visual Blueprint 可选加入造型、动作、场景和摄影。\n\n组合预设仍可继续串联 Parametric Body Designer 微调；最后一个 Seed 或 Parametric 节点的提示词可直接使用。"
       ],
       "widgets_values_named": {
         "text": "面部 + 身体 DNA 示例"
@@ -207,7 +207,7 @@
       ],
       "size": [
         330,
-        210
+        240
       ],
       "flags": {},
       "order": 3,
@@ -239,6 +239,14 @@
           "type": "FLOAT",
           "widget": {
             "name": "harmony"
+          },
+          "link": null
+        },
+        {
+          "name": "body_profile",
+          "type": "COMBO",
+          "widget": {
+            "name": "body_profile"
           },
           "link": null
         }
@@ -274,13 +282,15 @@
         246813,
         "fixed",
         0.65,
-        0.85
+        0.85,
+        "seeded"
       ],
       "widgets_values_named": {
         "body_seed": 246813,
         "control_after_generate": "fixed",
         "distinctiveness": 0.65,
-        "harmony": 0.85
+        "harmony": 0.85,
+        "body_profile": "seeded"
       }
     },
     {

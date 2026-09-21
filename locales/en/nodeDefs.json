@@ -60,14 +60,14 @@
   },
   "CharacterDNASeedGenerator": {
     "display_name": "🧬 Face DNA Seed Generator",
-    "description": "Deterministically generates 19 facial structural dimensions from seed, distinctiveness, and harmony.",
+    "description": "Deterministically generates 24 facial structural dimensions from seed, distinctiveness, and harmony.",
     "inputs": {
       "character_dna": {
         "name": "Character DNA"
       },
       "seed": {
         "name": "Face seed",
-        "tooltip": "Determines the directions and combination of all 19 face Features; identical inputs reproduce the same face DNA."
+        "tooltip": "Determines the directions and combination of all 24 face Features; identical inputs reproduce the same face DNA."
       },
       "distinctiveness": {
         "name": "Distinctiveness",
@@ -111,6 +111,10 @@
       "harmony": {
         "name": "Harmony",
         "tooltip": "Softens conflicting or implausibly extreme combinations."
+      },
+      "body_profile": {
+        "name": "Body profile",
+        "tooltip": "Use seeded for deterministic random proportions, or select a balanced, petite, athletic, curvy, or slender-tall combination preset."
       }
     },
     "outputs": {

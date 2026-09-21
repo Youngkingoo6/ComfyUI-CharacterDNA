@@ -31,8 +31,23 @@
 
 ## 节点使用
 
-- `Body DNA Seed Generator`：用 `body_seed + distinctiveness + harmony` 确定性生成 20 项身体参数，并输出继承面部/基础身份后的完整提示词。
+- `Body DNA Seed Generator`：`body_profile=seeded` 时，用 `body_seed + distinctiveness + harmony` 确定性生成 20 项身体参数；也可选择固定组合预设，并输出继承面部/基础身份后的完整提示词。
 - `Parametric Body Designer`：覆盖一个参数并继承面部、基础身份和其他身体值；调整多项时串联多个节点。它的提示词输出是完整身份，不只是当前修改的单项身体词。
+
+## 身体组合预设
+
+组合预设不会增加新的身体参数，只是一次写入一组现有参数：
+
+| `body_profile` | 用途 |
+|---|---|
+| `seeded` | 按种子、独特度和协调度生成可复现的随机身体 DNA |
+| `balanced` | 20 项全部归零，不输出身体结构词 |
+| `petite` | 紧凑身高、较窄骨架、小手足和偏纤细体量 |
+| `athletic` | 较宽肩背、略长四肢和清晰运动型肌肉感 |
+| `curvy` | 较宽骨盆、明显腰线，以及更饱满的胸部和臀胯轮廓 |
+| `slender_tall` | 高挑身高、修长四肢、窄体量和纤细轮廓 |
+
+选择固定组合时，`body_seed`、`distinctiveness` 和 `harmony` 不再改变预设参数；如需个性化，继续串联 Parametric Body Designer 覆盖任意单项。
 
 身体提示词使用“窄肩、腿稍长、腰线明显、运动型身材”这类直接表达，不再附加比值锚点，也不再经过 Composite 改写。
 

@@ -27,6 +27,28 @@ FEATURE_META = {
         "group": "craniofacial",
         "label": "Chin Length",
     },
+    "cheekbone_height": {
+        "group": "craniofacial",
+        "label": "Cheekbone Height",
+    },
+    "cheekbone_projection": {
+        "group": "craniofacial",
+        "label": "Cheekbone Projection",
+    },
+    "jawline_definition": {
+        "group": "craniofacial",
+        "label": "Jawline Definition",
+    },
+
+    # Eyebrows
+    "eyebrow_shape": {
+        "group": "eyebrows",
+        "label": "Eyebrow Shape",
+    },
+    "eyebrow_thickness": {
+        "group": "eyebrows",
+        "label": "Eyebrow Thickness",
+    },
 
     # Eyes
     "eye_elongation": {

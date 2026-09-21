@@ -2,7 +2,7 @@
 
 ## 坐标含义
 
-19 个 Feature 都使用 `-1.0 ～ +1.0` 的连续坐标：
+24 个 Feature 都使用 `-1.0 ～ +1.0` 的连续坐标：
 
 Parametric 节点的界面步进为 `0.1`，手动覆盖值保留 1 位小数；语义输出仍匹配最近的七档锚点。
 
@@ -16,9 +16,9 @@ Parametric 节点的界面步进为 `0.1`，手动覆盖值保留 1 位小数；
 
 正负号只代表结构方向，不代表好坏、美丑或质量。参数改变的是身份结构，妆容、发型、表情、姿势和灯光应由其他提示词控制。Seeder 产生连续值时，最接近 `0` 档的数值保留在 DNA 中，但不输出“均衡”提示词。
 
-19 项全部为 `0` 时不输出面部结构词，只保留基础身份、年龄与固定质量词。
+24 项全部为 `0` 时不输出面部结构词，只保留基础身份、年龄与固定质量词。
 
-## 19 个 Feature
+## 24 个 Feature
 
 | 分组 | 参数 | `-1` 方向 | `0` | `+1` 方向 |
 |---|---|---|---|---|
@@ -28,6 +28,11 @@ Parametric 节点的界面步进为 `0.1`，手动覆盖值保留 1 位小数；
 | 脸部 | `jaw_width` | 窄下颌 | 不输出 | 宽下颌 |
 | 脸部 | `chin_width` | 窄下巴 | 不输出 | 宽下巴 |
 | 脸部 | `chin_length` | 短下巴 | 不输出 | 长下巴 |
+| 脸部 | `cheekbone_height` | 颧骨重心低 | 不输出 | 颧骨重心高 |
+| 脸部 | `cheekbone_projection` | 颧骨轮廓平 | 不输出 | 颧骨轮廓突出 |
+| 脸部 | `jawline_definition` | 下颌线柔和 | 不输出 | 下颌线清晰 |
+| 眉毛 | `eyebrow_shape` | 平直眉 | 不输出 | 高挑弧形眉 |
+| 眉毛 | `eyebrow_thickness` | 纤细稀疏眉 | 不输出 | 粗密饱满眉 |
 | 眼部 | `eye_elongation` | 圆眼 | 不输出 | 细长眼 |
 | 眼部 | `eye_openness` | 细眼 | 不输出 | 大眼睛 |
 | 眼部 | `eye_spacing` | 近眼距 | 不输出 | 宽眼距 |
@@ -57,7 +62,7 @@ Seed Generator 的 `harmony` 会在生成参数时处理明显冲突，例如：
 
 ### `seed`
 
-决定 19 个 Feature 的原始方向、数值和主要身份特征。同一个基础身份使用相同的 `seed`、`distinctiveness` 和 `harmony`，结果可重复。
+决定 24 个 Feature 的原始方向、数值和主要身份特征。同一个基础身份使用相同的 `seed`、`distinctiveness` 和 `harmony`，结果可重复。
 
 `control after generate`：
 
@@ -90,7 +95,7 @@ Seed Generator 的 `harmony` 会在生成参数时处理明显冲突，例如：
 
 ## 多参数调整方法
 
-Parametric Face Designer 每个节点只覆盖一个 Feature，并继承输入 DNA 中其余 18 个值。修改多个参数时按顺序串联：
+Parametric Face Designer 每个节点只覆盖一个 Feature，并继承输入 DNA 中其余 23 个值。修改多个参数时按顺序串联：
 
 ```text
 Face DNA Seed Generator
