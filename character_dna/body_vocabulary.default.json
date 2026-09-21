@@ -6,58 +6,58 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely short stature",
-          "text_zh": "头身比极小",
+          "text": "very short stature",
+          "text_zh": "身材很娇小",
           "ratio": 5.5,
           "ratio_min": null,
-          "ratio_max": 6.0
+          "ratio_max": 6
         },
         {
           "value": -0.6667,
-          "text": "noticeably short stature",
-          "text_zh": "头身比明显偏小",
-          "ratio": 6.0,
-          "ratio_min": 6.0,
+          "text": "short stature",
+          "text_zh": "身材娇小",
+          "ratio": 6,
+          "ratio_min": 6,
           "ratio_max": 6.5
         },
         {
           "value": -0.3333,
           "text": "slightly short stature",
-          "text_zh": "头身比偏小",
+          "text_zh": "身材稍矮",
           "ratio": 6.5,
           "ratio_min": 6.5,
-          "ratio_max": 7.0
+          "ratio_max": 7
         },
         {
           "value": 0,
-          "text": "standard proportions",
-          "text_zh": "头身比标准",
+          "text": "natural height",
+          "text_zh": "自然身高",
           "ratio": 7.5,
-          "ratio_min": 7.0,
-          "ratio_max": 8.0
+          "ratio_min": 7,
+          "ratio_max": 8
         },
         {
           "value": 0.3333,
           "text": "slightly tall stature",
-          "text_zh": "头身比偏大",
+          "text_zh": "身材稍高",
           "ratio": 8.2,
-          "ratio_min": 8.0,
+          "ratio_min": 8,
           "ratio_max": 8.5
         },
         {
           "value": 0.6667,
-          "text": "noticeably tall stature",
-          "text_zh": "头身比明显偏大",
+          "text": "tall stature",
+          "text_zh": "身材高挑",
           "ratio": 8.8,
           "ratio_min": 8.5,
-          "ratio_max": 9.0
+          "ratio_max": 9
         },
         {
           "value": 1,
-          "text": "extremely tall stature",
-          "text_zh": "头身比极大",
+          "text": "very tall stature",
+          "text_zh": "身材很高挑",
           "ratio": 9.2,
-          "ratio_min": 9.0,
+          "ratio_min": 9,
           "ratio_max": null
         }
       ],
@@ -70,32 +70,32 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely narrow shoulders",
-          "text_zh": "肩极窄",
+          "text": "very narrow shoulders",
+          "text_zh": "肩膀很窄",
           "ratio": 1.8,
           "ratio_min": null,
-          "ratio_max": 2.0
+          "ratio_max": 2
         },
         {
           "value": -0.6667,
-          "text": "noticeably narrow shoulders",
-          "text_zh": "肩明显偏窄",
-          "ratio": 2.0,
-          "ratio_min": 2.0,
+          "text": "narrow shoulders",
+          "text_zh": "窄肩",
+          "ratio": 2,
+          "ratio_min": 2,
           "ratio_max": 2.2
         },
         {
           "value": -0.3333,
           "text": "slightly narrow shoulders",
-          "text_zh": "肩偏窄",
+          "text_zh": "肩膀稍窄",
           "ratio": 2.2,
           "ratio_min": 2.2,
           "ratio_max": 2.4
         },
         {
           "value": 0,
-          "text": "standard shoulder width",
-          "text_zh": "肩宽标准",
+          "text": "natural shoulder width",
+          "text_zh": "自然肩宽",
           "ratio": 2.6,
           "ratio_min": 2.4,
           "ratio_max": 2.8
@@ -103,23 +103,23 @@
         {
           "value": 0.3333,
           "text": "slightly broad shoulders",
-          "text_zh": "肩偏宽",
-          "ratio": 3.0,
+          "text_zh": "肩膀稍宽",
+          "ratio": 3,
           "ratio_min": 2.8,
           "ratio_max": 3.2
         },
         {
           "value": 0.6667,
-          "text": "noticeably broad shoulders",
-          "text_zh": "肩明显偏宽",
+          "text": "broad shoulders",
+          "text_zh": "宽肩",
           "ratio": 3.4,
           "ratio_min": 3.2,
           "ratio_max": 3.6
         },
         {
           "value": 1,
-          "text": "extremely broad shoulders",
-          "text_zh": "肩极宽",
+          "text": "very broad shoulders",
+          "text_zh": "肩膀很宽",
           "ratio": 3.8,
           "ratio_min": 3.6,
           "ratio_max": null
@@ -134,38 +134,38 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely square shoulders",
-          "text_zh": "极其平直方肩"
+          "text": "very square shoulders",
+          "text_zh": "肩膀非常平直"
         },
         {
           "value": -0.6667,
-          "text": "distinctly square shoulders",
-          "text_zh": "明显平直方肩"
+          "text": "square shoulders",
+          "text_zh": "平直肩"
         },
         {
           "value": -0.3333,
-          "text": "moderately square shoulders",
-          "text_zh": "适度平直方肩"
+          "text": "slightly square shoulders",
+          "text_zh": "肩膀稍平"
         },
         {
           "value": 0,
-          "text": "balanced shoulder slope",
-          "text_zh": "均衡肩部斜度"
+          "text": "natural shoulder slope",
+          "text_zh": "自然肩线"
         },
         {
           "value": 0.3333,
-          "text": "moderately sloped shoulders",
-          "text_zh": "适度斜肩"
+          "text": "slightly sloped shoulders",
+          "text_zh": "肩膀稍斜"
         },
         {
           "value": 0.6667,
-          "text": "distinctly sloped shoulders",
-          "text_zh": "明显斜肩"
+          "text": "sloped shoulders",
+          "text_zh": "斜肩"
         },
         {
           "value": 1,
-          "text": "extremely sloped shoulders",
-          "text_zh": "极其斜肩"
+          "text": "strongly sloped shoulders",
+          "text_zh": "肩膀明显下斜"
         }
       ]
     },
@@ -175,38 +175,38 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely narrow ribcage",
-          "text_zh": "极其窄胸廓"
+          "text": "very narrow ribcage",
+          "text_zh": "胸廓很窄"
         },
         {
           "value": -0.6667,
-          "text": "distinctly narrow ribcage",
-          "text_zh": "明显窄胸廓"
+          "text": "narrow ribcage",
+          "text_zh": "窄胸廓"
         },
         {
           "value": -0.3333,
-          "text": "moderately narrow ribcage",
-          "text_zh": "适度窄胸廓"
+          "text": "slightly narrow ribcage",
+          "text_zh": "胸廓稍窄"
         },
         {
           "value": 0,
-          "text": "balanced ribcage width",
-          "text_zh": "均衡胸廓宽度"
+          "text": "natural ribcage width",
+          "text_zh": "自然胸廓宽度"
         },
         {
           "value": 0.3333,
-          "text": "moderately broad ribcage",
-          "text_zh": "适度宽胸廓"
+          "text": "slightly broad ribcage",
+          "text_zh": "胸廓稍宽"
         },
         {
           "value": 0.6667,
-          "text": "distinctly broad ribcage",
-          "text_zh": "明显宽胸廓"
+          "text": "broad ribcage",
+          "text_zh": "宽胸廓"
         },
         {
           "value": 1,
-          "text": "extremely broad ribcage",
-          "text_zh": "极其宽胸廓"
+          "text": "very broad ribcage",
+          "text_zh": "胸廓很宽"
         }
       ]
     },
@@ -216,38 +216,38 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely narrow pelvis",
-          "text_zh": "极其窄骨盆"
+          "text": "very narrow hips",
+          "text_zh": "胯部很窄"
         },
         {
           "value": -0.6667,
-          "text": "distinctly narrow pelvis",
-          "text_zh": "明显窄骨盆"
+          "text": "narrow hips",
+          "text_zh": "窄胯"
         },
         {
           "value": -0.3333,
-          "text": "moderately narrow pelvis",
-          "text_zh": "适度窄骨盆"
+          "text": "slightly narrow hips",
+          "text_zh": "胯部稍窄"
         },
         {
           "value": 0,
-          "text": "balanced pelvis width",
-          "text_zh": "均衡骨盆宽度"
+          "text": "natural hip width",
+          "text_zh": "自然胯宽"
         },
         {
           "value": 0.3333,
-          "text": "moderately broad pelvis",
-          "text_zh": "适度宽骨盆"
+          "text": "slightly wide hips",
+          "text_zh": "胯部稍宽"
         },
         {
           "value": 0.6667,
-          "text": "distinctly broad pelvis",
-          "text_zh": "明显宽骨盆"
+          "text": "wide hips",
+          "text_zh": "宽胯"
         },
         {
           "value": 1,
-          "text": "extremely broad pelvis",
-          "text_zh": "极其宽骨盆"
+          "text": "very wide hips",
+          "text_zh": "胯部很宽"
         }
       ]
     },
@@ -257,16 +257,16 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely short neck",
-          "text_zh": "颈极短",
+          "text": "very short neck",
+          "text_zh": "脖子很短",
           "ratio": 0.22,
           "ratio_min": null,
           "ratio_max": 0.25
         },
         {
           "value": -0.6667,
-          "text": "noticeably short neck",
-          "text_zh": "颈明显偏短",
+          "text": "short neck",
+          "text_zh": "短脖子",
           "ratio": 0.27,
           "ratio_min": 0.25,
           "ratio_max": 0.285
@@ -274,15 +274,15 @@
         {
           "value": -0.3333,
           "text": "slightly short neck",
-          "text_zh": "颈偏短",
+          "text_zh": "脖子稍短",
           "ratio": 0.305,
           "ratio_min": 0.285,
           "ratio_max": 0.32
         },
         {
           "value": 0,
-          "text": "standard neck length",
-          "text_zh": "颈长标准",
+          "text": "natural neck length",
+          "text_zh": "自然颈长",
           "ratio": 0.37,
           "ratio_min": 0.32,
           "ratio_max": 0.42
@@ -290,23 +290,23 @@
         {
           "value": 0.3333,
           "text": "slightly long neck",
-          "text_zh": "颈偏长",
+          "text_zh": "脖子稍长",
           "ratio": 0.46,
           "ratio_min": 0.42,
-          "ratio_max": 0.50
+          "ratio_max": 0.5
         },
         {
           "value": 0.6667,
-          "text": "noticeably long neck",
-          "text_zh": "颈明显偏长",
+          "text": "long neck",
+          "text_zh": "长脖子",
           "ratio": 0.54,
-          "ratio_min": 0.50,
+          "ratio_min": 0.5,
           "ratio_max": 0.58
         },
         {
           "value": 1,
-          "text": "extremely long neck",
-          "text_zh": "颈极长",
+          "text": "very long neck",
+          "text_zh": "脖子很长",
           "ratio": 0.62,
           "ratio_min": 0.58,
           "ratio_max": null
@@ -321,38 +321,38 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely slender neck",
-          "text_zh": "极其纤细的颈部"
+          "text": "very slender neck",
+          "text_zh": "脖子很细"
         },
         {
           "value": -0.6667,
-          "text": "distinctly slender neck",
-          "text_zh": "明显纤细的颈部"
+          "text": "slender neck",
+          "text_zh": "纤细颈部"
         },
         {
           "value": -0.3333,
-          "text": "moderately slender neck",
-          "text_zh": "适度纤细的颈部"
+          "text": "slightly slender neck",
+          "text_zh": "脖子稍细"
         },
         {
           "value": 0,
-          "text": "balanced neck thickness",
-          "text_zh": "均衡颈部粗细"
+          "text": "natural neck thickness",
+          "text_zh": "自然颈部粗细"
         },
         {
           "value": 0.3333,
-          "text": "moderately substantial neck",
-          "text_zh": "适度厚实的颈部"
+          "text": "slightly thick neck",
+          "text_zh": "脖子稍粗"
         },
         {
           "value": 0.6667,
-          "text": "distinctly substantial neck",
-          "text_zh": "明显厚实的颈部"
+          "text": "thick neck",
+          "text_zh": "粗颈"
         },
         {
           "value": 1,
-          "text": "extremely substantial neck",
-          "text_zh": "极其厚实的颈部"
+          "text": "very thick neck",
+          "text_zh": "脖子很粗"
         }
       ]
     },
@@ -362,38 +362,38 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely short torso",
-          "text_zh": "极其短躯干"
+          "text": "very short torso",
+          "text_zh": "躯干很短"
         },
         {
           "value": -0.6667,
-          "text": "distinctly short torso",
-          "text_zh": "明显短躯干"
+          "text": "short torso",
+          "text_zh": "短躯干"
         },
         {
           "value": -0.3333,
-          "text": "moderately short torso",
-          "text_zh": "适度短躯干"
+          "text": "slightly short torso",
+          "text_zh": "躯干稍短"
         },
         {
           "value": 0,
-          "text": "balanced torso length",
-          "text_zh": "均衡躯干长度"
+          "text": "natural torso length",
+          "text_zh": "自然躯干长度"
         },
         {
           "value": 0.3333,
-          "text": "moderately long torso",
-          "text_zh": "适度长躯干"
+          "text": "slightly long torso",
+          "text_zh": "躯干稍长"
         },
         {
           "value": 0.6667,
-          "text": "distinctly long torso",
-          "text_zh": "明显长躯干"
+          "text": "long torso",
+          "text_zh": "长躯干"
         },
         {
           "value": 1,
-          "text": "extremely long torso",
-          "text_zh": "极其长躯干"
+          "text": "very long torso",
+          "text_zh": "躯干很长"
         }
       ]
     },
@@ -403,38 +403,38 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely flat chest contour",
-          "text_zh": "极其平坦的胸部轮廓"
+          "text": "very flat chest",
+          "text_zh": "胸部很平坦"
         },
         {
           "value": -0.6667,
-          "text": "distinctly flat chest contour",
-          "text_zh": "明显平坦的胸部轮廓"
+          "text": "flat chest",
+          "text_zh": "平坦胸部"
         },
         {
           "value": -0.3333,
-          "text": "moderately flat chest contour",
-          "text_zh": "适度平坦的胸部轮廓"
+          "text": "slightly flat chest",
+          "text_zh": "胸部稍平"
         },
         {
           "value": 0,
-          "text": "balanced chest fullness",
-          "text_zh": "均衡胸部饱满度"
+          "text": "natural chest fullness",
+          "text_zh": "自然胸部轮廓"
         },
         {
           "value": 0.3333,
-          "text": "moderately full chest contour",
-          "text_zh": "适度饱满的胸部轮廓"
+          "text": "slightly full chest",
+          "text_zh": "胸部稍丰满"
         },
         {
           "value": 0.6667,
-          "text": "distinctly full chest contour",
-          "text_zh": "明显饱满的胸部轮廓"
+          "text": "full chest",
+          "text_zh": "丰满胸部"
         },
         {
           "value": 1,
-          "text": "extremely full chest contour",
-          "text_zh": "极其饱满的胸部轮廓"
+          "text": "very full chest",
+          "text_zh": "胸部很丰满"
         }
       ]
     },
@@ -444,38 +444,38 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely straight waistline",
-          "text_zh": "极其平直的腰线"
+          "text": "very straight waist",
+          "text_zh": "腰线很平直"
         },
         {
           "value": -0.6667,
-          "text": "distinctly straight waistline",
-          "text_zh": "明显平直的腰线"
+          "text": "straight waist",
+          "text_zh": "平直腰线"
         },
         {
           "value": -0.3333,
-          "text": "moderately straight waistline",
-          "text_zh": "适度平直的腰线"
+          "text": "slightly straight waist",
+          "text_zh": "腰线稍平"
         },
         {
           "value": 0,
-          "text": "balanced waist definition",
-          "text_zh": "均衡腰线"
+          "text": "natural waistline",
+          "text_zh": "自然腰线"
         },
         {
           "value": 0.3333,
-          "text": "moderately defined waist",
-          "text_zh": "适度明显的腰线"
+          "text": "slightly defined waist",
+          "text_zh": "腰线稍明显"
         },
         {
           "value": 0.6667,
-          "text": "distinctly defined waist",
-          "text_zh": "明显收束的腰线"
+          "text": "defined waist",
+          "text_zh": "明显腰线"
         },
         {
           "value": 1,
-          "text": "extremely defined waist",
-          "text_zh": "极其收束的腰线"
+          "text": "very defined waist",
+          "text_zh": "腰线非常明显"
         }
       ]
     },
@@ -485,38 +485,38 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely lean hip contour",
-          "text_zh": "极其清瘦的臀胯轮廓"
+          "text": "very slim hips",
+          "text_zh": "臀胯很清瘦"
         },
         {
           "value": -0.6667,
-          "text": "distinctly lean hip contour",
-          "text_zh": "明显清瘦的臀胯轮廓"
+          "text": "slim hips",
+          "text_zh": "清瘦臀胯"
         },
         {
           "value": -0.3333,
-          "text": "moderately lean hip contour",
-          "text_zh": "适度清瘦的臀胯轮廓"
+          "text": "slightly slim hips",
+          "text_zh": "臀胯稍瘦"
         },
         {
           "value": 0,
-          "text": "balanced hip fullness",
-          "text_zh": "均衡臀胯饱满度"
+          "text": "natural hip fullness",
+          "text_zh": "自然臀胯轮廓"
         },
         {
           "value": 0.3333,
-          "text": "moderately full hip contour",
-          "text_zh": "适度饱满的臀胯轮廓"
+          "text": "slightly full hips",
+          "text_zh": "臀胯稍丰满"
         },
         {
           "value": 0.6667,
-          "text": "distinctly full hip contour",
-          "text_zh": "明显饱满的臀胯轮廓"
+          "text": "full hips",
+          "text_zh": "丰满臀胯"
         },
         {
           "value": 1,
-          "text": "extremely full hip contour",
-          "text_zh": "极其饱满的臀胯轮廓"
+          "text": "very full hips",
+          "text_zh": "臀胯很丰满"
         }
       ]
     },
@@ -526,63 +526,63 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely short arm span",
-          "text_zh": "臂展极短",
+          "text": "very short arms",
+          "text_zh": "手臂很短",
           "ratio": 0.86,
           "ratio_min": null,
-          "ratio_max": 0.90
+          "ratio_max": 0.9
         },
         {
           "value": -0.6667,
-          "text": "noticeably short arm span",
-          "text_zh": "臂展明显偏短",
-          "ratio": 0.90,
-          "ratio_min": 0.90,
+          "text": "short arms",
+          "text_zh": "短手臂",
+          "ratio": 0.9,
+          "ratio_min": 0.9,
           "ratio_max": 0.93
         },
         {
           "value": -0.3333,
-          "text": "slightly short arm span",
-          "text_zh": "臂展偏短",
+          "text": "slightly short arms",
+          "text_zh": "手臂稍短",
           "ratio": 0.94,
           "ratio_min": 0.93,
           "ratio_max": 0.96
         },
         {
           "value": 0,
-          "text": "standard arm span",
-          "text_zh": "臂展标准",
-          "ratio": 1.00,
+          "text": "natural arm length",
+          "text_zh": "自然手臂长度",
+          "ratio": 1,
           "ratio_min": 0.96,
           "ratio_max": 1.04
         },
         {
           "value": 0.3333,
-          "text": "slightly long arm span",
-          "text_zh": "臂展偏长",
+          "text": "slightly long arms",
+          "text_zh": "手臂稍长",
           "ratio": 1.07,
           "ratio_min": 1.04,
-          "ratio_max": 1.10
+          "ratio_max": 1.1
         },
         {
           "value": 0.6667,
-          "text": "noticeably long arm span",
-          "text_zh": "臂展明显偏长",
+          "text": "long arms",
+          "text_zh": "长手臂",
           "ratio": 1.13,
-          "ratio_min": 1.10,
+          "ratio_min": 1.1,
           "ratio_max": 1.16
         },
         {
           "value": 1,
-          "text": "extremely long arm span",
-          "text_zh": "臂展极长",
+          "text": "very long arms",
+          "text_zh": "手臂很长",
           "ratio": 1.18,
           "ratio_min": 1.16,
           "ratio_max": null
         }
       ],
       "ratio_reference": "arm_span / standing_height",
-      "ratio_standard": 1.0
+      "ratio_standard": 1
     },
     "hand_scale": {
       "label": "Hand Scale",
@@ -590,38 +590,38 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely small hands",
-          "text_zh": "极其偏小的手"
+          "text": "very small hands",
+          "text_zh": "手很小"
         },
         {
           "value": -0.6667,
-          "text": "distinctly small hands",
-          "text_zh": "明显偏小的手"
+          "text": "small hands",
+          "text_zh": "小手"
         },
         {
           "value": -0.3333,
-          "text": "moderately small hands",
-          "text_zh": "适度偏小的手"
+          "text": "slightly small hands",
+          "text_zh": "手稍小"
         },
         {
           "value": 0,
-          "text": "balanced hand scale",
-          "text_zh": "均衡手部尺度"
+          "text": "natural hand size",
+          "text_zh": "自然手部大小"
         },
         {
           "value": 0.3333,
-          "text": "moderately large hands",
-          "text_zh": "适度偏大的手"
+          "text": "slightly large hands",
+          "text_zh": "手稍大"
         },
         {
           "value": 0.6667,
-          "text": "distinctly large hands",
-          "text_zh": "明显偏大的手"
+          "text": "large hands",
+          "text_zh": "大手"
         },
         {
           "value": 1,
-          "text": "extremely large hands",
-          "text_zh": "极其偏大的手"
+          "text": "very large hands",
+          "text_zh": "手很大"
         }
       ]
     },
@@ -631,16 +631,16 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely short legs",
-          "text_zh": "腿极短",
-          "ratio": 0.40,
+          "text": "very short legs",
+          "text_zh": "腿很短",
+          "ratio": 0.4,
           "ratio_min": null,
           "ratio_max": 0.42
         },
         {
           "value": -0.6667,
-          "text": "noticeably short legs",
-          "text_zh": "腿明显偏短",
+          "text": "short legs",
+          "text_zh": "短腿",
           "ratio": 0.435,
           "ratio_min": 0.42,
           "ratio_max": 0.445
@@ -648,15 +648,15 @@
         {
           "value": -0.3333,
           "text": "slightly short legs",
-          "text_zh": "腿偏短",
+          "text_zh": "腿稍短",
           "ratio": 0.46,
           "ratio_min": 0.445,
           "ratio_max": 0.47
         },
         {
           "value": 0,
-          "text": "standard leg length",
-          "text_zh": "腿长标准",
+          "text": "natural leg length",
+          "text_zh": "自然腿长",
           "ratio": 0.505,
           "ratio_min": 0.47,
           "ratio_max": 0.54
@@ -664,23 +664,23 @@
         {
           "value": 0.3333,
           "text": "slightly long legs",
-          "text_zh": "腿偏长",
+          "text_zh": "腿稍长",
           "ratio": 0.56,
           "ratio_min": 0.54,
           "ratio_max": 0.58
         },
         {
           "value": 0.6667,
-          "text": "noticeably long legs",
-          "text_zh": "腿明显偏长",
-          "ratio": 0.60,
+          "text": "long legs",
+          "text_zh": "长腿",
+          "ratio": 0.6,
           "ratio_min": 0.58,
           "ratio_max": 0.62
         },
         {
           "value": 1,
-          "text": "extremely long legs",
-          "text_zh": "腿极长",
+          "text": "very long legs",
+          "text_zh": "腿很长",
           "ratio": 0.64,
           "ratio_min": 0.62,
           "ratio_max": null
@@ -695,38 +695,38 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely compact thigh proportion",
-          "text_zh": "极其紧凑的大腿比例"
+          "text": "very short thighs",
+          "text_zh": "大腿很短"
         },
         {
           "value": -0.6667,
-          "text": "distinctly compact thigh proportion",
-          "text_zh": "明显紧凑的大腿比例"
+          "text": "short thighs",
+          "text_zh": "短大腿"
         },
         {
           "value": -0.3333,
-          "text": "moderately compact thigh proportion",
-          "text_zh": "适度紧凑的大腿比例"
+          "text": "slightly short thighs",
+          "text_zh": "大腿稍短"
         },
         {
           "value": 0,
-          "text": "balanced thigh proportion",
-          "text_zh": "均衡大腿比例"
+          "text": "natural thigh length",
+          "text_zh": "自然大腿长度"
         },
         {
           "value": 0.3333,
-          "text": "moderately long thigh proportion",
-          "text_zh": "适度修长的大腿比例"
+          "text": "slightly long thighs",
+          "text_zh": "大腿稍长"
         },
         {
           "value": 0.6667,
-          "text": "distinctly long thigh proportion",
-          "text_zh": "明显修长的大腿比例"
+          "text": "long thighs",
+          "text_zh": "长大腿"
         },
         {
           "value": 1,
-          "text": "extremely long thigh proportion",
-          "text_zh": "极其修长的大腿比例"
+          "text": "very long thighs",
+          "text_zh": "大腿很长"
         }
       ]
     },
@@ -736,38 +736,38 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely small feet",
-          "text_zh": "极其偏小的足部"
+          "text": "very small feet",
+          "text_zh": "脚很小"
         },
         {
           "value": -0.6667,
-          "text": "distinctly small feet",
-          "text_zh": "明显偏小的足部"
+          "text": "small feet",
+          "text_zh": "小脚"
         },
         {
           "value": -0.3333,
-          "text": "moderately small feet",
-          "text_zh": "适度偏小的足部"
+          "text": "slightly small feet",
+          "text_zh": "脚稍小"
         },
         {
           "value": 0,
-          "text": "balanced foot scale",
-          "text_zh": "均衡足部尺度"
+          "text": "natural foot size",
+          "text_zh": "自然脚部大小"
         },
         {
           "value": 0.3333,
-          "text": "moderately large feet",
-          "text_zh": "适度偏大的足部"
+          "text": "slightly large feet",
+          "text_zh": "脚稍大"
         },
         {
           "value": 0.6667,
-          "text": "distinctly large feet",
-          "text_zh": "明显偏大的足部"
+          "text": "large feet",
+          "text_zh": "大脚"
         },
         {
           "value": 1,
-          "text": "extremely large feet",
-          "text_zh": "极其偏大的足部"
+          "text": "very large feet",
+          "text_zh": "脚很大"
         }
       ]
     },
@@ -777,38 +777,38 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely lean upper-body build",
-          "text_zh": "极其清瘦的上身体量"
+          "text": "very slim upper body",
+          "text_zh": "上半身很清瘦"
         },
         {
           "value": -0.6667,
-          "text": "distinctly lean upper-body build",
-          "text_zh": "明显清瘦的上身体量"
+          "text": "slim upper body",
+          "text_zh": "清瘦上半身"
         },
         {
           "value": -0.3333,
-          "text": "moderately lean upper-body build",
-          "text_zh": "适度清瘦的上身体量"
+          "text": "slightly slim upper body",
+          "text_zh": "上半身稍瘦"
         },
         {
           "value": 0,
-          "text": "balanced upper-body fullness",
-          "text_zh": "均衡上身体量"
+          "text": "natural upper body fullness",
+          "text_zh": "自然上半身体量"
         },
         {
           "value": 0.3333,
-          "text": "moderately substantial upper-body build",
-          "text_zh": "适度厚实的上身体量"
+          "text": "slightly full upper body",
+          "text_zh": "上半身稍厚实"
         },
         {
           "value": 0.6667,
-          "text": "distinctly substantial upper-body build",
-          "text_zh": "明显厚实的上身体量"
+          "text": "full upper body",
+          "text_zh": "厚实上半身"
         },
         {
           "value": 1,
-          "text": "extremely substantial upper-body build",
-          "text_zh": "极其厚实的上身体量"
+          "text": "very full upper body",
+          "text_zh": "上半身很厚实"
         }
       ]
     },
@@ -818,38 +818,38 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely lean lower-body build",
-          "text_zh": "极其清瘦的下身体量"
+          "text": "very slim lower body",
+          "text_zh": "下半身很清瘦"
         },
         {
           "value": -0.6667,
-          "text": "distinctly lean lower-body build",
-          "text_zh": "明显清瘦的下身体量"
+          "text": "slim lower body",
+          "text_zh": "清瘦下半身"
         },
         {
           "value": -0.3333,
-          "text": "moderately lean lower-body build",
-          "text_zh": "适度清瘦的下身体量"
+          "text": "slightly slim lower body",
+          "text_zh": "下半身稍瘦"
         },
         {
           "value": 0,
-          "text": "balanced lower-body fullness",
-          "text_zh": "均衡下身体量"
+          "text": "natural lower body fullness",
+          "text_zh": "自然下半身体量"
         },
         {
           "value": 0.3333,
-          "text": "moderately substantial lower-body build",
-          "text_zh": "适度厚实的下身体量"
+          "text": "slightly full lower body",
+          "text_zh": "下半身稍厚实"
         },
         {
           "value": 0.6667,
-          "text": "distinctly substantial lower-body build",
-          "text_zh": "明显厚实的下身体量"
+          "text": "full lower body",
+          "text_zh": "厚实下半身"
         },
         {
           "value": 1,
-          "text": "extremely substantial lower-body build",
-          "text_zh": "极其厚实的下身体量"
+          "text": "very full lower body",
+          "text_zh": "下半身很厚实"
         }
       ]
     },
@@ -859,38 +859,38 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely slender limbs",
-          "text_zh": "极其纤细的四肢"
+          "text": "very slender arms and legs",
+          "text_zh": "四肢很纤细"
         },
         {
           "value": -0.6667,
-          "text": "distinctly slender limbs",
-          "text_zh": "明显纤细的四肢"
+          "text": "slender arms and legs",
+          "text_zh": "纤细四肢"
         },
         {
           "value": -0.3333,
-          "text": "moderately slender limbs",
-          "text_zh": "适度纤细的四肢"
+          "text": "slightly slender limbs",
+          "text_zh": "四肢稍细"
         },
         {
           "value": 0,
-          "text": "balanced limb thickness",
-          "text_zh": "均衡四肢粗细"
+          "text": "natural limb thickness",
+          "text_zh": "自然四肢粗细"
         },
         {
           "value": 0.3333,
-          "text": "moderately substantial limbs",
-          "text_zh": "适度厚实的四肢"
+          "text": "slightly thick limbs",
+          "text_zh": "四肢稍粗"
         },
         {
           "value": 0.6667,
-          "text": "distinctly substantial limbs",
-          "text_zh": "明显厚实的四肢"
+          "text": "thick limbs",
+          "text_zh": "粗壮四肢"
         },
         {
           "value": 1,
-          "text": "extremely substantial limbs",
-          "text_zh": "极其厚实的四肢"
+          "text": "very thick limbs",
+          "text_zh": "四肢很粗壮"
         }
       ]
     },
@@ -900,166 +900,40 @@
       "levels": [
         {
           "value": -1,
-          "text": "extremely soft low-muscle build",
-          "text_zh": "极其柔和、低肌肉感的体型"
+          "text": "very soft build",
+          "text_zh": "体型非常柔和"
         },
         {
           "value": -0.6667,
-          "text": "distinctly soft low-muscle build",
-          "text_zh": "明显柔和、低肌肉感的体型"
+          "text": "soft build",
+          "text_zh": "柔和体型"
         },
         {
           "value": -0.3333,
-          "text": "moderately soft build",
-          "text_zh": "适度柔和的体型"
+          "text": "slightly soft build",
+          "text_zh": "体型稍柔和"
         },
         {
           "value": 0,
-          "text": "balanced muscularity",
-          "text_zh": "均衡肌肉感"
+          "text": "natural muscle definition",
+          "text_zh": "自然肌肉感"
         },
         {
           "value": 0.3333,
-          "text": "moderately athletic build",
-          "text_zh": "适度运动型体格"
+          "text": "slightly athletic build",
+          "text_zh": "稍有运动感"
         },
         {
           "value": 0.6667,
-          "text": "distinctly muscular athletic build",
-          "text_zh": "明显结实的运动型体格"
+          "text": "athletic build",
+          "text_zh": "运动型身材"
         },
         {
           "value": 1,
-          "text": "extremely muscular athletic build",
-          "text_zh": "极其结实的运动型体格"
+          "text": "very muscular build",
+          "text_zh": "肌肉感很强"
         }
       ]
-    }
-  },
-  "composites": {
-    "overall_frame": {
-      "stature_tall": "a naturally tall overall frame",
-      "stature_compact": "a naturally compact overall frame",
-      "upper_taper": "a gently upper-weighted tapered silhouette",
-      "lower_taper": "a gently lower-weighted silhouette",
-      "shoulders_broad": "a broad-shouldered frame",
-      "shoulders_narrow": "a narrow-shouldered frame",
-      "waist_defined": "a naturally defined waist",
-      "waist_straight": "a straighter waist transition",
-      "hips_full": "a fuller hip contour",
-      "hips_lean": "a lean hip contour",
-      "balanced": "balanced overall body proportions"
-    },
-    "torso_architecture": {
-      "neck_long": "an elongated neck-to-torso transition",
-      "neck_short": "a compact neck-to-torso transition",
-      "neck_thick": "a substantial neck structure",
-      "neck_slender": "a slender neck structure",
-      "ribcage_broad": "a broad ribcage structure",
-      "ribcage_narrow": "a narrow ribcage structure",
-      "torso_long": "an elongated torso",
-      "torso_short": "a compact torso",
-      "chest_full": "a naturally fuller chest contour",
-      "chest_flat": "a naturally flatter chest contour",
-      "shoulders_sloped": "gently sloping shoulder lines",
-      "shoulders_square": "straighter square shoulder lines",
-      "balanced": "balanced torso architecture"
-    },
-    "limb_proportions": {
-      "arms_long": "naturally long arms",
-      "arms_short": "naturally compact arms",
-      "hands_large": "hands with a larger natural scale",
-      "hands_small": "hands with a smaller natural scale",
-      "legs_long": "naturally long legs",
-      "legs_short": "naturally compact legs",
-      "thighs_long": "an elongated thigh proportion",
-      "thighs_short": "a compact thigh proportion",
-      "feet_large": "feet with a larger natural scale",
-      "feet_small": "feet with a smaller natural scale",
-      "balanced": "balanced limb proportions"
-    },
-    "build_distribution": {
-      "upper_fuller": "a fuller upper-body build relative to the lower body",
-      "lower_fuller": "a fuller lower-body build relative to the upper body",
-      "balanced_full": "evenly substantial body volume",
-      "balanced_lean": "evenly lean body volume",
-      "limbs_substantial": "substantial limb volume",
-      "limbs_slender": "slender limb volume",
-      "muscular": "a naturally athletic muscular structure",
-      "soft_build": "a naturally soft low-muscle structure",
-      "balanced": "balanced body-volume distribution"
-    },
-    "scale_balance": {
-      "long_limb_balance": "a long-limbed proportional rhythm",
-      "compact_limb_balance": "a compact-limbed proportional rhythm",
-      "hands_prominent": "hands that read slightly prominent within the frame",
-      "hands_delicate": "hands that read slightly delicate within the frame",
-      "feet_prominent": "feet that read slightly prominent within the frame",
-      "feet_delicate": "feet that read slightly delicate within the frame",
-      "balanced": "harmonious body-scale relationships"
-    }
-  },
-  "composites_zh": {
-    "overall_frame": {
-      "stature_tall": "自然高挑的整体骨架",
-      "stature_compact": "自然紧凑的整体骨架",
-      "upper_taper": "上部略宽、自然收束的轮廓",
-      "lower_taper": "下部略有体量的自然轮廓",
-      "shoulders_broad": "宽肩骨架",
-      "shoulders_narrow": "窄肩骨架",
-      "waist_defined": "自然清晰的腰线",
-      "waist_straight": "较平直的腰部过渡",
-      "hips_full": "较饱满的臀胯轮廓",
-      "hips_lean": "较清瘦的臀胯轮廓",
-      "balanced": "均衡的整体身体比例"
-    },
-    "torso_architecture": {
-      "neck_long": "修长的颈躯过渡",
-      "neck_short": "紧凑的颈躯过渡",
-      "neck_thick": "厚实的颈部结构",
-      "neck_slender": "纤细的颈部结构",
-      "ribcage_broad": "宽阔的胸廓结构",
-      "ribcage_narrow": "窄幅的胸廓结构",
-      "torso_long": "修长的躯干",
-      "torso_short": "紧凑的躯干",
-      "chest_full": "自然较饱满的胸部轮廓",
-      "chest_flat": "自然较平坦的胸部轮廓",
-      "shoulders_sloped": "自然下斜的肩线",
-      "shoulders_square": "平直方正的肩线",
-      "balanced": "均衡的躯干结构"
-    },
-    "limb_proportions": {
-      "arms_long": "自然修长的手臂",
-      "arms_short": "自然紧凑的手臂",
-      "hands_large": "自然尺度偏大的手",
-      "hands_small": "自然尺度偏小的手",
-      "legs_long": "自然修长的腿部",
-      "legs_short": "自然紧凑的腿部",
-      "thighs_long": "修长的大腿比例",
-      "thighs_short": "紧凑的大腿比例",
-      "feet_large": "自然尺度偏大的足部",
-      "feet_small": "自然尺度偏小的足部",
-      "balanced": "均衡的四肢比例"
-    },
-    "build_distribution": {
-      "upper_fuller": "相对更饱满的上身体量",
-      "lower_fuller": "相对更饱满的下身体量",
-      "balanced_full": "整体均匀厚实的体量",
-      "balanced_lean": "整体均匀清瘦的体量",
-      "limbs_substantial": "厚实的四肢体量",
-      "limbs_slender": "纤细的四肢体量",
-      "muscular": "自然结实的运动型结构",
-      "soft_build": "自然柔和、低肌肉感的结构",
-      "balanced": "均衡的身体体量分布"
-    },
-    "scale_balance": {
-      "long_limb_balance": "长四肢的比例节奏",
-      "compact_limb_balance": "紧凑四肢的比例节奏",
-      "hands_prominent": "在整体骨架中略显突出的手部尺度",
-      "hands_delicate": "在整体骨架中略显精巧的手部尺度",
-      "feet_prominent": "在整体骨架中略显突出的足部尺度",
-      "feet_delicate": "在整体骨架中略显精巧的足部尺度",
-      "balanced": "协调的身体尺度关系"
     }
   }
 }

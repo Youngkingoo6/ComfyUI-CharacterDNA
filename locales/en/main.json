@@ -16,10 +16,8 @@
     "import": "Import",
     "reset": "Restore defaults",
     "features": "Feature vocabulary",
-    "composites": "Composite vocabulary",
     "profile": "Base templates",
     "searchFeatures": "Search features or phrases…",
-    "searchComposites": "Search composites or phrases…",
     "searchPhrases": "Search presets or phrases…",
     "searchProfile": "Search is available in vocabulary tabs",
     "loading": "Loading vocabulary…",
@@ -38,7 +36,6 @@
     "importFailed": "Import failed: ",
     "invalidRoot": "JSON root must be an object",
     "emptyFeatures": "No matching features",
-    "emptyComposites": "No matching composite phrases",
     "emptyPhrases": "No matching presets",
     "notLoaded": "Vocabulary is not loaded",
     "english": "English prompt",
@@ -63,7 +60,6 @@
     "newAppearanceKey": "New appearance key",
     "faceFeatures": "Face Features",
     "bodyFeatures": "Body Features",
-    "bodyComposites": "Body Composite",
     "visualBlueprints": "Visual Blueprints",
     "look": "Look",
     "performance": "Performance",
@@ -87,11 +83,6 @@
     "frame": "Frame",
     "torso": "Torso",
     "limbs": "Limbs",
-    "build": "Build",
-    "overall_frame": "Overall frame",
-    "torso_architecture": "Torso architecture",
-    "limb_proportions": "Limb proportions",
-    "build_distribution": "Build distribution",
-    "scale_balance": "Scale balance"
+    "build": "Build"
   }
 }

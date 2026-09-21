@@ -155,38 +155,6 @@
       }
     }
   },
-  "CharacterDNABodyCompositeIdentity": {
-    "display_name": "🧬 Body Composite Identity",
-    "description": "Turns 20 body Features into up to five natural relational descriptions and combines them with the face identity prompt.",
-    "inputs": {
-      "character_dna": {
-        "name": "Character DNA"
-      },
-      "max_composites": {
-        "name": "Maximum composites"
-      }
-    },
-    "outputs": {
-      "0": {
-        "name": "Character DNA"
-      },
-      "1": {
-        "name": "Body anchors JSON"
-      },
-      "2": {
-        "name": "Body identity prompt"
-      },
-      "3": {
-        "name": "Chinese body identity prompt"
-      },
-      "4": {
-        "name": "Combined identity prompt"
-      },
-      "5": {
-        "name": "Chinese combined identity prompt"
-      }
-    }
-  },
   "CharacterDNAVisualBlueprint": {
     "display_name": "🧬 Character Visual Blueprint",
     "description": "Applies one reusable visual blueprint and a deterministic seed variation to the complete DNA identity prompt. Advanced Look, Performance, Scene and Photography layers are edited in the vocabulary panel.",

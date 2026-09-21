@@ -43,8 +43,6 @@ Body DNA Seed Generator（身体）
         ↓
 Parametric Face / Body Designer（可选，可串联）
         ↓
-Body Composite Identity（可选）
-        ↓
 Character Visual Blueprint（可选）
         ↓
 中英文完整身份提示词
@@ -92,12 +90,14 @@ Seed Generator
 
 每次执行 Parametric Face Designer 都会根据当前 DNA 重新生成完整面部提示词，因此最后一个 Parametric 节点的输出已经包含之前设置的所有非零特征。Face Composite Identity 已移除，避免重复改写和弱化具体参数。
 
+身体部分采用相同方式：Body DNA Seed Generator 和 Parametric Body Designer 会直接输出继承面部后的完整身份提示词。多个 Parametric Body 节点可以串联，最后一个节点包含此前所有非零身体参数。Body Composite Identity 已移除。
+
 ## 参数说明
 
-完整的 19 个 Feature、正负方向、所属 Composite 和常见联动关系见：
+完整的面部与身体 Feature、正负方向和常见联动关系见：
 
 - [`docs/parameters.zh-CN.md`](docs/parameters.zh-CN.md)
-- [`docs/body-parameters.zh-CN.md`](docs/body-parameters.zh-CN.md)：20 个身体 Feature、5 组身体 Composite 与组合方法。
+- [`docs/body-parameters.zh-CN.md`](docs/body-parameters.zh-CN.md)：20 个身体 Feature、正负方向与串联修改方法。
 - [`docs/phenotype-calibration.zh-CN.md`](docs/phenotype-calibration.zh-CN.md)：可测量比例、校准目标、批内排名与 Pareto 筛选。
 
 ## 词库管理
@@ -105,12 +105,11 @@ Seed Generator
 打开 ComfyUI 左侧的 **CharacterDNA Vocabulary** 面板，可以编辑：
 
 - 每个 Feature 的七档中英文提示词；
-- 身体 Composite 的中英文短语；
 - 画面蓝图，以及造型、表演、场景、摄影四类中英文预设；
 - 稳定外观预设与每套画面蓝图的中英文负向提示词；
 - 年龄阶段、基础身份模板和固定质量词。
 
-`Fixed quality position` 可选择固定质量词位于完整提示词的最前面或最后面，默认放在最后。面部、身体、Parametric 和 Composite 输出统一遵循该设置。
+`Fixed quality position` 可选择固定质量词位于完整提示词的最前面或最后面，默认放在最后。面部、身体和 Parametric 输出统一遵循该设置。
 
 点击保存后，后续执行的生成节点会直接使用新词库。修改前建议先导出备份。
 

@@ -9,7 +9,7 @@
 ```text
 Face DNA Seed Generator / Parametric Face Designer
   → Body DNA Seed Generator（可选）
-  → Body Composite Identity（可选）
+  → Parametric Body Designer（可选，可串联）
   → Character Visual Blueprint
 ```
 

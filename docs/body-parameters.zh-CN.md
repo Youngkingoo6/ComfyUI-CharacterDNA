@@ -29,20 +29,11 @@
 | 体型 | `limb_thickness` | 纤细四肢 | 厚实四肢 |
 | 体型 | `muscularity` | 柔和、低肌肉感 | 结实、运动型 |
 
-## 5 组 Composite
-
-1. `overall_frame`：综合身高体量、肩宽、胸廓、骨盆、腰线和臀胯，描述整体轮廓。
-2. `torso_architecture`：综合颈部、肩线、胸廓、躯干长度和胸部轮廓。
-3. `limb_proportions`：综合手臂、手、腿、大腿比例和足部尺度。
-4. `build_distribution`：综合上下身体量、四肢粗细和肌肉感。
-5. `scale_balance`：描述四肢与整体骨架之间的尺度协调关系。
-
-Composite 不是简单拼接 20 个单项词，而是先判断参数之间的相对关系，再输出自然的整体描述。某一组全部为 0 时，该组不输出。最终采用混合模式：关系描述没有充分覆盖的强显著 Feature 会自动补回；未入选的 Composite 分组会退回所有非中性单项描述，因此身体的 20 个数值不会因压缩而从最终提示词中消失。补回项记录在 `body_composite_identity.hybrid_residual_features`。
-
 ## 节点使用
 
 - `Body DNA Seed Generator`：用 `body_seed + distinctiveness + harmony` 确定性生成 20 项身体参数，并输出继承面部/基础身份后的完整提示词。
 - `Parametric Body Designer`：覆盖一个参数并继承面部、基础身份和其他身体值；调整多项时串联多个节点。它的提示词输出是完整身份，不只是当前修改的单项身体词。
-- `Body Composite Identity`：输出身体提示词，并额外输出已经合并面部与身体的完整身份提示词。
+
+身体提示词使用“窄肩、腿稍长、腰线明显、运动型身材”这类直接表达，不再附加比值锚点，也不再经过 Composite 改写。
 
 面部 seed 与身体 seed 相互独立，因此可以固定面孔，只随机寻找身体比例；也可以固定身体，只变化面孔。

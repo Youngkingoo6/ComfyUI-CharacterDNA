@@ -29,14 +29,6 @@ DEFAULT_PRESENTATION_VOCABULARY_PATH = PRESENTATION_VOCABULARY_PATH.with_name(
     "presentation_vocabulary.default.json"
 )
 
-BODY_COMPOSITE_GROUPS = {
-    "overall_frame",
-    "torso_architecture",
-    "limb_proportions",
-    "build_distribution",
-    "scale_balance",
-}
-
 FEATURE_LEVELS = [-1.0, -0.6667, -0.3333, 0.0, 0.3333, 0.6667, 1.0]
 MEASUREMENT_LEVELS = [-1.0, -0.6667, -0.3333, 0.0, 0.3333, 0.6667, 1.0]
 
@@ -174,26 +166,6 @@ def _validate_feature_vocabulary(features, expected_features, path="features"):
                 raise ValueError(f"{path}.{name}.measurement target values must be {MEASUREMENT_LEVELS}.")
 
 
-def _validate_composites(composites, composites_zh, groups, path="composites"):
-    if not isinstance(composites, dict) or not isinstance(composites_zh, dict):
-        raise ValueError(f"{path} and {path}_zh must be objects.")
-    if set(composites) != set(groups):
-        missing = sorted(set(groups) - set(composites))
-        extra = sorted(set(composites) - set(groups))
-        raise ValueError(f"{path} groups mismatch. Missing={missing}, extra={extra}")
-    if set(composites_zh) != set(groups):
-        raise ValueError(f"{path}_zh groups must match {path}.")
-    for group, entries in composites.items():
-        if not isinstance(entries, dict) or not entries:
-            raise ValueError(f"{path}.{group} must be a non-empty object.")
-        localized_entries = composites_zh[group]
-        if not isinstance(localized_entries, dict) or set(localized_entries) != set(entries):
-            raise ValueError(f"{path}_zh.{group} keys must match {path}.{group}.")
-        for key, text in entries.items():
-            _require_string(text, f"{path}.{group}.{key}")
-            _require_string(localized_entries[key], f"{path}_zh.{group}.{key}")
-
-
 def _validate_vocabulary(vocabulary):
     if not isinstance(vocabulary, dict):
         raise ValueError(
@@ -298,12 +270,6 @@ def _validate_body_vocabulary(vocabulary):
     _validate_feature_vocabulary(
         vocabulary.get("features"), BODY_FEATURE_META, "body_features"
     )
-    _validate_composites(
-        vocabulary.get("composites"),
-        vocabulary.get("composites_zh"),
-        BODY_COMPOSITE_GROUPS,
-        "body_composites",
-    )
     return vocabulary
 
 
@@ -373,8 +339,6 @@ def _combined_vocabulary():
     face = dict(get_vocabulary())
     body = get_body_vocabulary()
     face["body_features"] = body["features"]
-    face["body_composites"] = body["composites"]
-    face["body_composites_zh"] = body["composites_zh"]
     presentation = get_presentation_vocabulary()
     face["visual_layers"] = presentation["layers"]
     face["visual_blueprints"] = presentation["blueprints"]
@@ -392,10 +356,6 @@ def _split_vocabulary(vocabulary):
     }
     body = {
         "features": vocabulary.get("body_features", current_body["features"]),
-        "composites": vocabulary.get("body_composites", current_body["composites"]),
-        "composites_zh": vocabulary.get(
-            "body_composites_zh", current_body["composites_zh"]
-        ),
     }
     presentation = {
         "layers": vocabulary.get("visual_layers", current_presentation["layers"]),
@@ -510,8 +470,6 @@ async def reset_character_dna_vocabulary(_request):
         with DEFAULT_PRESENTATION_VOCABULARY_PATH.open("r", encoding="utf-8") as handle:
             presentation = json.load(handle)
         vocabulary["body_features"] = body["features"]
-        vocabulary["body_composites"] = body["composites"]
-        vocabulary["body_composites_zh"] = body["composites_zh"]
         vocabulary["visual_layers"] = presentation["layers"]
         vocabulary["visual_blueprints"] = presentation["blueprints"]
 

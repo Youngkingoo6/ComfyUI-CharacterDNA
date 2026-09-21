@@ -155,38 +155,6 @@
       }
     }
   },
-  "CharacterDNABodyCompositeIdentity": {
-    "display_name": "🧬 身体组合身份",
-    "description": "把 20 个身体 Feature 合成为最多 5 组自然关系描述，并与面部身份提示词合并。",
-    "inputs": {
-      "character_dna": {
-        "name": "角色 DNA"
-      },
-      "max_composites": {
-        "name": "最大组合数"
-      }
-    },
-    "outputs": {
-      "0": {
-        "name": "角色 DNA"
-      },
-      "1": {
-        "name": "身体组合锚点 JSON"
-      },
-      "2": {
-        "name": "英文身体身份提示词"
-      },
-      "3": {
-        "name": "中文身体身份提示词"
-      },
-      "4": {
-        "name": "英文完整身份提示词"
-      },
-      "5": {
-        "name": "中文完整身份提示词"
-      }
-    }
-  },
   "CharacterDNAVisualBlueprint": {
     "display_name": "🧬 角色画面蓝图",
     "description": "为完整 DNA 身份提示词应用一套可复用的画面蓝图，并按种子稳定选择细节变化。造型、表演、场景和摄影图层在词库面板中编辑。",

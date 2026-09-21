@@ -2,7 +2,7 @@
   "id": "d02ff584-d573-4913-93ee-b1079ec844a4",
   "revision": 0,
   "last_node_id": 10,
-  "last_link_id": 5,
+  "last_link_id": 4,
   "nodes": [
     {
       "id": 1,
@@ -22,7 +22,7 @@
       "outputs": [],
       "properties": {},
       "widgets_values": [
-        "面部 + 身体 DNA 示例\n\n1. Designer 建立基础身份。\n2. Face DNA Seed Generator 生成面部 DNA。\n3. Body DNA Seed Generator 继承面部并加入身体 DNA。\n4. Body Composite Identity 是身体关系描述的可选整理节点。\n5. Character Visual Blueprint 可选加入造型、动作、场景和摄影。\n\n面部提示词已经由 Face Seed 直接完整输出，不再需要 Face Composite Identity。"
+        "面部 + 身体 DNA 极简示例\n\n1. Designer 建立基础身份。\n2. Face DNA Seed Generator 生成面部 DNA。\n3. Body DNA Seed Generator 继承面部 DNA，加入身体参数，并直接输出完整身份提示词。\n4. Character Visual Blueprint 可选加入造型、动作、场景和摄影。\n\nFace 和 Body Composite 均已取消；最后一个 Seed 或 Parametric 节点的提示词可直接使用。"
       ],
       "widgets_values_named": {
         "text": "面部 + 身体 DNA 示例"
@@ -284,83 +284,10 @@
       }
     },
     {
-      "id": 6,
-      "type": "CharacterDNABodyCompositeIdentity",
-      "pos": [
-        1560,
-        20
-      ],
-      "size": [
-        360,
-        250
-      ],
-      "flags": {},
-      "order": 4,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "character_dna",
-          "type": "CHARACTER_DNA",
-          "link": 3
-        },
-        {
-          "name": "max_composites",
-          "type": "INT",
-          "widget": {
-            "name": "max_composites"
-          },
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "character_dna",
-          "type": "CHARACTER_DNA",
-          "links": [
-            4
-          ]
-        },
-        {
-          "name": "body_composite_anchors_json",
-          "type": "STRING",
-          "links": null
-        },
-        {
-          "name": "body_identity_prompt",
-          "type": "STRING",
-          "links": null
-        },
-        {
-          "name": "body_identity_prompt_zh",
-          "type": "STRING",
-          "links": null
-        },
-        {
-          "name": "combined_identity_prompt",
-          "type": "STRING",
-          "links": null
-        },
-        {
-          "name": "combined_identity_prompt_zh",
-          "type": "STRING",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CharacterDNABodyCompositeIdentity"
-      },
-      "widgets_values": [
-        5
-      ],
-      "widgets_values_named": {
-        "max_composites": 5
-      }
-    },
-    {
       "id": 7,
       "type": "SaveText",
       "pos": [
-        2340,
+        1960,
         20
       ],
       "size": [
@@ -368,13 +295,13 @@
         150
       ],
       "flags": {},
-      "order": 6,
+      "order": 5,
       "mode": 0,
       "inputs": [
         {
           "name": "text",
           "type": "STRING",
-          "link": 5
+          "link": 4
         },
         {
           "name": "filename_prefix",
@@ -416,7 +343,7 @@
       "id": 10,
       "type": "CharacterDNAVisualBlueprint",
       "pos": [
-        1940,
+        1560,
         20
       ],
       "size": [
@@ -424,13 +351,13 @@
         230
       ],
       "flags": {},
-      "order": 5,
+      "order": 4,
       "mode": 0,
       "inputs": [
         {
           "name": "character_dna",
           "type": "CHARACTER_DNA",
-          "link": 4
+          "link": 3
         },
         {
           "name": "blueprint",
@@ -464,7 +391,7 @@
           "name": "complete_prompt_zh",
           "type": "STRING",
           "links": [
-            5
+            4
           ]
         },
         {
@@ -504,7 +431,7 @@
         760
       ],
       "flags": {},
-      "order": 7,
+      "order": 6,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -530,7 +457,7 @@
         760
       ],
       "flags": {},
-      "order": 8,
+      "order": 7,
       "mode": 0,
       "inputs": [],
       "outputs": [],
@@ -566,20 +493,12 @@
       3,
       4,
       0,
-      6,
-      0,
-      "CHARACTER_DNA"
-    ],
-    [
-      4,
-      6,
-      0,
       10,
       0,
       "CHARACTER_DNA"
     ],
     [
-      5,
+      4,
       10,
       2,
       7,

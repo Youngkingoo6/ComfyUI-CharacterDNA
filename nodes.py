@@ -26,7 +26,6 @@ from .character_dna.body_parametric import (
     build_complete_body_prompt,
 )
 from .character_dna.body_genesis import generate_body_dna
-from .character_dna.body_composite import build_body_composite_identity
 from .character_dna.presentation import (
     blueprint_options,
     compose_visual_blueprint,
@@ -457,54 +456,6 @@ class CharacterDNAParametricBodyDesigner:
             dna,
             build_complete_body_prompt(dna),
             build_complete_body_prompt(dna, "zh"),
-        )
-
-
-# ============================================================
-# Body Composite Identity
-# ============================================================
-
-class CharacterDNABodyCompositeIdentity:
-
-    @classmethod
-    def IS_CHANGED(cls, **_kwargs):
-        return get_vocabulary_revision()
-
-    @classmethod
-    def INPUT_TYPES(cls):
-        return {
-            "required": {
-                "character_dna": (DNA_TYPE,),
-                "max_composites": (
-                    "INT",
-                    {"default": 5, "min": 1, "max": 5, "step": 1},
-                ),
-            }
-        }
-
-    RETURN_TYPES = (DNA_TYPE, "STRING", "STRING", "STRING", "STRING", "STRING")
-    RETURN_NAMES = (
-        "character_dna",
-        "body_composite_anchors_json",
-        "body_identity_prompt",
-        "body_identity_prompt_zh",
-        "combined_identity_prompt",
-        "combined_identity_prompt_zh",
-    )
-    FUNCTION = "build"
-    CATEGORY = "CharacterDNA/Body"
-
-    def build(self, character_dna, max_composites):
-        dna, composites, body, body_zh, combined, combined_zh = (
-            build_body_composite_identity(character_dna, max_composites)
-        )
-        return (
-            dna,
-            json.dumps(composites, ensure_ascii=False, indent=2),
-            body,
-            body_zh,
-            combined,
-            combined_zh,
         )
 
 
@@ -1296,9 +1247,6 @@ NODE_CLASS_MAPPINGS = {
     "CharacterDNAParametricBodyDesigner":
         CharacterDNAParametricBodyDesigner,
 
-    "CharacterDNABodyCompositeIdentity":
-        CharacterDNABodyCompositeIdentity,
-
     "CharacterDNAVisualBlueprint":
         CharacterDNAVisualBlueprint,
 
@@ -1334,9 +1282,6 @@ NODE_DISPLAY_NAME_MAPPINGS = {
 
     "CharacterDNAParametricBodyDesigner":
         "🧬 Parametric Body Designer",
-
-    "CharacterDNABodyCompositeIdentity":
-        "🧬 Body Composite Identity",
 
     "CharacterDNAVisualBlueprint":
         "🧬 Character Visual Blueprint",

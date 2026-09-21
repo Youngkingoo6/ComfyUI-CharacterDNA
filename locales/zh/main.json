@@ -16,10 +16,8 @@
     "import": "导入",
     "reset": "恢复默认",
     "features": "参数词库",
-    "composites": "组合词库",
     "profile": "基础模板",
     "searchFeatures": "搜索参数或词条…",
-    "searchComposites": "搜索组合或词条…",
     "searchPhrases": "搜索预设或提示词…",
     "searchProfile": "搜索仅用于参数和组合词库",
     "loading": "正在载入词库…",
@@ -38,7 +36,6 @@
     "importFailed": "导入失败：",
     "invalidRoot": "文件根节点必须是 JSON 对象",
     "emptyFeatures": "没有匹配的参数",
-    "emptyComposites": "没有匹配的组合词",
     "emptyPhrases": "没有匹配的预设",
     "notLoaded": "词库尚未载入",
     "english": "英文提示词",
@@ -63,7 +60,6 @@
     "newAppearanceKey": "新外观标识",
     "faceFeatures": "面部参数",
     "bodyFeatures": "身体参数",
-    "bodyComposites": "身体组合",
     "visualBlueprints": "画面蓝图",
     "look": "人物造型",
     "performance": "表演",
@@ -87,11 +83,6 @@
     "frame": "整体骨架",
     "torso": "躯干",
     "limbs": "四肢",
-    "build": "体型",
-    "overall_frame": "整体轮廓",
-    "torso_architecture": "躯干结构",
-    "limb_proportions": "四肢比例",
-    "build_distribution": "体量分布",
-    "scale_balance": "尺度协调"
+    "build": "体型"
   }
 }
