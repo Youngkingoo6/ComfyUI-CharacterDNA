@@ -42,14 +42,14 @@
       "Mixed": "混合族裔"
     },
     "quality_phrases": [
-      "natural facial anatomy",
-      "natural skin texture",
-      "photorealistic portrait"
+      "high quality",
+      "high detail",
+      "high resolution"
     ],
     "quality_phrases_zh": [
-      "自然的面部结构",
-      "自然皮肤质感",
-      "照片级写实人像"
+      "高质量",
+      "高细节",
+      "高分辨率"
     ]
   },
   "identity_appearances": {
