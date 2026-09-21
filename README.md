@@ -88,6 +88,8 @@ Seed Generator
 
 `value` 是 `-1.0` 到 `+1.0` 的连续值，Parametric 节点以 `0.1` 步进并保留 1 位小数。内部仍使用七档匹配，但输出改为“短脸、眼距稍宽、鼻梁偏平”这类更直接的词。数值为 `0` 表示未指定结构，不输出该 Feature。
 
+`weight` 只控制当前节点所修改 Feature 的提示词权重。`0` 表示关闭加权、保持原文；启用值为 `1.0–2.0`，步进 `0.1`。例如设置为 `1.2` 后输出 `(slightly wide-set eyes:1.2)`，中文输出同样使用 `(特征描述:1.2)`。权重保存在 DNA 中并随后续 Parametric 节点继承；再次修改同一 Feature 且设为 `0` 会移除该项已有权重。
+
 每次执行 Parametric Face Designer 都会根据当前 DNA 重新生成完整面部提示词，因此最后一个 Parametric 节点的输出已经包含之前设置的所有非零特征。Face Composite Identity 已移除，避免重复改写和弱化具体参数。
 
 身体部分采用相同方式：Body DNA Seed Generator 和 Parametric Body Designer 会直接输出继承面部后的完整身份提示词。`body_profile` 可选择按种子随机生成，或直接使用 `balanced / petite / athletic / curvy / slender_tall` 组合预设；预设只映射现有 20 项身体参数，不增加新参数。多个 Parametric Body 节点可以串联，最后一个节点包含此前所有非零身体参数。Body Composite Identity 已移除。

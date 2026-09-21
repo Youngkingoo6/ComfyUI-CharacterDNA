@@ -170,6 +170,11 @@ class CharacterDNAParametricDesigner:
                         "round": 0.1,
                     },
                 ),
+
+                "weight": (
+                    [0.0, *[round(1.0 + index * 0.1, 1) for index in range(11)]],
+                    {"default": 0.0},
+                ),
             }
         }
 
@@ -194,12 +199,14 @@ class CharacterDNAParametricDesigner:
         character_dna,
         feature,
         value,
+        weight=0.0,
     ):
 
         dna = override_parametric_feature(
             character_dna,
             feature,
             value,
+            weight,
         )
 
         prompt = build_parametric_prompt(

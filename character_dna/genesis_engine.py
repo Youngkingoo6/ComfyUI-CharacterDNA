@@ -652,6 +652,9 @@ def generate_seeded_parametric_dna(
 
         "features":
             features,
+
+        "weights":
+            {},
     }
 
     dna["character"]["id"] = (

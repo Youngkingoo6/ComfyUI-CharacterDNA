@@ -114,10 +114,23 @@ def clamp(value):
     return max(-1.0, min(1.0, float(value)))
 
 
+def normalize_feature_weight(weight):
+    """Return 0 (disabled) or an explicit 1.0..2.0 prompt weight."""
+    weight = round(float(weight), 1)
+    if abs(weight) < 1e-9:
+        return 0.0
+    if weight < 1.0 or weight > 2.0:
+        raise ValueError(
+            "Feature weight must be 0 (disabled) or between 1.0 and 2.0."
+        )
+    return weight
+
+
 def override_parametric_feature(
     base_dna,
     feature,
     value,
+    weight=0.0,
 ):
     """
     Preserve the existing parametric identity and replace one
@@ -139,6 +152,11 @@ def override_parametric_feature(
         .get("parametric_identity", {})
         .get("features", {})
     )
+    existing_weights = (
+        dna
+        .get("parametric_identity", {})
+        .get("weights", {})
+    )
 
     normalized = {
         key: round(
@@ -153,11 +171,23 @@ def override_parametric_feature(
         1,
     )
 
+    weights = {
+        key: normalize_feature_weight(item)
+        for key, item in existing_weights.items()
+        if key in FEATURE_META and abs(float(item)) >= 1e-9
+    }
+    normalized_weight = normalize_feature_weight(weight)
+    if normalized_weight:
+        weights[feature] = normalized_weight
+    else:
+        weights.pop(feature, None)
+
     dna["parametric_identity"] = {
         "coordinate_system": "normalized_v1",
         "range": [-1.0, 1.0],
         "neutral_baseline": 0.0,
         "features": normalized,
+        "weights": weights,
     }
 
     return dna

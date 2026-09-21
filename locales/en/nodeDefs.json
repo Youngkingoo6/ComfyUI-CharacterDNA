@@ -44,6 +44,10 @@
       "value": {
         "name": "Value",
         "tooltip": "Continuous structural coordinate from -1 to +1; 0 is the neutral baseline."
+      },
+      "weight": {
+        "name": "Prompt weight",
+        "tooltip": "0 keeps the original phrase. Choose 1.0–2.0 in 0.1 steps to output this feature as (phrase:weight)."
       }
     },
     "outputs": {

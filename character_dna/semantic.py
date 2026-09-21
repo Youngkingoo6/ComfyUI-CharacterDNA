@@ -69,6 +69,11 @@ def build_parametric_prompt(
         .get("parametric_identity", {})
         .get("features", {})
     )
+    weights = (
+        dna
+        .get("parametric_identity", {})
+        .get("weights", {})
+    )
 
     phrases = build_profile_phrases(
         character,
@@ -98,6 +103,9 @@ def build_parametric_prompt(
         )
 
         if phrase:
+            weight = float(weights.get(name, 0.0))
+            if weight >= 1.0:
+                phrase = f"({phrase}:{weight:.1f})"
             phrases.append(phrase)
 
     return compose_prompt(phrases, language)

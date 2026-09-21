@@ -106,3 +106,19 @@ Face DNA Seed Generator
 ```
 
 同一个 Feature 被修改多次时，后面的节点覆盖前面的值。
+
+### `weight`
+
+只对当前节点修改的 Feature 进行提示词加权：
+
+- `0`：关闭权重，输出原始特征描述，不增加括号。
+- `1.0–2.0`：以 `0.1` 为步进，输出 `(特征描述:权重)`。
+- 权重会和 Feature 一起写入 DNA，并由后续 Parametric Face Designer 继承。
+- 后续节点再次选择同一 Feature 且把权重设为 `0`，会移除该 Feature 原来的权重。
+
+例如：
+
+```text
+(slightly wide-set eyes with more visible space beside the nose bridge:1.2)
+(双眼横向分布略微分开，鼻梁两侧留白较多:1.2)
+```
