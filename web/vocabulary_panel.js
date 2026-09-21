@@ -102,7 +102,7 @@ async function requestVocabulary(path = API_PATH, options = {}) {
 }
 
 function renderVocabularyPanel(container) {
-  const state = { vocabulary: null, activeTab: "faceFeatures", search: "", dirty: false };
+  const state = { vocabulary: null, activeTab: "profile", search: "", dirty: false };
   const root = el("div", { className: "cdna-vocab" });
   const content = el("div", { className: "cdna-vocab-content" });
   const status = el("div", { className: "cdna-vocab-status", text: t("loading") });
@@ -330,7 +330,7 @@ function renderVocabularyPanel(container) {
   }
 
   const tabs = el("div", { className: "cdna-vocab-tabs" }); const buttons = new Map();
-  for (const key of ["identityAppearances", "faceFeatures", "bodyFeatures", "visualBlueprints", "look", "performance", "scene", "photography", "profile"]) { const button = el("button", { className: key === state.activeTab ? "active" : "", text: t(key), onclick: () => { state.activeTab = key; buttons.forEach((item, itemKey) => item.classList.toggle("active", itemKey === key)); search.placeholder = t(key.endsWith("Features") ? "searchFeatures" : ["identityAppearances", "visualBlueprints", "look", "performance", "scene", "photography"].includes(key) ? "searchPhrases" : "searchProfile"); renderContent(); } }); buttons.set(key, button); tabs.appendChild(button); }
+  for (const key of ["profile", "identityAppearances", "faceFeatures", "bodyFeatures", "look", "performance", "scene", "photography", "visualBlueprints"]) { const button = el("button", { className: key === state.activeTab ? "active" : "", text: t(key), onclick: () => { state.activeTab = key; buttons.forEach((item, itemKey) => item.classList.toggle("active", itemKey === key)); search.placeholder = t(key.endsWith("Features") ? "searchFeatures" : ["identityAppearances", "visualBlueprints", "look", "performance", "scene", "photography"].includes(key) ? "searchPhrases" : "searchProfile"); renderContent(); } }); buttons.set(key, button); tabs.appendChild(button); }
   const toolbar = el("div", { className: "cdna-vocab-toolbar" }, [el("button", { className: "primary", text: t("save"), onclick: save }), el("button", { text: t("reload"), onclick: () => load(false) }), el("button", { text: t("export"), onclick: exportVocabulary }), el("button", { text: t("import"), onclick: () => importInput.click() }), el("button", { className: "danger", text: t("reset"), onclick: reset })]);
   const header = el("header", { className: "cdna-vocab-header" }, [el("div", { className: "cdna-vocab-title" }, [el("span", { text: `🧬 ${t("title")}` }), el("small", { text: t("autoApply") })]), toolbar, tabs, search, importInput]);
   root.append(header, content, status); container.replaceChildren(root); container.style.height = "100%"; container.style.overflow = "hidden"; load(true);
