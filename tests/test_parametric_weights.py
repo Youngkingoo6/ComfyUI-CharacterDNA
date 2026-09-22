@@ -22,7 +22,7 @@ def base_dna():
 
 
 class ParametricWeightTests(unittest.TestCase):
-    def test_profile_prompt_uses_numeric_age_without_life_stage(self):
+    def test_profile_prompt_uses_numeric_age(self):
         dna = base_dna()
         dna["character"]["visual_age"] = 12
         self.assertEqual(

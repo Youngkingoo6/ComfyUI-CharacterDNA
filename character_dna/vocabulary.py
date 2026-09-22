@@ -127,31 +127,11 @@ def _language_suffix(language):
     return "_zh" if str(language).lower().startswith("zh") else ""
 
 
-def get_life_stage(visual_age, language="en"):
-    visual_age = int(visual_age)
-    stages = get_vocabulary()["profile"]["life_stages"]
-
-    for stage in stages:
-        maximum = stage.get("max_exclusive")
-
-        if maximum is None or visual_age < int(maximum):
-            return stage.get(
-                f"text{_language_suffix(language)}",
-                stage["text"],
-            )
-
-    raise ValueError(
-        "vocabulary.json profile.life_stages requires "
-        "a final entry without max_exclusive."
-    )
-
-
 def build_profile_phrases(character, language="en"):
     profile = get_vocabulary()["profile"]
     visual_age = int(character["visual_age"])
 
     values = {
-        "life_stage": get_life_stage(visual_age, language),
         "ancestry": profile.get(
             f"ancestry{_language_suffix(language)}",
             {},

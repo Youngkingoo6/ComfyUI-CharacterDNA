@@ -1,26 +1,5 @@
 {
   "profile": {
-    "life_stages": [
-      {
-        "max_exclusive": 2,
-        "text": "infant",
-        "text_zh": "婴儿"
-      },
-      {
-        "max_exclusive": 13,
-        "text": "child",
-        "text_zh": "儿童"
-      },
-      {
-        "max_exclusive": 18,
-        "text": "teenager",
-        "text_zh": "青少年"
-      },
-      {
-        "text": "adult",
-        "text_zh": "成年人"
-      }
-    ],
     "identity_template": "{ancestry} {gender}",
     "identity_template_zh": "{ancestry}{gender}",
     "age_template": "approximately {visual_age} years old",

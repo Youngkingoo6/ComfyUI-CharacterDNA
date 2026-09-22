@@ -226,42 +226,6 @@ def _validate_vocabulary(vocabulary):
             _require_string(key, f"profile.{map_name} key")
             _require_string(value, f"profile.{map_name}.{key}")
 
-    stages = profile.get("life_stages")
-
-    if not isinstance(stages, list) or not stages:
-        raise ValueError(
-            "profile.life_stages must be a non-empty array."
-        )
-
-    for index, stage in enumerate(stages):
-        if not isinstance(stage, dict):
-            raise ValueError(
-                f"profile.life_stages[{index}] must be an object."
-            )
-
-        _require_string(
-            stage.get("text"),
-            f"profile.life_stages[{index}].text",
-        )
-        _require_string(
-            stage.get("text_zh"),
-            f"profile.life_stages[{index}].text_zh",
-        )
-
-        if "max_exclusive" in stage:
-            maximum = stage["max_exclusive"]
-
-            if not isinstance(maximum, (int, float)):
-                raise ValueError(
-                    f"profile.life_stages[{index}].max_exclusive "
-                    "must be numeric."
-                )
-
-    if "max_exclusive" in stages[-1]:
-        raise ValueError(
-            "The final life stage must not define max_exclusive."
-        )
-
     _validate_feature_vocabulary(features, FEATURE_META)
     return vocabulary
 
