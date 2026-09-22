@@ -6,6 +6,7 @@ from character_dna.body_parametric import (
 )
 from character_dna.parametric import override_parametric_feature
 from character_dna.semantic import build_parametric_prompt
+from character_dna.vocabulary import build_profile_phrases
 
 
 def base_dna():
@@ -21,6 +22,18 @@ def base_dna():
 
 
 class ParametricWeightTests(unittest.TestCase):
+    def test_profile_prompt_uses_numeric_age_without_life_stage(self):
+        dna = base_dna()
+        dna["character"]["visual_age"] = 12
+        self.assertEqual(
+            build_profile_phrases(dna["character"]),
+            ["East Asian female", "approximately 12 years old"],
+        )
+        self.assertEqual(
+            build_profile_phrases(dna["character"], "zh"),
+            ["东亚女性", "视觉年龄约12岁"],
+        )
+
     def test_face_weight_is_stored_and_rendered(self):
         dna = override_parametric_feature(
             base_dna(),

@@ -21,8 +21,8 @@
         "text_zh": "成年人"
       }
     ],
-    "identity_template": "{life_stage} {ancestry} {gender}",
-    "identity_template_zh": "{ancestry}{gender}，{life_stage}",
+    "identity_template": "{ancestry} {gender}",
+    "identity_template_zh": "{ancestry}{gender}",
     "age_template": "approximately {visual_age} years old",
     "age_template_zh": "视觉年龄约{visual_age}岁",
     "quality_position": "end",
