@@ -148,10 +148,6 @@ def build_profile_phrases(character, language="en"):
             f"identity_template{_language_suffix(language)}",
             profile["identity_template"],
         ).format(**values),
-        profile.get(
-            f"age_template{_language_suffix(language)}",
-            profile["age_template"],
-        ).format(**values),
     ]
     appearance_name = character.get("identity_appearance", "none")
     if appearance_name != "none":

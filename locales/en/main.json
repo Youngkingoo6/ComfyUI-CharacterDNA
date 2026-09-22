@@ -44,7 +44,7 @@
     "chineseLabel": "Chinese name",
     "value": "Value",
     "identityTemplate": "Identity template",
-    "ageTemplate": "Age template",
+    "entryTitle": "Title",
     "quality": "Fixed quality phrases",
     "qualityPosition": "Fixed quality position",
     "qualityAtStart": "At prompt start",

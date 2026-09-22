@@ -189,7 +189,7 @@ def _validate_vocabulary(vocabulary):
             raise ValueError("identity_appearances.none is reserved.")
         if not isinstance(appearance, dict):
             raise ValueError(f"identity_appearances.{name} must be an object.")
-        for field in ("label", "label_zh", "prompt", "prompt_zh"):
+        for field in ("title", "prompt", "prompt_zh"):
             _require_string(
                 appearance.get(field), f"identity_appearances.{name}.{field}"
             )
@@ -198,12 +198,7 @@ def _validate_vocabulary(vocabulary):
         profile.get("identity_template"),
         "profile.identity_template",
     )
-    _require_string(
-        profile.get("age_template"),
-        "profile.age_template",
-    )
     _require_string(profile.get("identity_template_zh"), "profile.identity_template_zh")
-    _require_string(profile.get("age_template_zh"), "profile.age_template_zh")
     _require_string_list(
         profile.get("quality_phrases"),
         "profile.quality_phrases",
@@ -259,11 +254,7 @@ def _validate_presentation_vocabulary(vocabulary):
                 raise ValueError(f"layers.{section_name}.none is reserved.")
             if not isinstance(entry, dict):
                 raise ValueError(f"layers.{section_name}.{key} must be an object.")
-            _require_string(entry.get("label"), f"layers.{section_name}.{key}.label")
-            _require_string(
-                entry.get("label_zh"),
-                f"layers.{section_name}.{key}.label_zh",
-            )
+            _require_string(entry.get("title"), f"layers.{section_name}.{key}.title")
             _require_string(entry.get("prompt"), f"layers.{section_name}.{key}.prompt")
             _require_string(entry.get("prompt_zh"), f"layers.{section_name}.{key}.prompt_zh")
     if not isinstance(blueprints, dict) or "identity_only" not in blueprints:
@@ -272,8 +263,7 @@ def _validate_presentation_vocabulary(vocabulary):
         _require_string(name, "blueprints key")
         if not isinstance(blueprint, dict):
             raise ValueError(f"blueprints.{name} must be an object.")
-        _require_string(blueprint.get("label"), f"blueprints.{name}.label")
-        _require_string(blueprint.get("label_zh"), f"blueprints.{name}.label_zh")
+        _require_string(blueprint.get("title"), f"blueprints.{name}.title")
         for field in ("negative_prompt", "negative_prompt_zh"):
             if not isinstance(blueprint.get(field, ""), str):
                 raise ValueError(f"blueprints.{name}.{field} must be a string.")

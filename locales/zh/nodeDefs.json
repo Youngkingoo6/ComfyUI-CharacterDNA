@@ -39,7 +39,33 @@
       },
       "feature": {
         "name": "面部特征",
-        "tooltip": "选择要覆盖的单个面部结构特征。"
+        "tooltip": "选择要覆盖的单个面部结构特征。",
+        "options": {
+          "cheekbone_height": "颧骨高度",
+          "cheekbone_projection": "颧骨立体度",
+          "jawline_definition": "下颌线清晰度",
+          "eyebrow_shape": "眉形",
+          "eyebrow_thickness": "眉毛粗细",
+          "face_length": "脸长",
+          "face_width": "脸宽",
+          "cheekbone_width": "颧骨宽度",
+          "jaw_width": "下颌宽度",
+          "chin_width": "下巴宽度",
+          "chin_length": "下巴长度",
+          "eye_elongation": "眼型",
+          "eye_openness": "眼睛大小",
+          "eye_spacing": "眼距",
+          "canthal_tilt": "眼尾倾斜",
+          "brow_eye_distance": "眉眼距离",
+          "nose_width": "鼻子宽度",
+          "nose_length": "鼻子长度",
+          "nose_projection": "鼻梁立体度",
+          "nose_tip_rotation": "鼻尖方向",
+          "mouth_width": "嘴巴宽度",
+          "upper_lip_fullness": "上唇厚度",
+          "lower_lip_fullness": "下唇厚度",
+          "cupid_bow_definition": "唇峰清晰度"
+        }
       },
       "value": {
         "name": "参数值",
@@ -144,7 +170,29 @@
         "name": "角色 DNA"
       },
       "feature": {
-        "name": "身体特征"
+        "name": "身体特征",
+        "options": {
+          "stature": "身高体量",
+          "shoulder_width": "肩宽",
+          "shoulder_slope": "肩部斜度",
+          "ribcage_width": "胸廓宽度",
+          "pelvis_width": "骨盆宽度",
+          "neck_length": "颈部长度",
+          "neck_thickness": "颈部粗细",
+          "torso_length": "躯干长度",
+          "chest_fullness": "胸部饱满度",
+          "waist_definition": "腰线明显度",
+          "hip_fullness": "臀胯饱满度",
+          "arm_length": "手臂长度",
+          "hand_scale": "手部尺度",
+          "leg_length": "腿部长度",
+          "thigh_length_ratio": "大腿长度比例",
+          "foot_scale": "足部尺度",
+          "upper_body_fullness": "上身体量",
+          "lower_body_fullness": "下身体量",
+          "limb_thickness": "四肢粗细",
+          "muscularity": "肌肉感"
+        }
       },
       "value": {
         "name": "参数值",

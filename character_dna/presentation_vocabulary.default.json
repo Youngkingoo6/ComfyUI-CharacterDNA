@@ -4,39 +4,34 @@
       "quiet_luxury_commute": {
         "prompt": "ivory silk shirt, taupe high-waisted wide-leg trousers, slim leather belt, understated loafers, polished low-saturation quiet-luxury styling",
         "prompt_zh": "象牙白真丝衬衫，灰褐色高腰垂坠阔腿裤，纤细皮带与简洁乐福鞋，低饱和静奢造型",
-        "label": "Quiet Luxury Commute",
-        "label_zh": "静奢通勤"
+        "title": "静奢通勤"
       }
     },
     "performance": {
       "calm_editorial_standing": {
         "prompt": "calm poised posture, relaxed shoulders, gentle expression, composed editorial presence",
         "prompt_zh": "沉静从容的姿态，肩部放松，神情温和，呈现克制的杂志表现力",
-        "label": "Calm Editorial Standing",
-        "label_zh": "沉静杂志站姿"
+        "title": "沉静杂志站姿"
       }
     },
     "scene": {
       "minimal_gray_studio": {
         "prompt": "spacious minimalist gray portrait studio with generous negative space and subtle floor shadows",
         "prompt_zh": "宽敞的极简灰色人像摄影棚，保留大量留白与细腻地面阴影",
-        "label": "Minimal Gray Studio",
-        "label_zh": "极简灰色摄影棚"
+        "title": "极简灰色摄影棚"
       }
     },
     "photography": {
       "soft_85mm_editorial": {
         "prompt": "85mm-equivalent prime-lens portrait, shallow depth of field, eye-level with a slight low angle, front-side 45-degree view, center-right composition, subject filling about 60 percent of the frame, medium crop to the upper thighs, soft studio key light from front-left above, photorealistic editorial finish",
         "prompt_zh": "等效85mm定焦人像，浅景深，平视微仰并从主体前侧45度拍摄，中心偏右构图，人物约占画面60%，中景裁切至大腿上部，左前上方柔和棚拍主光，照片级写实杂志质感",
-        "label": "Soft 85mm Editorial",
-        "label_zh": "柔和85mm杂志摄影"
+        "title": "柔和85mm杂志摄影"
       }
     }
   },
   "blueprints": {
     "identity_only": {
-      "label": "Default Portrait",
-      "label_zh": "默认人像",
+      "title": "默认人像",
       "layers": [
         {
           "type": "look",

@@ -27,11 +27,11 @@ class ParametricWeightTests(unittest.TestCase):
         dna["character"]["visual_age"] = 12
         self.assertEqual(
             build_profile_phrases(dna["character"]),
-            ["East Asian female", "approximately 12 years old"],
+            ["East Asian female, approximately 12 years old"],
         )
         self.assertEqual(
             build_profile_phrases(dna["character"], "zh"),
-            ["东亚女性", "视觉年龄约12岁"],
+            ["东亚女性 视觉年龄约12岁"],
         )
 
     def test_face_weight_is_stored_and_rendered(self):

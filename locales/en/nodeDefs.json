@@ -39,7 +39,33 @@
       },
       "feature": {
         "name": "Face feature",
-        "tooltip": "Select the single facial structural feature to override."
+        "tooltip": "Select the single facial structural feature to override.",
+        "options": {
+          "cheekbone_height": "Cheekbone Height",
+          "cheekbone_projection": "Cheekbone Projection",
+          "jawline_definition": "Jawline Definition",
+          "eyebrow_shape": "Eyebrow Shape",
+          "eyebrow_thickness": "Eyebrow Thickness",
+          "face_length": "Face Length",
+          "face_width": "Face Width",
+          "cheekbone_width": "Cheekbone Width",
+          "jaw_width": "Jaw Width",
+          "chin_width": "Chin Width",
+          "chin_length": "Chin Length",
+          "eye_elongation": "Eye Shape",
+          "eye_openness": "Eye Openness",
+          "eye_spacing": "Eye Spacing",
+          "canthal_tilt": "Outer Eye Corner Tilt",
+          "brow_eye_distance": "Brow-Eye Distance",
+          "nose_width": "Nose Width",
+          "nose_length": "Nose Length",
+          "nose_projection": "Nose Bridge Projection",
+          "nose_tip_rotation": "Nose Tip Direction",
+          "mouth_width": "Mouth Width",
+          "upper_lip_fullness": "Upper Lip Fullness",
+          "lower_lip_fullness": "Lower Lip Fullness",
+          "cupid_bow_definition": "Cupid Bow Definition"
+        }
       },
       "value": {
         "name": "Value",
@@ -144,7 +170,29 @@
         "name": "Character DNA"
       },
       "feature": {
-        "name": "Body feature"
+        "name": "Body feature",
+        "options": {
+          "stature": "Stature",
+          "shoulder_width": "Shoulder Width",
+          "shoulder_slope": "Shoulder Slope",
+          "ribcage_width": "Ribcage Width",
+          "pelvis_width": "Pelvis Width",
+          "neck_length": "Neck Length",
+          "neck_thickness": "Neck Thickness",
+          "torso_length": "Torso Length",
+          "chest_fullness": "Chest Fullness",
+          "waist_definition": "Waist Definition",
+          "hip_fullness": "Hip Fullness",
+          "arm_length": "Arm Length",
+          "hand_scale": "Hand Scale",
+          "leg_length": "Leg Length",
+          "thigh_length_ratio": "Thigh Length Ratio",
+          "foot_scale": "Foot Scale",
+          "upper_body_fullness": "Upper Body Fullness",
+          "lower_body_fullness": "Lower Body Fullness",
+          "limb_thickness": "Limb Thickness",
+          "muscularity": "Muscularity"
+        }
       },
       "value": {
         "name": "Value",

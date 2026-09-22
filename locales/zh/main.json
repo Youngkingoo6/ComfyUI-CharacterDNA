@@ -44,7 +44,7 @@
     "chineseLabel": "中文名称",
     "value": "参数值",
     "identityTemplate": "身份模板",
-    "ageTemplate": "年龄模板",
+    "entryTitle": "标题",
     "quality": "固定质量词",
     "qualityPosition": "固定质量词位置",
     "qualityAtStart": "提示词最前面",

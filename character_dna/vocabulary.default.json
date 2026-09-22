@@ -1,9 +1,7 @@
 {
   "profile": {
-    "identity_template": "{ancestry} {gender}",
-    "identity_template_zh": "{ancestry}{gender}",
-    "age_template": "approximately {visual_age} years old",
-    "age_template_zh": "视觉年龄约{visual_age}岁",
+    "identity_template": "{ancestry} {gender}, approximately {visual_age} years old",
+    "identity_template_zh": "{ancestry}{gender} 视觉年龄约{visual_age}岁",
     "quality_position": "end",
     "gender_zh": {
       "female": "女性",
@@ -33,8 +31,7 @@
   },
   "identity_appearances": {
     "oriental_clear_beauty": {
-      "label": "Oriental clear beauty",
-      "label_zh": "东方清透美人",
+      "title": "东方清透美人",
       "prompt": "clear gray-brown irises, fair translucent skin with a soft natural flush, one small natural facial beauty mark, deep brown-black hair",
       "prompt_zh": "清澈灰棕色瞳孔，白皙通透且带柔和自然血色的肌肤，面部一颗自然小痣，深棕黑色头发"
     }
