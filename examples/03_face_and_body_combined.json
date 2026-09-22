@@ -447,7 +447,7 @@
       "outputs": [],
       "properties": {},
       "widgets_values": [
-        "Face Parametric 全部可设置项\n\n参数值：-1.0 ～ +1.0，步进 0.1；0 不输出该结构词。\n提示词权重：0 保持原文；1.0 ～ 2.0，步进 0.1，输出 (特征词:权重)。\n多项修改：串联多个 Parametric Face Designer；后面的同名参数覆盖前面的。\n\n【脸部轮廓】\nface_length：短脸 ←→ 长脸\nface_width：窄脸 ←→ 宽脸\ncheekbone_width：窄而内收的颧骨 ←→ 宽且突出的颧骨\njaw_width：窄而收尖的下颌 ←→ 宽而有力的下颌\nchin_width：窄下巴 ←→ 宽下巴\nchin_length：短下巴 ←→ 长下巴\n\n【眼部与眉眼】\neye_elongation：圆、横向较短 ←→ 横向细长\neye_openness：开合较小 ←→ 开合较大、圆睁\neye_spacing：近眼距 ←→ 宽眼距\ncanthal_tilt：外眼角向下 ←→ 外眼角向上\nbrow_eye_distance：眉眼紧凑 ←→ 眉眼舒展\n\n【鼻部】\nnose_width：窄鼻 ←→ 宽鼻\nnose_length：短鼻 ←→ 长鼻\nnose_projection：低投影、较平 ←→ 高投影、立体\nnose_tip_rotation：鼻尖向下 ←→ 鼻尖向上\n\n【嘴唇】\nmouth_width：窄嘴 ←→ 宽嘴\nupper_lip_fullness：薄上唇 ←→ 丰满上唇\nlower_lip_fullness：薄下唇 ←→ 丰满下唇\ncupid_bow_definition：柔和唇峰 ←→ 清晰唇峰"
+        "Face Parametric 全部可设置项\n\n参数值：下拉选择 -1、-0.5、0、0.5、1；0 不输出该结构词。\n提示词权重：0 保持原文；1.0 ～ 2.0，步进 0.1，输出 (特征词:权重)。\n多项修改：串联多个 Parametric Face Designer；后面的同名参数覆盖前面的。\n\n【脸部轮廓】\nface_length：短脸 ←→ 长脸\nface_width：窄脸 ←→ 宽脸\ncheekbone_width：窄而内收的颧骨 ←→ 宽且突出的颧骨\njaw_width：窄而收尖的下颌 ←→ 宽而有力的下颌\nchin_width：窄下巴 ←→ 宽下巴\nchin_length：短下巴 ←→ 长下巴\n\n【眼部与眉眼】\neye_elongation：圆、横向较短 ←→ 横向细长\neye_openness：开合较小 ←→ 开合较大、圆睁\neye_spacing：近眼距 ←→ 宽眼距\ncanthal_tilt：外眼角向下 ←→ 外眼角向上\nbrow_eye_distance：眉眼紧凑 ←→ 眉眼舒展\n\n【鼻部】\nnose_width：窄鼻 ←→ 宽鼻\nnose_length：短鼻 ←→ 长鼻\nnose_projection：低投影、较平 ←→ 高投影、立体\nnose_tip_rotation：鼻尖向下 ←→ 鼻尖向上\n\n【嘴唇】\nmouth_width：窄嘴 ←→ 宽嘴\nupper_lip_fullness：薄上唇 ←→ 丰满上唇\nlower_lip_fullness：薄下唇 ←→ 丰满下唇\ncupid_bow_definition：柔和唇峰 ←→ 清晰唇峰"
       ],
       "widgets_values_named": {
         "text": "Face Parametric 全部可设置项"
@@ -473,7 +473,7 @@
       "outputs": [],
       "properties": {},
       "widgets_values": [
-        "Body Parametric 全部可设置项\n\n范围：-1.0 ～ +1.0　步进：0.1\n0 = 不指定，不输出该结构词。\n多项修改：串联多个 Parametric Body Designer；后面的同名参数覆盖前面的。\n\n【整体骨架】\nstature：紧凑体量 ←→ 高挑体量\nshoulder_width：窄肩 ←→ 宽肩\nshoulder_slope：平直方肩 ←→ 斜肩\nribcage_width：窄胸廓 ←→ 宽胸廓\npelvis_width：窄骨盆 ←→ 宽骨盆\n\n【躯干】\nneck_length：短颈 ←→ 长颈\nneck_thickness：纤细颈部 ←→ 厚实颈部\ntorso_length：短躯干 ←→ 长躯干\nchest_fullness：平坦胸部轮廓 ←→ 饱满胸部轮廓\nwaist_definition：平直腰线 ←→ 明显腰线\nhip_fullness：清瘦臀胯 ←→ 饱满臀胯\n\n【四肢】\narm_length：短手臂 ←→ 长手臂\nhand_scale：小手 ←→ 大手\nleg_length：短腿 ←→ 长腿\nthigh_length_ratio：紧凑大腿比例 ←→ 修长大腿比例\nfoot_scale：小足部 ←→ 大足部\n\n【体型】\nupper_body_fullness：清瘦上身 ←→ 厚实上身\nlower_body_fullness：清瘦下身 ←→ 厚实下身\nlimb_thickness：纤细四肢 ←→ 厚实四肢\nmuscularity：柔和、低肌肉感 ←→ 结实、运动型"
+        "Body Parametric 全部可设置项\n\n参数值：下拉选择 -1、-0.5、0、0.5、1\n0 = 不指定，不输出该结构词。\n提示词权重：0 保持原文；1.0 ～ 2.0，步进 0.1，输出 (特征词:权重)。\n多项修改：串联多个 Parametric Body Designer；后面的同名参数覆盖前面的。\n\n【整体骨架】\nstature：紧凑体量 ←→ 高挑体量\nshoulder_width：窄肩 ←→ 宽肩\nshoulder_slope：平直方肩 ←→ 斜肩\nribcage_width：窄胸廓 ←→ 宽胸廓\npelvis_width：窄骨盆 ←→ 宽骨盆\n\n【躯干】\nneck_length：短颈 ←→ 长颈\nneck_thickness：纤细颈部 ←→ 厚实颈部\ntorso_length：短躯干 ←→ 长躯干\nchest_fullness：平坦胸部轮廓 ←→ 饱满胸部轮廓\nwaist_definition：平直腰线 ←→ 明显腰线\nhip_fullness：清瘦臀胯 ←→ 饱满臀胯\n\n【四肢】\narm_length：短手臂 ←→ 长手臂\nhand_scale：小手 ←→ 大手\nleg_length：短腿 ←→ 长腿\nthigh_length_ratio：紧凑大腿比例 ←→ 修长大腿比例\nfoot_scale：小足部 ←→ 大足部\n\n【体型】\nupper_body_fullness：清瘦上身 ←→ 厚实上身\nlower_body_fullness：清瘦下身 ←→ 厚实下身\nlimb_thickness：纤细四肢 ←→ 厚实四肢\nmuscularity：柔和、低肌肉感 ←→ 结实、运动型"
       ],
       "widgets_values_named": {
         "text": "Body Parametric 全部可设置项"

@@ -161,19 +161,19 @@ class CharacterDNAParametricDesigner:
                 ),
 
                 "value": (
-                    "FLOAT",
-                    {
-                        "default": 0.0,
-                        "min": -1.0,
-                        "max": 1.0,
-                        "step": 0.1,
-                        "round": 0.1,
-                    },
+                    [-1.0, -0.5, 0.0, 0.5, 1.0],
+                    {"default": 0.0},
                 ),
 
                 "weight": (
-                    [0.0, *[round(1.0 + index * 0.1, 1) for index in range(11)]],
-                    {"default": 0.0},
+                    "FLOAT",
+                    {
+                        "default": 0.0,
+                        "min": 0.0,
+                        "max": 2.0,
+                        "step": 0.1,
+                        "round": 0.1,
+                    },
                 ),
             }
         }
@@ -448,11 +448,15 @@ class CharacterDNAParametricBodyDesigner:
                 "character_dna": (DNA_TYPE,),
                 "feature": (list(BODY_FEATURE_META.keys()),),
                 "value": (
+                    [-1.0, -0.5, 0.0, 0.5, 1.0],
+                    {"default": 0.0},
+                ),
+                "weight": (
                     "FLOAT",
                     {
                         "default": 0.0,
-                        "min": -1.0,
-                        "max": 1.0,
+                        "min": 0.0,
+                        "max": 2.0,
                         "step": 0.1,
                         "round": 0.1,
                     },
@@ -469,8 +473,13 @@ class CharacterDNAParametricBodyDesigner:
     FUNCTION = "design"
     CATEGORY = "CharacterDNA/Body"
 
-    def design(self, character_dna, feature, value):
-        dna = override_body_feature(character_dna, feature, value)
+    def design(self, character_dna, feature, value, weight=0.0):
+        dna = override_body_feature(
+            character_dna,
+            feature,
+            value,
+            weight,
+        )
         return (
             dna,
             build_complete_body_prompt(dna),

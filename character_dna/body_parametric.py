@@ -6,6 +6,7 @@ from .vocabulary import (
     strip_quality_block,
 )
 from .semantic import build_parametric_prompt
+from .parametric import normalize_feature_weight
 
 
 BODY_FEATURE_META = {
@@ -36,22 +37,34 @@ def clamp_body_value(value):
     return max(-1.0, min(1.0, float(value)))
 
 
-def override_body_feature(base_dna, feature, value):
+def override_body_feature(base_dna, feature, value, weight=0.0):
     if feature not in BODY_FEATURE_META:
         raise ValueError(f"Unknown body feature: {feature}")
 
     dna = copy.deepcopy(base_dna)
     existing = dna.get("body_identity", {}).get("features", {})
+    existing_weights = dna.get("body_identity", {}).get("weights", {})
     normalized = {
         key: round(clamp_body_value(existing.get(key, 0.0)), 4)
         for key in BODY_FEATURE_META
     }
     normalized[feature] = round(clamp_body_value(value), 1)
+    weights = {
+        key: normalize_feature_weight(item)
+        for key, item in existing_weights.items()
+        if key in BODY_FEATURE_META and abs(float(item)) >= 1e-9
+    }
+    normalized_weight = normalize_feature_weight(weight)
+    if normalized_weight:
+        weights[feature] = normalized_weight
+    else:
+        weights.pop(feature, None)
     dna["body_identity"] = {
         "coordinate_system": "normalized_body",
         "range": [-1.0, 1.0],
         "neutral_baseline": 0.0,
         "features": normalized,
+        "weights": weights,
     }
     return dna
 
@@ -86,6 +99,7 @@ def body_feature_to_phrase(name, value, language="en"):
 
 def build_body_feature_prompt(dna, language="en"):
     features = dna.get("body_identity", {}).get("features", {})
+    weights = dna.get("body_identity", {}).get("weights", {})
     phrases = []
     for name in BODY_FEATURE_META:
         phrase = body_feature_to_phrase(
@@ -94,6 +108,9 @@ def build_body_feature_prompt(dna, language="en"):
             language,
         )
         if phrase:
+            weight = float(weights.get(name, 0.0))
+            if weight >= 1.0:
+                phrase = f"({phrase}:{weight:.1f})"
             phrases.append(phrase)
     separator = "，" if str(language).lower().startswith("zh") else ", "
     return separator.join(phrases)
