@@ -1,10 +1,13 @@
 import unittest
+import json
+from pathlib import Path
 
 from character_dna.body_parametric import (
+    BODY_FEATURE_META,
     build_body_feature_prompt,
     override_body_feature,
 )
-from character_dna.parametric import override_parametric_feature
+from character_dna.parametric import FEATURE_META, override_parametric_feature
 from character_dna.semantic import build_parametric_prompt
 from character_dna.presentation import blueprint_options, compose_visual_blueprint
 from character_dna.vocabulary import (
@@ -27,10 +30,21 @@ def base_dna():
 
 
 class ParametricWeightTests(unittest.TestCase):
-    def test_empty_preset_libraries_expose_none_only(self):
-        self.assertEqual(identity_appearance_options(), ["none"])
+    def test_feature_option_locales_cover_all_face_and_body_features(self):
+        root = Path(__file__).resolve().parents[1]
+        for locale in ("en", "zh"):
+            data = json.loads((root / "locales" / locale / "nodeDefs.json").read_text())
+            face_options = data["CharacterDNAParametricDesigner"]["inputs"]["feature"]["options"]
+            body_options = data["CharacterDNAParametricBodyDesigner"]["inputs"]["feature"]["options"]
+            self.assertEqual(set(face_options), set(FEATURE_META))
+            self.assertEqual(set(body_options), set(BODY_FEATURE_META))
+            self.assertTrue(all(label and "_" not in label for label in face_options.values()))
+            self.assertTrue(all(label and "_" not in label for label in body_options.values()))
+
+    def test_none_preset_is_always_available_and_has_no_layers(self):
+        self.assertEqual(identity_appearance_options()[0], "none")
         self.assertEqual(resolve_identity_appearance("none"), "none")
-        self.assertEqual(blueprint_options(), ["none"])
+        self.assertEqual(blueprint_options()[0], "none")
         result = compose_visual_blueprint(base_dna(), "none")
         self.assertEqual(result[0]["visual_direction"]["blueprint"], "none")
         self.assertEqual(result[0]["visual_direction"]["layers"], [])

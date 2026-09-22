@@ -43,6 +43,7 @@ const FALLBACK = {
 };
 
 let messages = FALLBACK;
+let featureOptionLabels = { face: {}, body: {} };
 const t = (key) => messages[key] ?? FALLBACK[key] ?? key;
 
 function currentLocale() {
@@ -61,7 +62,12 @@ async function loadMessages() {
         (key) => key.toLowerCase() === String(candidate).toLowerCase(),
       );
       if (localeKey && all[localeKey]?.characterDNA) {
-        messages = { ...FALLBACK, ...all[localeKey].characterDNA };
+        const localeData = all[localeKey];
+        messages = { ...FALLBACK, ...localeData.characterDNA };
+        featureOptionLabels = {
+          face: localeData.nodeDefs?.CharacterDNAParametricDesigner?.inputs?.feature?.options || {},
+          body: localeData.nodeDefs?.CharacterDNAParametricBodyDesigner?.inputs?.feature?.options || {},
+        };
         return;
       }
     }
@@ -189,10 +195,7 @@ function renderVocabularyPanel(container) {
         const feature = featureSection[name];
         if (!matches(name, feature.label, feature.label_zh, ...feature.levels.flatMap((level) => [level.text, level.text_zh]))) continue;
         const card = el("article", { className: "cdna-vocab-card" });
-        card.appendChild(el("h4", {}, [
-          el("span", { text: featureLabel(feature, name) }),
-          el("small", { className: "cdna-vocab-key", text: name }),
-        ]));
+        card.appendChild(el("h4", { text: featureLabel(feature, name) }));
         for (const level of feature.levels) {
           const row = el("div", { className: "cdna-vocab-level" }, [
             el("strong", { text: String(level.value) }),
@@ -352,6 +355,25 @@ function renderVocabularyPanel(container) {
 
 app.registerExtension({
   name: "CharacterDNA.VocabularyPanel",
+  beforeRegisterNodeDef(nodeType, nodeData) {
+    const labelGroup = {
+      CharacterDNAParametricDesigner: "face",
+      CharacterDNAParametricBodyDesigner: "body",
+    }[nodeData.name];
+    if (!labelGroup) return;
+    const originalOnNodeCreated = nodeType.prototype.onNodeCreated;
+    nodeType.prototype.onNodeCreated = function () {
+      const result = originalOnNodeCreated?.apply(this, arguments);
+      const widget = this.widgets?.find((item) => item.name === "feature");
+      if (widget) {
+        widget.options ||= {};
+        widget.options.getOptionLabel = (value) => (
+          featureOptionLabels[labelGroup]?.[String(value)] || String(value)
+        );
+      }
+      return result;
+    };
+  },
   async setup() {
     await loadMessages(); ensureStyles();
     if (globalThis.__characterDnaVocabularyTabRegistered) return;
