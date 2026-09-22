@@ -32,10 +32,10 @@ const FALLBACK = {
   english: "English prompt", chinese: "Chinese prompt", englishLabel: "English name", chineseLabel: "Chinese name", value: "Value", identityTemplate: "Identity template", entryTitle: "Title",
   quality: "Fixed quality phrases", qualityPosition: "Fixed quality position", qualityAtStart: "At prompt start", qualityAtEnd: "At prompt end", face: "Face", eyebrows: "Eyebrows", eyes: "Eyes", nose: "Nose", mouth: "Mouth",
   faceFeatures: "Face Features", bodyFeatures: "Body Features",
-  identityAppearances: "Distinctive Appearance Features", addAppearance: "+ Add distinctive feature", newAppearanceKey: "New distinctive feature key",
+  identityAppearances: "Distinctive Appearance Features", addAppearance: "+ Add distinctive feature", newAppearanceTitle: "New distinctive feature title",
   visualBlueprints: "Visual Blueprints", look: "Outfit", performance: "Expression & Pose", scene: "Scene", photography: "Photography",
   addBlueprint: "+ Add blueprint", addPreset: "+ Add preset", addLayer: "+ Add layer", addVariation: "+ Add variation",
-  newBlueprintKey: "New blueprint key", newPresetKey: "New preset key", deleteEntry: "Delete", blueprintLabel: "Display label", layerStack: "Advanced layer stack", variations: "Seed variations", enabled: "Enabled", layerType: "Layer", preset: "Preset", mergeMode: "Mode",
+  newBlueprintTitle: "New blueprint title", newPresetTitle: "New preset title", deleteEntry: "Delete", blueprintLabel: "Display label", layerStack: "Advanced layer stack", variations: "Seed variations", enabled: "Enabled", layerType: "Layer", preset: "Preset", mergeMode: "Mode",
   negativePrompt: "Negative prompt",
   frame: "Frame", torso: "Torso", limbs: "Limbs", build: "Build",
   requestError: "Request failed",
@@ -111,6 +111,11 @@ function renderVocabularyPanel(container) {
   const markDirty = () => { state.dirty = true; setStatus(t("unsaved")); };
   const setBusy = (busy) => root.querySelectorAll("button").forEach((button) => { button.disabled = busy; });
   const matches = (...values) => !state.search || values.some((value) => String(value ?? "").toLowerCase().includes(state.search));
+  const nextInternalKey = (section, prefix) => {
+    let index = 1;
+    while (section[`${prefix}_${index}`]) index += 1;
+    return `${prefix}_${index}`;
+  };
   const isChinese = () => currentLocale().toLowerCase().startsWith("zh");
   const featureLabel = (feature, key) => feature.title || (
     isChinese() ? feature.label_zh || feature.label || key : feature.label || key
@@ -206,19 +211,16 @@ function renderVocabularyPanel(container) {
     const fragment = document.createDocumentFragment(); let count = 0;
     const group = el("section", { className: "cdna-vocab-group" }); group.appendChild(el("h3", { text: t(sectionName) }));
     group.appendChild(el("button", { className: "cdna-add-button", text: t("addPreset"), onclick: async () => {
-      const rawKey = await panelDialog(t("newPresetKey"), `new_${sectionName}`);
-      const key = String(rawKey || "").trim();
-      if (!key || key === "none" || section[key]) return;
-      section[key] = { title: key.replaceAll("_", " "), prompt: "new prompt", prompt_zh: "新提示词" }; markDirty(); renderContent();
+      const title = String(await panelDialog(t("newPresetTitle"), t("newPresetTitle")) || "").trim();
+      if (!title) return;
+      const key = nextInternalKey(section, `custom_${sectionName}`);
+      section[key] = { title, prompt: "new prompt", prompt_zh: "新提示词" }; markDirty(); renderContent();
     } }));
     for (const [key, entry] of Object.entries(section)) {
       if (!matches(key, entry.title, entry.prompt, entry.prompt_zh)) continue;
       const card = el("article", { className: "cdna-vocab-card" });
       card.appendChild(el("div", { className: "cdna-vocab-title" }, [
-        el("h4", {}, [
-          el("span", { text: featureLabel(entry, key) }),
-          el("small", { className: "cdna-vocab-key", text: key }),
-        ]),
+        el("h4", { text: featureLabel(entry, key) }),
         el("button", { className: "danger", text: t("deleteEntry"), onclick: () => {
           for (const blueprint of Object.values(state.vocabulary.visual_blueprints)) {
             for (const layer of blueprint.layers || []) {
@@ -238,18 +240,16 @@ function renderVocabularyPanel(container) {
   function renderIdentityAppearances() {
     const fragment = document.createDocumentFragment(); const section = state.vocabulary.identity_appearances; let count = 0;
     fragment.appendChild(el("button", { className: "cdna-add-button", text: t("addAppearance"), onclick: async () => {
-      const rawKey = await panelDialog(t("newAppearanceKey"), "new_appearance"); const key = String(rawKey || "").trim();
-      if (!key || key === "none" || section[key]) return;
-      section[key] = { title: key.replaceAll("_", " "), prompt: "new distinctive appearance feature", prompt_zh: "新的外观辨识特征描述" }; markDirty(); renderContent();
+      const title = String(await panelDialog(t("newAppearanceTitle"), t("newAppearanceTitle")) || "").trim();
+      if (!title) return;
+      const key = nextInternalKey(section, "custom_appearance");
+      section[key] = { title, prompt: "new distinctive appearance feature", prompt_zh: "新的外观辨识特征描述" }; markDirty(); renderContent();
     } }));
     for (const [key, entry] of Object.entries(section)) {
       if (!matches(key, entry.title, entry.prompt, entry.prompt_zh)) continue;
       const card = el("article", { className: "cdna-vocab-card" });
       card.appendChild(el("div", { className: "cdna-vocab-title" }, [
-        el("h4", {}, [
-          el("span", { text: featureLabel(entry, key) }),
-          el("small", { className: "cdna-vocab-key", text: key }),
-        ]),
+        el("h4", { text: featureLabel(entry, key) }),
         el("button", { className: "danger", text: t("deleteEntry"), onclick: () => { delete section[key]; markDirty(); renderContent(); } }),
       ]));
       card.appendChild(field(t("entryTitle"), entry.title, (value) => { entry.title = value; }, false));
@@ -263,19 +263,17 @@ function renderVocabularyPanel(container) {
     const fragment = document.createDocumentFragment(); const blueprints = state.vocabulary.visual_blueprints; const layers = state.vocabulary.visual_layers;
     const layerTypes = ["look", "performance", "scene", "photography"]; const modes = ["replace", "append", "merge", "clear"];
     fragment.appendChild(el("button", { className: "cdna-add-button", text: t("addBlueprint"), onclick: async () => {
-      const rawKey = await panelDialog(t("newBlueprintKey"), "new_blueprint"); const key = String(rawKey || "").trim();
-      if (!key || blueprints[key]) return;
-      blueprints[key] = { title: key.replaceAll("_", " "), layers: [], variations: [], negative_prompt: "", negative_prompt_zh: "" }; markDirty(); renderContent();
+      const title = String(await panelDialog(t("newBlueprintTitle"), t("newBlueprintTitle")) || "").trim();
+      if (!title) return;
+      const key = nextInternalKey(blueprints, "custom_blueprint");
+      blueprints[key] = { title, layers: [], variations: [], negative_prompt: "", negative_prompt_zh: "" }; markDirty(); renderContent();
     } }));
     for (const [name, blueprint] of Object.entries(blueprints)) {
       if (!matches(name, blueprint.title, ...(blueprint.layers || []).flatMap((item) => [item.type, item.preset]))) continue;
       const card = el("article", { className: "cdna-vocab-card" });
       card.appendChild(el("div", { className: "cdna-vocab-title" }, [
-        el("h4", {}, [
-          el("span", { text: featureLabel(blueprint, name) }),
-          el("small", { className: "cdna-vocab-key", text: name }),
-        ]),
-        name === "identity_only" ? null : el("button", { className: "danger", text: t("deleteEntry"), onclick: () => { delete blueprints[name]; markDirty(); renderContent(); } }),
+        el("h4", { text: featureLabel(blueprint, name) }),
+        el("button", { className: "danger", text: t("deleteEntry"), onclick: () => { delete blueprints[name]; markDirty(); renderContent(); } }),
       ]));
       card.appendChild(field(t("entryTitle"), blueprint.title, (value) => { blueprint.title = value; }, false));
       card.appendChild(el("h4", { text: t("negativePrompt") }));

@@ -29,13 +29,7 @@
       "高分辨率"
     ]
   },
-  "identity_appearances": {
-    "oriental_clear_beauty": {
-      "title": "东方清透美人",
-      "prompt": "clear gray-brown irises, fair translucent skin with a soft natural flush, one small natural facial beauty mark, deep brown-black hair",
-      "prompt_zh": "清澈灰棕色瞳孔，白皙通透且带柔和自然血色的肌肤，面部一颗自然小痣，深棕黑色头发"
-    }
-  },
+  "identity_appearances": {},
   "features": {
     "cheekbone_height": {
       "label": "Cheekbone Height",

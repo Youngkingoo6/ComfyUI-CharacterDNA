@@ -78,7 +78,22 @@ def get_vocabulary():
 
 
 def identity_appearance_options():
-    return ["none", *get_vocabulary().get("identity_appearances", {}).keys()]
+    appearances = get_vocabulary().get("identity_appearances", {})
+    return ["none", *(entry["title"] for entry in appearances.values())]
+
+
+def resolve_identity_appearance(value):
+    """Resolve a visible title or legacy internal key to the stable key."""
+    value = str(value)
+    if value == "none":
+        return value
+    appearances = get_vocabulary().get("identity_appearances", {})
+    if value in appearances:
+        return value
+    for key, entry in appearances.items():
+        if value == str(entry.get("title", "")):
+            return key
+    raise ValueError(f"Unknown identity appearance title: {value}")
 
 
 def get_body_vocabulary():

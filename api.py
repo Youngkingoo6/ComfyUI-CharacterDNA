@@ -257,8 +257,8 @@ def _validate_presentation_vocabulary(vocabulary):
             _require_string(entry.get("title"), f"layers.{section_name}.{key}.title")
             _require_string(entry.get("prompt"), f"layers.{section_name}.{key}.prompt")
             _require_string(entry.get("prompt_zh"), f"layers.{section_name}.{key}.prompt_zh")
-    if not isinstance(blueprints, dict) or "identity_only" not in blueprints:
-        raise ValueError("blueprints must be an object containing identity_only.")
+    if not isinstance(blueprints, dict):
+        raise ValueError("blueprints must be an object.")
     for name, blueprint in blueprints.items():
         _require_string(name, "blueprints key")
         if not isinstance(blueprint, dict):

@@ -14,6 +14,7 @@ from .character_dna.semantic import (
 from .character_dna.vocabulary import (
     get_vocabulary_revision,
     identity_appearance_options,
+    resolve_identity_appearance,
 )
 
 from .character_dna.genesis_engine import (
@@ -131,7 +132,7 @@ class CharacterDNADesigner:
             gender=gender,
             ancestry=ancestry,
             age=visual_age,
-            identity_appearance=identity_appearance,
+            identity_appearance=resolve_identity_appearance(identity_appearance),
         )
 
         return (dna,)
@@ -529,7 +530,7 @@ class CharacterDNAVisualBlueprint:
     def compose(
         self,
         character_dna,
-        blueprint="identity_only",
+        blueprint="none",
         variant_seed=0,
     ):
         return compose_visual_blueprint(

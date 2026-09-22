@@ -128,15 +128,15 @@ Parametric Face Designer 和 Face DNA Seed Generator 会把词库修订版本加
          → Photography 摄影 → Seed 细节变化 → 固定质量词
 ```
 
-默认操作保持极简：选择唯一的 `identity_only`（界面显示为“默认人像”）即可组合默认的穿搭、表情跟姿态、场景和摄影。相同蓝图与相同 `variant_seed` 会得到相同细节变化；生成后控制支持固定、递增、递减和随机。
+默认选择为 `none`，只输出当前角色 DNA，不自动加入穿搭、表情跟姿态、场景或摄影。添加自定义蓝图后，相同蓝图与相同 `variant_seed` 会得到相同细节变化；生成后控制支持固定、递增、递减和随机。
 
 蓝图不设置年龄门槛：无论角色年龄数值或“少女”等年龄表达是否明确，所有造型、动作、场景和摄影预设都可以自由组合。
 
-节点同时输出英文和中文负向提示词，可直接连接到对应模型的负向条件输入。内置内容只保留一套默认外观辨识特征和一套默认画面蓝图，用户仍可在词库面板自行添加预设。
+节点同时输出英文和中文负向提示词，可直接连接到对应模型的负向条件输入。项目不再内置外观辨识特征或画面表现预设，用户可在词库面板按需添加。
 
 需要精调时，在 **CharacterDNA Vocabulary** 面板打开 **Visual Blueprints / 画面蓝图**：可调整高级图层栈、顺序、启用状态和 `replace / append / merge / clear` 合并方式，也可以维护每个蓝图的多条 Seed 变化。Outfit、Expression & Pose、Scene、Photography 四套词库可以独立复用，不必为更多需求继续增加节点。
 
-内置表现层词库各保留一套默认 Outfit、Expression & Pose、Scene 和 Photography；外观辨识特征也只保留一套默认。内容采用可直接观察的自然语言描述，而不是堆叠孤立标签。词库面板会随界面语言显示中文或英文名称，同时保留内部键名作为小字标识；新增按钮固定显示在列表顶部。
+Outfit、Expression & Pose、Scene、Photography、画面蓝图和外观辨识特征默认均为空。新增项目只需填写标题和提示词；内部键自动生成且不在界面显示。
 
 新版使用独立节点 ID `CharacterDNAVisualBlueprint`，不保留旧 `Clothing & Scene Composer` 的输入结构。已有工作流需要删除旧节点并添加一次新的角色画面蓝图节点。详细说明见 [`docs/presentation-vocabulary.zh-CN.md`](docs/presentation-vocabulary.zh-CN.md)。
 

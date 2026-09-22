@@ -6,7 +6,12 @@ from character_dna.body_parametric import (
 )
 from character_dna.parametric import override_parametric_feature
 from character_dna.semantic import build_parametric_prompt
-from character_dna.vocabulary import build_profile_phrases
+from character_dna.presentation import blueprint_options, compose_visual_blueprint
+from character_dna.vocabulary import (
+    build_profile_phrases,
+    identity_appearance_options,
+    resolve_identity_appearance,
+)
 
 
 def base_dna():
@@ -22,6 +27,15 @@ def base_dna():
 
 
 class ParametricWeightTests(unittest.TestCase):
+    def test_empty_preset_libraries_expose_none_only(self):
+        self.assertEqual(identity_appearance_options(), ["none"])
+        self.assertEqual(resolve_identity_appearance("none"), "none")
+        self.assertEqual(blueprint_options(), ["none"])
+        result = compose_visual_blueprint(base_dna(), "none")
+        self.assertEqual(result[0]["visual_direction"]["blueprint"], "none")
+        self.assertEqual(result[0]["visual_direction"]["layers"], [])
+        self.assertEqual(result[3:], ("", ""))
+
     def test_profile_prompt_uses_numeric_age(self):
         dna = base_dna()
         dna["character"]["visual_age"] = 12

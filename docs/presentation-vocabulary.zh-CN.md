@@ -15,7 +15,7 @@ Face DNA Seed Generator / Parametric Face Designer
 
 画布上只显示两个设置：
 
-- `blueprint`：整套画面方向；内置键 `identity_only` 在界面显示为“默认人像”，会组合唯一的默认表现层预设。
+- `blueprint`：整套画面方向；默认值为 `none`，只输出角色 DNA。自定义蓝图需先在词库面板中添加。
 - `variant_seed`：从该蓝图的 Seed 变化中稳定选择一条。相同蓝图与种子始终得到同一结果，并支持生成后固定、递增、递减或随机。
 
 节点另外输出 `negative_prompt` 与 `negative_prompt_zh`。每套蓝图可维护自己的中英文负向提示词；未填写时输出空字符串。
@@ -40,9 +40,8 @@ Face DNA Seed Generator / Parametric Face Designer
 
 ## 默认内容
 
-- `identity_only`：界面显示为“默认人像”，组合默认穿搭、默认表情跟姿态、默认场景和默认摄影。
-- Outfit、Expression & Pose、Scene、Photography 各只保留一套内置默认预设。
-- 外观辨识特征只保留 `oriental_clear_beauty` 一套内置默认。
+- 外观辨识特征、Outfit、Expression & Pose、Scene、Photography 和画面蓝图均不内置预设。
+- `none` 仅表示不使用预设，不是可编辑预设。
 
 需要更多风格时可在词库面板自行添加；所有“添加”入口位于对应列表顶部，新增内容不会要求增加节点。
 
@@ -55,7 +54,7 @@ Face DNA Seed Generator / Parametric Face Designer
 5. 在 Outfit、Expression & Pose、Scene、Photography 标签页维护可复用预设。
 6. 点击保存，再完整运行工作流。
 
-每个预设都有中文显示名、英文显示名和稳定内部键。面板会根据 ComfyUI 当前语言显示对应名称，在蓝图的图层下拉菜单中也使用当前语言；内部键会以小字保留，便于导出 JSON 后准确定位。
+每个预设在界面中只显示一个标题。稳定内部键由系统自动生成并仅保存在 JSON 中，不在卡片或下拉菜单显示。
 
 每个蓝图图层支持四种合并方式：
 

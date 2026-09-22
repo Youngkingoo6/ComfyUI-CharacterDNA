@@ -9,13 +9,28 @@ from .vocabulary import (
 )
 
 
-IDENTITY_ONLY = "identity_only"
+NO_BLUEPRINT = "none"
 LAYER_TYPES = ("look", "performance", "scene", "photography")
 LAYER_MODES = ("replace", "append", "merge", "clear")
 
 
 def blueprint_options():
-    return list(get_presentation_vocabulary().get("blueprints", {}).keys())
+    return [NO_BLUEPRINT, *[
+        entry["title"]
+        for entry in get_presentation_vocabulary().get("blueprints", {}).values()
+    ]]
+
+
+def _resolve_blueprint(value, blueprints):
+    """Resolve a visible title or legacy internal key to the stable key."""
+    if value == NO_BLUEPRINT:
+        return value
+    if value in blueprints:
+        return value
+    for key, entry in blueprints.items():
+        if value == entry.get("title"):
+            return key
+    raise ValueError(f"Unknown visual blueprint title: {value}")
 
 
 def _identity_prompt(dna, language="en"):
@@ -73,16 +88,15 @@ def _resolve_stack(vocabulary, stack):
 
 def compose_visual_blueprint(
     dna,
-    blueprint=IDENTITY_ONLY,
+    blueprint=NO_BLUEPRINT,
     variant_seed=0,
 ):
     result = copy.deepcopy(dna)
     vocabulary = get_presentation_vocabulary()
     blueprints = vocabulary.get("blueprints", {})
-    if blueprint not in blueprints:
-        raise ValueError(f"Unknown visual blueprint: {blueprint}")
+    blueprint = _resolve_blueprint(blueprint, blueprints)
 
-    blueprint_data = blueprints[blueprint]
+    blueprint_data = blueprints.get(blueprint, {})
     stack = copy.deepcopy(blueprint_data.get("layers", []))
     resolved, warnings = _resolve_stack(vocabulary, stack)
     variants = blueprint_data.get("variations", [])

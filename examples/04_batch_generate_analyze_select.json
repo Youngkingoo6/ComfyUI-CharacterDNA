@@ -103,7 +103,7 @@
         "female",
         "East Asian",
         23,
-        "oriental_clear_beauty"
+        "none"
       ]
     },
     {
@@ -259,7 +259,7 @@
         "Node name for S&R": "CharacterDNAVisualBlueprint"
       },
       "widgets_values": [
-        "identity_only",
+        "none",
         0,
         "fixed"
       ]
